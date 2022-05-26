@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <Stack class="debug p-8">
     <Title>Hjello</Title>
-  </div>
+  </Stack>
 </template>
