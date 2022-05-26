@@ -7,6 +7,7 @@ const themes = {
   light: { primary: "255 255 255", secondary: "0 0 0" },
 };
 const changeTheme = (key) => {
+  console.log(key);
   primary.value = themes[key].primary;
   secondary.value = themes[key].secondary;
 };

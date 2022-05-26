@@ -1,9 +1,8 @@
 <template>
-  <div>
-    <Title>Hjello∫t</Title>
-    <div class="tracking-wider">
-      Transdistsiplinaarne etenduskunsti platvorm, mis liidab kaasaegse kunsti,
-      teaduse ja tehnoloogia otsingulisi tegevusi
-    </div>
-  </div>
+  <Title>Hjello∫s</Title>
+  <Content>
+    Transdistsiplinaarne etenduskunsti platvorm, mis liidab kaasaegse kunsti,
+    teaduse ja tehnoloogia otsingulisi tegevusi. Lidab kaasaegse kunsti, teaduse
+    ja tehnoloogia otsingulisi tegevusi
+  </Content>
 </template>
