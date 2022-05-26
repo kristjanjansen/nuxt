@@ -13,4 +13,12 @@ export default defineNuxtConfig({
       plugins: [tailwindTypography],
     },
   },
+  experimental: {
+    reactivityTransform: true,
+  },
+  runtimeConfig: {
+    public: {
+      wsUrl: "",
+    },
+  },
 });
