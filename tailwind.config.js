@@ -1,6 +1,6 @@
-import tailwindTypography from "@tailwindcss/typography";
-import tailwindForms from "@tailwindcss/forms";
-import tailwindCapsize from "tailwindcss-capsize";
+const tailwindTypography = require("@tailwindcss/typography");
+const tailwindForms = require("@tailwindcss/forms");
+const tailwindCapsize = require("tailwindcss-capsize");
 
 function withOpacityValue(variable) {
   return ({ opacityValue }) => {
@@ -13,8 +13,8 @@ function withOpacityValue(variable) {
 
 //Get the metrics:
 
-import { fromFile } from "@capsizecss/unpack";
-fromFile("./assets/fonts/mulish-regular.woff2").then((m) => console.log(m));
+// import { fromFile } from "@capsizecss/unpack";
+// fromFile("./assets/fonts/mulish-regular.woff2").then((m) => console.log(m));
 
 const fontMetrics = {
   title: {
@@ -45,18 +45,6 @@ const fontMetrics = {
     unitsPerEm: 1000,
     xHeight: 500,
   },
-  //   sans: {
-  //     familyName: "Inter",
-  //     fullName: "Inter Regular",
-  //     postscriptName: "Inter-Regular",
-  //     subfamilyName: "Regular",
-  //     capHeight: 2048,
-  //     ascent: 2728,
-  //     descent: -680,
-  //     lineGap: 0,
-  //     unitsPerEm: 2816,
-  //     xHeight: 1536,
-  //   },
 };
 
 module.exports = {

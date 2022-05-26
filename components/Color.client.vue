@@ -3,8 +3,8 @@ import { useCssVar } from "@vueuse/core";
 const primary = useCssVar("--primary");
 const secondary = useCssVar("--secondary");
 const themes = {
-  dark: { primary: "0 0 0", secondary: "255 255 255" },
-  light: { primary: "255 255 255", secondary: "0 0 0" },
+  dark: { primary: "255 255 255", secondary: "0 0 0" },
+  light: { primary: "0 0 0", secondary: "255 255 255" },
 };
 const changeTheme = (key) => {
   console.log(key);
@@ -15,9 +15,9 @@ const changeTheme = (key) => {
 
 <template>
   <div>
-    <Button v-for="(_, key) in themes" @click="changeTheme(key)">
+    <AccentButton v-for="(_, key) in themes" @click="changeTheme(key)">
       {{ key }}
-    </Button>
+    </AccentButton>
     <!-- 
     <div class="bg-primary/5 h-8" />
     <div class="bg-primary/10 h-8" />
