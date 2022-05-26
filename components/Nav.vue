@@ -1,0 +1,26 @@
+<script setup lang="ts">
+import IconTheme from "~icons/radix-icons/half-2";
+
+const nav = [
+  {
+    title: "Kava",
+    to: "/",
+  },
+  {
+    title: "Meist",
+    to: "/about",
+  },
+];
+const { changeTheme } = useTheme();
+</script>
+
+<template>
+  <div class="grid grid-cols-1 md:grid-cols-3">
+    <NuxtLink v-for="(n, i) in nav" :to="n.to">
+      <NavLink :class="[i === 0 ? 'md:border-l' : '']">{{ n.title }}</NavLink>
+    </NuxtLink>
+    <button class="text-left" @click="changeTheme">
+      <NavLink><IconTheme /></NavLink>
+    </button>
+  </div>
+</template>

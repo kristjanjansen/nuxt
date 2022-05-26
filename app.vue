@@ -12,7 +12,7 @@ import "./app.css";
 
 <template>
   <div>
-    <NuxtLayout name="custom">
+    <NuxtLayout name="main">
       <NuxtPage />
     </NuxtLayout>
   </div>

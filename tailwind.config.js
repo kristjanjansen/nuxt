@@ -25,19 +25,7 @@ const fontMetrics = {
     unitsPerEm: 1000,
     xHeight: 500,
   },
-  sans2: {
-    capHeight: 1265, // Was 715
-    ascent: 876,
-    descent: -467,
-    lineGap: 0,
-    unitsPerEm: 2048,
-    xHeight: 510,
-  },
   sans: {
-    familyName: "Mulish",
-    fullName: "Mulish Regular",
-    postscriptName: "Mulish-Regular",
-    subfamilyName: "Regular",
     capHeight: 705,
     ascent: 1043,
     descent: -270,
@@ -51,8 +39,9 @@ module.exports = {
   plugins: [tailwindTypography, tailwindForms, tailwindCapsize],
   theme: {
     fontFamily: {
-      title: "font-title-medium",
+      title: "title-medium",
       sans: "mulish-regular",
+      mono: "cousine-regular",
     },
     fontMetrics,
     colors: {
