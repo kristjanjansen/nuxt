@@ -1,17 +1,19 @@
 <script setup lang="ts">
-const { find } = useStrapi3(); //
+// const { find } = useStrapi3(); //
 
-const { data, pending, refresh, error } = await useAsyncData("restaurant", () =>
-  find<any>("events", { _limit: -1 })
-);
+// // data, pending, refresh, error
+// const { data: events } = await useAsyncData("events", () =>
+//   find<any>("events", { _limit: -1 })
+// );
+
+// const a = await useAsyncData("hello", () => $fetch("/api/hello"));
+import "./app.css";
 </script>
 
 <template>
   <div>
-    <Test />
-    <!-- <div v-for="event in data" class="prose">
-      <h3>{{ event.title }}</h3>
-      <br />
-    </div> -->
+    <NuxtLayout name="custom">
+      <NuxtPage />
+    </NuxtLayout>
   </div>
 </template>

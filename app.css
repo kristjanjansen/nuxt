@@ -1,0 +1,28 @@
+:root {
+  --primary: 255 255 255;
+  --secondary: 0 0 0;
+}
+
+@font-face {
+  font-family: "font-title-regular";
+  src: url("./assets/fonts/font-title-regular.woff") format("woff"),
+    url("./assets/fonts/font-title-regular.woff2") format("woff2");
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "font-title-medium";
+  src: url("./assets/fonts/font-title-medium.woff") format("woff"),
+    url("./assets/fonts/font-title-medium.woff2") format("woff2");
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "font-body";
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url("./assets/fonts/font-body-55.woff2") format("woff2");
+}
