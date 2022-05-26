@@ -1,5 +1,5 @@
 <template>
-  <Body class="min-h-screen bg-bg text-fg subpixel-antialiased" />
+  <Body class="min-h-screen bg-gray-100 text-gray-900 subpixel-antialiased" />
   <div class="debug flex flex-col gap-4 p-10">
     <NuxtLink to="/">index</NuxtLink>
     <NuxtLink to="/second">second</NuxtLink>
@@ -11,6 +11,6 @@
 
 <style>
 .debug > * {
-  @apply border border-[red];
+  @apply border border-gray-900/10;
 }
 </style>

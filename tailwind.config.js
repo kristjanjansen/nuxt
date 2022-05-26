@@ -56,8 +56,10 @@ module.exports = {
     },
     fontMetrics,
     colors: {
-      fg: withOpacityValue("--fg"),
-      bg: withOpacityValue("--bg"),
+      "gray-100": withOpacityValue("--gray-100"),
+      "gray-900": withOpacityValue("--gray-900"),
+      "green-500": withOpacityValue("--green-500"),
+      "green-900": withOpacityValue("--green-900"),
     },
   },
 };

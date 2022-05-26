@@ -2,7 +2,7 @@
   <Title>Hjello∫s</Title>
   <div class="flex gap-2">
     <Button>Hellog</Button>
-    <AccentButton>World</AccentButton>
+    <Button primary>Hellog</Button>
   </div>
   <Content>
     Transdistsiplinaarne etenduskunsti platvorm, mis liidab kaasaegse kunsti,

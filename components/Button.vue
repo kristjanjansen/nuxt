@@ -1,6 +1,13 @@
+<script setup lang="ts">
+type Props = {
+  primary?: boolean;
+};
+const { primary = false } = defineProps<Props>();
+</script>
 <template>
   <button
-    class="inline-flex gap-1 rounded-lg border-2 border-fg px-3 py-1 text-fg transition-colors font-title text-lg hover:bg-fg/80"
+    class="inline-flex gap-1 rounded-lg border-2 px-3 py-1 uppercase transition-colors font-title text-base"
+    :class="[primary ? 'border-green-500 bg-green-500 text-green-900' : '']"
   >
     <slot />
   </button>

@@ -1,7 +1,9 @@
 /* Same as theme: dark in Color.vue */
 :root {
-  --fg: 0 50% 95%;
-  --bg: 0 50% 5%;
+  --gray-100: 0 0% 5%;
+  --gray-900: 0 0% 95%;
+  --green-500: 126 78% 71%;
+  --green-900: 126 78% 11%;
 }
 
 @font-face {

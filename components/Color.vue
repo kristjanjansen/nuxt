@@ -1,22 +1,36 @@
 <script setup lang="ts">
 import { useCssVar } from "@vueuse/core";
-const fg = useCssVar("--fg");
-const bg = useCssVar("--bg");
+const gray100 = useCssVar("--gray-100");
+const gray900 = useCssVar("--gray-900");
+const green500 = useCssVar("--green-500");
+const green900 = useCssVar("--green-900");
 const themes = {
-  dark: { fg: "0 50% 98%", bg: "0 50% 5%" },
-  light: { fg: "0 50% 2%", bg: "0 50% 98%" },
+  light: {
+    gray100: "0 0% 95%",
+    gray900: "0 0% 5%",
+    green500: "126 98% 71%",
+    green900: "126 98% 11%",
+  },
+  dark: {
+    gray100: "0 0% 5%",
+    gray900: "0 0% 95%",
+    green500: "126 88% 71%",
+    green900: "126 98% 11%",
+  },
 };
 const changeTheme = (key) => {
-  fg.value = themes[key].fg;
-  bg.value = themes[key].bg;
+  gray100.value = themes[key].gray100;
+  gray900.value = themes[key].gray900;
+  green500.value = themes[key].green500;
+  green900.value = themes[key].green900;
 };
 </script>
 
 <template>
   <div>
-    <AccentButton v-for="(_, key) in themes" @click="changeTheme(key)">
+    <Button v-for="(_, key) in themes" @click="changeTheme(key)">
       {{ key }}
-    </AccentButton>
+    </Button>
     <!-- 
     <div class="bg-fg/5 h-8" />
     <div class="bg-fg/10 h-8" />
