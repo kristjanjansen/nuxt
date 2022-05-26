@@ -1,15 +1,14 @@
 <script setup lang="ts">
 import { useCssVar } from "@vueuse/core";
-const primary = useCssVar("--primary");
-const secondary = useCssVar("--secondary");
+const fg = useCssVar("--fg");
+const bg = useCssVar("--bg");
 const themes = {
-  dark: { primary: "255 255 255", secondary: "0 0 0" },
-  light: { primary: "0 0 0", secondary: "255 255 255" },
+  dark: { fg: "0 50% 98%", bg: "0 50% 5%" },
+  light: { fg: "0 50% 2%", bg: "0 50% 98%" },
 };
 const changeTheme = (key) => {
-  console.log(key);
-  primary.value = themes[key].primary;
-  secondary.value = themes[key].secondary;
+  fg.value = themes[key].fg;
+  bg.value = themes[key].bg;
 };
 </script>
 
@@ -19,19 +18,19 @@ const changeTheme = (key) => {
       {{ key }}
     </AccentButton>
     <!-- 
-    <div class="bg-primary/5 h-8" />
-    <div class="bg-primary/10 h-8" />
-    <div class="bg-primary/20 h-8" />
-    <div class="bg-primary/25 h-8" />
-    <div class="bg-primary/30 h-8" />
-    <div class="bg-primary/40 h-8" />
-    <div class="bg-primary/50 h-8" />
-    <div class="bg-primary/60 h-8" />
-    <div class="bg-primary/70 h-8" />
-    <div class="bg-primary/75 h-8" />
-    <div class="bg-primary/80 h-8" />
-    <div class="bg-primary/90 h-8" />
-    <div class="bg-primary/95 h-8" />
-    <div class="bg-primary/100 h-8" /> -->
+    <div class="bg-fg/5 h-8" />
+    <div class="bg-fg/10 h-8" />
+    <div class="bg-fg/20 h-8" />
+    <div class="bg-fg/25 h-8" />
+    <div class="bg-fg/30 h-8" />
+    <div class="bg-fg/40 h-8" />
+    <div class="bg-fg/50 h-8" />
+    <div class="bg-fg/60 h-8" />
+    <div class="bg-fg/70 h-8" />
+    <div class="bg-fg/75 h-8" />
+    <div class="bg-fg/80 h-8" />
+    <div class="bg-fg/90 h-8" />
+    <div class="bg-fg/95 h-8" />
+    <div class="bg-fg/100 h-8" /> -->
   </div>
 </template>

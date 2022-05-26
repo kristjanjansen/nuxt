@@ -5,9 +5,9 @@ const tailwindCapsize = require("tailwindcss-capsize");
 function withOpacityValue(variable) {
   return ({ opacityValue }) => {
     if (opacityValue === undefined) {
-      return `rgb(var(${variable}))`;
+      return `hsl(var(${variable}))`;
     }
-    return `rgb(var(${variable}) / ${opacityValue})`;
+    return `hsl(var(${variable}) / ${opacityValue})`;
   };
 }
 
@@ -56,8 +56,8 @@ module.exports = {
     },
     fontMetrics,
     colors: {
-      primary: withOpacityValue("--primary"),
-      secondary: withOpacityValue("--secondary"),
+      fg: withOpacityValue("--fg"),
+      bg: withOpacityValue("--bg"),
     },
   },
 };

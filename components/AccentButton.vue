@@ -1,6 +1,6 @@
 <template>
   <button
-    class="hover:bg-accent/80 border-accent inline-flex gap-1 rounded-lg border-2 bg-[green] px-3 py-1 text-[black] transition-colors font-title"
+    class="inline-flex gap-1 rounded-lg border-2 border-fg bg-[green] px-3 py-1 text-fg transition-colors font-title text-lg hover:bg-fg/80"
   >
     <slot />
   </button>
