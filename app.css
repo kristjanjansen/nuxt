@@ -24,11 +24,11 @@
   font-display: swap;
 }
 @font-face {
-  font-family: "mulish-regular";
+  font-family: "dmsans-regular";
   font-style: normal;
   font-weight: 400;
   font-display: swap;
-  src: url("./assets/fonts/mulish.woff2") format("woff2");
+  src: url("./assets/fonts/dmsans-regular.woff2") format("woff2");
 }
 @font-face {
   font-family: "cousine-regular";

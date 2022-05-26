@@ -40,7 +40,7 @@ module.exports = {
   theme: {
     fontFamily: {
       title: "title-medium",
-      sans: "mulish-regular",
+      sans: "dmsans-regular",
       mono: "cousine-regular",
     },
     fontMetrics,
