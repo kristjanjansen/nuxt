@@ -4,12 +4,18 @@ type Props = {
   markdown?: string;
 };
 const { markdown = "" } = defineProps<Props>();
-const renderedMarkdown = marked.parse(markdown, { breaks: true });
+const slots = useSlots();
+const renderedMarkdown = marked.parse(
+  markdown || slots.default?.()?.[0].children || "",
+  { breaks: true }
+);
 const { theme } = useTheme();
 </script>
 
 <template>
-  <div>
-    <div :class="[['prose-invert', ''][theme]]" v-html="markdown" />
-  </div>
+  <div
+    class="prose font-sans text-base capsize"
+    :class="[['prose-invert', ''][theme]]"
+    v-html="renderedMarkdown"
+  />
 </template>

@@ -4,7 +4,7 @@ const { find } = useStrapi3(); //
 // // data, pending, refresh, error
 const { data: events } = await useAsyncData("events", () =>
   find<any>("events", { _limit: -1 }).then((events) =>
-    events.reverse().slice(0, 3)
+    events.reverse().slice(1, 2)
   )
 );
 
@@ -17,18 +17,18 @@ const { data: events } = await useAsyncData("events", () =>
       <Button>Hellog</Button>
       <Button primary>Hellog</Button>
     </div>
-    <Content>
-      Transdistsiplinaarne etenduskunsti platvorm, mis liidab kaasaegse kunsti,
-      teaduse ja tehnoloogia otsingulisi tegevusi. Lidab kaasaegse kunsti,
-      teaduse ja tehnoloogia otsingulisi tegevusi
-    </Content>
+    <Markdown>Hello *world*</Markdown>
     <Stack>
-      <Card v-for="event in events">
-        <Stack>
-          <Title class="text-lg">{{ event.title }}</Title>
-          <Markdown :markdown="event.description_estonian" />
-        </Stack>
-      </Card>
+      <NuxtLink v-for="event in events" :to="'/events/' + event.slug">
+        <Card class="hover:bg-gray-900/5">
+          <Stack>
+            <Title class="text-lg">{{ event.title }}</Title>
+            <Markdown
+              :markdown="event?.description_estonian.slice(0, 100) + '...'"
+            />
+          </Stack>
+        </Card>
+      </NuxtLink>
     </Stack>
   </Stack>
 </template>

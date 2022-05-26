@@ -6,7 +6,7 @@ const onSend = () => sendMessage({ hello: "world" });
 
 <template>
   <div>
-    <button @click="onSend">Send</button>
-    <div>{{ messages }}</div>
+    <Button @click="onSend">Send</Button>
+    <pre>{{ messages }}</pre>
   </div>
 </template>

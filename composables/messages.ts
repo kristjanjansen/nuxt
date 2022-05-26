@@ -7,9 +7,10 @@ export const useMessages = (url) => {
   });
   ws.value.addEventListener("message", ({ data }) => {
     const message = JSON.parse(data);
-    messages.value.push(message.value);
+    messages.value.push(message);
   });
 
-  const sendMessage = (message) => send(JSON.stringify(message));
+  const sendMessage = (message) =>
+    send(JSON.stringify({ ...message, datetime: new Date().toISOString() }));
   return { messages, sendMessage };
 };

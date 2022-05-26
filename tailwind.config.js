@@ -14,7 +14,7 @@ function withOpacityValue(variable) {
 //Get the metrics:
 
 // import { fromFile } from "@capsizecss/unpack";
-// fromFile("./assets/fonts/mulish-regular.woff2").then((m) => console.log(m));
+// fromFile("./assets/fonts/dmsans-regular.woff2").then((m) => console.log(m));
 
 const fontMetrics = {
   title: {
@@ -26,12 +26,12 @@ const fontMetrics = {
     xHeight: 500,
   },
   sans: {
-    capHeight: 705,
-    ascent: 1043,
-    descent: -270,
+    capHeight: 700,
+    ascent: 992,
+    descent: -310,
     lineGap: 0,
     unitsPerEm: 1000,
-    xHeight: 500,
+    xHeight: 496
   },
 };
 
