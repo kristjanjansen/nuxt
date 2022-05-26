@@ -4,7 +4,7 @@ import tailwindTypography from "@tailwindcss/typography";
 export default defineNuxtConfig({
   modules: ["@nuxtjs/strapi", "@nuxtjs/tailwindcss"],
   strapi: {
-    url: process.env.STRAPI_URL,
+    url: process.env.NUXT_STRAPI_URL,
     prefix: "/api",
     version: "v3",
   },
@@ -12,5 +12,9 @@ export default defineNuxtConfig({
     config: {
       plugins: [tailwindTypography],
     },
+  },
+  runtimeConfig: {
+    strapiUrl: "",
+    public: { wsUrl: "" },
   },
 });
