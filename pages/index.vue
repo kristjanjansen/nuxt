@@ -17,7 +17,7 @@ const { data: events } = await useAsyncData("events", () =>
 <template>
   <Stack class="p-8">
     <Title>elektron</Title>
-    <p>{{ now }}</p>
+    <ClientOnly>{{ now }}</ClientOnly>
     <Markdown>Hello *world*</Markdown>
     <Stack>
       <NuxtLink v-for="event in events" :to="'/events/' + event.slug">

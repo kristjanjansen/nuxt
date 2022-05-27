@@ -7,8 +7,8 @@ const nav = [
     to: "/",
   },
   {
-    title: "Meist",
-    to: "/about",
+    title: "Podcast",
+    to: "/podcast",
   },
 ];
 const { changeTheme } = useTheme();
