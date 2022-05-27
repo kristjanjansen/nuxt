@@ -2,6 +2,10 @@
 import { useNow } from "@vueuse/core";
 import { Event } from "~/composables/event";
 
+definePageMeta({
+  title: "Some Page",
+});
+
 const { find } = useStrapi3();
 
 // // data, pending, refresh, error

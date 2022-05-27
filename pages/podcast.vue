@@ -17,11 +17,9 @@ const rssUrl = "https://elektronsignal.captivate.fm/rssfeed";
 const parser = new Parser();
 
 const { data: podcast } = await useAsyncData("podcasts", () => {
-  console.log("a");
   return $fetch(rssUrl, {
     headers: {
       Accept: "application/rss+xml",
-      "Access-Control-Allow-Origin": "*",
     },
   }).then((rss: string) => {
     return parser.parseString(rss);
