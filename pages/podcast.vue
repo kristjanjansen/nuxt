@@ -21,6 +21,7 @@ const { data: podcast } = await useAsyncData("podcasts", () => {
   return $fetch(rssUrl, {
     headers: {
       Accept: "application/rss+xml",
+      "Access-Control-Allow-Origin": "*",
     },
   }).then((rss: string) => {
     return parser.parseString(rss);
