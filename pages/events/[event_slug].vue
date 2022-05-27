@@ -11,7 +11,7 @@ const { data: event } = await useAsyncData(`events/${slug}`, () =>
 
 <template>
   <Stack class="debug p-12">
-    <Title>{{ event.title }}</Title>
+    <Title class="!text-6xl">{{ event.title }}</Title>
     <Markdown :markdown="event.description_estonian" />
   </Stack>
 </template>

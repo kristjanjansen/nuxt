@@ -40,7 +40,7 @@ const { data: podcast } = await useAsyncData("podcasts", () => {
         <Card v-for="item in podcast.items">
           <Stack>
             <Title>{{ item.title }}</Title>
-            <Markdown>{{ item["content:encoded"] }}</Markdown>
+            <Markdown :markdown="item['content:encoded']" />
             <audio controls :src="item.enclosure.url" />
           </Stack>
         </Card>

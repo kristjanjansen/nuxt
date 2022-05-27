@@ -8,7 +8,7 @@ const { find } = useStrapi3(); //
 // // data, pending, refresh, error
 const { data: events } = await useAsyncData("events", () =>
   find<any>("events", { _limit: -1 }).then((events) =>
-    events.reverse().slice(1, 2)
+    events.reverse().slice(0, 10)
   )
 );
 
@@ -16,17 +16,14 @@ const { data: events } = await useAsyncData("events", () =>
 </script>
 <template>
   <Stack class="p-8">
-    <Title>elektron</Title>
-    <ClientOnly>{{ now }}</ClientOnly>
+    <Title class="!text-6xl">elektron</Title>
     <Markdown>Hello *world*</Markdown>
     <Stack>
       <NuxtLink v-for="event in events" :to="'/events/' + event.slug">
         <Card class="hover:bg-gray-900/5">
           <Stack>
             <Title class="text-lg">{{ event.title }}</Title>
-            <Markdown
-              :markdown="event?.description_estonian.slice(0, 100) + '...'"
-            />
+            <Markdown strip :markdown="event?.description_estonian" />
           </Stack>
         </Card>
       </NuxtLink>

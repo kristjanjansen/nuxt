@@ -2,13 +2,15 @@
 import { marked } from "marked";
 type Props = {
   markdown?: string;
+  strip?: boolean;
 };
-const { markdown = "" } = defineProps<Props>();
-const slots = useSlots();
-const renderedMarkdown = marked.parse(
-  markdown || slots.default?.()?.[0].children || "",
-  { breaks: true }
-);
+const { markdown = "", strip = false } = defineProps<Props>();
+
+const parsedMarkdown = marked.parse(markdown, { breaks: true });
+
+const finalMarkdown = strip
+  ? parsedMarkdown.replace(/(<([^>]+)>)/gi, "")
+  : parsedMarkdown;
 const { theme } = useTheme();
 </script>
 
@@ -16,6 +18,6 @@ const { theme } = useTheme();
   <div
     class="prose font-sans text-base capsize"
     :class="[['prose-invert', ''][theme]]"
-    v-html="renderedMarkdown"
+    v-html="finalMarkdown"
   />
 </template>
