@@ -32,7 +32,10 @@ const { data: podcast } = await useAsyncData("podcasts", () => {
     <Title class="!text-6xl">{{ podcast.title }}</Title>
     <p />
     <div class="grid grid-cols-[1fr_3fr] gap-8">
-      <Markdown :markdown="podcast.description" />
+      <Stack>
+        <img :src="podcast.itunes.image" />
+        <Markdown :markdown="podcast.description"
+      /></Stack>
       <Stack>
         <Card v-for="item in podcast.items">
           <Stack>
