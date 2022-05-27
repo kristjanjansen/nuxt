@@ -15,4 +15,11 @@ export default defineNuxtConfig({
     strapiUrl: "",
     public: { wsUrl: "" },
   },
+  typescript: {
+    tsConfig: {
+      compilerOptions: {
+        types: ["unplugin-icons/types/vue"],
+      },
+    },
+  },
 });

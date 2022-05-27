@@ -1,13 +1,12 @@
 <script setup lang="ts">
 import { useNow } from "@vueuse/core";
+import { Event } from "~/composables/event";
 
-const now = useNow();
-
-const { find } = useStrapi3(); //
+const { find } = useStrapi3();
 
 // // data, pending, refresh, error
 const { data: events } = await useAsyncData("events", () =>
-  find<any>("events", { _limit: -1 }).then((events) =>
+  find<Event[]>("events", { _limit: -1 }).then((events) =>
     events.reverse().slice(0, 10)
   )
 );
