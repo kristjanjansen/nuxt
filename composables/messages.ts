@@ -12,5 +12,5 @@ export const useMessages = (url) => {
 
   const sendMessage = (message) =>
     send(JSON.stringify({ ...message, datetime: new Date().toISOString() }));
-  return { messages, sendMessage };
+  return { ws, messages, sendMessage };
 };
