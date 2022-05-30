@@ -9,6 +9,7 @@ const titleTemplate = (title = undefined) =>
 
 useHead({
   titleTemplate,
+  link: [{ rel: "icon", type: "image/svg+xml", href: "/assets/favicon.svg" }],
   meta: [{ name: "og:title", content: titleTemplate(route.meta.title) }],
 });
 
