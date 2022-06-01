@@ -1,0 +1,14 @@
+@import "../styles.css";
+body {
+  background: hsl(var(--gray-100));
+  color: hsl(var(--gray-900));
+  font-family: dmsans-regular, sans-serif;
+}
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: title-medium, sans-serif;
+}
