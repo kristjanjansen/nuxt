@@ -5,9 +5,9 @@ const tailwindCapsize = require("tailwindcss-capsize");
 function withOpacityValue(variable) {
   return ({ opacityValue }) => {
     if (opacityValue === undefined) {
-      return `hsl(var(${variable}))`;
+      return `rgb(var(${variable}))`;
     }
-    return `hsl(var(${variable}) / ${opacityValue})`;
+    return `rgb(var(${variable}) / ${opacityValue})`;
   };
 }
 
@@ -44,11 +44,21 @@ module.exports = {
       mono: "mono",
     },
     fontMetrics,
-    colors: {
-      "gray-100": withOpacityValue("--gray-100"),
-      "gray-900": withOpacityValue("--gray-900"),
-      "green-500": withOpacityValue("--green-500"),
-      "green-900": withOpacityValue("--green-900"),
+    extend: {
+      colors: {
+        white: withOpacityValue("--white"),
+        "gray-50": withOpacityValue("--gray-50"),
+        "gray-100": withOpacityValue("--gray-100"),
+        "gray-200": withOpacityValue("--gray-200"),
+        "gray-300": withOpacityValue("--gray-300"),
+        "gray-400": withOpacityValue("--gray-400"),
+        "gray-500": withOpacityValue("--gray-500"),
+        "gray-600": withOpacityValue("--gray-600"),
+        "gray-700": withOpacityValue("--gray-700"),
+        "gray-800": withOpacityValue("--gray-800"),
+        "gray-900": withOpacityValue("--gray-900"),
+        black: withOpacityValue("--black"),
+      },
     },
   },
 };
