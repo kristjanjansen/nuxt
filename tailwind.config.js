@@ -31,7 +31,7 @@ const fontMetrics = {
     descent: -310,
     lineGap: 0,
     unitsPerEm: 1000,
-    xHeight: 496
+    xHeight: 496,
   },
 };
 
@@ -39,9 +39,9 @@ module.exports = {
   plugins: [tailwindTypography, tailwindForms, tailwindCapsize],
   theme: {
     fontFamily: {
-      title: "title-medium",
-      sans: "dmsans-regular",
-      mono: "cousine-regular",
+      title: "title",
+      sans: "sans",
+      mono: "mono",
     },
     fontMetrics,
     colors: {
