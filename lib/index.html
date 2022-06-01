@@ -52,10 +52,13 @@
       const { messages, sendMessage } = useMessages("wss://ws.elektron.art");
 
       sendMessageEl.addEventListener("click", () => {
-        sendMessage({ title: "Hello", datetime: new Date() });
+        sendMessage({ type: "TEST", datetime: new Date() });
       });
       watchEffect(
-        () => (messagesEl.innerHTML = JSON.stringify(messages.value))
+        () =>
+          (messagesEl.innerHTML = JSON.stringify(
+            messages.value.filter((m) => m.type === "TEST")
+          ))
       );
 
       // useVideostream should be inside Vue app

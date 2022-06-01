@@ -1,7 +1,7 @@
 @import "../styles.css";
 body {
-  background: rgb(var(--gray-900));
-  color: rgb(var(--gray-50));
+  background: rgb(var(--black));
+  color: rgb(var(--white));
   font-family: sans, sans-serif;
   margin: 0;
 }
