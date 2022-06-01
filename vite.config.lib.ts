@@ -3,6 +3,7 @@ import path from "path";
 
 export default defineConfig({
   root: "lib",
+  server: { port: 3001, open: true },
   build: {
     outDir: "lib/dist",
     lib: {
