@@ -16,7 +16,7 @@ const { theme } = useTheme();
 
 <template>
   <div
-    class="prose max-w-none font-sans text-base capsize"
+    class="prose prose-lg max-w-none break-words font-sans text-base capsize"
     :class="[['prose-invert', ''][theme]]"
     v-html="finalMarkdown"
   />

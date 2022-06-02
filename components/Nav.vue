@@ -3,8 +3,8 @@ import IconTheme from "~icons/radix-icons/half-2";
 
 const nav = [
   {
-    title: "Kava",
-    to: "/",
+    title: "Projects",
+    to: "/projects",
   },
   {
     title: "Podcast",
@@ -15,9 +15,16 @@ const { changeTheme } = useTheme();
 </script>
 
 <template>
-  <div class="grid grid-cols-1 md:grid-cols-4">
+  <div class="grid grid-cols-1 md:grid-cols-5">
+    <NuxtLink to="/">
+      <NavLink
+        class="pt-2 font-normal lowercase !font-title !text-2xl capsize md:border-l"
+      >
+        eˉlektron
+      </NavLink>
+    </NuxtLink>
     <NuxtLink v-for="(n, i) in nav" :to="n.to">
-      <NavLink :class="[i === 0 ? 'md:border-l' : '']">{{ n.title }}</NavLink>
+      <NavLink>{{ n.title }}</NavLink>
     </NuxtLink>
     <button class="text-left" @click="changeTheme">
       <NavLink><IconTheme /></NavLink>
