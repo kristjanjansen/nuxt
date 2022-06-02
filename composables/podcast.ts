@@ -6,9 +6,10 @@ export const usePodcast = () =>
       "https://api.allorigins.win/get?url=https://elektronsignal.captivate.fm/rssfeed";
     const parser = new Parser();
 
-    return $fetch(rssUrl).then((res: any) => {
+    const podcast = $fetch(rssUrl).then((res: any) => {
       return parser.parseString(res.contents) as Podcast;
     });
+    return podcast;
   });
 
 export interface Podcast {
