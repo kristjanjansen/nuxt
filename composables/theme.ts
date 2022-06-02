@@ -17,10 +17,10 @@ const vars = [
 
 const theme = ref(0);
 
-const black = useCssVar("--black");
 const changeTheme = () => {
   theme.value = 1 - theme.value;
   vars.forEach((v) => {
+    //@ts-ignore
     v[0].value = v[1][theme.value];
   });
 };

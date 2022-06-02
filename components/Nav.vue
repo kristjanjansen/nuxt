@@ -12,10 +12,11 @@ const nav = [
   },
 ];
 const { changeTheme } = useTheme();
+const { l, changeLang } = useLang();
 </script>
 
 <template>
-  <div class="grid grid-cols-1 md:grid-cols-5">
+  <div class="grid grid-cols-1 md:grid-cols-6">
     <NuxtLink to="/">
       <NavLink
         class="pt-2 font-normal lowercase !font-title !text-2xl capsize md:border-l"
@@ -26,6 +27,9 @@ const { changeTheme } = useTheme();
     <NuxtLink v-for="(n, i) in nav" :to="n.to">
       <NavLink>{{ n.title }}</NavLink>
     </NuxtLink>
+    <button class="text-left" @click="changeLang">
+      <NavLink>{{ l("en", "et") }}</NavLink>
+    </button>
     <button class="text-left" @click="changeTheme">
       <NavLink><IconTheme /></NavLink>
     </button>
