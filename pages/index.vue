@@ -24,9 +24,12 @@ const description = computed(() => {
       muted
       autoplay
       controls
-      class="absolute inset-0 h-full w-full flex-col object-cover opacity-70"
+      class="absolute inset-0 h-full w-full flex-col object-cover opacity-20"
       :class="[['', 'invert'][theme]]"
     />
-    <Markdown class="absolute top-8 left-8 text-2xl" :markdown="description" />
+    <Markdown
+      class="absolute top-8 left-8 right-8 text-xl md:right-auto md:text-2xl"
+      :markdown="description"
+    />
   </div>
 </template>

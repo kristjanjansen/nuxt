@@ -13,7 +13,7 @@ const onTest = () => sendMessage({ type: "TEST" });
     <div
       v-if="testMessages?.length"
       @click="messages = []"
-      class="fixed right-4 bottom-4 left-4 z-50 h-1/3 overflow-auto whitespace-pre bg-[black] p-4 font-mono md:left-auto md:w-1/3"
+      class="fixed right-4 bottom-4 left-4 z-50 h-1/3 overflow-auto whitespace-pre bg-black p-4 font-mono md:left-auto md:w-1/3"
     >
       {{ testMessages }}
     </div>
