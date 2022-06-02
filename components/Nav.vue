@@ -27,12 +27,12 @@ const menu = ref(false);
       </button>
     </div>
     <NuxtLink
-      to="/projects"
+      to="/events"
       class="md:block"
       :class="[menu ? 'block' : 'hidden']"
       @click="menu = false"
     >
-      <NavLink>{{ ["projects", "projektid"][lang] }}</NavLink>
+      <NavLink>{{ ["events", "kava"][lang] }}</NavLink>
     </NuxtLink>
     <NuxtLink
       to="/podcast"
