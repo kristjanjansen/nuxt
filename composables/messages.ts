@@ -1,3 +1,4 @@
+import { ref } from "vue";
 import { useWebSocket } from "@vueuse/core";
 
 export const useMessages = (url) => {

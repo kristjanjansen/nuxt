@@ -1,23 +1,25 @@
 <script setup lang="ts">
+import { MaybeRef } from "@vueuse/core";
 import { marked } from "marked";
+
 type Props = {
   markdown?: string;
   strip?: boolean;
 };
 const { markdown = "", strip = false } = defineProps<Props>();
 
-const parsedMarkdown = marked.parse(markdown, { breaks: true });
+const parsedMarkdown = computed(() => {
+  const parsed = marked.parse(ref(markdown).value, { breaks: true });
+  return strip ? parsed.replace(/(<([^>]+)>)/gi, "") : parsed;
+});
 
-const finalMarkdown = strip
-  ? parsedMarkdown.replace(/(<([^>]+)>)/gi, "")
-  : parsedMarkdown;
 const { theme } = useTheme();
 </script>
 
 <template>
   <div
-    class="prose max-w-none font-sans text-base capsize"
+    class="prose prose-lg max-w-none break-words font-sans text-base capsize"
     :class="[['prose-invert', ''][theme]]"
-    v-html="finalMarkdown"
+    v-html="parsedMarkdown"
   />
 </template>

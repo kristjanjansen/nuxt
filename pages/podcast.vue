@@ -6,24 +6,23 @@ definePageMeta({
   ttl: 60 * 30,
 });
 
-const rssUrl = "https://elektronsignal.captivate.fm/rssfeed";
+const rssUrl =
+  "https://api.allorigins.win/get?url=https://elektronsignal.captivate.fm/rssfeed";
 const parser = new Parser();
 
-const { data: podcast } = await useAsyncData("podcasts", () => {
-  return $fetch(rssUrl, {
-    headers: {
-      Accept: "application/rss+xml",
-    },
-  }).then((rss: string) => {
-    return parser.parseString(rss);
+const { data: podcast } = await useAsyncData("podcast", () => {
+  return $fetch(rssUrl).then((res: any) => {
+    return parser.parseString(res.contents);
   });
 });
+
+const { theme } = useTheme();
 </script>
 <template>
-  <Stack class="p-8">
-    <Title class="!text-6xl">{{ podcast.title }}</Title>
+  <Stack class="p-8" v-if="podcast">
+    <Title class="!md:text-6xl !text-4xl">{{ podcast.title }}</Title>
     <p />
-    <div class="grid grid-cols-[1fr_3fr] gap-8">
+    <div class="flex flex-col gap-8 md:grid md:grid-cols-[1fr_3fr]">
       <Stack>
         <img :src="podcast.itunes.image" />
         <Markdown :markdown="podcast.description"
@@ -33,11 +32,16 @@ const { data: podcast } = await useAsyncData("podcasts", () => {
           <Stack>
             <Title>{{ item.title }}</Title>
             <Markdown :markdown="item['content:encoded']" />
-            <audio controls :src="item.enclosure.url" />
+            <audio
+              class="w-full md:w-auto"
+              :class="['invert', ''][theme]"
+              controls
+              :src="item.enclosure.url"
+            />
+            <pre>{{ item }}</pre>
           </Stack>
         </Card>
       </Stack>
     </div>
-    <pre>{{ podcast }}</pre>
   </Stack>
 </template>

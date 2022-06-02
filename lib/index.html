@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" href="data:," />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  </head>
+  <body>
+    <div
+      style="
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 16px;
+        padding: 24px;
+      "
+    >
+      <h1>Elektron API</h1>
+
+      <pre>useMessage()</pre>
+
+      <button id="sendMessageEl">Send message</button>
+      <pre style="opacity: 0.5" id="messagesEl"></pre>
+
+      <p />
+
+      <pre>useVideostream()</pre>
+
+      <div id="videostreamApp">
+        <p>Status: {{ status }}</p>
+        <video
+          muted
+          autoplay
+          controls
+          ref="videoRef"
+          :width="width / 2"
+          :height="height / 2"
+          style="width: 100%; border: 1px solid white"
+        />
+      </div>
+    </div>
+
+    <script type="module">
+      // useMessages can be used outside Vue app
+
+      import { watchEffect } from "vue";
+      import { useMessages } from "./index.ts";
+
+      const sendMessageEl = document.getElementById("sendMessageEl");
+      const messagesEl = document.getElementById("messagesEl");
+
+      const { messages, sendMessage } = useMessages("wss://ws.elektron.art");
+
+      sendMessageEl.addEventListener("click", () => {
+        sendMessage({ type: "TEST", datetime: new Date() });
+      });
+      watchEffect(
+        () =>
+          (messagesEl.innerHTML = JSON.stringify(
+            messages.value.filter((m) => m.type === "TEST")
+          ))
+      );
+
+      // useVideostream should be inside Vue app
+
+      import { createApp } from "vue";
+      import { useVideostream } from "./index.ts";
+
+      createApp({
+        setup() {
+          const url = "https://cloudflare.tv/hls/live.m3u8";
+          const { videoRef, width, height, status } = useVideostream(url);
+          return { videoRef, width, height, status };
+        },
+      }).mount("#videostreamApp");
+    </script>
+  </body>
+</html>

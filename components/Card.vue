@@ -1,3 +1,3 @@
 <template>
-  <div class="border-gray-500 rounded-xl border p-4"><slot /></div>
+  <div class="rounded-xl border border-gray-700 p-4"><slot /></div>
 </template>
