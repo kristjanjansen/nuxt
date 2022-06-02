@@ -15,14 +15,16 @@ const vars = [
   [useCssVar("--black"), ["0 0 0", "255 255 255"]],
 ];
 
-const theme = ref(0);
+export const useTheme = () => {
+  const theme = useState("theme", () => 0);
 
-const changeTheme = () => {
-  theme.value = 1 - theme.value;
-  vars.forEach((v) => {
-    //@ts-ignore
-    v[0].value = v[1][theme.value];
-  });
+  const changeTheme = () => {
+    theme.value = 1 - theme.value;
+    vars.forEach((v) => {
+      //@ts-ignore
+      v[0].value = v[1][theme.value];
+    });
+  };
+
+  return { theme, changeTheme };
 };
-
-export const useTheme = () => ({ theme, changeTheme });

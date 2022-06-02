@@ -1,18 +1,8 @@
 <script setup lang="ts">
 import IconTheme from "~icons/radix-icons/half-2";
 
-const nav = [
-  {
-    title: "Projects",
-    to: "/projects",
-  },
-  {
-    title: "Podcast",
-    to: "/podcast",
-  },
-];
 const { changeTheme } = useTheme();
-const { l, changeLang } = useLang();
+const { lang, changeLang } = useLang();
 </script>
 
 <template>
@@ -24,11 +14,14 @@ const { l, changeLang } = useLang();
         eˉlektron
       </NavLink>
     </NuxtLink>
-    <NuxtLink v-for="(n, i) in nav" :to="n.to">
-      <NavLink>{{ n.title }}</NavLink>
+    <NuxtLink>
+      <NavLink>{{ ["projects", "projektid"][lang] }}</NavLink>
+    </NuxtLink>
+    <NuxtLink>
+      <NavLink>{{ ["podcast", "podcast"][lang] }}</NavLink>
     </NuxtLink>
     <button class="text-left" @click="changeLang">
-      <NavLink>{{ l("en", "et") }}</NavLink>
+      <NavLink>{{ ["en", "et"][lang] }}</NavLink>
     </button>
     <button class="text-left" @click="changeTheme">
       <NavLink><IconTheme /></NavLink>

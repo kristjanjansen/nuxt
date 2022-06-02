@@ -9,6 +9,11 @@ const { data: frontpage } = await $fetch(
 const descriptionEn =
   frontpage.attributes.localizations.data[0].attributes.description;
 const descriptionEt = frontpage.attributes.description;
+
+const { lang } = useLang();
+const description = computed(() => {
+  return [descriptionEn, descriptionEt][lang.value];
+});
 </script>
 
 <template>
@@ -18,12 +23,10 @@ const descriptionEt = frontpage.attributes.description;
       loop
       muted
       autoplay
+      controls
       class="absolute inset-0 h-full w-full flex-col object-cover opacity-70"
       :class="[['', 'invert'][theme]]"
     />
-    <Markdown
-      class="absolute top-8 left-8 text-2xl"
-      :markdown="descriptionEn"
-    />
+    <Markdown class="absolute top-8 left-8 text-2xl" :markdown="description" />
   </div>
 </template>
