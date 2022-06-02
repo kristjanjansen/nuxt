@@ -9,7 +9,7 @@ const titleTemplate = (title = undefined) =>
 
 useHead({
   titleTemplate,
-  link: [{ rel: "icon", type: "image/svg+xml", href: "/assets/favicon.svg" }],
+  link: [{ rel: "icon", type: "image/svg+xml", href: "/favicon.svg" }],
   meta: [{ name: "og:title", content: titleTemplate(route.meta.title) }],
 });
 
@@ -20,9 +20,7 @@ if (process.server) {
 </script>
 
 <template>
-  <div>
-    <NuxtLayout name="default">
-      <NuxtPage />
-    </NuxtLayout>
-  </div>
+  <NuxtLayout name="default">
+    <NuxtPage />
+  </NuxtLayout>
 </template>

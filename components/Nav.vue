@@ -14,10 +14,10 @@ const { lang, changeLang } = useLang();
         eˉlektron
       </NavLink>
     </NuxtLink>
-    <NuxtLink>
+    <NuxtLink to="/projects">
       <NavLink>{{ ["projects", "projektid"][lang] }}</NavLink>
     </NuxtLink>
-    <NuxtLink>
+    <NuxtLink to="/podcast">
       <NavLink>{{ ["podcast", "podcast"][lang] }}</NavLink>
     </NuxtLink>
     <button class="text-left" @click="changeLang">

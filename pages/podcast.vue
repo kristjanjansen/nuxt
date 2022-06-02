@@ -15,6 +15,8 @@ const { data: podcast } = await useAsyncData("podcast", () => {
     return parser.parseString(res.contents);
   });
 });
+
+const { theme } = useTheme();
 </script>
 <template>
   <Stack class="p-8" v-if="podcast">
@@ -32,9 +34,11 @@ const { data: podcast } = await useAsyncData("podcast", () => {
             <Markdown :markdown="item['content:encoded']" />
             <audio
               class="w-full md:w-auto"
+              :class="['invert', ''][theme]"
               controls
               :src="item.enclosure.url"
             />
+            <pre>{{ item }}</pre>
           </Stack>
         </Card>
       </Stack>
