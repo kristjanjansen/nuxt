@@ -6,15 +6,7 @@ definePageMeta({
   ttl: 60 * 30,
 });
 
-const rssUrl =
-  "https://api.allorigins.win/get?url=https://elektronsignal.captivate.fm/rssfeed";
-const parser = new Parser();
-
-const { data: podcast } = await useAsyncData("podcast", () => {
-  return $fetch(rssUrl).then((res: any) => {
-    return parser.parseString(res.contents);
-  });
-});
+const { data: podcast } = usePodcast();
 
 const { theme } = useTheme();
 </script>
@@ -28,19 +20,7 @@ const { theme } = useTheme();
         <Markdown :markdown="podcast.description"
       /></Stack>
       <Stack>
-        <Card v-for="item in podcast.items">
-          <Stack>
-            <Title>{{ item.title }}</Title>
-            <Markdown :markdown="item['content:encoded']" />
-            <audio
-              class="w-full md:w-auto"
-              :class="['invert', ''][theme]"
-              controls
-              :src="item.enclosure.url"
-            />
-            <pre>{{ item }}</pre>
-          </Stack>
-        </Card>
+        <Item v-for="item in podcast.items" :item="item" />
       </Stack>
     </div>
   </Stack>
