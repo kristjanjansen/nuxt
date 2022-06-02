@@ -8,7 +8,7 @@ const menu = ref(false);
 </script>
 
 <template>
-  <div class="grid grid-cols-1 md:grid-cols-6">
+  <div class="sticky top-0 grid grid-cols-1 bg-black/80 md:grid-cols-6">
     <div
       class="flex h-10 w-full items-center justify-between border-b border-r border-gray-700 md:border-l"
     >

@@ -34,6 +34,7 @@ const description = computed(() => {
       muted
       controls
       autoplay
+      playsinline
       class="absolute inset-0 h-full w-full flex-col object-cover opacity-20"
       :class="[['', 'invert'][theme]]"
     />
