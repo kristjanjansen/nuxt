@@ -22,7 +22,7 @@ const { data: events } = await useFind("events", {
           <div>
             <Image
               class="aspect-square h-full object-cover"
-              :image="event.images?.[0]"
+              :image="event.thumbnail"
             />
           </div>
           <Stack>

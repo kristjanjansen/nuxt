@@ -2,15 +2,28 @@ import { Strapi4RequestParams } from "@nuxtjs/strapi/dist/runtime/types";
 
 export const useFind = (contentType: string, params?: Strapi4RequestParams) => {
   const { find } = useStrapi4();
-  return useAsyncData(contentType, () =>
+  const key = hash({ contentType, ...params });
+  return useAsyncData(key, () =>
     find(contentType, params).then((res) => parseStrapi(res))
   );
 };
+
+export const useFindOne = (
+  contentType: string,
+  params?: Strapi4RequestParams
+) =>
+  useFind(contentType, params).then((find) => {
+    return {
+      ...find,
+      data: find.data.value.length ? computed(() => find.data.value[0]) : null,
+    };
+  });
 
 // From https://github.com/ComfortablyCoding/strapi-plugin-transformer/blob/master/server/services/transform-service.js
 // @TODO: Move to strapi instance?
 
 import _ from "lodash";
+import { hash } from "./hash";
 
 export const parseStrapi = (data) => {
   if (_.has(data, "attributes")) {
