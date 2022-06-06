@@ -7,20 +7,10 @@ definePageMeta({
   title: "Some Page",
 });
 
-const useStrapiFind = (contentType: string, params?: Strapi4RequestParams) => {
-  const { find } = useStrapi4();
-  return useAsyncData(contentType, () =>
-    find(contentType, params).then(({ data }) => {
-      data.map(({ attributes }) => attributes);
-    })
-  );
-};
-// // data, pending, refresh, error
-const { data: events } = useStrapiFind("events", {
+const { data: events } = await useFind("events", {
   sort: ["createdAt:desc"],
-  populate: "*",
+  populate: ["projects", "images", "thumbnail"],
 });
-// const a = await useAsyncData("hello", () => $fetch("/api/hello"));
 </script>
 <template>
   <Stack class="p-8">
@@ -28,11 +18,16 @@ const { data: events } = useStrapiFind("events", {
     <p />
     <Stack>
       <NuxtLink v-for="event in events" :to="'/events/' + event.slug">
-        <Card class="hover:bg-black">
+        <Card class="grid grid-cols-[1fr_5fr] gap-4 hover:bg-black">
+          <div>
+            <Image
+              class="aspect-square h-full object-cover"
+              :image="event.images?.[0]"
+            />
+          </div>
           <Stack>
             <Title class="text-lg">{{ event.title }}</Title>
-            <pre>{{ event }}</pre>
-            <Markdown strip :markdown="event?.description_estonian" />
+            <Markdown :markdown="event.intro" />
           </Stack>
         </Card>
       </NuxtLink>

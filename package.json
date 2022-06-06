@@ -27,6 +27,7 @@
   },
   "dependencies": {
     "hls.js": "^1.1.5",
+    "lodash": "^4.17.21",
     "rss-parser": "^3.12.0"
   }
 }
