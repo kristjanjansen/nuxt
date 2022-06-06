@@ -3,7 +3,7 @@ import { MaybeRef } from "@vueuse/core";
 import { marked } from "marked";
 
 type Props = {
-  markdown?: string;
+  markdown?: MaybeRef<string>;
   strip?: boolean;
 };
 const { markdown = "", strip = false } = defineProps<Props>();

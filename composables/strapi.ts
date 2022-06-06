@@ -1,10 +1,38 @@
 import { Strapi4RequestParams } from "@nuxtjs/strapi/dist/runtime/types";
 
+const processStrapi = (rawResults: any) => {
+  const results = parseStrapi(rawResults).map((r) => {
+    if (r.localizations?.length) {
+      //console.log(r.intro, "|||", r.localizations[0].intro);
+      //r.description = r.localizations[0].description;
+    }
+    return r;
+  });
+  return results;
+  // const { lang } = useLang();
+  // return normalizedResults;
+  // return normalizedResults.map((result) => {
+  //   // if (result.localizations[0]) {
+  //   //   result.title = computed(
+  //   //     () => [result.title, result.localizations[0].title][lang.value]
+  //   //   );
+  //   //   result.intro = computed(
+  //   //     () => [result.intro, result.localizations[0].intro][lang.value]
+  //   //   );
+  //   //   result.description = computed(
+  //   //     () =>
+  //   //       [result.description, result.localizations[0].description][lang.value]
+  //   //   );
+  //   // }
+  //   return result;
+  // });
+};
+
 export const useFind = (contentType: string, params?: Strapi4RequestParams) => {
   const { find } = useStrapi4();
   const key = hash({ contentType, ...params });
   return useAsyncData(key, () =>
-    find(contentType, params).then((res) => parseStrapi(res))
+    find(contentType, params).then((res) => processStrapi(res))
   );
 };
 

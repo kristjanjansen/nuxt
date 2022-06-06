@@ -19,10 +19,10 @@ const { data: projects } = await useFind("projects", {
         v-for="project in projects"
         :to="'/projects/' + project.slug"
       >
-        <Image
+        <!-- <Image
           class="aspect-square h-full rounded-2xl object-cover"
           :image="project.thumbnail"
-        />
+        /> -->
       </NuxtLink>
     </div>
   </Stack>
