@@ -10,7 +10,7 @@ const save = () => (src.value = getJpeg());
 
 <template>
   <div class="grid grid-cols-2 gap-8 p-8">
-    <div>
+    <div class="border">
       <video
         ref="video"
         muted
@@ -21,13 +21,15 @@ const save = () => (src.value = getJpeg());
         class="w-full"
       />
     </div>
-    <canvas ref="canvas" class="w-full" />
-    <div><img v-if="src" :src="src" class="h-full w-full" /></div>
+    <canvas ref="canvas" class="w-full border" />
+    <div class="aspect-video border">
+      <img v-if="src" :src="src" class="h-full w-full" />
+    </div>
     <div>
       <p>Status: {{ status }}</p>
       <div class="flex gap-2">
         <Button @click="capture">Capture</Button>
-        <Button @click="save">Save</Button>
+        <Button primary @click="save">Save</Button>
       </div>
     </div>
   </div>
