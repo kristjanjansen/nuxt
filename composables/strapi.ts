@@ -2,10 +2,13 @@ import { Strapi4RequestParams } from "@nuxtjs/strapi/dist/runtime/types";
 
 const processStrapi = (rawResults: any) => {
   const results = parseStrapi(rawResults).map((r) => {
-    if (r.localizations?.length) {
-      //console.log(r.intro, "|||", r.localizations[0].intro);
-      //r.description = r.localizations[0].description;
-    }
+    r.titles = [r.title, r.localizations?.[0].title || r.title];
+    r.intros = [r.intro, r.localizations?.[0].intro || r.intro];
+    r.descriptions = [
+      r.description,
+      r.localizations?.[0].description || r.description,
+    ];
+    r.detailss = [r.detailss, r.localizations?.[0].detailss || r.details];
     return r;
   });
   return results;

@@ -20,7 +20,7 @@ const { lang } = useLang();
 
 <template>
   <Stack class="gap-8 p-12">
-    <Title class="!text-6xl">{{ event.title }}</Title>
+    <Title class="!text-6xl">{{ event.titles[lang] }}</Title>
     <div class="flex gap-5 overflow-x-auto">
       <!-- <Image
         class="aspect-video h-64 rounded-3xl object-cover"
@@ -28,8 +28,6 @@ const { lang } = useLang();
         :image="image"
       /> -->
     </div>
-    <Markdown
-      :markdown="[event.description, event.localizations[0].description][lang]"
-    />
+    <Markdown :markdown="event.intros[lang]" />
   </Stack>
 </template>
