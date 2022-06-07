@@ -18,16 +18,16 @@
 }
 @font-face {
   font-family: "title";
-  src: url("./assets/fonts/gthaptic-medium.woff2") format("woff2");
+  src: url("./assets/fonts/gthaptic-regular.woff2") format("woff2");
   font-style: normal;
-  font-weight: 500;
+  font-weight: 400;
   font-display: swap;
 }
 @font-face {
   font-family: "title";
-  src: url("./assets/fonts/gthaptic-regular.woff2") format("woff2");
+  src: url("./assets/fonts/gthaptic-medium.woff2") format("woff2");
   font-style: normal;
-  font-weight: 400;
+  font-weight: 500;
   font-display: swap;
 }
 @font-face {

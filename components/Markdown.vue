@@ -4,13 +4,13 @@ import { marked } from "marked";
 
 type Props = {
   markdown?: MaybeRef<string>;
-  strip?: boolean;
+  nolinks?: boolean;
 };
-const { markdown = "", strip = false } = defineProps<Props>();
+const { markdown = "", nolinks = false } = defineProps<Props>();
 
 const parsedMarkdown = computed(() => {
   const parsed = marked.parse(ref(markdown).value, { breaks: true });
-  return strip ? parsed.replace(/(<([^>]+)>)/gi, "") : parsed;
+  return nolinks ? parsed.replace(/<a[^>]*>(.*?)<\/a>/gi, "$1") : parsed;
 });
 
 const { theme } = useTheme();

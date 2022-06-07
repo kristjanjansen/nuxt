@@ -14,12 +14,18 @@ const { lang } = useLang();
   <div class="p-4">
     <Stack>
       <TitleLarge>{{ ["Events", "Sündmused"][lang] }}</TitleLarge>
-      <NuxtLink v-for="event in events" :to="'/'">
-        <Card>
+      <NuxtLink v-for="event in events" :to="'/events/' + event.slug">
+        <Card class="grid grid-cols-[1fr_5fr] gap-4 hover:bg-black">
+          <div>
+            <Image
+              class="aspect-square h-full object-cover"
+              :image="event.thumbnail"
+            />
+          </div>
           <Stack>
-            <Title>{{ event.titles[lang] }}</Title>
+            <Title class="text-lg">{{ event.titles[lang] }}</Title>
+            <Markdown nolinks :markdown="event.intros[lang]" />
           </Stack>
-          <Stack>{{ event.intros[lang] }}</Stack>
         </Card>
       </NuxtLink>
     </Stack>

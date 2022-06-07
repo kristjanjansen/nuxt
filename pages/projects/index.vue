@@ -13,9 +13,9 @@ const { lang } = useLang();
 
 <template>
   <Stack class="p-8">
-    <Title class="!md:text-6xl !text-4xl">
+    <TitleLarge>
       {{ ["Projects", "Projektid"][lang] }}
-    </Title>
+    </TitleLarge>
     <p />
     <div class="grid grid-cols-4 gap-4">
       <NuxtLink
@@ -23,10 +23,10 @@ const { lang } = useLang();
         v-for="project in projects"
         :to="'/projects/' + project.slug"
       >
-        <!-- <Image
+        <Image
           class="aspect-square h-full rounded-2xl object-cover"
           :image="project.thumbnail"
-        /> -->
+        />
       </NuxtLink>
     </div>
   </Stack>

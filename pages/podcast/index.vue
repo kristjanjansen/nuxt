@@ -12,7 +12,7 @@ const { theme } = useTheme();
 </script>
 <template>
   <Stack class="p-8" v-if="podcast">
-    <Title class="!md:text-6xl !text-4xl">{{ podcast.title }}</Title>
+    <TitleLarge class="!md:text-6xl !text-4xl">{{ podcast.title }}</TitleLarge>
     <p />
     <div class="flex flex-col gap-8 md:grid md:grid-cols-[1fr_3fr]">
       <Stack>
