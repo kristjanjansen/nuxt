@@ -13,7 +13,7 @@ const item = computed(() =>
 <template>
   <Stack class="p-8">
     <NuxtLink to="/podcast">
-      <Title class="!md:text-6xl !text-4xl">elektron.signal</Title>
+      <TitleSmall class="!md:text-6xl !text-4xl">elektron.signal</TitleSmall>
     </NuxtLink>
     <p />
     <Item :item="item" />

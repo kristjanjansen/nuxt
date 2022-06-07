@@ -51,14 +51,24 @@ const menu = ref(false);
       <NavLink>{{ ["podcast", "podcast"][lang] }}</NavLink>
     </NuxtLink>
     <button
-      @click="changeLang"
+      @click="
+        () => {
+          changeLang();
+          menu = false;
+        }
+      "
       class="text-left md:block"
       :class="[menu ? 'block' : 'hidden']"
     >
       <NavLink>{{ ["en", "et"][lang] }}</NavLink>
     </button>
     <button
-      @click="changeTheme"
+      @click="
+        () => {
+          changeTheme();
+          menu = false;
+        }
+      "
       class="text-left md:block"
       :class="[menu ? 'block' : 'hidden']"
     >

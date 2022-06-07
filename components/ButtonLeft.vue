@@ -9,7 +9,7 @@ const { to } = defineProps<Props>();
 <template>
   <NuxtLink
     :to="to"
-    class="flex gap-1 uppercase text-gray-300 font-mono text-xs"
+    class="flex gap-1 uppercase text-gray-300 transition-colors font-mono text-xs hover:text-gray-500"
   >
     <IconArrowLeft />
     <div><slot /></div>

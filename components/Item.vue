@@ -13,7 +13,7 @@ const { theme } = useTheme();
   <Card>
     <Stack>
       <NuxtLink :to="'/podcast/' + (item.itunes.episode || item.guid)">
-        <Title>{{ item.title }}</Title>
+        <TitleSmall>{{ item.title }}</TitleSmall>
       </NuxtLink>
       <Markdown :markdown="item['content:encoded']" />
       <audio

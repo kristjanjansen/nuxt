@@ -21,17 +21,30 @@ const { lang } = useLang();
 </script>
 
 <template>
-  <Stack class="gap-8 p-12">
-    <TitleLarge class="!text-6xl">
-      <div v-html="event.titles[lang]" />
-    </TitleLarge>
+  <Stack class="p-[4vw]">
+    <ButtonLeft to="/events">
+      {{ ["Events", "Sündmused"][lang] }}
+    </ButtonLeft>
+    <Title>
+      {{ event.titles[lang] }}
+    </Title>
     <div class="flex gap-5 overflow-x-auto">
       <Image
-        class="aspect-auto w-96 rounded-3xl object-cover"
+        class="aspect-auto h-72 rounded-3xl object-cover"
         v-for="image in event.images"
         :image="image"
       />
     </div>
-    <Markdown :markdown="event.descriptions[lang]" />
+    <div class="grid gap-5">
+      <Card>
+        <div class="grid gap-8 md:grid-cols-[2fr_3fr]">
+          <div
+            class="text-gray-400 text-xs leading-loose"
+            v-html="event.detailss[lang].replace(/\n/g, '<br>')"
+          />
+          <Markdown :markdown="event.descriptions[lang]" />
+        </div>
+      </Card>
+    </div>
   </Stack>
 </template>

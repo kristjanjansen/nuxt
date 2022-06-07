@@ -12,21 +12,24 @@ const { lang } = useLang();
 </script>
 
 <template>
-  <Stack class="p-8">
-    <TitleLarge>
+  <Stack class="p-[5vw]">
+    <Title>
       {{ ["Projects", "Projektid"][lang] }}
-    </TitleLarge>
+    </Title>
     <p />
-    <div class="grid grid-cols-4 gap-4">
+    <div class="flex flex-col gap-6 md:grid md:grid-cols-4 md:gap-4">
       <NuxtLink
-        class="block h-full"
         v-for="project in projects"
+        class="block h-full"
         :to="'/projects/' + project.slug"
       >
-        <Image
-          class="aspect-square h-full rounded-2xl object-cover"
-          :image="project.thumbnail"
-        />
+        <Stack>
+          <Image
+            class="aspect-square h-full rounded-2xl object-cover"
+            :image="project.thumbnail"
+          />
+          <Title>{{ project.titles[lang] }}</Title>
+        </Stack>
       </NuxtLink>
     </div>
   </Stack>

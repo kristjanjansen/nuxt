@@ -8,27 +8,10 @@ const processStrapi = (rawResults: any) => {
       r.description,
       r.localizations?.[0].description || r.description,
     ];
-    r.detailss = [r.detailss, r.localizations?.[0].detailss || r.details];
+    r.detailss = [r.details, r.localizations?.[0].details || r.details];
     return r;
   });
   return results;
-  // const { lang } = useLang();
-  // return normalizedResults;
-  // return normalizedResults.map((result) => {
-  //   // if (result.localizations[0]) {
-  //   //   result.title = computed(
-  //   //     () => [result.title, result.localizations[0].title][lang.value]
-  //   //   );
-  //   //   result.intro = computed(
-  //   //     () => [result.intro, result.localizations[0].intro][lang.value]
-  //   //   );
-  //   //   result.description = computed(
-  //   //     () =>
-  //   //       [result.description, result.localizations[0].description][lang.value]
-  //   //   );
-  //   // }
-  //   return result;
-  // });
 };
 
 export const useFind = (contentType: string, params?: Strapi4RequestParams) => {

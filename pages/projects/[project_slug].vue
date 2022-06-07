@@ -8,19 +8,32 @@ const { data: project } = await useFindOne("projects", {
   filters: {
     slug: { $eq: slug },
   },
-  populate: ["images", "localizations"],
+  populate: [
+    "localizations",
+    "images",
+    "thumbnail",
+    "events",
+    "events.thumbnail",
+  ],
 });
 const { lang } = useLang();
 </script>
 
 <template>
-  <Stack class="gap-8 p-12">
-    <BackLink to="/projects">
-      <div>{{ ["Projects", "Projektid"][lang] }}</div>
-    </BackLink>
-    <TitleLarge>
-      <div v-html="project.titles[lang]" />
-    </TitleLarge>
+  <Stack class="gap-8 p-3 md:p-5">
+    <div class="grid gap-8 md:grid-cols-[1fr_3fr]">
+      <Stack>
+        <ButtonLeft to="/projects">
+          {{ ["Projects", "Projektid"][lang] }}
+        </ButtonLeft>
+        <Title>
+          {{ project.titles[lang] }}
+        </Title>
+      </Stack>
+      <Title class="text-xl md:text-2xl">
+        {{ project.intros[lang] }}
+      </Title>
+    </div>
     <div class="flex gap-5 overflow-x-auto">
       <Image
         class="aspect-auto h-72 rounded-3xl object-cover"
@@ -28,6 +41,17 @@ const { lang } = useLang();
         :image="image"
       />
     </div>
-    <Markdown :markdown="project.description" />
+    <div class="grid gap-5 md:grid-cols-[2fr_1fr]">
+      <Card>
+        <div class="grid gap-4 md:grid-cols-[1fr_3fr]">
+          <div
+            class="text-gray-400 text-xs leading-loose"
+            v-html="project.detailss[lang].replace(/\n/g, '<br>')"
+          />
+          <Markdown :markdown="project.descriptions[lang]" />
+        </div>
+      </Card>
+      <ProjectEvents v-if="project.events" :project="project" />
+    </div>
   </Stack>
 </template>
