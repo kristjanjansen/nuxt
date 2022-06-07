@@ -1,5 +1,5 @@
 <template>
-  <h1 class="font-medium font-title text-lg leading-relaxed capsize">
+  <h2 class="font-medium font-title text-lg leading-relaxed capsize">
     <slot />
-  </h1>
+  </h2>
 </template>

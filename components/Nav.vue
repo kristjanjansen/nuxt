@@ -32,8 +32,8 @@ const menu = ref(false);
       :class="[menu ? 'block' : 'hidden']"
       @click="menu = false"
     >
-      <NavLink>{{ ["events", "kava"][lang] }}</NavLink>
-    </NuxtLink>
+      <NavLink>{{ ["events", "kava"][lang] }}</NavLink> </NuxtLink
+    ><!--
     <NuxtLink
       to="/projects"
       class="md:block"
@@ -49,7 +49,7 @@ const menu = ref(false);
       @click="menu = false"
     >
       <NavLink>{{ ["podcast", "podcast"][lang] }}</NavLink>
-    </NuxtLink>
+    </NuxtLink> -->
     <button
       @click="changeLang"
       class="text-left md:block"

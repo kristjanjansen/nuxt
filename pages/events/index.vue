@@ -11,23 +11,17 @@ const { data: events } = await useFind("events", {
 const { lang } = useLang();
 </script>
 <template>
-  <Stack class="p-8">
-    <Title class="!md:text-6xl !text-4xl">{{ ["Events", "Kava"][lang] }}</Title>
+  <div class="p-4">
     <Stack>
-      <NuxtLink v-for="event in events" :to="'/events/' + event.slug">
-        <Card class="grid grid-cols-[1fr_5fr] gap-4 hover:bg-black">
-          <div>
-            <!-- <Image
-              class="aspect-square h-full object-cover"
-              :image="event.thumbnail"
-            /> -->
-          </div>
+      <TitleLarge>{{ ["Events", "Sündmused"][lang] }}</TitleLarge>
+      <NuxtLink v-for="event in events" :to="'/'">
+        <Card>
           <Stack>
-            <Title class="text-lg">{{ event.titles[lang] }}</Title>
-            <Markdown :markdown="event.intros[lang]" />
+            <Title>{{ event.titles[lang] }}</Title>
           </Stack>
+          <Stack>{{ event.intros[lang] }}</Stack>
         </Card>
       </NuxtLink>
     </Stack>
-  </Stack>
+  </div>
 </template>
