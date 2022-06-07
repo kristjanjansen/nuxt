@@ -28,7 +28,7 @@ const { lang } = useLang();
             class="aspect-square h-full rounded-2xl object-cover"
             :image="project.thumbnail"
           />
-          <Title>{{ project.titles[lang] }}</Title>
+          <Title class="block md:hidden">{{ project.titles[lang] }}</Title>
         </Stack>
       </NuxtLink>
     </div>
