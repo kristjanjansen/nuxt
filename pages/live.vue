@@ -9,7 +9,7 @@ const save = () => (src.value = getJpeg());
 </script>
 
 <template>
-  <div class="grid grid-cols-2">
+  <div class="grid grid-cols-2 gap-8 p-8">
     <div>
       <video
         ref="video"
@@ -22,11 +22,13 @@ const save = () => (src.value = getJpeg());
       />
     </div>
     <canvas ref="canvas" class="w-full" />
-    <img :src="src" class="h-full w-full" />
+    <div><img v-if="src" :src="src" class="h-full w-full" /></div>
     <div>
       <p>Status: {{ status }}</p>
-      <button @click="capture">Capture</button>
-      <button @click="save">Save</button>
+      <div class="flex gap-2">
+        <Button @click="capture">Capture</Button>
+        <Button @click="save">Save</Button>
+      </div>
     </div>
   </div>
 </template>
