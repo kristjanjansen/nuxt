@@ -1,6 +1,4 @@
 <script setup lang="ts">
-import IconArrowLeft from "~icons/radix-icons/arrow-left";
-
 const route = useRoute();
 const slug = route.params.event_slug;
 
