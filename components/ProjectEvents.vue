@@ -12,7 +12,7 @@ const { lang } = useLang();
     <Stack>
       <NuxtLink
         v-for="event in project.events"
-        :to="'/events/' + event.slug"
+        :to="event.eventLink"
         class="flex gap-4 p-4 transition-all hover:bg-gray-900"
       >
         <div class="aspect-square h-20 w-20 flex-shrink-0">
@@ -23,7 +23,6 @@ const { lang } = useLang();
         </div>
         <Stack>
           <Title medium>{{ event.title }}</Title>
-          <!-- <pre>{{ event }}</pre> -->
           <Markdown
             class="text-gray-500"
             nolinks

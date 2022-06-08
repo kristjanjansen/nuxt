@@ -5,7 +5,12 @@ export const useEvents = () => {
     "events",
     {
       sort: ["start_at:desc"],
-      populate: ["localizations", "projects", "images", "thumbnail"],
+      populate: [
+        "localizations",
+        "thumbnail",
+        "projects",
+        "projects.thumbnail",
+      ],
     },
     processEvent
   );
@@ -18,8 +23,13 @@ export const useEventBySlug = (slug: any) => {
       filters: {
         slug: { $eq: slug },
       },
-      sort: ["start_at:desc"],
-      populate: ["localizations", "projects", "images", "thumbnail"],
+      populate: [
+        "localizations",
+        "images",
+        "thumbnail",
+        "projects",
+        "projects.thumbnail",
+      ],
     },
     processEvent
   ).then((res) => {
@@ -33,7 +43,7 @@ export const useProjects = () => {
     "projects",
     {
       sort: ["pinned", "createdAt:desc"],
-      populate: ["localizations", "thumbnail", "events"],
+      populate: ["localizations", "thumbnail", "events", "events.thumbnail"],
     },
     processProject
   );
@@ -43,8 +53,16 @@ export const useProjectsBySlug = (slug: any) => {
   return useFind(
     "projects",
     {
-      sort: ["pinned", "createdAt:desc"],
-      populate: ["localizations", "thumbnail", "events"],
+      filters: {
+        slug: { $eq: slug },
+      },
+      populate: [
+        "localizations",
+        "images",
+        "thumbnail",
+        "events",
+        "events.thumbnail",
+      ],
     },
     processProject
   ).then((res) => {
@@ -52,17 +70,6 @@ export const useProjectsBySlug = (slug: any) => {
     return res;
   });
 };
-
-// }
-//   useEvents({
-//     filters: {
-//       slug: { $eq: slug[0] || slug },
-//     },
-//   }).then((res) => {
-//     console.log(res);
-//     //res.data.value = res.data.value[0];
-//     return res;
-//   });
 
 export const useFind = (
   contentType: string,
@@ -114,10 +121,19 @@ const processEvent = (event) => {
   return event;
 };
 
+const processProjectEvent = (event, project) => {
+  event.projectLink = `/projects/${project.slug}`;
+  event.eventLink = `/projects/${project.slug}/${event.slug}`;
+  event = processLocalizations(event);
+  return event;
+};
+
 const processProject = (project) => {
   project.projectLink = `/projects/${project.slug}`;
   if (project.events) {
-    project.events = project.events.map(processEvent);
+    project.events = project.events.map((event) =>
+      processProjectEvent(event, project)
+    );
   }
   project = processLocalizations(project);
   return project;

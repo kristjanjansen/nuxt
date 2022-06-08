@@ -2,19 +2,7 @@
 const route = useRoute();
 const slug = route.params.project_slug;
 
-const { data: projects } = await useFind("projects", {
-  filters: {
-    slug: { $eq: slug },
-  },
-  populate: [
-    "localizations",
-    "images",
-    "thumbnail",
-    "events",
-    "events.thumbnail",
-  ],
-}).then((res) => processProjects(res));
-const project = projects.value[0];
+const { data: project } = await useProjectsBySlug(slug);
 const { lang } = useLang();
 </script>
 
