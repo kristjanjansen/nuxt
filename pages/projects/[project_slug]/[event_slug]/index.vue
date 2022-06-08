@@ -4,19 +4,7 @@ import IconArrowLeft from "~icons/radix-icons/arrow-left";
 const route = useRoute();
 const slug = route.params.event_slug;
 
-// // data, pending, refresh, error
-// const { data: event } = await useAsyncData(`events/${slug}`, () =>
-//   find<any>("events", { slug }).then((events) => events[0])
-// );
-
-const { data: event } = await useFindOne("events", {
-  filters: {
-    slug: { $eq: slug },
-  },
-  populate: ["localizations", "images", "projects"],
-  locale: "en",
-});
-
+const { data: event } = await useEventBySlug(slug);
 const { lang } = useLang();
 </script>
 

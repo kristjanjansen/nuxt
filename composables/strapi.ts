@@ -1,10 +1,55 @@
 import { Strapi4RequestParams } from "@nuxtjs/strapi/dist/runtime/types";
 
-export const useFind = (contentType: string, params?: Strapi4RequestParams) => {
+export const useEvents = () => {
+  return useFind(
+    "events",
+    {
+      sort: ["start_at:desc"],
+      populate: ["localizations", "projects", "images", "thumbnail"],
+    },
+    processEvent
+  );
+};
+
+export const useEventBySlug = (slug: any) => {
+  return useFind(
+    "events",
+    {
+      filters: {
+        slug: { $eq: slug },
+      },
+      sort: ["start_at:desc"],
+      populate: ["localizations", "projects", "images", "thumbnail"],
+    },
+    processEvent
+  ).then((res) => {
+    res.data.value = res.data.value[0];
+    return res;
+  });
+};
+
+// }
+//   useEvents({
+//     filters: {
+//       slug: { $eq: slug[0] || slug },
+//     },
+//   }).then((res) => {
+//     console.log(res);
+//     //res.data.value = res.data.value[0];
+//     return res;
+//   });
+
+export const useFind = (
+  contentType: string,
+  params?: Strapi4RequestParams,
+  process = (data) => data
+) => {
   const { find } = useStrapi4();
   const key = hash({ contentType, ...params });
   return useAsyncData(key, () =>
-    find(contentType, params).then((res) => parseStrapi(res))
+    find(contentType, params)
+      .then((res) => parseStrapi(res))
+      .then((res) => res.map(process))
   );
 };
 
