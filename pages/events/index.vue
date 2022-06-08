@@ -11,7 +11,7 @@ const { data: events } = await useFind("events", {
 const { lang } = useLang();
 </script>
 <template>
-  <Stack class="grid p-4 md:grid-cols-[1fr_4fr]">
+  <Stack class="grid p-3 md:grid-cols-[1fr_4fr] md:p-5">
     <Title>{{ ["Events", "Sündmused"][lang] }}</Title>
     <Stack>
       <Card

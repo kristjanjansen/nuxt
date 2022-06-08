@@ -1,3 +1,3 @@
 <template>
-  <div class="flex flex-col gap-4"><slot /></div>
+  <div class="flex flex-col items-start gap-4"><slot /></div>
 </template>

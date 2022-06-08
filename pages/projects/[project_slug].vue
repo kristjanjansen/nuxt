@@ -23,9 +23,9 @@ const { lang } = useLang();
   <Stack class="gap-8 p-3 md:p-5">
     <div class="grid gap-8 md:grid-cols-[1fr_3fr]">
       <Stack>
-        <ButtonLeft to="/projects">
+        <Link left to="/projects">
           {{ ["Projects", "Projektid"][lang] }}
-        </ButtonLeft>
+        </Link>
         <Title>
           {{ project.titles[lang] }}
         </Title>

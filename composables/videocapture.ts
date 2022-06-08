@@ -22,13 +22,12 @@ export const useVideocapture = (videoRef, canvasRef, width, height) => {
         height.value * canvasMultiplier
       );
     }
+    frame.value = canvasRef.value.toDataURL("image/jpeg", 0.7);
+    frames.value.push(frame.value);
   };
 
-  const getJpeg = () => {
-    if (canvasRef.value) {
-      return canvasRef.value.toDataURL("image/jpeg", 0.7);
-    }
-  };
+  const frames = ref([]);
+  const frame = ref(null);
 
-  return { capture, getJpeg };
+  return { capture, frame, frames };
 };

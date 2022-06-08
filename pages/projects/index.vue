@@ -12,7 +12,7 @@ const { lang } = useLang();
 </script>
 
 <template>
-  <Stack class="p-[5vw]">
+  <Stack class="p-3 md:p-5">
     <Title>
       {{ ["Projects", "Projektid"][lang] }}
     </Title>

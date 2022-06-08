@@ -4,18 +4,19 @@ const { messages, sendMessage } = useMessages(config.public.wsUrl);
 const testMessages = computed(() =>
   messages.value.filter((m) => m.type === "TEST")
 );
-const onTest = () => sendMessage({ type: "TEST" });
+const send = () => sendMessage({ type: "TEST" });
 </script>
 
 <template>
-  <div>
-    <div @click="onTest">Test</div>
+  <Stack>
+    <Button @click="send">Send message</Button>
+    <Title small>Received messages:</Title>
     <div
       v-if="testMessages?.length"
       @click="messages = []"
-      class="fixed right-4 bottom-4 left-4 z-50 h-1/3 overflow-auto whitespace-pre bg-black p-4 normal-case font-mono md:left-auto md:w-1/3"
+      class="whitespace-pre font-mono"
     >
       {{ testMessages }}
     </div>
-  </div>
+  </Stack>
 </template>

@@ -21,10 +21,10 @@ const { lang } = useLang();
 </script>
 
 <template>
-  <Stack class="p-[4vw]">
-    <ButtonLeft to="/events">
+  <Stack class="p-3 md:p-5">
+    <Link left to="/events">
       {{ ["Events", "Sündmused"][lang] }}
-    </ButtonLeft>
+    </Link>
     <Title>
       {{ event.titles[lang] }}
     </Title>

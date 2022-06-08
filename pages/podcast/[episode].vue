@@ -11,9 +11,9 @@ const item = computed(() =>
 </script>
 
 <template>
-  <Stack class="p-8">
+  <Stack class="p-3 md:p-5">
     <NuxtLink to="/podcast">
-      <TitleSmall class="!md:text-6xl !text-4xl">elektron.signal</TitleSmall>
+      <Title medium class="!md:text-6xl !text-4xl">elektron.signal</Title>
     </NuxtLink>
     <p />
     <Item :item="item" />

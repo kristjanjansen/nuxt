@@ -50,6 +50,14 @@ const menu = ref(false);
     >
       <NavLink>{{ ["podcast", "podcast"][lang] }}</NavLink>
     </NuxtLink>
+    <NuxtLink
+      to="/lab"
+      class="md:block"
+      :class="[menu ? 'block' : 'hidden']"
+      @click="menu = false"
+    >
+      <NavLink>{{ ["lab", "lab"][lang] }}</NavLink>
+    </NuxtLink>
     <button
       @click="
         () => {
@@ -74,8 +82,5 @@ const menu = ref(false);
     >
       <NavLink><IconTheme /></NavLink>
     </button>
-    <NavLink class="text-left md:block" :class="[menu ? 'block' : 'hidden']">
-      <Test />
-    </NavLink>
   </div>
 </template>

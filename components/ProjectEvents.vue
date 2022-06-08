@@ -22,7 +22,7 @@ const { lang } = useLang();
           />
         </div>
         <Stack>
-          <TitleSmall>{{ event.title }}</TitleSmall>
+          <Title medium>{{ event.title }}</Title>
           <!-- <pre>{{ event }}</pre> -->
           <Markdown
             class="text-gray-500"
