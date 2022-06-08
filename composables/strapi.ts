@@ -28,6 +28,31 @@ export const useEventBySlug = (slug: any) => {
   });
 };
 
+export const useProjects = () => {
+  return useFind(
+    "projects",
+    {
+      sort: ["pinned", "createdAt:desc"],
+      populate: ["localizations", "thumbnail", "events"],
+    },
+    processProject
+  );
+};
+
+export const useProjectsBySlug = (slug: any) => {
+  return useFind(
+    "projects",
+    {
+      sort: ["pinned", "createdAt:desc"],
+      populate: ["localizations", "thumbnail", "events"],
+    },
+    processProject
+  ).then((res) => {
+    res.data.value = res.data.value[0];
+    return res;
+  });
+};
+
 // }
 //   useEvents({
 //     filters: {
