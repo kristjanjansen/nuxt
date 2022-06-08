@@ -15,7 +15,7 @@ const { lang } = useLang();
       <NuxtLink :to="'/podcast/' + (item.itunes.episode || item.guid)">
         <Title medium>{{ item.title }}</Title>
       </NuxtLink>
-      <Markdown :markdown="item['content:encoded']" />
+      <Content :content="item['content:encoded']" />
       <Link :to="item.enclosure.url">{{
         ["download mp3", "laadi alla mp3"][lang]
       }}</Link>

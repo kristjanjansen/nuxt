@@ -28,7 +28,7 @@ const { lang } = useLang();
             class="text-gray-400 text-xs leading-loose"
             v-html="event.detailss[lang]"
           />
-          <Markdown :markdown="event.descriptions[lang]" />
+          <Content :content="event.descriptions[lang]" />
         </div>
       </Card>
     </div>

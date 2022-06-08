@@ -23,10 +23,10 @@ const { lang } = useLang();
         </div>
         <Stack>
           <Title medium>{{ event.title }}</Title>
-          <Markdown
+          <Content
             class="text-gray-500"
             nolinks
-            :markdown="(event.intro || event.description).slice(0, 90)"
+            :content="(event.intro || event.description).slice(0, 90)"
           />
         </Stack>
       </NuxtLink>

@@ -1,18 +1,23 @@
 import { Strapi4RequestParams } from "@nuxtjs/strapi/dist/runtime/types";
 import { marked } from "marked";
+import { hash } from "./hash";
+import merge from "lodash/merge";
 
-export const useEvents = () => {
+export const useEvents = (params: Strapi4RequestParams = {}) => {
   return useFind(
     "events",
-    {
-      sort: ["start_at:desc"],
-      populate: [
-        "localizations",
-        "thumbnail",
-        "projects",
-        "projects.thumbnail",
-      ],
-    },
+    merge(
+      {
+        sort: ["start_at:desc"],
+        populate: [
+          "localizations",
+          "thumbnail",
+          "projects",
+          "projects.thumbnail",
+        ],
+      },
+      params
+    ),
     processEvent
   );
 };
@@ -134,7 +139,7 @@ const processEvent = (event) => {
     event.projects = event.projects.map(processProject);
   }
   event = processLocalizations(event);
-  //event = proccessMarkdown(event);
+  event = proccessMarkdown(event);
   return event;
 };
 
@@ -142,8 +147,7 @@ const processProjectEvent = (event, project) => {
   event.projectLink = `/projects/${project.slug}`;
   event.eventLink = `/projects/${project.slug}/${event.slug}`;
   event = processLocalizations(event);
-  console.log(event);
-  //event = proccessMarkdown(event);
+  event = proccessMarkdown(event);
   return event;
 };
 
@@ -173,7 +177,6 @@ export const processEvents = (result) => {
 // @TODO: Move to strapi instance?
 
 import _ from "lodash";
-import { hash } from "./hash";
 
 export const parseStrapi = (data) => {
   if (_.has(data, "attributes")) {

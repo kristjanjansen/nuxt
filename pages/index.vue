@@ -37,9 +37,9 @@ const description = computed(() => {
       class="absolute inset-0 h-full w-full flex-col object-cover opacity-20"
       :class="[['', 'invert'][theme]]"
     />
-    <Markdown
+    <Content
       class="absolute top-8 left-8 right-8 text-xl md:right-auto md:text-2xl"
-      :markdown="description"
+      :content="description"
     />
     <button class="absolute bottom-8 left-8" @click="muted = !muted">
       <IconMuted v-if="muted" />

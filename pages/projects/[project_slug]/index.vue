@@ -36,7 +36,7 @@ const { lang } = useLang();
             class="text-gray-400 text-xs leading-loose"
             v-html="project.detailss[lang]"
           />
-          <Markdown :markdown="project.descriptions[lang]" />
+          <Content :content="project.descriptions[lang]" />
         </div>
       </Card>
       <ProjectEvents v-if="project.events" :project="project" />

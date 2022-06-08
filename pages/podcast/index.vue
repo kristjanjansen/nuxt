@@ -17,7 +17,7 @@ const { theme } = useTheme();
     <div class="flex flex-col gap-8 md:grid md:grid-cols-[1fr_3fr]">
       <Stack>
         <img :src="podcast.itunes.image" class="rounded-xl" />
-        <Markdown :markdown="podcast.description" />
+        <Content :content="podcast.description" />
       </Stack>
       <Stack>
         <PodcastItem v-for="item in podcast.items" :item="item" />
