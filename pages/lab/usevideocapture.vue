@@ -13,7 +13,7 @@ const { capture, frames } = useVideocapture(video, canvas, width, height);
 </script>
 
 <template>
-  <div class="grid grid-cols-2 gap-8 p-4 md:p-6">
+  <div class="grid gap-8 p-4 md:grid-cols-2 md:p-6">
     <Stack>
       <Link left to="/lab">Lab</Link>
       <Title>useVideocapture</Title>
@@ -29,6 +29,7 @@ const { capture, frames } = useVideocapture(video, canvas, width, height);
         muted
         autoplay
         controls
+        playsinline
         :width="width / 2"
         :height="height / 2"
         class="w-full"
