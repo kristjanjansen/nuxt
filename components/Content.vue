@@ -2,8 +2,13 @@
 type Props = {
   content?: any;
   nolinks?: boolean;
+  breakall?: boolean;
 };
-const { content = "", nolinks = false } = defineProps<Props>();
+const {
+  content = "",
+  nolinks = false,
+  breakall = false,
+} = defineProps<Props>();
 
 const html = computed(() => {
   return nolinks ? content.replace(/<a[^>]*>(.*?)<\/a>/gi, "$1") : content;
@@ -14,8 +19,17 @@ const { theme } = useTheme();
 
 <template>
   <div
-    class="prose prose-lg max-w-none break-words font-sans text-base capsize"
-    :class="[['prose-invert', ''][theme]]"
+    class="content prose prose-lg max-w-none font-sans text-base capsize"
+    :class="[
+      ['prose-invert', ''][theme],
+      breakall ? 'break-all' : 'break-words',
+    ]"
     v-html="html"
   />
 </template>
+
+<style>
+.content a {
+  @apply break-all;
+}
+</style>

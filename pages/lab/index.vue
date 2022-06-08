@@ -11,10 +11,7 @@ const { lang } = useLang();
       <span class="font-mono">ENG</span> only
     </p>
     <div class="grid auto-rows-fr gap-5 md:grid-cols-4">
-      <LinkCard
-        to="/lab/usemessages"
-        class="aspect-video w-full border-red-300 pr-8"
-      >
+      <LinkCard to="/lab/usemessages" class="aspect-video pr-8">
         <Title small>useMessages</Title>
         <p class="text-gray-500">Send and receive websocket messages</p>
       </LinkCard>

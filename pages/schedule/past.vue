@@ -6,6 +6,7 @@ definePageMeta({
 const today = new Date().toISOString().split("T")[0];
 
 const { data: upcomingEvents } = await useEvents({
+  sort: ["start_at:desc"],
   filters: { start_at: { $lt: today } },
 });
 const { lang } = useLang();
@@ -18,7 +19,11 @@ const { lang } = useLang();
       <Link to="/schedule">See the upcoming events</Link>
     </Stack>
     <Stack>
-      <EventRow v-for="event in upcomingEvents" :event="event" />
+      <EventRow
+        v-for="event in upcomingEvents"
+        :event="event"
+        class="opacity-80 grayscale transition-all hover:opacity-100 hover:grayscale-0"
+      />
     </Stack>
   </Stack>
 </template>

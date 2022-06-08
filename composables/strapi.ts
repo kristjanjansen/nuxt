@@ -8,7 +8,7 @@ export const useEvents = (params: Strapi4RequestParams = {}) => {
     "events",
     merge(
       {
-        sort: ["start_at:desc"],
+        sort: ["start_at:asc"],
         populate: [
           "localizations",
           "thumbnail",
