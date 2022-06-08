@@ -1,7 +1,7 @@
 import Parser from "rss-parser/dist/rss-parser.js";
 
 export const usePodcast = () =>
-  useAsyncData("podcast", () => {
+  useLazyAsyncData("podcast", () => {
     const rssUrl =
       "https://api.allorigins.win/get?url=https://elektronsignal.captivate.fm/rssfeed";
     const parser = new Parser();

@@ -1,10 +1,8 @@
 <script setup lang="ts">
-import { useLang } from "../../composables/lang";
-
 const route = useRoute();
 const slug = route.params.project_slug;
 
-const { data: project } = await useFindOne("projects", {
+const { data: projects } = await useFind("projects", {
   filters: {
     slug: { $eq: slug },
   },
@@ -15,7 +13,8 @@ const { data: project } = await useFindOne("projects", {
     "events",
     "events.thumbnail",
   ],
-});
+}).then((res) => processProjects(res));
+const project = projects.value[0];
 const { lang } = useLang();
 </script>
 

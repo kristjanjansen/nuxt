@@ -1,24 +1,10 @@
 import { Strapi4RequestParams } from "@nuxtjs/strapi/dist/runtime/types";
 
-const processStrapi = (rawResults: any) => {
-  const results = parseStrapi(rawResults).map((r) => {
-    r.titles = [r.title, r.localizations?.[0].title || r.title];
-    r.intros = [r.intro, r.localizations?.[0].intro || r.intro];
-    r.descriptions = [
-      r.description,
-      r.localizations?.[0].description || r.description,
-    ];
-    r.detailss = [r.details, r.localizations?.[0].details || r.details];
-    return r;
-  });
-  return results;
-};
-
 export const useFind = (contentType: string, params?: Strapi4RequestParams) => {
   const { find } = useStrapi4();
   const key = hash({ contentType, ...params });
   return useAsyncData(key, () =>
-    find(contentType, params).then((res) => processStrapi(res))
+    find(contentType, params).then((res) => parseStrapi(res))
   );
 };
 
@@ -32,6 +18,50 @@ export const useFindOne = (
       data: find.data.value.length ? computed(() => find.data.value[0]) : null,
     };
   });
+
+const processLocalizations = (item) => {
+  item.titles = [item.title, item.localizations?.[0].title || item.title];
+  item.intros = [item.intro, item.localizations?.[0].intro || item.intro];
+  item.descriptions = [
+    item.description,
+    item.localizations?.[0].description || item.description,
+  ];
+  item.detailss = [
+    item.details,
+    item.localizations?.[0].details || item.details,
+  ];
+  return item;
+};
+
+const processEvent = (event) => {
+  const project = event.projects?.[0];
+  event.projectLink = project ? `/projects/${project.slug}` : "/";
+  event.eventLink = project ? `/projects/${project.slug}/${event.slug}` : "/";
+  if (event.projects) {
+    event.projects = event.projects.map(processProject);
+  }
+  event = processLocalizations(event);
+  return event;
+};
+
+const processProject = (project) => {
+  project.projectLink = `/projects/${project.slug}`;
+  if (project.events) {
+    project.events = project.events.map(processEvent);
+  }
+  project = processLocalizations(project);
+  return project;
+};
+
+export const processProjects = (result) => {
+  result.data.value = result.data.value.map(processProject);
+  return result;
+};
+
+export const processEvents = (result) => {
+  result.data.value = result.data.value.map(processEvent);
+  return result;
+};
 
 // From https://github.com/ComfortablyCoding/strapi-plugin-transformer/blob/master/server/services/transform-service.js
 // @TODO: Move to strapi instance?

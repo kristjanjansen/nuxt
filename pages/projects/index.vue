@@ -6,7 +6,7 @@ definePageMeta({
 const { data: projects } = await useFind("projects", {
   sort: ["createdAt:desc"],
   populate: ["localizations", "events", "thumbnail"],
-});
+}).then((res) => processProjects(res));
 
 const { lang } = useLang();
 </script>

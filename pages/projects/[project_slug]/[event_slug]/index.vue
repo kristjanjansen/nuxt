@@ -22,8 +22,8 @@ const { lang } = useLang();
 
 <template>
   <Stack class="p-3 md:p-5">
-    <Link left to="/events">
-      {{ ["Events", "Sündmused"][lang] }}
+    <Link left to="/projects">
+      {{ ["Projects", "Projektid"][lang] }}
     </Link>
     <Title>
       {{ event.titles[lang] }}
@@ -40,7 +40,7 @@ const { lang } = useLang();
         <div class="grid gap-8 md:grid-cols-[2fr_3fr]">
           <div
             class="text-gray-400 text-xs leading-loose"
-            v-html="event.detailss[lang].replace(/\n/g, '<br>')"
+            v-html="event.detailss[lang]"
           />
           <Markdown :markdown="event.descriptions[lang]" />
         </div>
