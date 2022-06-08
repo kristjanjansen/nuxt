@@ -7,9 +7,9 @@ const { lang } = useLang();
 </script>
 
 <template>
-  <Stack class="p-3 md:p-5">
-    <Link left to="/projects">
-      {{ ["Projects", "Projektid"][lang] }}
+  <Stack class="p-4 md:p-6">
+    <Link left :to="event.projectLink">
+      {{ ["Project", "Projekt"][lang] }}
     </Link>
     <Title>
       {{ event.titles[lang] }}

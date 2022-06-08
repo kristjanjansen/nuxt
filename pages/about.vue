@@ -2,7 +2,9 @@
 const { lang } = useLang();
 </script>
 <template>
-  <div class="p-3 md:p-5">
+  <Stack class="p-4 md:p-6">
+    <Link left to="/" />
     <Title>{{ ["WTF elektron", "Meist"][lang] }}</Title>
-  </div>
+    <p>TODO</p>
+  </Stack>
 </template>

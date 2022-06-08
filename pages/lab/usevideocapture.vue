@@ -1,8 +1,8 @@
 <script setup lang="ts">
 import { useInterval } from "@vueuse/core";
 
-//const url = "https://cloudflare.tv/hls/live.m3u8";
-const url = "https://sb.err.ee/live/etv2.m3u8";
+const url = "https://cloudflare.tv/hls/live.m3u8";
+//const url = "https://sb.err.ee/live/etv.m3u8";
 
 const currentFrame = useInterval(200);
 const video = ref<HTMLVideoElement>();
@@ -13,7 +13,7 @@ const { capture, frames } = useVideocapture(video, canvas, width, height);
 </script>
 
 <template>
-  <div class="grid grid-cols-2 gap-8 p-3 md:p-5">
+  <div class="grid grid-cols-2 gap-8 p-4 md:p-6">
     <Stack>
       <Link left to="/lab">Lab</Link>
       <Title>useVideocapture</Title>

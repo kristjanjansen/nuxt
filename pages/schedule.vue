@@ -7,15 +7,18 @@ const { data: events } = await useEvents();
 const { lang } = useLang();
 </script>
 <template>
-  <Stack class="grid p-3 md:grid-cols-[1fr_4fr] md:p-5">
-    <Title>{{ ["Events", "Sündmused"][lang] }}</Title>
+  <Stack class="grid p-3 md:p-5 lg:grid-cols-[1fr_3fr]">
+    <Stack>
+      <Link left to="/" />
+      <Title>{{ ["Schedule", "Kava"][lang] }}</Title>
+    </Stack>
     <Stack>
       <Card
         v-for="event in events"
         class="grid gap-4 transition-all hover:bg-gray-900 md:grid-cols-[100px_auto_3fr_2fr]"
       >
         <NuxtLink :to="event.eventLink">
-          <div v-html="event.start_at" />
+          <div v-html="(event.start_at || '').slice(0, 10)" />
         </NuxtLink>
         <NuxtLink :to="event.eventLink">
           <div class="aspect-square flex-shrink-0 md:w-24">

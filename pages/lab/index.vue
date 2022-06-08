@@ -1,7 +1,15 @@
+<script setup lang="ts">
+const { lang } = useLang();
+</script>
+
 <template>
-  <Stack class="p-3 md:p-5">
+  <Stack class="p-4 md:p-6">
+    <Link left to="/" />
     <Title>Lab</Title>
-    <p>Various coding experiments</p>
+    <p>
+      Various coding experiments,
+      <span class="font-mono">ENG</span> only
+    </p>
     <div class="grid auto-rows-fr gap-5 md:grid-cols-4">
       <LinkCard to="/lab/usemessages" class="aspect-video pr-8">
         <Title small>useMessages</Title>

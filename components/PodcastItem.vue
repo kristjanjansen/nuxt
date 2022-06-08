@@ -1,12 +1,12 @@
 <script setup lang="ts">
-import { Item } from "~~/composables/podcast";
+import { PodcastItem } from "~~/composables/podcast";
 
 interface Props {
-  item: Item;
+  item: PodcastItem;
 }
 const { item } = defineProps<Props>();
-
 const { theme } = useTheme();
+const { lang } = useLang();
 </script>
 
 <template>
@@ -16,8 +16,11 @@ const { theme } = useTheme();
         <Title medium>{{ item.title }}</Title>
       </NuxtLink>
       <Markdown :markdown="item['content:encoded']" />
+      <Link :to="item.enclosure.url">{{
+        ["download mp3", "laadi alla mp3"][lang]
+      }}</Link>
       <audio
-        class="w-full md:w-auto"
+        class="debug w-full"
         :class="['invert', ''][theme]"
         controls
         :src="item.enclosure.url"

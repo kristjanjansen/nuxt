@@ -1,4 +1,5 @@
 import { Strapi4RequestParams } from "@nuxtjs/strapi/dist/runtime/types";
+import { marked } from "marked";
 
 export const useEvents = () => {
   return useFind(
@@ -43,7 +44,13 @@ export const useProjects = () => {
     "projects",
     {
       sort: ["pinned", "createdAt:desc"],
-      populate: ["localizations", "thumbnail", "events", "events.thumbnail"],
+      populate: [
+        "localizations",
+        "thumbnail",
+        "events",
+        "events.localizations",
+        "events.thumbnail",
+      ],
     },
     processProject
   );
@@ -110,6 +117,15 @@ const processLocalizations = (item) => {
   return item;
 };
 
+const proccessMarkdown = (item) => {
+  const process = (str) => marked.parse(str || "", { breaks: true });
+  item.titles = item.titles.map(process);
+  item.intros = item.intros.map(process);
+  item.descriptions = item.descriptions.map(process);
+  item.detailss = item.detailss.map(process);
+  return item;
+};
+
 const processEvent = (event) => {
   const project = event.projects?.[0];
   event.projectLink = project ? `/projects/${project.slug}` : "/";
@@ -118,6 +134,7 @@ const processEvent = (event) => {
     event.projects = event.projects.map(processProject);
   }
   event = processLocalizations(event);
+  //event = proccessMarkdown(event);
   return event;
 };
 
@@ -125,6 +142,8 @@ const processProjectEvent = (event, project) => {
   event.projectLink = `/projects/${project.slug}`;
   event.eventLink = `/projects/${project.slug}/${event.slug}`;
   event = processLocalizations(event);
+  console.log(event);
+  //event = proccessMarkdown(event);
   return event;
 };
 
@@ -136,6 +155,7 @@ const processProject = (project) => {
     );
   }
   project = processLocalizations(project);
+  project = proccessMarkdown(project);
   return project;
 };
 
