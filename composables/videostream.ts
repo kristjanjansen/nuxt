@@ -9,11 +9,11 @@ import type { MaybeRef } from "@vueuse/core";
 type VideostreamStatus = "nodata" | "loading" | "playing";
 
 export const useVideostream = (
+  videoRef: Ref<HTMLVideoElement | null>,
   src: MaybeRef<string>,
   autoReconnect = false
 ) => {
   const videoSrc = ref(src);
-  const videoRef = ref<HTMLVideoElement | null>(null);
   const status = ref<VideostreamStatus>("nodata");
 
   // Initial resolution, we update it when we get the
@@ -147,7 +147,7 @@ export const useVideostream = (
     }
   });
 
-  function setVideoSize() {
+  const setVideoSize = () => {
     width.value =
       videoRef.value && videoRef.value.videoWidth > 0
         ? videoRef.value?.videoWidth
@@ -156,7 +156,7 @@ export const useVideostream = (
       videoRef.value && videoRef.value.videoHeight > 0
         ? videoRef.value?.videoHeight
         : -1;
-  }
+  };
 
-  return { videoRef, status, width, height };
+  return { status, width, height };
 };
