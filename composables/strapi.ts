@@ -1,6 +1,5 @@
 import { Strapi4RequestParams } from "@nuxtjs/strapi/dist/runtime/types";
 import { marked } from "marked";
-import { hash } from "./hash";
 import { merge, has, isArray, head, forEach, isObject } from "lodash-es";
 
 // Public API
@@ -94,7 +93,7 @@ export const useFind = (
   process = (data) => data
 ) => {
   const { find } = useStrapi4();
-  const key = hash({ contentType, ...params });
+  const key = JSON.stringify({ contentType, ...params });
   return useAsyncData(key, () =>
     find(contentType, params)
       .then((res) => parseStrapi(res))
