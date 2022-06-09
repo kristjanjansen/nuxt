@@ -1,6 +1,5 @@
 const tailwindTypography = require("@tailwindcss/typography");
 const tailwindForms = require("@tailwindcss/forms");
-const tailwindCapsize = require("tailwindcss-capsize");
 
 function withOpacityValue(variable) {
   return ({ opacityValue }) => {
@@ -10,11 +9,6 @@ function withOpacityValue(variable) {
     return `rgb(var(${variable}) / ${opacityValue})`;
   };
 }
-
-//Get the metrics:
-
-// import { fromFile } from "@capsizecss/unpack";
-// fromFile("./assets/fonts/dmsans-regular.woff2").then((m) => console.log(m));
 
 const fontMetrics = {
   title: {
@@ -36,7 +30,7 @@ const fontMetrics = {
 };
 
 module.exports = {
-  plugins: [tailwindTypography, tailwindForms, tailwindCapsize],
+  plugins: [tailwindTypography, tailwindForms],
   theme: {
     fontFamily: {
       title: "title",

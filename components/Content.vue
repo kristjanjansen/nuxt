@@ -19,7 +19,7 @@ const { theme } = useTheme();
 
 <template>
   <div
-    class="content prose prose-lg max-w-none font-sans text-base capsize"
+    class="content prose prose-lg max-w-none font-sans text-base"
     :class="[
       ['prose-invert', ''][theme],
       breakall ? 'break-all' : 'break-words',
