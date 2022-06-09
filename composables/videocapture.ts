@@ -1,5 +1,5 @@
 export const useVideocapture = (videoRef, canvasRef, width, height) => {
-  const context = ref(null);
+  const context = ref<CanvasRenderingContext2D | null>(null);
   const canvasMultiplier = 1;
 
   watch([videoRef, canvasRef, width, height], () => {
@@ -29,5 +29,5 @@ export const useVideocapture = (videoRef, canvasRef, width, height) => {
   const frames = ref([]);
   const frame = ref(null);
 
-  return { capture, frame, frames };
+  return { context, capture, frame, frames };
 };

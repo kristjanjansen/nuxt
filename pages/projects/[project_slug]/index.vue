@@ -8,7 +8,7 @@ const { lang } = useLang();
 
 <template>
   <Stack class="gap-8 p-4 md:p-6">
-    <div class="grid gap-8 md:grid-cols-[1fr_3fr]">
+    <div class="grid gap-8 md:grid-cols-[2fr_4fr]">
       <Stack>
         <Link left to="/projects">
           {{ ["Projects", "Projektid"][lang] }}
@@ -23,13 +23,13 @@ const { lang } = useLang();
     </div>
     <div class="flex gap-5 overflow-x-auto">
       <Image
-        class="aspect-auto h-72 rounded-3xl object-cover"
+        class="aspect-auto h-96 rounded-3xl object-cover"
         :class="[project.images.length === 1 ? '!aspect-video' : '']"
         v-for="image in project.images"
         :image="image"
       />
     </div>
-    <div class="grid gap-5 md:grid-cols-[2fr_1fr]">
+    <div class="grid gap-5 md:grid-cols-[4fr_2fr]">
       <Card>
         <div class="grid gap-4 md:grid-cols-[1fr_3fr]">
           <div

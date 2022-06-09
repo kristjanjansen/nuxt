@@ -8,22 +8,31 @@ const { lang } = useLang();
 
 <template>
   <Stack class="p-4 md:p-6">
-    <Link left :to="event.projectLink">
-      {{ ["Project", "Projekt"][lang] }}
-    </Link>
-    <Title>
-      {{ event.titles[lang] }}
-    </Title>
+    <div class="grid gap-8 md:grid-cols-[2fr_4fr]">
+      <Stack>
+        <Link left :to="event.projectLink">
+          {{ ["Project", "Projekt"][lang] }}
+        </Link>
+        <Title>
+          {{ event.titles[lang] }}
+        </Title>
+        <EventDatetime :event="event" />
+      </Stack>
+      <Title class="lg:pr-32">
+        {{ event.intros[lang] }}
+      </Title>
+    </div>
     <div class="flex gap-5 overflow-x-auto">
       <Image
         class="aspect-auto h-72 rounded-3xl object-cover"
+        :class="[event.images.length === 1 ? '!aspect-video' : '']"
         v-for="image in event.images"
         :image="image"
       />
     </div>
     <div class="grid gap-5">
       <Card>
-        <div class="grid gap-8 md:grid-cols-[2fr_3fr]">
+        <div class="grid gap-8 md:grid-cols-[1fr_3fr_2fr]">
           <div
             class="text-gray-400 text-xs leading-loose"
             v-html="event.detailss[lang]"
