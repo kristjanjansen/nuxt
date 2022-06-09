@@ -7,7 +7,6 @@ const url = "https://sb.err.ee/live/etv2.m3u8";
 const currentFrame = useInterval(200);
 const video = ref<HTMLVideoElement>();
 const canvas = ref<HTMLCanvasElement>();
-const src = ref("");
 const { width, height, status } = useVideostream(video, url);
 const { capture, frames, context } = useVideocapture(
   video,

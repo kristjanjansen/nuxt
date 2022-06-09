@@ -6,6 +6,57 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   </head>
   <body>
+    <script type="module">
+      // useMessages can be used outside Vue app
+
+      import { watchEffect } from "vue";
+      import { useMessages } from "./index.ts";
+
+      const sendMessageEl = document.getElementById("sendMessageEl");
+      const messagesEl = document.getElementById("messagesEl");
+
+      const { ws, messages, sendMessage } = useMessages(
+        "wss://ws.elektron.art"
+      );
+
+      // Sending a test message
+
+      sendMessageEl.addEventListener("click", () => {
+        sendMessage({ type: "TEST", datetime: new Date() });
+      });
+
+      // You can get and react to the received message
+      // by adding an event listener
+
+      ws.value.addEventListener("message", ({ data }) => {
+        console.log(JSON.parse(data));
+      });
+
+      // You can get and react to all the messages received
+      // using watchEffect function
+
+      watchEffect(
+        () =>
+          (messagesEl.innerHTML = JSON.stringify(
+            messages.value.filter((m) => m.type === "TEST")
+          ))
+      );
+
+      // useVideostream should be inside Vue app
+
+      import { createApp, ref } from "vue";
+      import { useVideostream } from "./index.ts";
+
+      createApp({
+        setup() {
+          const url = "https://cloudflare.tv/hls/live.m3u8";
+          const video = ref();
+          const { width, height, status } = useVideostream(video, url);
+          return { video, width, height, status };
+        },
+      }).mount("#videostreamApp");
+    </script>
+
     <div
       style="
         display: flex;
@@ -29,50 +80,15 @@
       <div id="videostreamApp">
         <p>Status: {{ status }}</p>
         <video
+          ref="video"
           muted
           autoplay
           controls
-          ref="videoRef"
           :width="width / 2"
           :height="height / 2"
           style="width: 100%; border: 1px solid white"
         />
       </div>
     </div>
-
-    <script type="module">
-      // useMessages can be used outside Vue app
-
-      import { watchEffect } from "vue";
-      import { useMessages } from "./index.ts";
-
-      const sendMessageEl = document.getElementById("sendMessageEl");
-      const messagesEl = document.getElementById("messagesEl");
-
-      const { messages, sendMessage } = useMessages("wss://ws.elektron.art");
-
-      sendMessageEl.addEventListener("click", () => {
-        sendMessage({ type: "TEST", datetime: new Date() });
-      });
-      watchEffect(
-        () =>
-          (messagesEl.innerHTML = JSON.stringify(
-            messages.value.filter((m) => m.type === "TEST")
-          ))
-      );
-
-      // useVideostream should be inside Vue app
-
-      import { createApp } from "vue";
-      import { useVideostream } from "./index.ts";
-
-      createApp({
-        setup() {
-          const url = "https://cloudflare.tv/hls/live.m3u8";
-          const { videoRef, width, height, status } = useVideostream(url);
-          return { videoRef, width, height, status };
-        },
-      }).mount("#videostreamApp");
-    </script>
   </body>
 </html>
