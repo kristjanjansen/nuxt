@@ -46,19 +46,22 @@ export const useEventBySlug = (slug: any) => {
 };
 
 // "events.start_at:desc",
-export const useProjects = () => {
+export const useProjects = (params: Strapi4RequestParams = {}) => {
   return useFind(
     "projects",
-    {
-      sort: ["pinned", "createdAt:desc"],
-      populate: [
-        "localizations",
-        "thumbnail",
-        "events",
-        "events.localizations",
-        "events.thumbnail",
-      ],
-    },
+    merge(
+      {
+        sort: ["updatedAt:desc"],
+        populate: [
+          "localizations",
+          "thumbnail",
+          "events",
+          "events.localizations",
+          "events.thumbnail",
+        ],
+      },
+      params
+    ),
     processProject
   );
 };

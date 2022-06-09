@@ -3,10 +3,8 @@ definePageMeta({
   title: "Some Page",
 });
 
-const today = new Date().toISOString().split("T")[0];
-
 const { data: upcomingEvents } = await useEvents({
-  filters: { start_at: { $gte: today } },
+  filters: { start_at: { $gte: today() } },
 });
 const { lang } = useLang();
 </script>
