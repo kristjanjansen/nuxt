@@ -3,6 +3,8 @@ import { marked } from "marked";
 import { hash } from "./hash";
 import merge from "lodash/merge";
 
+// Public API
+
 export const useEvents = (params: Strapi4RequestParams = {}) => {
   return useFind(
     "events",
@@ -83,6 +85,8 @@ export const useProjectsBySlug = (slug: any) => {
   });
 };
 
+// Public Strapi request wrapper
+
 export const useFind = (
   contentType: string,
   params?: Strapi4RequestParams,
@@ -97,16 +101,55 @@ export const useFind = (
   );
 };
 
-export const useFindOne = (
-  contentType: string,
-  params?: Strapi4RequestParams
-) =>
-  useFind(contentType, params).then((find) => {
-    return {
-      ...find,
-      data: find.data.value.length ? computed(() => find.data.value[0]) : null,
-    };
-  });
+// Strapi result processing
+
+export const processProjects = (result) => {
+  result.data.value = result.data.value.map(processProject);
+  return result;
+};
+
+export const processEvents = (result) => {
+  result.data.value = result.data.value.map(processEvent);
+  return result;
+};
+
+// Project and event processing
+
+const processEvent = (event) => {
+  const project = event.projects?.[0];
+  event.projectLink = project ? `/projects/${project.slug}` : "/";
+  event.eventLink = project ? `/projects/${project.slug}/${event.slug}` : "/";
+  if (event.projects) {
+    event.projects = event.projects.map(processProject);
+  }
+  event = processLocalizations(event);
+  event = proccessMarkdown(event);
+  event = processEventDatetime(event);
+  return event;
+};
+
+const processProjectEvent = (event, project) => {
+  event.projectLink = `/projects/${project.slug}`;
+  event.eventLink = `/projects/${project.slug}/${event.slug}`;
+  event = processLocalizations(event);
+  event = proccessMarkdown(event);
+  event = processEventDatetime(event);
+  return event;
+};
+
+const processProject = (project) => {
+  project.projectLink = `/projects/${project.slug}`;
+  if (project.events) {
+    project.events = project.events.map((event) =>
+      processProjectEvent(event, project)
+    );
+  }
+  project = processLocalizations(project);
+  project = proccessMarkdown(project);
+  return project;
+};
+
+// Processors
 
 const processLocalizations = (item) => {
   item.titles = [item.title, item.localizations?.[0].title || item.title];
@@ -131,46 +174,14 @@ const proccessMarkdown = (item) => {
   return item;
 };
 
-const processEvent = (event) => {
-  const project = event.projects?.[0];
-  event.projectLink = project ? `/projects/${project.slug}` : "/";
-  event.eventLink = project ? `/projects/${project.slug}/${event.slug}` : "/";
-  if (event.projects) {
-    event.projects = event.projects.map(processProject);
+const processEventDatetime = (event) => {
+  if (!event.start_at && !event.end_at) {
+    return event;
   }
-  event = processLocalizations(event);
-  event = proccessMarkdown(event);
-  return event;
-};
-
-const processProjectEvent = (event, project) => {
-  event.projectLink = `/projects/${project.slug}`;
-  event.eventLink = `/projects/${project.slug}/${event.slug}`;
-  event = processLocalizations(event);
-  event = proccessMarkdown(event);
-  return event;
-};
-
-const processProject = (project) => {
-  project.projectLink = `/projects/${project.slug}`;
-  if (project.events) {
-    project.events = project.events.map((event) =>
-      processProjectEvent(event, project)
-    );
-  }
-  project = processLocalizations(project);
-  project = proccessMarkdown(project);
-  return project;
-};
-
-export const processProjects = (result) => {
-  result.data.value = result.data.value.map(processProject);
-  return result;
-};
-
-export const processEvents = (result) => {
-  result.data.value = result.data.value.map(processEvent);
-  return result;
+  return {
+    ...event,
+    ...useDatetime(new Date(event.start_at), new Date(event.end_at)),
+  };
 };
 
 // From https://github.com/ComfortablyCoding/strapi-plugin-transformer/blob/master/server/services/transform-service.js

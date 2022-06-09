@@ -11,7 +11,7 @@ const { lang } = useLang();
     class="grid gap-4 transition-all hover:bg-gray-900 md:grid-cols-[auto_auto_3fr_2fr]"
   >
     <NuxtLink :to="event.eventLink">
-      <Datetime :datetime="event.start_at" />
+      <EventDatetime :event="event" />
     </NuxtLink>
     <NuxtLink :to="event.eventLink">
       <div class="aspect-square flex-shrink-0 md:w-24">
