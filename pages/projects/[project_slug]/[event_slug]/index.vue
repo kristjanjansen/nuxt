@@ -8,7 +8,7 @@ const { lang } = useLang();
 
 <template>
   <Stack class="p-4 md:p-6">
-    <div class="grid gap-8 md:grid-cols-[1fr_3fr]">
+    <div class="grid gap-8 md:grid-cols-[2fr_4fr]">
       <Stack>
         <Link left :to="event.projectLink">
           {{ ["Project", "Projekt"][lang] }}
@@ -32,7 +32,7 @@ const { lang } = useLang();
     </div>
     <div class="grid gap-5">
       <Card>
-        <div class="grid gap-8 md:grid-cols-[1fr_3fr]">
+        <div class="grid gap-8 md:grid-cols-[1fr_3fr_2fr]">
           <div
             class="text-gray-400 text-xs leading-loose"
             v-html="event.detailss[lang]"

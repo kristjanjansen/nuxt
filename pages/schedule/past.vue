@@ -14,9 +14,8 @@ const { lang } = useLang();
 <template>
   <Stack class="grid p-3 md:p-5 lg:grid-cols-[1fr_3fr]">
     <Stack>
-      <Link left to="/" />
+      <Link left to="/schedule">See the upcoming events</Link>
       <Title>{{ ["Past events", "Toimunud sündmused"][lang] }}</Title>
-      <Link right to="/schedule">See the upcoming events</Link>
     </Stack>
     <Stack>
       <EventRow
