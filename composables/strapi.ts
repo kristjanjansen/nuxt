@@ -1,7 +1,7 @@
 import { Strapi4RequestParams } from "@nuxtjs/strapi/dist/runtime/types";
 import { marked } from "marked";
 import { hash } from "./hash";
-import merge from "lodash/merge";
+import { merge, has, isArray, head, forEach, isObject } from "lodash-es";
 
 // Public API
 
@@ -188,56 +188,54 @@ const processEventDatetime = (event) => {
 // From https://github.com/ComfortablyCoding/strapi-plugin-transformer/blob/master/server/services/transform-service.js
 // @TODO: Move to strapi instance?
 
-import _ from "lodash";
-
 export const parseStrapi = (data) => {
-  if (_.has(data, "attributes")) {
+  if (has(data, "attributes")) {
     return parseStrapi(removeObjectKey(data, "attributes"));
   }
 
-  if (_.isArray(data) && data.length && _.has(_.head(data), "attributes")) {
+  if (isArray(data) && data.length && has(head(data), "attributes")) {
     return data.map((e) => parseStrapi(e));
   }
 
-  _.forEach(data, (value, key) => {
+  forEach(data, (value, key) => {
     if (!value) {
       return;
     }
 
-    if (_.isObject(value)) {
+    if (isObject(value)) {
       data[key] = parseStrapi(value);
     }
 
-    if (_.isArray(value)) {
+    if (isArray(value)) {
       data[key] = value.map((field) => parseStrapi(field));
     }
 
-    if (_.has(value, "data")) {
+    if (has(value, "data")) {
       let relation = null;
-      if (_.isObject(value.data)) {
+      if (isObject(value.data)) {
         relation = parseStrapi(value.data);
       }
 
-      if (_.isArray(value.data)) {
+      if (isArray(value.data)) {
         relation = value.data.map((e) => parseStrapi(e));
       }
 
       data[key] = relation;
     }
 
-    if (_.has(value, "id")) {
+    if (has(value, "id")) {
       data[key] = parseStrapi(value);
     }
 
-    if (_.isArray(value) && _.has(_.head(value), "id")) {
+    if (isArray(value) && has(head(value), "id")) {
       data[key] = value.map((p) => parseStrapi(p));
     }
 
-    if (_.has(value, "provider")) {
+    if (has(value, "provider")) {
       return;
     }
 
-    if (_.isArray(value) && _.has(_.head(value), "provider")) {
+    if (isArray(value) && has(head(value), "provider")) {
       return;
     }
   });

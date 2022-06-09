@@ -1,15 +1,24 @@
 <script setup lang="ts">
 import { useInterval } from "@vueuse/core";
 
-const url = "https://cloudflare.tv/hls/live.m3u8";
-//const url = "https://sb.err.ee/live/etv.m3u8";
+//const url = "https://cloudflare.tv/hls/live.m3u8";
+const url = "https://sb.err.ee/live/etv2.m3u8";
 
 const currentFrame = useInterval(200);
 const video = ref<HTMLVideoElement>();
 const canvas = ref<HTMLCanvasElement>();
 const src = ref("");
 const { width, height, status } = useVideostream(video, url);
-const { capture, frames } = useVideocapture(video, canvas, width, height);
+const { capture, frames, context } = useVideocapture(
+  video,
+  canvas,
+  width,
+  height
+);
+const clear = () => {
+  frames.value = [];
+  context.value.clearRect(0, 0, width.value, height.value);
+};
 </script>
 
 <template>
@@ -20,7 +29,7 @@ const { capture, frames } = useVideocapture(video, canvas, width, height);
       <p>Status: {{ status }}</p>
       <div class="flex gap-2">
         <Button @click="capture">Capture</Button>
-        <Button @click="frames = []">Clear</Button>
+        <Button @click="clear">Clear</Button>
       </div>
     </Stack>
     <div class="border">
