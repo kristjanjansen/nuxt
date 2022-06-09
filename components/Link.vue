@@ -1,10 +1,14 @@
 <script setup lang="ts">
-import IconArrowLeft from "~icons/radix-icons/arrow-left";
+import IconArrowUp from "~icons/radix-icons/arrow-up";
 import IconArrowRight from "~icons/radix-icons/arrow-right";
+import IconArrowDown from "~icons/radix-icons/arrow-down";
+import IconArrowLeft from "~icons/radix-icons/arrow-left";
 type Props = {
   to: string;
-  left?: boolean;
+  up?: boolean;
   right?: boolean;
+  down?: boolean;
+  left?: boolean;
 };
 const { to, left, right } = defineProps<Props>();
 </script>
@@ -17,5 +21,7 @@ const { to, left, right } = defineProps<Props>();
     <IconArrowLeft v-if="left" />
     <div><slot /></div>
     <IconArrowRight v-if="right" />
+    <IconArrowDown v-if="down" />
+    <IconArrowUp v-if="up" />
   </NuxtLink>
 </template>

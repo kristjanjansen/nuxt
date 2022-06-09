@@ -5,20 +5,35 @@ import { add } from "date-fns";
 type Props = {
   event: any;
 };
-defineProps<Props>();
+const { event } = defineProps<Props>();
+
+const isSameDay = event.formattedStartAtDate === event.formattedEndAtDate;
+const first = isSameDay
+  ? `${event.formattedStartAtDate} ${event.formattedStartAtTime}-${event.formattedEndAtTime}`
+  : `${event.formattedStartAtDate} ${event.formattedStartAtTime}`;
+const second = isSameDay
+  ? ""
+  : `${event.formattedEndAtDate} ${event.formattedEndAtTime}`;
 </script>
 
 <template>
-  <pre>
-  {{ event.start_at }}
-  {{ event.formattedStartAtDate }}
-  {{ event.formattedStartAtTime }}
-  {{ event.formattedStartAtDistance }}
-  ---
-  {{ event.end_at }}
-  {{ event.formattedEndAtDate }}
-  {{ event.formattedEndAtTime }}
-  ---
-  {{ event.urgency }}
-  </pre>
+  <div class="text-sm">
+    <div class="text-gray-300">{{ first }}</div>
+    <div class="mb-1 text-gray-300">{{ second }}</div>
+    <div v-if="event.urgency !== 'soon'" class="text-gray-500">
+      {{ event.formattedStartAtDistance }}
+    </div>
+    <div
+      v-if="event.urgency === 'soon'"
+      class="inline-block rounded border border-yellow-500 px-2 py-1 font-bold uppercase tracking-wider text-yellow-500 text-xs"
+    >
+      {{ event.formattedStartAtDistance }}
+    </div>
+    <div
+      v-if="event.urgency === 'live'"
+      class="inline-block rounded border border-red-500 px-2 py-1 font-bold uppercase tracking-wider text-red-500 text-xs"
+    >
+      Live
+    </div>
+  </div>
 </template>

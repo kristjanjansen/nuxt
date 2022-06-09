@@ -23,15 +23,15 @@ const { lang } = useLang();
     </div>
     <div class="flex gap-5 overflow-x-auto">
       <Image
-        class="aspect-auto h-72 rounded-3xl object-cover"
+        class="aspect-auto h-96 rounded-3xl object-cover"
         :class="[project.images.length === 1 ? '!aspect-video' : '']"
-        v-for="image in project.images"
+        v-for="image in project.images.reverse()"
         :image="image"
       />
     </div>
-    <div class="grid gap-5 md:grid-cols-[2fr_1fr]">
+    <div class="grid gap-5 md:grid-cols-[3fr_1fr]">
       <Card>
-        <div class="grid gap-4 md:grid-cols-[1fr_3fr]">
+        <div class="grid gap-4 md:grid-cols-[1fr_2fr]">
           <div
             class="text-gray-400 text-xs leading-loose"
             v-html="project.detailss[lang]"

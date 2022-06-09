@@ -8,7 +8,7 @@ const { lang } = useLang();
 
 <template>
   <Card
-    class="grid gap-4 transition-all hover:bg-gray-900 md:grid-cols-[auto_auto_3fr_2fr]"
+    class="grid gap-6 transition-all hover:bg-gray-900 md:grid-cols-[150px_auto_3fr_2fr]"
   >
     <NuxtLink :to="event.eventLink">
       <EventDatetime :event="event" />

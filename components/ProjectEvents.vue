@@ -28,6 +28,7 @@ const { lang } = useLang();
             nolinks
             :content="(event.intro || event.description).slice(0, 90)"
           />
+          <EventDatetime :event="event" />
         </Stack>
       </NuxtLink>
     </Stack>

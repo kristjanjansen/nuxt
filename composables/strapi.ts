@@ -46,6 +46,7 @@ export const useEventBySlug = (slug: any) => {
   });
 };
 
+// "events.start_at:desc",
 export const useProjects = () => {
   return useFind(
     "projects",
@@ -180,7 +181,7 @@ const processEventDatetime = (event) => {
   }
   return {
     ...event,
-    ...useDatetime(new Date(event.start_at), new Date(event.end_at)),
+    ...useDatetime(event.start_at, event.end_at),
   };
 };
 

@@ -15,7 +15,7 @@ const { lang } = useLang();
     <Stack>
       <Link left to="/" />
       <Title>{{ ["Upcoming events", "Tulevased sündmused"][lang] }}</Title>
-      <Link to="/schedule/past">
+      <Link right to="/schedule/past">
         {{ ["See the past events", "Vaata toimunud sündmusi"][lang] }}
       </Link>
     </Stack>
