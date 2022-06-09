@@ -3,7 +3,9 @@ definePageMeta({
   title: "Some Page",
 });
 
-const { data: projects } = await useProjects();
+const { data: pinnnedProjects } = await useProjects({
+  //filters: { pinned: "$true" },
+});
 const { lang } = useLang();
 </script>
 
@@ -15,7 +17,7 @@ const { lang } = useLang();
     </Title>
     <div class="flex flex-col gap-6 md:grid md:grid-cols-4 md:gap-4">
       <NuxtLink
-        v-for="project in projects"
+        v-for="project in pinnnedProjects"
         class="block h-full"
         :to="'/projects/' + project.slug"
       >
@@ -24,9 +26,9 @@ const { lang } = useLang();
             class="aspect-square h-full rounded-2xl object-cover"
             :image="project.thumbnail"
           />
-          <Title class="block !text-xl md:hidden">{{
-            project.titles[lang]
-          }}</Title>
+          <Title class="block !text-xl">
+            {{ project.titles[lang] }}
+          </Title>
         </Stack>
       </NuxtLink>
     </div>

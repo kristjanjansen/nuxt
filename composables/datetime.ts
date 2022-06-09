@@ -4,6 +4,7 @@ import {
   differenceInMinutes,
   format,
   formatDistanceStrict,
+  formatISO,
   isThisYear,
 } from "date-fns";
 
@@ -75,3 +76,5 @@ export const useDatetime = (
     urgency,
   };
 };
+
+export const today = () => formatISO(new Date(), { representation: "date" });

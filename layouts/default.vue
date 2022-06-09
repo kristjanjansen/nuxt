@@ -1,5 +1,5 @@
 <template>
-  <div class="flex h-screen min-h-screen flex-col">
+  <div class="h-screen min-h-screen flex-col md:flex">
     <Body class="bg-black text-gray-50 antialiased" />
     <Nav />
     <div class="h-full"><slot /></div>

@@ -24,10 +24,16 @@ const { lang } = useLang();
 const description = computed(() => {
   return [descriptionEn, descriptionEt][lang.value];
 });
+
+const { data: upcomingEvents } = await useEvents({
+  filters: { start_at: { $gte: today() } },
+});
+const event = upcomingEvents.value[0];
 </script>
 
 <template>
   <div class="relative h-full">
+    <Breadboard />
     <video
       ref="video"
       loop
@@ -45,5 +51,28 @@ const description = computed(() => {
       <IconMuted v-if="muted" />
       <IconUnmuted v-if="!muted" />
     </button>
+    <div class="top-48 left-16 h-[30vw] w-[60vw] md:absolute">
+      <Card
+        class="inset-0 grid grid-cols-[1fr_1fr] overflow-hidden bg-black/50 !p-0 md:absolute"
+      >
+        <div>
+          <Image
+            class="h-full w-full object-cover"
+            :image="
+              event.thumbnail ||
+              'data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22/%3E'
+            "
+          />
+        </div>
+        <Stack class="p-6">
+          <Title medium>{{ event.titles[lang] }}</Title>
+          <Content nolinks :content="event.intros[lang]" />
+          <EventDatetime :event="event" />
+          <Link to="/schedule" right>
+            See all {{ upcomingEvents.length }} upcoming events
+          </Link>
+        </Stack>
+      </Card>
+    </div>
   </div>
 </template>
