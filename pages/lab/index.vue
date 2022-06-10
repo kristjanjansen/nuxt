@@ -7,12 +7,16 @@
       <span class="font-mono">ENG</span> only
     </p>
     <div class="grid auto-rows-fr gap-5 md:grid-cols-4">
-      <LinkCard to="/lab/usemessages" class="aspect-video pr-8">
-        <Title small>useMessages</Title>
+      <LinkCard to="/lab/messages" class="aspect-video pr-8">
+        <Title small>Messages</Title>
         <p class="text-gray-500">Send and receive websocket messages</p>
       </LinkCard>
-      <LinkCard to="/lab/usevideocapture" class="border-re aspect-video pr-8">
-        <Title small>useVideocapture</Title>
+      <LinkCard to="/lab/chat" class="aspect-video pr-8">
+        <Title small>Chat</Title>
+        <p class="text-gray-500">Chat over websocket</p>
+      </LinkCard>
+      <LinkCard to="/lab/videocapture" class="border-re aspect-video pr-8">
+        <Title small>Videocapture</Title>
         <p class="text-gray-500">Capture a frame from live video</p>
       </LinkCard>
     </div>
