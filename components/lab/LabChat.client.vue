@@ -1,11 +1,5 @@
 <script setup lang="ts">
-import {
-  useFocus,
-  useScroll,
-  useMagicKeys,
-  onKeyStroke,
-  useKeyModifier,
-} from "@vueuse/core";
+import { useFocus, useScroll, onKeyStroke, useKeyModifier } from "@vueuse/core";
 
 const sample =
   "The broad narrative of Hitchhiker follows the misadventures of the last surviving man, Arthur Dent, following the demolition of the Earth by a Vogon constructor fleet to make way for a hyperspace bypass. Dent is rescued from Earth's destruction by Ford Prefect—a human-like alien writer for the eccentric, electronic travel guide The Hitchhiker's Guide to the Galaxy—by hitchhiking onto a passing Vogon spacecraft. Following his rescue, Dent explores the galaxy with Prefect and encounters Trillian, another human who had been taken from Earth (before its destruction) by the two-headed President of the Galaxy Zaphod Beeblebrox and the depressed Marvin, the Paranoid Android. Certain narrative details were changed among the various adaptations.";
@@ -18,7 +12,13 @@ const textarea = ref<HTMLTextAreaElement | null>(null);
 const { chatMessages, newChatMessage, onNewChatMessage, newMessagesCount } =
   useChat(config.public.wsUrl, "test", scrollable, textarea);
 
+const scrollData = useScroll(scrollable);
+
+const newMessages = ref(0);
+
 const { focused } = useFocus(textarea, { initialValue: true });
+
+// Newline on Shift + Enter, submit on Enter
 
 const shift = useKeyModifier("Shift");
 
@@ -33,18 +33,6 @@ onKeyStroke(
   { target: textarea }
 );
 
-const scrollData = useScroll(scrollable);
-
-const newMessages = ref(0);
-
-watch(chatMessages, async () => {
-  if (diff.value === false) {
-    scrollToBottom();
-  } else {
-    newMessages.value++;
-  }
-});
-
 const scrollToBottom = async () =>
   await nextTick(
     () => (scrollable.value.scrollTop = scrollable.value.scrollHeight)
@@ -55,7 +43,7 @@ const onSend = () => {
   focused.value = true;
 };
 
-const diff = computed(() => {
+const scrolledAway = computed(() => {
   return (
     scrollable.value?.scrollHeight -
       scrollable.value?.clientHeight -
@@ -64,8 +52,16 @@ const diff = computed(() => {
   );
 });
 
-watch(diff, (newDiff) => {
-  if (newDiff === false) {
+watch(chatMessages, async () => {
+  if (scrolledAway.value === false) {
+    scrollToBottom();
+  } else {
+    newMessages.value++;
+  }
+});
+
+watch(scrolledAway, () => {
+  if (scrolledAway.value === false) {
     newMessages.value = 0;
   }
 });
