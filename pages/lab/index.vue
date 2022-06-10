@@ -6,7 +6,7 @@
       Various coding experiments,
       <span class="font-mono">ENG</span> only
     </p>
-    <div class="grid auto-rows-fr gap-5 md:grid-cols-4">
+    <div class="grid w-full auto-rows-fr gap-5 md:grid-cols-3">
       <LinkCard to="/lab/messages" class="aspect-video pr-8">
         <Title small>Messages</Title>
         <p class="text-gray-500">Send and receive websocket messages</p>

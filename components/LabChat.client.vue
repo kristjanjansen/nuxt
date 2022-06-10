@@ -7,7 +7,7 @@ const sample =
 const config = useRuntimeConfig();
 
 const scrollable = ref<HTMLElement | null>(null);
-const textarea = ref<HTMLTextAreaElement | null>(null);
+const textarea = ref<HTMLTextAreaElement | HTMLInputElement | null>(null);
 
 const { chatMessages, newChatMessage, onNewChatMessage, newMessagesCount } =
   useChat(config.public.wsUrl, "test", scrollable, textarea);
@@ -17,6 +17,52 @@ const scrollData = useScroll(scrollable);
 const newMessages = ref(0);
 
 const { focused } = useFocus(textarea, { initialValue: true });
+
+const scrollToBottom = async () =>
+  await nextTick(
+    () => (scrollable.value.scrollTop = scrollable.value.scrollHeight)
+  );
+
+const onSend = () => {
+  onNewChatMessage();
+  focused.value = true;
+};
+
+// When user is scrolled away from the bottom
+// by SCROLL_AWAY_OFFSET
+
+const SCROLL_AWAY_OFFSET = 200;
+
+const scrolledAway = computed(() => {
+  return (
+    scrollable.value?.scrollHeight -
+      scrollable.value?.clientHeight -
+      scrollData.y.value >
+    SCROLL_AWAY_OFFSET
+  );
+});
+
+watch(chatMessages, async () => {
+  if (scrolledAway.value === false) {
+    // When user is in botton, scroll to the
+    // bottom of the new message
+    scrollToBottom();
+  } else {
+    // Wheb user has scrolled up from bottom,
+    // do not scroll down
+    // and add to new message count instead
+    newMessages.value++;
+  }
+});
+
+// When user scrolls back to bottom,
+// clear the new messages
+
+watch(scrolledAway, () => {
+  if (scrolledAway.value === false) {
+    newMessages.value = 0;
+  }
+});
 
 // Newline on Shift + Enter, submit on Enter
 
@@ -33,47 +79,30 @@ onKeyStroke(
   { target: textarea }
 );
 
-const scrollToBottom = async () =>
-  await nextTick(
-    () => (scrollable.value.scrollTop = scrollable.value.scrollHeight)
-  );
-
-const onSend = () => {
-  onNewChatMessage();
+const paste = () => {
+  newChatMessage.value = sample;
   focused.value = true;
 };
-
-const scrolledAway = computed(() => {
-  return (
-    scrollable.value?.scrollHeight -
-      scrollable.value?.clientHeight -
-      scrollData.y.value >
-    200
-  );
-});
-
-watch(chatMessages, async () => {
-  if (scrolledAway.value === false) {
-    scrollToBottom();
-  } else {
-    newMessages.value++;
-  }
-});
-
-watch(scrolledAway, () => {
-  if (scrolledAway.value === false) {
-    newMessages.value = 0;
-  }
-});
-
 const classes = [
-  "max-h-64 whitespace-pre-wrap border-gray-500 bg-black/0 p-4 font-mono text-white focus:border-green-500 focus:ring-0",
+  "max-h-64 whitespace-pre-wrap border-gray-500 bg-black/0 px-3 py-2 font-mono text-white focus:border-green-500 focus:ring-0",
 ];
 </script>
 
 <template>
   <div class="w-full">
-    <div class="grid h-[50vh] grid-cols-2 gap-6">
+    <div class="grid h-[70vh] gap-6 md:grid-cols-2">
+      <div
+        ref="scrollable"
+        class="flex flex-col gap-6 overflow-y-auto"
+        :class="[newMessages ? 'scroll-smooth' : '']"
+      >
+        <Card
+          v-for="message in chatMessages"
+          class="whitespace-pre-wrap font-mono"
+        >
+          {{ message.value }}
+        </Card>
+      </div>
       <Stack class="justify-end">
         <div class="relative w-full">
           <div class="invisible" :class="classes">
@@ -90,31 +119,12 @@ const classes = [
           Shift + Enter for newline, Enter to submit
         </p>
         <div class="flex gap-4">
-          <Button class="outline-hidden" @click="newChatMessage = sample">
-            Paste example
-          </Button>
+          <Button class="outline-hidden" @click="paste"> Paste example </Button>
           <Button primary @click="onSend">Send message</Button>
         </div>
       </Stack>
-      <div
-        ref="scrollable"
-        class="flex flex-col gap-6 overflow-y-auto"
-        :class="[newMessages ? 'scroll-smooth' : '']"
-      >
-        <Card
-          v-for="message in chatMessages"
-          class="whitespace-pre-wrap font-mono"
-        >
-          {{ message.value }}
-        </Card>
-      </div>
     </div>
-    <Link
-      class="mt-4 flex justify-end"
-      v-if="newMessages > 0"
-      @click="scrollToBottom"
-      down
-    >
+    <Link class="mt-4 flex" v-if="newMessages > 0" @click="scrollToBottom" down>
       New messages
     </Link>
   </div>

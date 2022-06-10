@@ -6,18 +6,6 @@ interface UseChatOptions {
   sentMessageType?: string;
   receiveMessageType?: string;
 }
-/*
-import { useScroll } from "@vueuse/core";
-
-async function scrollToBottom(scrollRef: HTMLElement | null) {
-  if (!scrollRef) {
-    return;
-  }
-  await nextTick();
-  scrollRef.scrollTop = scrollRef.scrollHeight;
-}
-
-*/
 
 export function useChat(
   url: string,
@@ -44,7 +32,7 @@ export function useChat(
   const newChatMessage = ref("");
 
   const onNewChatMessage = () => {
-    if (newChatMessage.value) {
+    if (newChatMessage.value.trim()) {
       sendMessage({
         channel: channel,
         userId: userId.value,
@@ -62,40 +50,6 @@ export function useChat(
   const newMessagesCount = computed(
     () => chatMessages.value.length - lastMessagesCount.value
   );
-
-  /*
-  const { arrivedState } = useScroll(scrollable);
-
-  const userScrolled = computed(() => !arrivedState.bottom);
-
-  watch(arrivedState, (newValue) => {
-    if (newValue.bottom) {
-      lastMessagesCount.value = chatMessages.value.length;
-    }
-  });
-
-  watch([userScrolled, chatMessages], (newValue, oldValue) => {
-    if (
-      !newValue[0] ||
-      (newValue[1].length > 1 &&
-        newValue[1][newValue[1].length - 1] &&
-        newValue[1][newValue[1].length - 1].userId === userId) ||
-      oldValue[1].length === 0
-    ) {
-      scrollToBottom(scrollable.value);
-      lastMessagesCount.value = chatMessages.value.length;
-    }
-  });
-
-  watch(
-    newMessagesCount,
-    (newValue) => {
-      newMessages.value = newValue;
-    },
-    { immediate: true }
-  );
-
-  */
 
   return {
     chatMessages,
