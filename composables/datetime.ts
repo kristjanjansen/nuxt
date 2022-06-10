@@ -24,7 +24,7 @@ const useFormattedDistance = (dateTime: Date) => {
   return computed(() => {
     const distance = sentenceCase(
       formatDistanceStrict(dateTime, now.value, {
-        roundingMethod: "ceil",
+        roundingMethod: "round",
         addSuffix: true,
       })
     );

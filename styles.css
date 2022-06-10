@@ -12,7 +12,7 @@
   --gray-800: 38 38 38;
   --gray-900: 23 23 23;
   --black: 0 0 0;
-  --breadboard-tile-size: 32px; /* 5vw */
+  --breadboard-tile-size: 5vw;
 }
 .debug > * {
   @apply border border-red-500;

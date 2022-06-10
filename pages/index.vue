@@ -28,7 +28,7 @@ const description = computed(() => {
 const { data: upcomingEvents } = await useEvents({
   filters: { start_at: { $gte: today() } },
 });
-const event = upcomingEvents.value[0];
+const event = upcomingEvents.value?.[0];
 </script>
 
 <template>
@@ -51,7 +51,10 @@ const event = upcomingEvents.value[0];
       <IconMuted v-if="muted" />
       <IconUnmuted v-if="!muted" />
     </button>
-    <div class="top-48 left-16 h-[30vw] w-[60vw] md:absolute">
+    <div
+      v-if="event"
+      class="top-[15vw] left-[15vw] h-[20vw] w-[40vw] md:absolute"
+    >
       <Card
         class="inset-0 grid grid-cols-[1fr_1fr] overflow-hidden bg-black/50 !p-0 md:absolute"
       >
