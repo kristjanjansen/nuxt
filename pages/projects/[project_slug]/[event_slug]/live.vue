@@ -11,27 +11,7 @@ const url = "https://sb.err.ee/live/etv.m3u8";
 const video = ref();
 const { width, height } = useVideostream(video, url);
 
-const top = ref("video");
-
-const videoPanel = ref<HTMLElement | null>(null);
-
-const { style: videoStyle, isDragging: isVideoDragging } = useDraggable(
-  videoPanel,
-  {
-    initialValue: { x: 40, y: 40 },
-    onStart: () => (top.value = "video"),
-  }
-);
-
-const aboutPanel = ref<HTMLElement | null>(null);
-
-const { style: aboutStyle, isDragging: isAboutDragging } = useDraggable(
-  aboutPanel,
-  {
-    initialValue: { x: 80, y: 80 },
-    onStart: () => (top.value = "about"),
-  }
-);
+const front = ref("video");
 
 const { lang } = useLang();
 </script>
@@ -42,37 +22,28 @@ const { lang } = useLang();
     <Link class="md:absolute md:top-5 md:left-5" left to="/podcast">
       Back to event
     </Link>
-    <div
-      ref="videoPanel"
-      :style="videoStyle"
-      class="fixed z-10 w-fit cursor-grab touch-none select-none overflow-hidden rounded border border-white"
-      :class="[
-        isVideoDragging ? 'z-40 cursor-grabbing' : '',
-        top === 'video' ? 'z-40' : '',
-      ]"
+    <Draggable
+      :x="10"
+      :y="10"
+      @startDrag="front = 'video'"
+      :isFront="front === 'video'"
     >
       <video ref="video" controls muted autoplay playsinline class="w-[50vw]" />
-    </div>
-    <div
-      :style="aboutStyle"
-      class="fixed z-10 w-fit cursor-grab touch-none select-none overflow-hidden rounded border border-white"
-      :class="[
-        isAboutDragging ? 'z-40 cursor-grabbing' : '',
-        top === 'about' ? 'z-40' : '',
-      ]"
+    </Draggable>
+    <Draggable
+      :x="30"
+      :y="30"
+      @startDrag="front = 'about'"
+      :isFront="front === 'about'"
+      class="bg-black/80 backdrop-blur-lg"
     >
-      <div
-        ref="aboutPanel"
-        class="cursor-move border-b bg-black/80 px-2 py-1 backdrop-blur-lg"
-      >
-        <Stack class="h-[30vw] w-[30vw] overflow-y-scroll p-4">
-          <Title>
-            {{ event.titles[lang] }}
-          </Title>
-          <EventDatetime :event="event" />
-          <Content :content="event.descriptions[lang]" />
-        </Stack>
-      </div>
-    </div>
+      <Stack class="h-[30vw] w-[30vw] overflow-y-scroll p-4">
+        <Title>
+          {{ event.titles[lang] }}
+        </Title>
+        <EventDatetime :event="event" />
+        <Content :content="event.descriptions[lang]" />
+      </Stack>
+    </Draggable>
   </Stack>
 </template>
