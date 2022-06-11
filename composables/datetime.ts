@@ -10,14 +10,18 @@ import {
 
 const now = useNow({ interval: 1000 });
 
-const formatDate = (datetime: Date | null) => {
+export const formatDate = (datetime: Date | null) => {
   return datetime
     ? format(datetime, isThisYear(datetime) ? "d. MMMM" : "d.MM.y")
     : "";
 };
 
-const formatTime = (datetime: Date | null) => {
+export const formatTime = (datetime: Date | null) => {
   return datetime ? format(datetime, "HH:mm") : "";
+};
+
+export const formatDatetime = (datetime: Date | null) => {
+  return `${formatDate(datetime)} ${formatTime(datetime)}`;
 };
 
 const useFormattedDistance = (dateTime: Date) => {

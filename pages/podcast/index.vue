@@ -8,8 +8,10 @@ definePageMeta({
 
 const { data: podcast } = await usePodcast();
 const { data: project } = await useProjectsBySlug("signal");
-console.log(project);
 const { lang } = useLang();
+const items = computed(() =>
+  podcast.value.items.filter((i) => i.itunes.episode)
+);
 </script>
 <template>
   <Stack class="gap-8 p-4 md:p-6">
@@ -38,13 +40,9 @@ const { lang } = useLang();
           <Content :content="project.descriptions[lang]" />
         </Stack>
         <Stack>
-          <PodcastItem
-            v-for="item in podcast.items.slice(0, 10000)"
-            :item="item"
-          />
+          <PodcastItem v-for="item in items" :item="item" />
         </Stack>
       </div>
     </Stack>
-    <pre>{{ podcast }}</pre>
   </Stack>
 </template>
