@@ -10,8 +10,11 @@ const { lang } = useLang();
 </script>
 
 <template>
-  <Card>
-    <Stack>
+  <Card class="p-0 md:flex">
+    <div class="shrink-0 p-4">
+      <img class="h-24 w-24 rounded" :src="item.itunes.image" />
+    </div>
+    <Stack class="border-t border-gray-700 p-4 md:border-t-0 md:border-l">
       <NuxtLink :to="'/podcast/' + (item.itunes.episode || item.guid)">
         <Title medium>{{ item.title }}</Title>
       </NuxtLink>
