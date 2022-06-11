@@ -21,7 +21,12 @@ const { x, y, style } = useDraggable(el, {
       :style="style"
       class="fixed z-10 w-fit touch-none select-none overflow-hidden rounded border border-white"
     >
-      <div ref="el" class="border-b px-2 py-1">Video</div>
+      <div
+        ref="el"
+        class="cursor-move border-b bg-black/10 px-2 py-1 backdrop-blur-lg"
+      >
+        Video
+      </div>
       <video
         ref="video"
         muted
