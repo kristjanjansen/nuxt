@@ -15,6 +15,7 @@ const video = ref();
 useVideostream(video, url);
 
 const { isFullscreen, toggle: toggleFullscreen } = useFullscreen(video);
+const { isPip, toggle: togglePip } = usePip(video);
 
 const { muted } = useMediaControls(video);
 muted.value = false;
@@ -37,14 +38,20 @@ const { lang } = useLang();
       :isFront="front === 'video'"
     >
       <video ref="video" controls autoplay playsinline class="w-[50vw]" />
-      <button @click="muted = !muted">
-        <IconMuted v-if="muted" />
-        <IconUnmuted v-if="!muted" />
-      </button>
-      <button @click="toggleFullscreen">
-        <IconMuted v-if="isFullscreen" />
-        <IconUnmuted v-if="!isFullscreen" />
-      </button>
+      <div class="flex gap-4">
+        <button @click="muted = !muted">
+          <IconMuted v-if="muted" />
+          <IconUnmuted v-if="!muted" />
+        </button>
+        <button @click="togglePip">
+          <IconMuted v-if="isPip" />
+          <IconUnmuted v-if="!isPip" />
+        </button>
+        <button @click="toggleFullscreen">
+          <IconMuted v-if="isFullscreen" />
+          <IconUnmuted v-if="!isFullscreen" />
+        </button>
+      </div>
     </Draggable>
     <Draggable
       :x="30"
