@@ -1,5 +1,5 @@
 <template>
-  <div class="breadboard h-full w-full opacity-50">
+  <div class="breadboard h-full w-full transform-gpu opacity-50">
     <slot />
   </div>
 </template>

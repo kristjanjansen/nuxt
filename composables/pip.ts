@@ -16,10 +16,12 @@ export function usePip(videoRef: Ref<HTMLVideoElement | null>) {
   };
 
   const exit = () => {
-    document
-      .exitPictureInPicture()
-      .then(() => (isPip.value = false))
-      .catch((e) => console.log(e));
+    if (isPipAvailable && videoRef?.value) {
+      document
+        .exitPictureInPicture()
+        .then(() => (isPip.value = false))
+        .catch((e) => console.log(e));
+    }
   };
 
   const toggle = () => (isPip.value ? exit() : enter());

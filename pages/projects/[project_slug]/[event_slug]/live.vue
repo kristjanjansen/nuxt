@@ -1,8 +1,4 @@
 <script setup lang="ts">
-import { useDraggable, useFullscreen, useMediaControls } from "@vueuse/core";
-import IconMuted from "~icons/radix-icons/speaker-off";
-import IconUnmuted from "~icons/radix-icons/speaker-loud";
-
 const route = useRoute();
 const slug = route.params.event_slug;
 
@@ -11,15 +7,6 @@ const { data: event } = await useEventBySlug(slug);
 //const url = "https://le21.babahhcdn.com/bb1150-le/x_live_1_c1.smil/playlist.m3u8"
 const url = "https://sb.err.ee/live/etv.m3u8";
 
-const video = ref();
-useVideostream(video, url);
-
-const { isFullscreen, toggle: toggleFullscreen } = useFullscreen(video);
-const { isPip, toggle: togglePip } = usePip(video);
-
-const { muted } = useMediaControls(video);
-muted.value = false;
-
 const front = ref("video");
 
 const { lang } = useLang();
@@ -27,8 +14,8 @@ const { lang } = useLang();
 
 <template>
   <Stack class="relative grid h-full p-4 md:place-items-center md:p-6">
-    <Breadboard />
-    <Link class="md:absolute md:top-5 md:left-5" left to="/podcast">
+    <Breadboard class="hidden md:block" />
+    <Link class="md:absolute md:top-6 md:left-6" left to="/podcast">
       Back to event
     </Link>
     <Draggable
@@ -37,21 +24,7 @@ const { lang } = useLang();
       @startDrag="front = 'video'"
       :isFront="front === 'video'"
     >
-      <video ref="video" controls autoplay playsinline class="w-[50vw]" />
-      <div class="flex gap-4">
-        <button @click="muted = !muted">
-          <IconMuted v-if="muted" />
-          <IconUnmuted v-if="!muted" />
-        </button>
-        <button @click="togglePip">
-          <IconMuted v-if="isPip" />
-          <IconUnmuted v-if="!isPip" />
-        </button>
-        <button @click="toggleFullscreen">
-          <IconMuted v-if="isFullscreen" />
-          <IconUnmuted v-if="!isFullscreen" />
-        </button>
-      </div>
+      <Videostream :url="url" class="w-[50vw]" />
     </Draggable>
     <Draggable
       :x="30"
