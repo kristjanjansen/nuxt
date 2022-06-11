@@ -1,4 +1,5 @@
 import { computed, Ref, ref } from "vue";
+import { useFocus, useScroll, onKeyStroke, useKeyModifier } from "@vueuse/core";
 
 interface UseChatOptions {
   userId?: Ref<string>;
@@ -22,6 +23,10 @@ export function useChat(
   } = options;
 
   const { messages, sendMessage } = useMessages(url);
+  const scrollData = useScroll(scrollable);
+  const { focused: focus } = useFocus(textarea, { initialValue: true });
+
+  const newChatMessagesCount = ref(0);
 
   const chatMessages = computed(() => {
     return messages.value.filter(
@@ -31,7 +36,7 @@ export function useChat(
 
   const newChatMessage = ref("");
 
-  const onNewChatMessage = () => {
+  const sendChatMessage = () => {
     if (newChatMessage.value.trim()) {
       sendMessage({
         channel: channel,
@@ -42,19 +47,72 @@ export function useChat(
         // store: true,
       });
       newChatMessage.value = "";
+      focus.value = true;
     }
   };
 
-  const lastMessagesCount = ref<number>(0);
+  const scrollToBottom = async () =>
+    await nextTick(
+      () => (scrollable.value.scrollTop = scrollable.value.scrollHeight)
+    );
 
-  const newMessagesCount = computed(
-    () => chatMessages.value.length - lastMessagesCount.value
+  // When user is scrolled away from the bottom
+  // by SCROLL_AWAY_OFFSET
+
+  const SCROLL_AWAY_OFFSET = 200;
+
+  const scrolledAway = computed(() => {
+    return (
+      scrollable.value?.scrollHeight -
+        scrollable.value?.clientHeight -
+        scrollData.y.value >
+      SCROLL_AWAY_OFFSET
+    );
+  });
+
+  watch(chatMessages, async () => {
+    if (scrolledAway.value === false) {
+      // When user is in botton, scroll to the
+      // bottom of the new message
+      scrollToBottom();
+    } else {
+      // Wheb user has scrolled up from bottom,
+      // do not scroll down
+      // and add to new message count instead
+      newChatMessagesCount.value++;
+    }
+  });
+
+  // When user scrolls back to bottom,
+  // clear the new messages
+
+  watch(scrolledAway, () => {
+    if (scrolledAway.value === false) {
+      newChatMessagesCount.value = 0;
+    }
+  });
+
+  // Newline on Shift + Enter, submit on Enter
+
+  const shift = useKeyModifier("Shift");
+
+  onKeyStroke(
+    "Enter",
+    (e) => {
+      if (!shift.value) {
+        e.preventDefault();
+        sendChatMessage();
+      }
+    },
+    { target: textarea }
   );
 
   return {
     chatMessages,
     newChatMessage,
-    onNewChatMessage,
-    newMessagesCount,
+    sendChatMessage,
+    newChatMessagesCount,
+    scrollToBottom,
+    focus,
   };
 }
