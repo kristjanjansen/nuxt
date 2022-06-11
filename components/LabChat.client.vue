@@ -14,7 +14,7 @@ const {
   newChatMessagesCount,
   scrollToBottom,
   focus,
-} = useChat(config.public.wsUrl, "test", scrollable, textarea);
+} = useChat(config.public.wsUrl, "erkki", scrollable, textarea);
 
 const paste = () => {
   newChatMessage.value = sample;
@@ -24,7 +24,7 @@ const paste = () => {
 const scrollToTop = () => (scrollable.value.scrollTop = 0);
 
 const classes = [
-  "max-h-64 whitespace-pre-wrap border-gray-500 bg-black/0 px-3 py-2 font-mono text-white focus:border-green-500 focus:ring-0",
+  "max-h-64 whitespace-pre-wrap border-gray-500 bg-black/0 px-2 py-1 font-mono text-white focus:border-green-500 focus:ring-0",
 ];
 </script>
 

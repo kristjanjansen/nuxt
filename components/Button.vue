@@ -7,13 +7,13 @@ const { primary = false } = defineProps<Props>();
 
 <template>
   <button
-    class="inline-flex gap-1 rounded-lg border-2 pt-1 pr-3 pb-1 pl-3 uppercase transition-colors font-mono font-title text-base hover:bg-gray-900"
+    class="inline-flex h-6 gap-1 rounded border px-2 font-mono text-sm uppercase transition-colors hover:bg-gray-800"
     :class="[
       primary
-        ? 'border-green-500 bg-green-500 text-green-900 hover:border-green-600 hover:bg-green-600'
+        ? 'border-green-500 bg-green-500 text-black hover:border-green-600 hover:bg-green-600'
         : '',
     ]"
   >
-    <slot />
+    <div class="translate-y-[0.1rem]"><slot /></div>
   </button>
 </template>
