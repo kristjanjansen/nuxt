@@ -9,8 +9,12 @@ const config = useRuntimeConfig();
 const scrollable = ref<HTMLElement | null>(null);
 const textarea = ref<HTMLTextAreaElement | HTMLInputElement | null>(null);
 
-const { chatMessages, newChatMessage, onNewChatMessage, newMessagesCount } =
-  useChat(config.public.wsUrl, "test", scrollable, textarea);
+const { chatMessages, newChatMessage, onNewChatMessage } = useChat(
+  config.public.wsUrl,
+  "test",
+  scrollable,
+  textarea
+);
 
 const scrollData = useScroll(scrollable);
 
