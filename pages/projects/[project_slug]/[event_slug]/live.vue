@@ -13,26 +13,26 @@ const { lang } = useLang();
 </script>
 
 <template>
-  <Stack class="relative grid h-full p-4 md:place-items-center md:p-6">
+  <Stack class="relative grid p-4 md:h-full md:place-items-center md:p-6">
     <Breadboard class="hidden md:block" />
     <Link class="md:absolute md:top-6 md:left-6" left to="/podcast">
       Back to event
     </Link>
     <Draggable
-      :x="10"
-      :y="10"
+      :x="300"
+      :y="100"
       @startDrag="front = 'video'"
       :isFront="front === 'video'"
     >
-      <Videostream :url="url" class="w-[50vw]" />
+      <Videostream :url="url" class="md:w-[50vw]" />
     </Draggable>
     <Draggable
-      :x="30"
-      :y="30"
+      :x="100"
+      :y="300"
       @startDrag="front = 'about'"
       :isFront="front === 'about'"
     >
-      <Stack class="h-[30vw] w-[30vw] overflow-y-scroll p-4">
+      <Stack class="overflow-y-scroll p-4 md:h-[30vw] md:w-[30vw]">
         <Title>
           {{ event.titles[lang] }}
         </Title>

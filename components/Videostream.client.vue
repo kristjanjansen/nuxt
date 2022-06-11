@@ -21,7 +21,8 @@ const { isFullscreen, toggle: toggleFullscreen } = useFullscreen(videoWrapper);
 const { isPip, toggle: togglePip } = usePip(video);
 
 const { muted } = useMediaControls(video);
-muted.value = false;
+
+onMounted(() => (muted.value = true));
 </script>
 
 <template>

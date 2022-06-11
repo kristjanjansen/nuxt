@@ -20,8 +20,11 @@ const { style, isDragging } = useDraggable(draggable, {
   <div
     ref="draggable"
     :style="style"
-    class="fixed z-10 w-fit cursor-grab touch-none select-none overflow-hidden rounded border border-white bg-black/80 backdrop-blur-lg"
-    :class="[isDragging ? 'z-40 cursor-grabbing' : '', isFront ? 'z-40' : '']"
+    class="z-10 w-full cursor-grab touch-none select-none overflow-hidden rounded border border-gray-700 bg-black/80 backdrop-blur-lg transition-colors md:fixed md:w-fit md:border-gray-500 md:hover:border-gray-400"
+    :class="[
+      isDragging ? 'z-40 cursor-grabbing !border-gray-100' : '',
+      isFront ? 'z-40' : '',
+    ]"
   >
     <slot />
   </div>
