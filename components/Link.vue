@@ -4,7 +4,7 @@ import IconArrowRight from "~icons/radix-icons/arrow-right";
 import IconArrowDown from "~icons/radix-icons/arrow-down";
 import IconArrowLeft from "~icons/radix-icons/arrow-left";
 type Props = {
-  to: string;
+  to?: string;
   up?: boolean;
   right?: boolean;
   down?: boolean;
@@ -16,7 +16,7 @@ const { to, left, right } = defineProps<Props>();
 <template>
   <NuxtLink
     :to="to"
-    class="flex gap-1 uppercase text-gray-300 transition-colors font-mono text-xs hover:text-gray-500"
+    class="flex gap-1 font-mono text-xs uppercase text-gray-300 transition-colors hover:text-gray-500"
   >
     <IconArrowLeft v-if="left" />
     <div><slot /></div>
