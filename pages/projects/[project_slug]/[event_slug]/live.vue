@@ -15,7 +15,7 @@ const { lang } = useLang();
 <template>
   <Stack class="relative grid p-4 md:h-full md:place-items-center md:p-6">
     <Breadboard class="hidden md:block" />
-    <Link class="md:absolute md:top-6 md:left-6" left to="/podcast">
+    <Link class="md:absolute md:top-6 md:left-6" left :to="event.eventLink">
       Back to event
     </Link>
     <Draggable

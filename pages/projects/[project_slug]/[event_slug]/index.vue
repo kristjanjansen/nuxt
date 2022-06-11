@@ -8,7 +8,7 @@ const { lang } = useLang();
 
 <template>
   <Stack class="p-4 md:p-6">
-    <div class="grid gap-8 md:grid-cols-[2fr_4fr]">
+    <div class="grid gap-8 md:grid-cols-[2fr_4fr_auto]">
       <Stack>
         <Link left :to="event.projectLink">
           {{ ["Project", "Projekt"][lang] }}
@@ -21,6 +21,9 @@ const { lang } = useLang();
       <Title class="lg:pr-32">
         {{ event.intros[lang] }}
       </Title>
+      <NuxtLink :to="event.eventLiveLink">
+        <Button primary>Go to event</Button>
+      </NuxtLink>
     </div>
     <div class="flex gap-5 overflow-x-auto">
       <Image
@@ -34,7 +37,7 @@ const { lang } = useLang();
       <Card>
         <div class="grid gap-8 md:grid-cols-[1fr_3fr_2fr]">
           <div
-            class="text-gray-400 text-xs leading-loose"
+            class="text-xs leading-loose text-gray-400"
             v-html="event.detailss[lang]"
           />
           <Content :content="event.descriptions[lang]" />

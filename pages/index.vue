@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { useMediaControls } from "@vueuse/core";
+import { useIdle, useMediaControls } from "@vueuse/core";
 import IconMuted from "~icons/radix-icons/speaker-off";
 import IconUnmuted from "~icons/radix-icons/speaker-loud";
 
@@ -29,6 +29,8 @@ const { data: upcomingEvents } = await useEvents({
   filters: { start_at: { $gte: today() } },
 });
 const event = upcomingEvents.value?.[0];
+
+const { idle } = useIdle(5000);
 </script>
 
 <template>
@@ -47,17 +49,15 @@ const event = upcomingEvents.value?.[0];
       class="absolute top-8 left-8 right-8 text-xl md:right-auto md:text-2xl"
       :content="description"
     />
-    <button class="absolute bottom-8 left-8" @click="muted = !muted">
+    <button
+      class="absolute bottom-4 left-4 rounded-full p-3 transition-all hover:bg-neutral-100/20"
+      @click="muted = !muted"
+    >
       <IconMuted v-if="muted" />
       <IconUnmuted v-if="!muted" />
     </button>
-    <div
-      v-if="event"
-      class="top-[15vw] left-[15vw] h-[20vw] w-[40vw] md:absolute"
-    >
-      <Card
-        class="inset-0 grid grid-cols-[1fr_1fr] overflow-hidden bg-black/50 !p-0 md:absolute"
-      >
+    <Draggable v-if="event" :x="200" :y="200">
+      <div class="grid grid-cols-[1fr_1fr] md:h-[25vw] md:w-[50vw]">
         <div>
           <Image
             class="h-full w-full object-cover"
@@ -67,15 +67,18 @@ const event = upcomingEvents.value?.[0];
             "
           />
         </div>
-        <Stack class="p-6">
+        <Stack class="overflow-y-auto p-6">
           <Title medium>{{ event.titles[lang] }}</Title>
-          <Content nolinks :content="event.intros[lang]" />
           <EventDatetime :event="event" />
+          <NuxtLink :to="event.eventLiveLink">
+            <Button primary>Go to event</Button>
+          </NuxtLink>
+          <Content nolinks :content="event.intros[lang]" />
           <Link to="/schedule" right>
             See all {{ upcomingEvents.length }} upcoming events
           </Link>
         </Stack>
-      </Card>
-    </div>
+      </div>
+    </Draggable>
   </div>
 </template>

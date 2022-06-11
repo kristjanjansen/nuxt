@@ -9,14 +9,14 @@ const menu = ref(false);
 
 <template>
   <div
-    class="sticky top-0 grid grid-cols-1 bg-black/90 md:grid-cols-[1fr_1fr_1fr_1fr_1fr_1fr_0.3fr_0.3fr]"
+    class="sticky top-0 z-50 grid grid-cols-1 bg-black/90 md:grid-cols-[1fr_1fr_1fr_1fr_1fr_1fr_0.3fr_0.3fr]"
   >
     <div
       class="flex h-10 w-full items-center justify-between border-b border-r border-gray-700 md:border-l"
     >
       <NuxtLink
         to="/"
-        class="flex h-10 items-center px-2 font-normal lowercase font-title text-2xl"
+        class="flex h-10 items-center px-2 font-title text-2xl font-normal lowercase"
         @click="menu = false"
       >
         eˉlektron
