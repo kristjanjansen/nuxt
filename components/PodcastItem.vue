@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { PodcastItem } from "~~/composables/podcast";
+import { formatDatetime } from "~~/composables/datetime";
 
 interface Props {
   item: PodcastItem;
@@ -12,20 +13,24 @@ const { lang } = useLang();
 <template>
   <Card class="p-0 md:flex">
     <div class="shrink-0 p-4">
-      <img class="h-24 w-24 rounded" :src="item.itunes.image" />
+      <img class="h-32 w-32 rounded" :src="item.itunes.image" />
     </div>
     <Stack class="border-t border-gray-700 p-4 md:border-t-0 md:border-l">
       <NuxtLink :to="'/podcast/' + (item.itunes.episode || item.guid)">
         <Title medium>{{ item.title }}</Title>
       </NuxtLink>
       <!-- @TODO: Edit the content to remove this -->
+      <div class="text-sm text-gray-500">
+        {{ formatDatetime(new Date(item.isoDate)) }}
+      </div>
       <Content
         :breakall="item.itunes.episode === '2'"
         :content="item['content:encoded']"
       />
-      <Link :to="item.enclosure.url">{{
-        ["download mp3", "laadi alla mp3"][lang]
-      }}</Link>
+      <Link down :to="item.enclosure.url">
+        {{ ["Download", "Laadi alla"][lang] }}
+        {{ Math.floor(parseFloat(item.enclosure.length) / 1024 / 1024) }}MB MP3
+      </Link>
       <audio
         class="debug w-full"
         :class="['invert', ''][theme]"

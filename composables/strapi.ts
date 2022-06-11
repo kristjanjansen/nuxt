@@ -122,6 +122,9 @@ const processEvent = (event) => {
   const project = event.projects?.[0];
   event.projectLink = project ? `/projects/${project.slug}` : "/";
   event.eventLink = project ? `/projects/${project.slug}/${event.slug}` : "/";
+  event.eventLiveLink = project
+    ? `/projects/${project.slug}/${event.slug}/live`
+    : "/";
   if (event.projects) {
     event.projects = event.projects.map(processProject);
   }
