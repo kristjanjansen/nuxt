@@ -11,9 +11,15 @@ const item = computed(() =>
 </script>
 
 <template>
-  <Stack class="p-4 md:p-6">
-    <Link left to="/podcast">Podcast</Link>
-    <Title>elektron.signal</Title>
-    <PodcastItem :item="item" />
+  <Stack class="relative grid h-full p-4 md:place-items-center md:p-6">
+    <Breadboard class="hidden md:block" />
+    <!-- <Link left to="/podcast">Podcast</Link>
+    <Title>elektron.signal</Title> -->
+    <Link class="md:absolute md:top-5 md:left-5" left to="/podcast">
+      Podcast
+    </Link>
+    <div class="bg-black md:absolute md:w-[60vw]">
+      <PodcastItem :item="item" />
+    </div>
   </Stack>
 </template>
