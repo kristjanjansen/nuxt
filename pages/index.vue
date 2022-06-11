@@ -7,7 +7,7 @@ const video = ref();
 const src =
   "https://fra1.digitaloceanspaces.com/elektron/strapi/0ea3ff8704a2e6b444d3fe442532923e.mp4";
 
-const { muted, volume } = useMediaControls(video, {
+const { muted } = useMediaControls(video, {
   src,
 });
 onMounted(() => (muted.value = true));

@@ -1,5 +1,8 @@
 <script setup lang="ts">
-import { useDraggable } from "@vueuse/core";
+import { useDraggable, useFullscreen, useMediaControls } from "@vueuse/core";
+import IconMuted from "~icons/radix-icons/speaker-off";
+import IconUnmuted from "~icons/radix-icons/speaker-loud";
+
 const route = useRoute();
 const slug = route.params.event_slug;
 
@@ -9,7 +12,12 @@ const { data: event } = await useEventBySlug(slug);
 const url = "https://sb.err.ee/live/etv.m3u8";
 
 const video = ref();
-const { width, height } = useVideostream(video, url);
+useVideostream(video, url);
+
+const { isFullscreen, toggle: toggleFullscreen } = useFullscreen(video);
+
+const { muted } = useMediaControls(video);
+muted.value = false;
 
 const front = ref("video");
 
@@ -28,14 +36,21 @@ const { lang } = useLang();
       @startDrag="front = 'video'"
       :isFront="front === 'video'"
     >
-      <video ref="video" controls muted autoplay playsinline class="w-[50vw]" />
+      <video ref="video" controls autoplay playsinline class="w-[50vw]" />
+      <button @click="muted = !muted">
+        <IconMuted v-if="muted" />
+        <IconUnmuted v-if="!muted" />
+      </button>
+      <button @click="toggleFullscreen">
+        <IconMuted v-if="isFullscreen" />
+        <IconUnmuted v-if="!isFullscreen" />
+      </button>
     </Draggable>
     <Draggable
       :x="30"
       :y="30"
       @startDrag="front = 'about'"
       :isFront="front === 'about'"
-      class="bg-black/80 backdrop-blur-lg"
     >
       <Stack class="h-[30vw] w-[30vw] overflow-y-scroll p-4">
         <Title>
