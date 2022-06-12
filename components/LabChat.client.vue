@@ -41,17 +41,6 @@ const scrollToTop = () => (scrollable.value.scrollTop = 0);
       </div>
       <Stack class="justify-end">
         <Textarea ref="textarea" v-model="newChatMessage" />
-        <!-- <div class="relative w-full">
-          <div class="invisible" :class="classes">
-            {{ newChatMessage + " " }}
-          </div>
-          <textarea
-            ref="textarea"
-            v-model="newChatMessage"
-            class="absolute inset-0"
-            :class="classes"
-          />
-        </div> -->
         <p class="text-xs text-gray-500">
           Shift + Enter for newline, Enter to submit
         </p>
