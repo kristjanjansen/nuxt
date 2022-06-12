@@ -32,6 +32,7 @@ const { lang } = useLang();
     </NuxtLink>
     <NuxtLink :to="event.eventLiveLink">
       <Button primary>Go to event</Button>
+      <pre>{{ getTicketableStatus([event]) }}</pre>
     </NuxtLink>
   </Card>
 </template>
