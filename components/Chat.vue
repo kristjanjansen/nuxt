@@ -2,7 +2,7 @@ haha
 <script setup lang="ts">
 import IconArrowDown from "~icons/radix-icons/arrow-down";
 
-const config = useRuntimeConfig();
+const wsUrl = "wss://ws.elektron.art";
 
 const scrollable = ref<HTMLElement | null>(null);
 const textarea = ref<HTMLTextAreaElement | HTMLInputElement | null>(null);
@@ -13,7 +13,7 @@ const {
   sendChatMessage,
   newChatMessagesCount,
   scrollToBottom,
-} = useChat(config.public.wsUrl, "test", scrollable, textarea);
+} = useChat(wsUrl, "test", scrollable, textarea);
 </script>
 
 <template>
