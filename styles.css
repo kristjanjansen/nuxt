@@ -45,3 +45,16 @@
   font-display: swap;
   src: url("./assets/fonts/cousine-regular.woff2") format("woff2");
 }
+
+.page-enter-from {
+  @apply opacity-0;
+}
+
+.page-enter-active,
+.page-leave-active {
+  @apply transition-all;
+}
+.page-enter,
+.page-leave-to {
+  @apply opacity-0;
+}
