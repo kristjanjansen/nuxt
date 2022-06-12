@@ -97,9 +97,16 @@ export function getTicketableStatus(ticketables: Ticketable[]) {
     status = "HAS_TICKET";
   }
 
+  const ticketLinks = ticketablesRequiringTickets.map((ticketable) => {
+    const url = "https://fienta.com/e/${fientaId}?step=tickets";
+    const fientaId = ticketable.fienta_id;
+    return replaceTokens(url, {
+      fientaId,
+    });
+  });
   // TODO: Return { status: TicketStatus, url } where
   // url is link to Fienta ticket-purchasing page
-  return status;
+  return { status, ticketLinks };
 }
 
 export function validateTicket(code: string): Promise<Ticketable | null> {

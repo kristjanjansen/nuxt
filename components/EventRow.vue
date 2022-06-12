@@ -31,9 +31,20 @@ const { lang } = useLang();
         <div class="text-gray-500" v-html="event.projects[0].authors" />
       </div>
     </NuxtLink>
-    <NuxtLink :to="event.eventLiveLink">
-      <Button primary>Go to event</Button>
-      <pre>{{ getTicketableStatus([event]) }}</pre>
-    </NuxtLink>
+    <div>
+      <NuxtLink
+        v-if="getTicketableStatus([event]).status === 'FREE'"
+        :to="event.eventLiveLink"
+      >
+        <Button primary> Go to event </Button>
+      </NuxtLink>
+      <a
+        v-for="href in getTicketableStatus([event]).ticketLinks"
+        :href="href"
+        target="_blank"
+      >
+        <Button>Get a ticket</Button>
+      </a>
+    </div>
   </Card>
 </template>
