@@ -1,15 +1,14 @@
 <script setup lang="ts">
-import IconTheme from "~icons/radix-icons/half-2";
 import IconMenu from "~icons/radix-icons/drag-handle-horizontal";
 
-const { changeTheme } = useTheme();
+const { theme, changeTheme } = useTheme();
 const { lang, changeLang } = useLang();
 const menu = ref(false);
 </script>
 
 <template>
   <div
-    class="sticky top-0 z-50 grid grid-cols-1 bg-black/90 md:grid-cols-[1fr_1fr_1fr_1fr_1fr_1fr_0.3fr_0.3fr]"
+    class="sticky top-0 z-50 grid grid-cols-1 bg-black/90 md:grid-cols-[1fr_1fr_1fr_1fr_1fr_1fr_0.5fr_0.5fr]"
   >
     <div
       class="flex h-10 w-full items-center justify-between border-b border-r border-gray-700 md:border-l"
@@ -90,7 +89,7 @@ const menu = ref(false);
       class="text-left md:block"
       :class="[menu ? 'block' : 'hidden']"
     >
-      <NavLink><IconTheme /></NavLink>
+      <NavLink>{{ ["night", "day"][theme] }}</NavLink>
     </button>
   </div>
 </template>
