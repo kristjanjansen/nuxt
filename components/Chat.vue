@@ -13,12 +13,11 @@ const {
   sendChatMessage,
   newChatMessagesCount,
   scrollToBottom,
-  focus,
 } = useChat(config.public.wsUrl, "test", scrollable, textarea);
 </script>
 
 <template>
-  <div class="flex flex-col gap-2 p-2">
+  <div class="flex flex-col gap-2 p-2 pt-3">
     <div
       ref="scrollable"
       class="relative flex h-full flex-col gap-6 overflow-y-auto p-2"

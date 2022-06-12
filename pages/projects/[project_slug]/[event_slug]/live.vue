@@ -20,21 +20,21 @@ const { lang } = useLang();
     </Link>
 
     <Draggable
-      :x="400"
-      :y="200"
+      :x="200"
+      :y="100"
       @startDrag="front = 'chat'"
       :isFront="front === 'chat'"
     >
-      <Videostream :url="url" class="md:w-[50vw]" />
+      <Videostream :url="url" class="md:w-[70vw]" />
     </Draggable>
 
     <Draggable
       :x="900"
-      :y="100"
+      :y="200"
       @startDrag="front = 'video'"
       :isFront="front === 'video'"
     >
-      <Chat class="h-[30vw] md:w-[20vw]" />
+      <Chat class="h-[60vw] md:h-[30vw] md:w-[25vw]" />
     </Draggable>
 
     <Draggable

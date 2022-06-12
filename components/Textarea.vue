@@ -31,7 +31,7 @@ const classes = [
       {{ inputValue + " " }}
     </div>
     <textarea
-      class="absolute inset-0"
+      class="absolute inset-0 resize-none"
       :class="classes"
       v-bind="$attrs"
       v-model="inputValue"
