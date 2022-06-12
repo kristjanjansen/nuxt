@@ -171,10 +171,11 @@ const processLocalizations = (item) => {
   return item;
 };
 
-export const parseMarkdown = (str: string = "") =>
-  marked.parse(str, { breaks: true });
+export const parseMarkdown = (str: string) =>
+  marked.parse(str || "", { breaks: true });
 
 const proccessMarkdown = (item) => {
+  const process = (str) => marked.parse(str || "", { breaks: true });
   item.titles = item.titles.map(parseMarkdown);
   item.intros = item.intros.map(parseMarkdown);
   item.descriptions = item.descriptions.map(parseMarkdown);
