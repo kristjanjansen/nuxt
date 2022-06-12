@@ -14,7 +14,7 @@ const {
   newChatMessagesCount,
   scrollToBottom,
   focus,
-} = useChat(config.public.wsUrl, "erkki", scrollable, textarea);
+} = useChat(config.public.wsUrl, "test", scrollable, textarea);
 
 const paste = () => {
   newChatMessage.value = sample;
