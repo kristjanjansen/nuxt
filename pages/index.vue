@@ -51,7 +51,7 @@ const { idle } = useIdle(5000);
     />
     <button
       class="absolute bottom-4 left-4 rounded-full p-3 transition-all hover:bg-neutral-100/20"
-      @click="muted = !muted"
+      @click.stop="muted = !muted"
     >
       <IconMuted v-if="muted" />
       <IconUnmuted v-if="!muted" />
@@ -60,7 +60,7 @@ const { idle } = useIdle(5000);
       <div class="grid grid-cols-[1fr_1fr] md:h-[25vw] md:w-[50vw]">
         <div>
           <Image
-            class="h-full w-full object-cover"
+            class="pointer-events-none h-full w-full object-cover"
             :image="
               event.thumbnail ||
               'data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22/%3E'

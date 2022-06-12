@@ -25,7 +25,6 @@ export function useChat(
   const { messages, sendMessage } = useMessages(url);
   const scrollData = useScroll(scrollable);
   const { focused: focus } = useFocus(textarea, { initialValue: true });
-
   const newChatMessagesCount = ref(0);
 
   const chatMessages = computed(() => {

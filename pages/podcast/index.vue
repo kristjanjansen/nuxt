@@ -6,11 +6,11 @@ definePageMeta({
   ttl: 60 * 30,
 });
 
-const { data: podcast } = await usePodcast();
+const { data: podcast, pending } = await usePodcast();
 const { data: project } = await useProjectsBySlug("signal");
 const { lang } = useLang();
 const items = computed(() =>
-  podcast.value.items.filter((i) => i.itunes.episode)
+  podcast.value?.items.filter((i) => i.itunes.episode)
 );
 </script>
 <template>
@@ -39,9 +39,10 @@ const items = computed(() =>
         <Stack>
           <Content :content="project.descriptions[lang]" />
         </Stack>
-        <Stack>
+        <Stack v-if="items">
           <PodcastItem v-for="item in items" :item="item" />
         </Stack>
+        <div v-else>Loading</div>
       </div>
     </Stack>
   </Stack>

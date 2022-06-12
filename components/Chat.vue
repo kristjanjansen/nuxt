@@ -13,7 +13,6 @@ const {
   sendChatMessage,
   newChatMessagesCount,
   scrollToBottom,
-  focus,
 } = useChat(config.public.wsUrl, "test", scrollable, textarea);
 </script>
 
