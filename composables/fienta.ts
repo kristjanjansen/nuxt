@@ -1,9 +1,5 @@
 import { useStorage } from "@vueuse/core";
 
-const config = useRuntimeConfig();
-const baseURL = config.fientaUrl;
-const headers = { Authorization: `Bearer ${config.fientaToken}` };
-
 type TicketStatus = "FREE" | "REQUIRES_TICKET" | "HAS_TICKET";
 
 export type Ticketable = {
@@ -43,18 +39,17 @@ function setLocalTicket(code: string, fienta_id: string) {
 async function getRemoteTicket(
   code: string
 ): Promise<{ fienta_status: string; fienta_id: string } | null> {
-  try {
-    const res: any = await $fetch(`/tickets/${code}`, { baseURL, headers });
-    if (res && res.ticket) {
-      return {
-        fienta_status: res.ticket.status, // TODO: type Fienta statuses
-        fienta_id: res.ticket.event_id,
-      };
-    }
-    return null;
-  } catch {
-    return null;
+  const config = useRuntimeConfig();
+  const baseURL = config.fientaUrl;
+  const headers = { Authorization: `Bearer ${config.fientaToken}` };
+  const res: any = await $fetch(`/tickets/${code}`, { baseURL, headers });
+  if (res && res.ticket) {
+    return {
+      fienta_status: res.ticket.status, // TODO: type Fienta statuses
+      fienta_id: res.ticket.event_id,
+    };
   }
+  return null;
   // TODO: return { status: FientaStatus, ticketable: Ticketable }
 }
 
@@ -107,32 +102,35 @@ export function getTicketableStatus(ticketables: Ticketable[]) {
   return status;
 }
 
-export async function validateTicket(code: string): Promise<Ticketable | null> {
-  const localTicket = getLocalTicket(code);
-  if (localTicket) {
-    const ticketable = await getTicketable(localTicket.fientaid);
-    if (ticketable) {
-      return ticketable;
-    }
-    // TODO: Handle the case when you have validated ticket to
-    // non-existing ticketable (event), currently we just return null
-  } else {
-    const remoteTicket = await getRemoteTicket(code);
-    if (remoteTicket) {
-      const ticketable = await getTicketable(remoteTicket.fienta_id);
+export function validateTicket(code: string): Promise<Ticketable | null> {
+  const ticketable = ref(null);
+  onMounted(async () => {
+    const localTicket = getLocalTicket(code);
+    if (localTicket) {
+      const ticketable = await getTicketable(localTicket.fientaid);
       if (ticketable) {
-        setLocalTicket(code, remoteTicket.fienta_id);
         return ticketable;
       }
-      // TODO: Handle the case when you have nonvalidated ticket to
+      // TODO: Handle the case when you have validated ticket to
       // non-existing ticketable (event), currently we just return null
+    } else {
+      const remoteTicket = await getRemoteTicket(code);
+      if (remoteTicket) {
+        const rawTicketable = await getTicketable(remoteTicket.fienta_id);
+        if (rawTicketable) {
+          setLocalTicket(code, remoteTicket.fienta_id);
+          return rawTicketable;
+        }
+        // TODO: Handle the case when you have nonvalidated ticket to
+        // non-existing ticketable (event), currently we just return ref(null)
+      }
     }
-  }
-  // TODO: Return {
-  //  status: TicketValidationStatus,
-  //  ticketable: Ticketable,
-  //  url: string
-  // }
-  // where url is `https://live.elektron.art/${festivalslug}/${eventslug}?code=${code}&fienta_id=${fienta_id}`
-  return null;
+    // TODO: Return {
+    //  status: TicketValidationStatus,
+    //  ticketable: Ticketable,
+    //  url: string
+    // }
+    // where url is `https://live.elektron.art/${festivalslug}/${eventslug}?code=${code}&fienta_id=${fienta_id}`
+  });
+  return ticketable;
 }
