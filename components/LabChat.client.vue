@@ -22,10 +22,6 @@ const paste = () => {
 };
 
 const scrollToTop = () => (scrollable.value.scrollTop = 0);
-
-const classes = [
-  "max-h-64 whitespace-pre-wrap border-gray-500 bg-black/0 px-2 py-1 font-mono text-white focus:border-green-500 focus:ring-0",
-];
 </script>
 
 <template>
@@ -44,17 +40,7 @@ const classes = [
         </Card>
       </div>
       <Stack class="justify-end">
-        <div class="relative w-full">
-          <div class="invisible" :class="classes">
-            {{ newChatMessage + " " }}
-          </div>
-          <textarea
-            ref="textarea"
-            v-model="newChatMessage"
-            class="absolute inset-0"
-            :class="classes"
-          />
-        </div>
+        <Textarea ref="textarea" v-model="newChatMessage" />
         <p class="text-xs text-gray-500">
           Shift + Enter for newline, Enter to submit
         </p>

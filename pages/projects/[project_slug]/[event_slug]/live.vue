@@ -18,14 +18,25 @@ const { lang } = useLang();
     <Link class="md:absolute md:top-6 md:left-6" left :to="event.eventLink">
       Back to event
     </Link>
+
     <Draggable
-      :x="300"
+      :x="400"
+      :y="200"
+      @startDrag="front = 'chat'"
+      :isFront="front === 'chat'"
+    >
+      <Videostream :url="url" class="md:w-[50vw]" />
+    </Draggable>
+
+    <Draggable
+      :x="900"
       :y="100"
       @startDrag="front = 'video'"
       :isFront="front === 'video'"
     >
-      <Videostream :url="url" class="md:w-[50vw]" />
+      <Chat class="h-[30vw] md:w-[20vw]" />
     </Draggable>
+
     <Draggable
       :x="100"
       :y="300"
