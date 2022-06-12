@@ -8,8 +8,8 @@ const { medium = false, small = false } = defineProps<Props>();
 
 <template>
   <h2
-    class="break-words font-normal text-gray-300 font-title text-3xl leading-9"
-    :class="[medium ? '!text-xl' : '', small ? '!text-lg' : '']"
+    class="break-words font-title text-2xl font-normal leading-9 text-gray-300 md:text-3xl"
+    :class="[medium ? '!md:text-2xl !text-xl' : '', small ? '!text-lg' : '']"
     v-html="$slots.default()[0].children"
   />
 </template>
