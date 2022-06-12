@@ -3,13 +3,19 @@ import { getTicketableStatus } from "~~/composables/fienta";
 type Props = {
   event: any;
 };
-defineProps<Props>();
+const { event: rawEvent } = defineProps<Props>();
+const event = computed(() => {
+  return {
+    ...rawEvent,
+    ...getTicketableStatus([rawEvent]),
+  };
+});
 const { lang } = useLang();
 </script>
 
 <template>
   <Card
-    class="grid gap-6 transition-all hover:bg-gray-900 md:grid-cols-[150px_auto_3fr_2fr_auto]"
+    class="group grid gap-6 transition-all hover:bg-gray-900 md:grid-cols-[150px_auto_3fr_2fr_auto]"
   >
     <NuxtLink :to="event.eventLink">
       <EventDatetime :event="event" />
@@ -33,14 +39,14 @@ const { lang } = useLang();
     </NuxtLink>
     <div>
       <NuxtLink
-        v-if="getTicketableStatus([event]).status === 'FREE'"
+        v-if="event.status === 'FREE' || event.status === 'HAS_TICKET'"
         :to="event.eventLiveLink"
       >
         <Button primary> Go to event </Button>
       </NuxtLink>
       <a
-        v-for="href in getTicketableStatus([event]).ticketLinks"
-        :href="href"
+        v-for="ticketLink in event.ticketLinks"
+        :href="ticketLink"
         target="_blank"
       >
         <Button>Get a ticket</Button>
