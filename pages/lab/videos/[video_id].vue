@@ -87,7 +87,6 @@ watch(csv, () => (data.value = csvParse(csv.value)));
 
 const userIds = computed(() => unique(data.value.map((c) => c.userId)));
 const userNames = computed(() => unique(data.value.map((c) => c.userName)));
-
 const dataByUser = computed(() => {
   // return userIds.value.map((userId: string) =>
   //   data.value.filter((d) => d.userId === userId)
@@ -145,6 +144,7 @@ const zoom = 3;
         >{{ name }}&nbsp;</span
       >
     </Card>
+    <Card class="font-mono text-sm"> Users: {{ userNames }} </Card>
     <svg
       class="rounded-lg border-gray-700"
       ref="svg"

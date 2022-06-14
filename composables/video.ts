@@ -1,6 +1,7 @@
 import { format, sub } from "date-fns";
 
-export const formatVideoDatetime = (str) => String(new Date(str)).split(")")[0];
+export const formatVideoDatetime = (str) =>
+  format(new Date(str), "dd.LL.yyyy HH:mm:ss z");
 
 const getKey = (key: string) => {
   if (key === "x_live_1") {

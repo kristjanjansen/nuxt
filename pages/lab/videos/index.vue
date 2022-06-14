@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { useIntervalFn } from "@vueuse/core";
+import { formatVideoDatetime } from "~~/composables/video";
 
 const videosUrl = `https://ws.elektron.art/messages?secret=eestiteatriauhinnad&type=VIDEO`;
 const { data, refresh, error } = await useAsyncData<any[]>("videos", () =>
@@ -23,10 +24,14 @@ useIntervalFn(refresh, 1000 * 10);
           controls
           class="aspect-video w-72 rounded"
         />
-        <div class="font-mono text-gray-500">
-          <p>startDatetime:! {{ video.startDatetime }}</p>
-          <p>endDatetime: &nbsp;&nbsp;{{ video.endDatetime }}</p>
-          <p>uploadDatetme: {{ video.endDatetime }}</p>
+        <div class="font-mono text-sm text-gray-500">
+          <p>startDatetime: {{ formatVideoDatetime(video.startDatetime) }}</p>
+          <p>
+            endDatetime: &nbsp;&nbsp;{{
+              formatVideoDatetime(video.endDatetime)
+            }}
+          </p>
+          <p>uploadDatetme: {{ formatVideoDatetime(video.endDatetime) }}</p>
         </div>
       </Card>
     </NuxtLink>
