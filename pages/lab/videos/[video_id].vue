@@ -152,9 +152,10 @@ const zoom = 3;
       <path
         v-for="path in paths"
         :d="path"
-        opacity="0.8"
+        opacity="0.7"
         fill="none"
         class="stroke-blue-500"
+        stroke-width="2"
       />
     </svg>
 
@@ -178,10 +179,11 @@ const zoom = 3;
         <path
           v-for="path in paths"
           :d="path"
-          opacity="0.8"
           fill="none"
           vector-effect="non-scaling-stroke"
           class="stroke-blue-500"
+          opacity="0.7"
+          stroke-width="2"
         />
       </g>
     </svg>
