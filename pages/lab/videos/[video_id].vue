@@ -68,8 +68,11 @@ watch(currentTime, () => {
   currentX.value = xVideoScale(currentTime.value);
 });
 
+const scrubbing = ref(false);
 const onScrub = () => {
-  currentTime.value = xVideoScale.invert(scrubX.value);
+  if (scrubbing.value) {
+    currentTime.value = xVideoScale.invert(scrubX.value);
+  }
 };
 
 const csv = ref("");
@@ -111,7 +114,19 @@ const zoom = 3;
         <p>currentTime: {{ xDatetimeScale.invert(currentX) }}</p>
       </div>
     </Card>
-    <svg ref="svg" :width="width" :height="height" @mousedown="onScrub">
+    <svg
+      ref="svg"
+      :width="width"
+      :height="height"
+      @mousedown="scrubbing = true"
+      @mousemove="onScrub"
+      @mouseup="
+        () => {
+          onScrub();
+          scrubbing = false;
+        }
+      "
+    >
       <rect
         :width="width"
         :height="height"
