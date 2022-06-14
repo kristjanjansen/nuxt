@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { sub, add } from "date-fns";
-import { scaleTime, csvParse } from "d3";
+import { scaleTime, scaleLinear, csvParse } from "d3";
 import { useMediaControls, useMouseInElement, useStorage } from "@vueuse/core";
 
 function polygonpath(
@@ -17,6 +17,14 @@ function polygonpath(
     .join(" ")
     .trim();
   return path;
+}
+
+function translate(x: number = 0, y: number = 0, unit?: "px" | "%"): string {
+  return `translate(${x}${unit ?? ""}, ${y}${unit ?? ""})`;
+}
+
+function scale(scaleX: number = 1, scaleY?: number, unit?: "%"): string {
+  return `scale(${scaleX}${unit ?? ""}, ${scaleY || scaleX}${unit ?? ""})`;
 }
 
 const route = useRoute();
@@ -41,25 +49,28 @@ const height = 100;
 
 const xDatetimeScale = scaleTime()
   .domain([
-    sub(new Date(video.startDatetime), { seconds: 10 }),
-    add(new Date(video.endDatetime), { seconds: 10 }),
+    sub(new Date(video.startDatetime), { seconds: 100 }),
+    add(new Date(video.endDatetime), { seconds: 100 }),
   ])
   .range([0, width]);
 
-const xVideoScale = scaleTime().domain([0, width]).range([0, video.duration]);
-
 const currentX = ref(0);
 
+const xVideoScale = scaleLinear().domain([0, video.duration]).range([0, width]);
+const xVideoScale2 = scaleLinear()
+  .range([0, width])
+  .domain([0, video.duration]);
+
 const svg = ref(null);
-const { elementX } = useMouseInElement(svg);
+const { elementX: scrubX } = useMouseInElement(svg);
 
-const onClick = () => (currentX.value = elementX.value);
-
-watch(currentX, () => {
-  currentTime.value = xVideoScale(currentX.value);
+watch(currentTime, () => {
+  currentX.value = xVideoScale(currentTime.value);
 });
 
-const zoom = ref(0);
+const onScrub = () => {
+  currentTime.value = xVideoScale.invert(scrubX.value);
+};
 
 const csv = useStorage(`elektron_video_${id}`, "");
 const data = ref([]);
@@ -84,6 +95,7 @@ const path = computed(() =>
       <p>startDatetime: {{ video.startDatetime }}</p>
       <p>endDatetime: &nbsp;&nbsp;{{ video.endDatetime }}</p>
       <p>uploadDatetme: {{ video.endDatetime }}</p>
+      <br />
       <p>currentTime: {{ xDatetimeScale.invert(currentX) }}</p>
     </div>
     <video ref="videoplayer" controls class="aspect-video w-1/2 rounded" />
@@ -96,7 +108,7 @@ const path = computed(() =>
       :style="{ width: width + 'px' }"
       class="accent-gray-600"
     />
-    <svg ref="svg" :width="width" :height="height" @click="onClick">
+    <svg ref="svg" :width="width" :height="height" @mousedown="onScrub">
       <rect
         :width="width"
         :height="height"
@@ -110,19 +122,33 @@ const path = computed(() =>
         :y2="height"
         stroke="rgb(var(--white))"
         opacity="0.1"
-        :stroke-width="zoom"
+        :stroke-width="width"
       />
       <line :x1="currentX" y1="0" :x2="currentX" :y2="height" stroke="red" />
       <path :d="path" stroke="red" opacity="1" fill="none" />
     </svg>
-    <input
-      type="range"
-      v-model="zoom"
-      :max="width"
-      step="any"
-      class="accent-gray-300"
-      opacity="0.5"
-    />
+
+    <svg :width="width" :height="height * 2">
+      <line
+        :x1="currentX"
+        y1="0"
+        :x2="currentX"
+        :y2="height * 2"
+        stroke="red"
+      />
+      <g
+        :transform="[translate(0, height), scale(2, 2)].join('')"
+        :transform-origin="[currentX, height].join(' ')"
+      >
+        <path
+          :d="path"
+          stroke="red"
+          opacity="1"
+          fill="none"
+          vector-effect="non-scaling-stroke"
+        />
+      </g>
+    </svg>
     <p>Paste a CSV here:</p>
     <textarea
       v-model="csv"
