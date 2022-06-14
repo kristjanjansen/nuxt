@@ -68,8 +68,11 @@ watch(currentTime, () => {
   currentX.value = xVideoScale(currentTime.value);
 });
 
+const scrubbing = ref(false);
 const onScrub = () => {
-  currentTime.value = xVideoScale.invert(scrubX.value);
+  if (scrubbing.value) {
+    currentTime.value = xVideoScale.invert(scrubX.value);
+  }
 };
 
 const csv = ref("");
@@ -111,7 +114,19 @@ const zoom = 3;
         <p>currentTime: {{ xDatetimeScale.invert(currentX) }}</p>
       </div>
     </Card>
-    <svg ref="svg" :width="width" :height="height" @mousedown="onScrub">
+    <svg
+      ref="svg"
+      :width="width"
+      :height="height"
+      @mousedown="scrubbing = true"
+      @mousemove="onScrub"
+      @mouseup="
+        () => {
+          onScrub();
+          scrubbing = false;
+        }
+      "
+    >
       <rect
         :width="width"
         :height="height"
@@ -137,9 +152,10 @@ const zoom = 3;
       <path
         v-for="path in paths"
         :d="path"
-        opacity="0.8"
+        opacity="0.7"
         fill="none"
         class="stroke-blue-500"
+        stroke-width="2"
       />
     </svg>
 
@@ -163,10 +179,11 @@ const zoom = 3;
         <path
           v-for="path in paths"
           :d="path"
-          opacity="0.8"
           fill="none"
           vector-effect="non-scaling-stroke"
           class="stroke-blue-500"
+          opacity="0.7"
+          stroke-width="2"
         />
       </g>
     </svg>
