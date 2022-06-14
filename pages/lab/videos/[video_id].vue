@@ -2,8 +2,13 @@
 import { format } from "date-fns";
 import { scaleTime, scaleLinear, csvParse } from "d3";
 import { useMediaControls, useMouseInElement } from "@vueuse/core";
+import { formatVideoDatetime } from "~~/composables/video";
 
 const unique = (arr: any[]) => [...new Set(arr)];
+
+function hsl(h = 0, s = 100, l = 50, a = 1): string {
+  return `hsl(${h},${s}%,${l}%,${a})`;
+}
 
 function polygonpath(
   points: [number, number][],
@@ -81,6 +86,7 @@ const data = ref([]);
 watch(csv, () => (data.value = csvParse(csv.value)));
 
 const userIds = computed(() => unique(data.value.map((c) => c.userId)));
+const userNames = computed(() => unique(data.value.map((c) => c.userName)));
 const dataByUser = computed(() => {
   return userIds.value.map((userId: string) =>
     data.value.filter((d) => d.userId === userId)
@@ -104,17 +110,29 @@ const zoom = 3;
 <template>
   <Stack class="p-4 md:p-6" v-if="video">
     <Link left to="/lab/videos">Videos</Link>
-    <Card class="grid grid-cols-[auto_1fr] gap-6">
-      <video ref="videoplayer" controls class="aspect-video w-96 rounded" />
-      <div class="font-mono text-gray-500">
-        <p>startDatetime: {{ video.startDatetime }}</p>
-        <p>endDatetime: &nbsp;&nbsp;{{ video.endDatetime }}</p>
-        <p>uploadDatetme: {{ video.endDatetime }}</p>
+    <video ref="videoplayer" controls class="aspect-video w-96 rounded" />
+    <!-- <div class="grid grid-cols-[auto_1fr] gap-6">
+      <Card class="font-mono text-sm text-gray-500">
+        <p>startDatetime: {{ formatVideoDatetime(video.startDatetime) }}</p>
+        <p>
+          endDatetime: &nbsp;&nbsp;{{ formatVideoDatetime(video.endDatetime) }}
+        </p>
+        <p>uploadDatetme: {{ formatVideoDatetime(video.endDatetime) }}</p>
         <br />
-        <p>currentTime: {{ xDatetimeScale.invert(currentX) }}</p>
-      </div>
+        <p>
+          currentTime:
+          {{ formatVideoDatetime(xDatetimeScale.invert(currentX)) }}
+        </p>
+      </Card>
+    </div> -->
+    <Card class="flex justify-between font-mono text-sm text-gray-500">
+      <p>{{ formatVideoDatetime(video.startDatetime) }}</p>
+      <p>{{ formatVideoDatetime(xDatetimeScale.invert(currentX)) }}</p>
+      <p>{{ formatVideoDatetime(video.endDatetime) }}</p>
     </Card>
+    <Card class="font-mono text-sm"> Users: {{ userNames }} </Card>
     <svg
+      class="rounded-lg border-gray-700"
       ref="svg"
       :width="width"
       :height="height"
@@ -135,11 +153,11 @@ const zoom = 3;
       />
       <line
         :x1="currentX"
-        :y1="height - 10"
+        :y1="0"
         :x2="currentX"
         :y2="height"
         stroke="rgb(var(--white))"
-        opacity="0.1"
+        opacity="0.03"
         :stroke-width="width / zoom"
       />
       <line
@@ -150,11 +168,10 @@ const zoom = 3;
         class="stroke-red-500"
       />
       <path
-        v-for="path in paths"
+        v-for="(path, i) in paths"
         :d="path"
-        opacity="0.7"
         fill="none"
-        class="stroke-blue-500"
+        :stroke="hsl(217 + i * 50, 91, 60, 0.5)"
         stroke-width="2"
       />
     </svg>
@@ -177,12 +194,11 @@ const zoom = 3;
         :transform-origin="[currentX, height].join(' ')"
       >
         <path
-          v-for="path in paths"
+          v-for="(path, i) in paths"
           :d="path"
           fill="none"
           vector-effect="non-scaling-stroke"
-          class="stroke-blue-500"
-          opacity="0.7"
+          :stroke="hsl(217 + i * 50, 91, 60, 0.5)"
           stroke-width="2"
         />
       </g>
