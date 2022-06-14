@@ -8,7 +8,8 @@ const menu = ref(false);
 
 <template>
   <div
-    class="sticky top-0 z-50 grid grid-cols-1 bg-black/90 md:grid-cols-[1fr_1fr_1fr_1fr_1fr_1fr_0.5fr_0.5fr]"
+    cclass="sticky top-0 z-50 grid grid-cols-1 bg-black/90 md:grid-cols-[1fr_1fr_1fr_1fr_1fr_1fr_0.5fr_0.5fr]"
+    class="sticky top-0 z-50 grid grid-cols-1 bg-black/90 md:grid-cols-[auto_1fr_6ch_6ch]"
   >
     <div
       class="flex h-10 w-full items-center justify-between border-b border-r border-gray-700 md:border-l"
@@ -27,7 +28,7 @@ const menu = ref(false);
         <IconMenu />
       </button>
     </div>
-    <NuxtLink
+    <!-- <NuxtLink
       to="/schedule"
       class="md:block"
       :class="[menu ? 'block' : 'hidden']"
@@ -58,7 +59,7 @@ const menu = ref(false);
       @click="menu = false"
     >
       <NavLink>{{ ["podcast", "podcast"][lang] }}</NavLink>
-    </NuxtLink>
+    </NuxtLink> -->
     <NuxtLink
       to="/lab"
       class="md:block"
