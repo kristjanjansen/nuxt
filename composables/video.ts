@@ -20,6 +20,7 @@ export const processVideo = (video: any) => {
   const endDatetime = new Date(parseInt(lastModified) * 1000);
   const startDatetime = sub(endDatetime, { seconds: video.value.duration });
   const uploadDatetime = new Date(video.datetime);
+  const duration = video.value.duration;
 
   return {
     id,
@@ -30,5 +31,6 @@ export const processVideo = (video: any) => {
     endDatetime,
     uploadDatetime,
     key,
+    duration,
   };
 };
