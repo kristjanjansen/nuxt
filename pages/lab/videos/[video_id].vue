@@ -40,7 +40,7 @@ const video = videos.value
   .filter((video) => video.id === id)[0];
 
 const videoplayer = ref(null);
-const { currentTime } = useMediaControls(videoplayer, {
+const { currentTime, playing } = useMediaControls(videoplayer, {
   src: video.videoUrl,
 });
 
@@ -85,39 +85,34 @@ const path = computed(() =>
     ])
   )
 );
+
+const zoom = 3;
 </script>
 
 <template>
   <Stack class="p-4 md:p-6" v-if="video">
     {{ video.duration }}
     <Link left to="/lab/videos">Videos</Link>
-    <div class="font-mono text-gray-500">
-      <p>startDatetime: {{ video.startDatetime }}</p>
-      <p>endDatetime: &nbsp;&nbsp;{{ video.endDatetime }}</p>
-      <p>uploadDatetme: {{ video.endDatetime }}</p>
-      <br />
-      <p>currentTime: {{ xDatetimeScale.invert(currentX) }}</p>
-    </div>
-    <video ref="videoplayer" controls class="aspect-video w-1/2 rounded" />
-
-    <input
-      type="range"
-      v-model="currentX"
-      :max="width"
-      step="any"
-      :style="{ width: width + 'px' }"
-      class="accent-gray-600"
-    />
+    <Card class="grid grid-cols-[auto_1fr] gap-6">
+      <video ref="videoplayer" controls class="aspect-video w-96 rounded" />
+      <div class="font-mono text-gray-500">
+        <p>startDatetime: {{ video.startDatetime }}</p>
+        <p>endDatetime: &nbsp;&nbsp;{{ video.endDatetime }}</p>
+        <p>uploadDatetme: {{ video.endDatetime }}</p>
+        <br />
+        <p>currentTime: {{ xDatetimeScale.invert(currentX) }}</p>
+      </div>
+    </Card>
     <svg ref="svg" :width="width" :height="height" @mousedown="onScrub">
       <rect
         :width="width"
         :height="height"
         fill="rgb(var(--white))"
-        opacity="0.2"
+        opacity="0.1"
       />
       <line
         :x1="currentX"
-        y1="0"
+        :y1="height - 10"
         :x2="currentX"
         :y2="height"
         stroke="rgb(var(--white))"
@@ -128,16 +123,18 @@ const path = computed(() =>
       <path :d="path" stroke="red" opacity="1" fill="none" />
     </svg>
 
-    <svg :width="width" :height="height * 2">
+    <svg :width="width" :height="height * zoom">
       <line
         :x1="currentX"
         y1="0"
         :x2="currentX"
-        :y2="height * 2"
+        :y2="height * zoom"
         stroke="red"
       />
       <g
-        :transform="[translate(0, height), scale(2, 2)].join('')"
+        :transform="
+          [translate(0, height * (zoom / 2)), scale(zoom, zoom)].join('')
+        "
         :transform-origin="[currentX, height].join(' ')"
       >
         <path
