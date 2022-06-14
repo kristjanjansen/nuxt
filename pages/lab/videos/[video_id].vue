@@ -1,7 +1,23 @@
 <script setup lang="ts">
 import { sub, add } from "date-fns";
-import { scaleTime } from "d3";
-import { useMediaControls, useMouseInElement } from "@vueuse/core";
+import { scaleTime, csvParse } from "d3";
+import { useMediaControls, useMouseInElement, useStorage } from "@vueuse/core";
+
+function polygonpath(
+  points: [number, number][],
+  closed: boolean = false
+): string {
+  const [startX, startY] = points.shift() || [0, 0];
+  const path = [
+    "M",
+    `${startX || 0},${startY}`,
+    ...points.map(([x, y]) => `L ${x},${y}`),
+    closed ? "Z" : "",
+  ]
+    .join(" ")
+    .trim();
+  return path;
+}
 
 const route = useRoute();
 const id = route.params.video_id;
@@ -44,6 +60,20 @@ watch(currentX, () => {
 });
 
 const zoom = ref(0);
+
+const csv = useStorage(`elektron_video_${id}`, "");
+const data = ref([]);
+
+watch(csv, () => (data.value = csvParse(csv.value)));
+
+const path = computed(() =>
+  polygonpath(
+    data.value.map((d: any) => [
+      xDatetimeScale(new Date(d.datetime)),
+      height - parseFloat(d.value) * 8,
+    ])
+  )
+);
 </script>
 
 <template>
@@ -54,7 +84,7 @@ const zoom = ref(0);
       <p>startDatetime: {{ video.startDatetime }}</p>
       <p>endDatetime: &nbsp;&nbsp;{{ video.endDatetime }}</p>
       <p>uploadDatetme: {{ video.endDatetime }}</p>
-      <p>currentTime: {{ currentTime }}</p>
+      <p>currentTime: {{ xDatetimeScale.invert(currentX) }}</p>
     </div>
     <video ref="videoplayer" controls class="aspect-video w-1/2 rounded" />
 
@@ -83,6 +113,7 @@ const zoom = ref(0);
         :stroke-width="zoom"
       />
       <line :x1="currentX" y1="0" :x2="currentX" :y2="height" stroke="red" />
+      <path :d="path" stroke="red" opacity="1" fill="none" />
     </svg>
     <input
       type="range"
@@ -94,8 +125,9 @@ const zoom = ref(0);
     />
     <p>Paste a CSV here:</p>
     <textarea
+      v-model="csv"
       rows="10"
-      class="w-full whitespace-pre-wrap border-gray-500 bg-black/0 px-2 py-1 font-mono text-white focus:border-gray-500 focus:ring-0"
+      class="w-full whitespace-pre border-gray-500 bg-black/0 px-2 py-1 font-mono text-xs text-white focus:border-gray-500 focus:ring-0"
     />
   </Stack>
 </template>
