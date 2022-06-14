@@ -19,9 +19,11 @@
         <Title small>Videocapture</Title>
         <p class="text-gray-500">Capture a frame from live video</p>
       </LinkCard> -->
+      <LinkCard to="/lab/videos/experiment" class="border-re aspect-video pr-8">
+        <Title small>Latest experiment</Title>
+      </LinkCard>
       <LinkCard to="/lab/videos" class="border-re aspect-video pr-8">
         <Title small>Video analysis</Title>
-        <p class="text-gray-500">An R & D project</p>
       </LinkCard>
     </div>
   </Stack>

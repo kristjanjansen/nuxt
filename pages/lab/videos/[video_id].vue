@@ -116,20 +116,6 @@ const hslStep = 25;
   <Stack class="p-4 md:p-6" v-if="video">
     <Link left to="/lab/videos">Videos</Link>
     <video ref="videoplayer" controls class="aspect-video w-96 rounded" />
-    <!-- <div class="grid grid-cols-[auto_1fr] gap-6">
-      <Card class="font-mono text-sm text-gray-500">
-        <p>startDatetime: {{ formatVideoDatetime(video.startDatetime) }}</p>
-        <p>
-          endDatetime: &nbsp;&nbsp;{{ formatVideoDatetime(video.endDatetime) }}
-        </p>
-        <p>uploadDatetme: {{ formatVideoDatetime(video.endDatetime) }}</p>
-        <br />
-        <p>
-          currentTime:
-          {{ formatVideoDatetime(xDatetimeScale.invert(currentX)) }}
-        </p>
-      </Card>
-    </div> -->
     <Card class="flex justify-between font-mono text-sm text-gray-500">
       <p>{{ formatVideoDatetime(video.startDatetime) }}</p>
       <p>{{ formatVideoDatetime(xDatetimeScale.invert(currentX)) }}</p>
