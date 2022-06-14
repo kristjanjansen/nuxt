@@ -108,6 +108,8 @@ const paths = computed(() =>
 );
 
 const zoom = 3;
+
+const hslStep = 25;
 </script>
 
 <template>
@@ -140,7 +142,7 @@ const zoom = 3;
       UserNames:
       <span
         v-for="(name, i) in userNames"
-        :style="{ color: hsl(217 + i * 50, 91, 60, 0.9) }"
+        :style="{ color: hsl(217 + i * hslStep, 91, 60, 0.9) }"
         >{{ name }}&nbsp;</span
       >
     </Card>
@@ -184,7 +186,7 @@ const zoom = 3;
         v-for="(path, i) in paths"
         :d="path"
         fill="none"
-        :stroke="hsl(217 + i * 50, 91, 60, 0.5)"
+        :stroke="hsl(217 + i * hslStep, 91, 60, 0.5)"
         stroke-width="2"
       />
     </svg>
@@ -211,7 +213,7 @@ const zoom = 3;
           :d="path"
           fill="none"
           vector-effect="non-scaling-stroke"
-          :stroke="hsl(217 + i * 50, 91, 60, 0.5)"
+          :stroke="hsl(217 + i * hslStep, 91, 60, 0.5)"
           stroke-width="2"
         />
       </g>
