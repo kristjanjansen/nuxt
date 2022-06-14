@@ -44,7 +44,7 @@ const { currentTime, playing } = useMediaControls(videoplayer, {
   src: video.videoUrl,
 });
 
-const width = 500;
+const width = 1000;
 const height = 100;
 
 const xDatetimeScale = scaleTime()
@@ -81,7 +81,7 @@ const path = computed(() =>
   polygonpath(
     data.value.map((d: any) => [
       xDatetimeScale(new Date(d.datetime)),
-      height - parseFloat(d.value) * 8,
+      height - parseFloat(d.value) * 5,
     ])
   )
 );
@@ -91,7 +91,6 @@ const zoom = 3;
 
 <template>
   <Stack class="p-4 md:p-6" v-if="video">
-    {{ video.duration }}
     <Link left to="/lab/videos">Videos</Link>
     <Card class="grid grid-cols-[auto_1fr] gap-6">
       <video ref="videoplayer" controls class="aspect-video w-96 rounded" />
@@ -119,8 +118,14 @@ const zoom = 3;
         opacity="0.1"
         :stroke-width="width"
       />
-      <line :x1="currentX" y1="0" :x2="currentX" :y2="height" stroke="red" />
-      <path :d="path" stroke="red" opacity="1" fill="none" />
+      <line
+        :x1="currentX"
+        y1="0"
+        :x2="currentX"
+        :y2="height"
+        class="stroke-red-500"
+      />
+      <path :d="path" opacity="0.6" fill="none" class="stroke-blue-500" />
     </svg>
 
     <svg :width="width" :height="height * zoom">
@@ -129,7 +134,7 @@ const zoom = 3;
         y1="0"
         :x2="currentX"
         :y2="height * zoom"
-        stroke="red"
+        class="stroke-red-500"
       />
       <g
         :transform="
@@ -139,10 +144,10 @@ const zoom = 3;
       >
         <path
           :d="path"
-          stroke="red"
-          opacity="1"
+          opacity="0.6"
           fill="none"
           vector-effect="non-scaling-stroke"
+          class="stroke-blue-500"
         />
       </g>
     </svg>
