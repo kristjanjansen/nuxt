@@ -144,7 +144,6 @@ const zoom = 3;
         >{{ name }}&nbsp;</span
       >
     </Card>
-    <Card class="font-mono text-sm"> Users: {{ userNames }} </Card>
     <svg
       class="rounded-lg border-gray-700"
       ref="svg"
