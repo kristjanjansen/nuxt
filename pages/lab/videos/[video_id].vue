@@ -3,6 +3,8 @@ import { sub, add } from "date-fns";
 import { scaleTime, scaleLinear, csvParse } from "d3";
 import { useMediaControls, useMouseInElement, useStorage } from "@vueuse/core";
 
+const unique = (arr: any[]) => [...new Set(arr)];
+
 function polygonpath(
   points: [number, number][],
   closed: boolean = false
@@ -77,12 +79,21 @@ const data = ref([]);
 
 watch(csv, () => (data.value = csvParse(csv.value)));
 
-const path = computed(() =>
-  polygonpath(
-    data.value.map((d: any) => [
-      xDatetimeScale(new Date(d.datetime)),
-      height - parseFloat(d.value) * 5,
-    ])
+const userIds = computed(() => unique(data.value.map((c) => c.userId)));
+const dataByUser = computed(() => {
+  return userIds.value.map((userId: string) =>
+    data.value.filter((d) => d.userId === userId)
+  );
+});
+
+const paths = computed(() =>
+  dataByUser.value.map((d) =>
+    polygonpath(
+      d.map((d: any) => [
+        xDatetimeScale(new Date(d.datetime)),
+        height - parseFloat(d.value) * 5,
+      ])
+    )
   )
 );
 
@@ -116,7 +127,7 @@ const zoom = 3;
         :y2="height"
         stroke="rgb(var(--white))"
         opacity="0.1"
-        :stroke-width="width"
+        :stroke-width="width / zoom"
       />
       <line
         :x1="currentX"
@@ -125,7 +136,13 @@ const zoom = 3;
         :y2="height"
         class="stroke-red-500"
       />
-      <path :d="path" opacity="0.6" fill="none" class="stroke-blue-500" />
+      <path
+        v-for="path in paths"
+        :d="path"
+        opacity="0.6"
+        fill="none"
+        class="stroke-blue-500"
+      />
     </svg>
 
     <svg :width="width" :height="height * zoom">
@@ -143,6 +160,7 @@ const zoom = 3;
         :transform-origin="[currentX, height].join(' ')"
       >
         <path
+          v-for="path in paths"
           :d="path"
           opacity="0.6"
           fill="none"
