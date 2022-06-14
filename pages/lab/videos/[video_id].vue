@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { sub, add, format } from "date-fns";
+import { format } from "date-fns";
 import { scaleTime, scaleLinear, csvParse } from "d3";
 import { useMediaControls, useMouseInElement, useStorage } from "@vueuse/core";
 
@@ -50,10 +50,7 @@ const width = 1000;
 const height = 100;
 
 const xDatetimeScale = scaleTime()
-  .domain([
-    sub(new Date(video.startDatetime), { seconds: 100 }),
-    add(new Date(video.endDatetime), { seconds: 100 }),
-  ])
+  .domain([new Date(video.startDatetime), new Date(video.endDatetime)])
   .range([0, width]);
 
 const currentX = ref(0);
@@ -75,7 +72,7 @@ const onScrub = () => {
   currentTime.value = xVideoScale.invert(scrubX.value);
 };
 
-const csv = useStorage(`elektron_video_${id}`, "");
+const csv = ref("");
 const data = ref([]);
 
 watch(csv, () => (data.value = csvParse(csv.value)));
