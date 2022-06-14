@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { sub, add } from "date-fns";
+import { sub, add, format } from "date-fns";
 import { scaleTime, scaleLinear, csvParse } from "d3";
 import { useMediaControls, useMouseInElement, useStorage } from "@vueuse/core";
 
@@ -58,10 +58,11 @@ const xDatetimeScale = scaleTime()
 
 const currentX = ref(0);
 
+const formattedCurrentTime = computed(() => {
+  return format(new Date(xDatetimeScale.invert(currentX.value)), "HH:mm:ss");
+});
+
 const xVideoScale = scaleLinear().domain([0, video.duration]).range([0, width]);
-const xVideoScale2 = scaleLinear()
-  .range([0, width])
-  .domain([0, video.duration]);
 
 const svg = ref(null);
 const { elementX: scrubX } = useMouseInElement(svg);
@@ -139,7 +140,7 @@ const zoom = 3;
       <path
         v-for="path in paths"
         :d="path"
-        opacity="0.6"
+        opacity="0.8"
         fill="none"
         class="stroke-blue-500"
       />
@@ -153,6 +154,9 @@ const zoom = 3;
         :y2="height * zoom"
         class="stroke-red-500"
       />
+      <text :x="currentX + 10" y="20" class="fill-white font-mono text-xs">
+        {{ formattedCurrentTime }}
+      </text>
       <g
         :transform="
           [translate(0, height * (zoom / 2)), scale(zoom, zoom)].join('')
@@ -162,7 +166,7 @@ const zoom = 3;
         <path
           v-for="path in paths"
           :d="path"
-          opacity="0.6"
+          opacity="0.8"
           fill="none"
           vector-effect="non-scaling-stroke"
           class="stroke-blue-500"
