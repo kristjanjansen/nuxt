@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { format } from "date-fns";
 import { scaleTime, scaleLinear, csvParse } from "d3";
-import { useMediaControls, useMouseInElement, useStorage } from "@vueuse/core";
+import { useMediaControls, useMouseInElement } from "@vueuse/core";
 
 const unique = (arr: any[]) => [...new Set(arr)];
 
