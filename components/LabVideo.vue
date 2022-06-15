@@ -10,7 +10,7 @@ type Props = {
   csv?: string;
 };
 
-const { video, csv } = defineProps<Props>();
+const { video, csv = "" } = defineProps<Props>();
 
 const videoplayer = ref(null);
 const { currentTime } = useMediaControls(videoplayer, {

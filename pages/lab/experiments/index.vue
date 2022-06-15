@@ -2,23 +2,27 @@
 import { useIntervalFn } from "@vueuse/core";
 import { formatVideoDatetime } from "~~/composables/video";
 
-const videosUrl = `https://ws.elektron.art/messages?secret=eestiteatriauhinnad`;
+const videosUrl = `https://ws.elektron.art/messages?secret=eestiteatriauhinnad&type=VIDEO`;
 const { data, refresh, error } = await useAsyncData<any[]>("videos", () =>
   $fetch(videosUrl)
 );
-// console.log(data.value);
-// const processedVideos = data.value.map(processVideo).reverse().slice(0, 24);
-// useIntervalFn(refresh, 1000 * 10);
+const processedVideos = (data.value || [])
+  .map(processVideo)
+  .reverse()
+  .slice(0, 24);
+useIntervalFn(refresh, 1000 * 10);
+//const processedVideos = [];
 </script>
 
 <template>
-  <pre>{{ data.map((d) => d.type).length }}</pre>
-  <!--Stack class="p-5 md:p-6">
-    <Title>Videos</Title>
+  <ErrorCard v-if="error" />
+  <Stack v-else class="p-5 md:p-6">
+    <Link to="/lab" left>Lab</Link>
+    <Title>Video analysis</Title>
     <NuxtLink
       class="w-full"
       v-for="video in processedVideos"
-      :to="'/lab/videos/' + video.id"
+      :to="'/lab/experiments/' + video.id"
     >
       <Card class="grid grid-cols-[auto_1fr] gap-6">
         <video
@@ -37,5 +41,5 @@ const { data, refresh, error } = await useAsyncData<any[]>("videos", () =>
         </div>
       </Card>
     </NuxtLink>
-  </Stack-->
+  </Stack>
 </template>

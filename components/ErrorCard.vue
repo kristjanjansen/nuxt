@@ -9,8 +9,7 @@ import IconGlobe from "~icons/radix-icons/globe";
     <br />
     <div class="max-w-[40ch]">
       The planets are not aligned to display this page. You are either offline,
-      our servers are down, or there is a galaxy superhighway built over all of
-      us.
+      our servers are down, or there is a hyperspace bypass being built.
     </div>
   </div>
 </template>
