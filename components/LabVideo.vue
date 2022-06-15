@@ -90,10 +90,10 @@ const opacity = (index) => {
     if (userIndex.value === index) {
       return 1;
     } else {
-      return 0.1;
+      return 0.3;
     }
   }
-  return 0.5;
+  return 0.6;
 };
 </script>
 
