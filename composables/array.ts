@@ -3,3 +3,5 @@ export function nearest(arr: number[], goal: number) {
     Math.abs(curr - goal) < Math.abs(prev - goal) ? curr : prev
   );
 }
+
+export const unique = (arr: any[]) => [...new Set(arr)];
