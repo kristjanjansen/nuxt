@@ -6,13 +6,17 @@ const videosUrl = `https://ws.elektron.art/messages?secret=eestiteatriauhinnad&t
 const { data, refresh, error } = await useAsyncData<any[]>("videos", () =>
   $fetch(videosUrl)
 );
-const processedVideos = data.value.map(processVideo).reverse().slice(0, 24);
+const processedVideos = (data.value || [])
+  .map(processVideo)
+  .reverse()
+  .slice(0, 24);
 useIntervalFn(refresh, 1000 * 10);
 //const processedVideos = [];
 </script>
 
 <template>
-  <Stack class="p-5 md:p-6">
+  <ErrorCard v-if="error" />
+  <Stack v-else class="p-5 md:p-6">
     <Link to="/lab" left>Lab</Link>
     <Title>Video analysis</Title>
     <NuxtLink
