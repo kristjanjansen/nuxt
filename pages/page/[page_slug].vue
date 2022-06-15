@@ -1,4 +1,5 @@
 <script setup lang="ts">
+// @TODO: rror handling
 const route = useRoute();
 const slug = (route.params.page_slug as string).toLowerCase();
 const data = await $fetch(

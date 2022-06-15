@@ -1,4 +1,5 @@
 <script setup lang="ts">
+// @TODO: Error handling
 const data = await $fetch("https://strapi4.elektron.art/api/about?populate=*");
 const { cards } = parseStrapi(data);
 
