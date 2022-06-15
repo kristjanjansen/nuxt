@@ -17,7 +17,7 @@ const { currentTime } = useMediaControls(videoplayer, {
   src: video.videoUrl,
 });
 
-const width = 1000;
+const width = 300;
 const height = 100;
 
 const xDatetimeScale = scaleTime()
@@ -73,7 +73,6 @@ const hslStep = 25;
 const userIndex = ref(-1);
 
 const opacity = (index) => {
-  console.log(userIndex.value === index);
   if (userIndex.value > -1) {
     if (userIndex.value === index) {
       return 1;
@@ -87,15 +86,19 @@ const opacity = (index) => {
 
 <template>
   <Stack class="w-full">
-    <video ref="videoplayer" controls class="aspect-video w-[25vw] rounded" />
-    <Card class="flex justify-between font-mono text-sm text-gray-500">
+    <video
+      ref="videoplayer"
+      controls
+      class="aspect-video rounded md:w-[25vw]"
+    />
+    <Card class="justify-between font-mono text-sm text-gray-500 md:flex">
       <p>{{ formatVideoDatetime(video.startDatetime) }}</p>
       <p>{{ formatVideoDatetime(xDatetimeScale.invert(currentX)) }}</p>
       <p>{{ formatVideoDatetime(video.endDatetime) }}</p>
     </Card>
     <Card
       v-if="userNames.length"
-      class="grid grid-cols-4 overflow-auto font-mono text-sm"
+      class="grid grid-cols-2 overflow-auto font-mono text-sm md:grid-cols-4"
     >
       <div @click="userIndex = -1" class="cursor-pointer">All users</div>
       <div
