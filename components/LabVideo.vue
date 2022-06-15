@@ -10,7 +10,7 @@ type Props = {
   csv?: string;
 };
 
-const { video, csv: rawCsv } = defineProps<Props>();
+const { video, csv } = defineProps<Props>();
 
 const videoplayer = ref(null);
 const { currentTime } = useMediaControls(videoplayer, {
@@ -46,13 +46,8 @@ const onScrub = () => {
   }
 };
 
-const data = ref([]);
-
-const csv = ref(rawCsv);
-watch([() => rawCsv, csv], () => (data.value = csvParse(csv.value)), {
-  immediate: true,
-});
-
+const csvField = ref(csv);
+const data = computed(() => csvParse(csvField.value));
 const userNames = computed(() => unique(data.value.map((c) => c.userName)));
 const dataByUser = computed(() => {
   return userNames.value.map((userName: string) =>
@@ -195,7 +190,7 @@ const opacity = (index) => {
     </svg>
     <textarea
       placeholder="Paste a CSV here"
-      v-model="csv"
+      v-model="csvField"
       rows="10"
       class="w-full whitespace-pre border-gray-500 bg-black/0 px-2 py-1 font-mono text-xs text-white focus:border-gray-500 focus:ring-0"
     />
