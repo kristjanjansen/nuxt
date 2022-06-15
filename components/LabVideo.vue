@@ -1,7 +1,11 @@
 <script setup lang="ts">
 import { differenceInSeconds, format, parse, sub } from "date-fns";
 import { scaleTime, scaleLinear, csvParse } from "d3";
-import { useMediaControls, useMouseInElement } from "@vueuse/core";
+import {
+  useElementSize,
+  useMediaControls,
+  useMouseInElement,
+} from "@vueuse/core";
 import { formatVideoDatetime } from "~~/composables/video";
 import { hsl, translate, scale } from "~~/composables/svg";
 
@@ -17,32 +21,41 @@ const { currentTime } = useMediaControls(videoplayer, {
   src: video.videoUrl,
 });
 
-const width = 300;
+const graph = ref(null);
+const { width } = useElementSize(graph);
+const svg = ref(null);
+const { elementX: scrubX } = useMouseInElement(svg);
+
+//const width = 300;
 const height = 100;
 
-const xDatetimeScale = scaleTime()
-  .domain([new Date(video.startDatetime), new Date(video.endDatetime)])
-  .range([0, width]);
+const xDatetimeScale = computed(() =>
+  scaleTime()
+    .domain([new Date(video.startDatetime), new Date(video.endDatetime)])
+    .range([0, width.value])
+);
 
 const currentX = ref(0);
 
 const formattedCurrentTime = computed(() => {
-  return format(new Date(xDatetimeScale.invert(currentX.value)), "HH:mm:ss");
+  return format(
+    new Date(xDatetimeScale.value.invert(currentX.value)),
+    "HH:mm:ss"
+  );
 });
 
-const xVideoScale = scaleLinear().domain([0, video.duration]).range([0, width]);
+const xVideoScale = computed(() =>
+  scaleLinear().domain([0, video.duration]).range([0, width.value])
+);
 
-const svg = ref(null);
-const { elementX: scrubX } = useMouseInElement(svg);
-
-watch(currentTime, () => {
-  currentX.value = xVideoScale(currentTime.value);
+watch([currentTime, width], () => {
+  currentX.value = xVideoScale.value(currentTime.value);
 });
 
 const scrubbing = ref(false);
 const onScrub = () => {
   if (scrubbing.value) {
-    currentTime.value = xVideoScale.invert(scrubX.value);
+    currentTime.value = xVideoScale.value.invert(scrubX.value);
   }
 };
 
@@ -59,7 +72,7 @@ const paths = computed(() =>
   dataByUser.value.map((d) =>
     polygonpath(
       d.map((d: any) => [
-        xDatetimeScale(new Date(d.datetime)),
+        xDatetimeScale.value(new Date(d.datetime)),
         height - parseFloat(d.value) * 5,
       ])
     )
@@ -110,87 +123,89 @@ const opacity = (index) => {
         {{ name }}&nbsp;&nbsp;
       </div>
     </Card>
-    <svg
-      class="rounded-lg border-gray-700"
-      ref="svg"
-      :width="width"
-      :height="height"
-      @mousedown="scrubbing = true"
-      @mousemove="onScrub"
-      @mouseup="
-        () => {
-          onScrub();
-          scrubbing = false;
-        }
-      "
-    >
-      <rect
+    <div ref="graph" class="w-full">
+      <svg
+        class="rounded-lg"
+        ref="svg"
         :width="width"
         :height="height"
-        fill="rgb(var(--white))"
-        opacity="0.1"
-      />
-      <line
-        :x1="currentX"
-        :y1="0"
-        :x2="currentX"
-        :y2="height"
-        stroke="rgb(var(--white))"
-        opacity="0.03"
-        :stroke-width="width / zoom"
-      />
-      <line
-        :x1="currentX"
-        y1="0"
-        :x2="currentX"
-        :y2="height"
-        class="stroke-red-500"
-      />
-      <path
-        v-for="(path, i) in paths"
-        :d="path"
-        fill="none"
-        :stroke="hsl(217 + i * hslStep, 91, 60, opacity(i))"
-        stroke-width="2"
-      />
-    </svg>
-
-    <svg :width="width" :height="height * zoom">
-      <line
-        :x1="currentX"
-        y1="0"
-        :x2="currentX"
-        :y2="height * zoom"
-        class="stroke-red-500"
-      />
-      <text :x="currentX + 10" y="20" class="fill-white font-mono text-xs">
-        {{ formattedCurrentTime }}
-      </text>
-      <g
-        :transform="
-          [translate(0, height * (zoom / 2)), scale(zoom, zoom)].join('')
+        @mousedown="scrubbing = true"
+        @mousemove="onScrub"
+        @mouseup="
+          () => {
+            onScrub();
+            scrubbing = false;
+          }
         "
-        :transform-origin="[currentX, height].join(' ')"
       >
+        <rect
+          :width="width"
+          :height="height"
+          fill="rgb(var(--white))"
+          opacity="0.1"
+        />
+        <line
+          :x1="currentX"
+          :y1="0"
+          :x2="currentX"
+          :y2="height"
+          stroke="rgb(var(--white))"
+          opacity="0.03"
+          :stroke-width="width / zoom"
+        />
+        <line
+          :x1="currentX"
+          y1="0"
+          :x2="currentX"
+          :y2="height"
+          class="stroke-red-500"
+        />
         <path
           v-for="(path, i) in paths"
           :d="path"
           fill="none"
-          vector-effect="non-scaling-stroke"
           :stroke="hsl(217 + i * hslStep, 91, 60, opacity(i))"
           stroke-width="2"
-          @click="userIndex = i"
         />
-        <path
-          v-for="(path, i) in paths"
-          :d="path"
-          fill="none"
-          stroke="rgba(0,0,0,0)"
-          stroke-width="10"
-          @click="userIndex = i"
+      </svg>
+
+      <svg :width="width" :height="height * zoom">
+        <line
+          :x1="currentX"
+          y1="0"
+          :x2="currentX"
+          :y2="height * zoom"
+          class="stroke-red-500"
         />
-      </g>
-    </svg>
+        <text :x="currentX + 10" y="20" class="fill-white font-mono text-xs">
+          {{ formattedCurrentTime }}
+        </text>
+        <g
+          :transform="
+            [translate(0, height * (zoom / 2)), scale(zoom, zoom)].join('')
+          "
+          :transform-origin="[currentX, height].join(' ')"
+        >
+          <path
+            v-for="(path, i) in paths"
+            :d="path"
+            fill="none"
+            vector-effect="non-scaling-stroke"
+            :stroke="hsl(217 + i * hslStep, 91, 60, opacity(i))"
+            stroke-width="2"
+            @click="userIndex = i"
+          />
+          <path
+            v-for="(path, i) in paths"
+            :d="path"
+            fill="none"
+            stroke="rgba(0,0,0,0)"
+            stroke-width="10"
+            @click="userIndex = i"
+          />
+        </g>
+      </svg>
+    </div>
     <textarea
       placeholder="Paste a CSV here"
       v-model="csvField"
