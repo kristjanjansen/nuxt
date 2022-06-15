@@ -2,10 +2,7 @@
   <Stack class="p-4 md:p-6">
     <Link left to="/" />
     <Title>Lab</Title>
-    <p>
-      Various coding experiments,
-      <span class="font-mono">ENG</span> only
-    </p>
+    <p>A place where elektron R & D happens.</p>
     <div class="grid w-full auto-rows-fr gap-5 md:grid-cols-3">
       <!-- <LinkCard to="/lab/messages" class="aspect-video pr-8">
         <Title small>Messages</Title>
@@ -19,12 +16,16 @@
         <Title small>Videocapture</Title>
         <p class="text-gray-500">Capture a frame from live video</p>
       </LinkCard> -->
-      <LinkCard to="/lab/videos/experiment" class="border-re aspect-video pr-8">
-        <Title small>Latest experiment</Title>
+      <LinkCard
+        to="/lab/experiments/june_2022"
+        class="border-re aspect-video pr-8"
+      >
+        <Title small>Experiment in June 2022</Title>
+        <p>Sensors and sliders and skating on propaganda</p>
       </LinkCard>
-      <LinkCard to="/lab/videos" class="border-re aspect-video pr-8">
+      <!-- <LinkCard to="/lab/videos" class="border-re aspect-video pr-8">
         <Title small>Video analysis</Title>
-      </LinkCard>
+      </LinkCard> -->
     </div>
   </Stack>
 </template>
