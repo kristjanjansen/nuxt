@@ -10,6 +10,9 @@ const getKey = (key: string) => {
   return key.split("_")[0];
 };
 
+export const processVideo2 = (video: any) => {
+  return video;
+};
 export const processVideo = (video: any) => {
   const id = video.id;
   const path = video.value.path;

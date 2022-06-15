@@ -1,19 +1,53 @@
 <script setup lang="ts">
-import { differenceInSeconds, format, parse, sub } from "date-fns";
+import { format } from "date-fns";
 import { scaleTime, scaleLinear, csvParse } from "d3";
 import { useMediaControls, useMouseInElement } from "@vueuse/core";
 import { formatVideoDatetime } from "~~/composables/video";
-import { hsl, translate, scale } from "~~/composables/svg";
 
-type Props = {
-  video: any;
-  csv?: string;
-};
+const unique = (arr: any[]) => [...new Set(arr)];
 
-const { video, csv = "" } = defineProps<Props>();
+function hsl(h = 0, s = 100, l = 50, a = 1): string {
+  return `hsl(${h},${s}%,${l}%,${a})`;
+}
+
+function polygonpath(
+  points: [number, number][],
+  closed: boolean = false
+): string {
+  const [startX, startY] = points.shift() || [0, 0];
+  const path = [
+    "M",
+    `${startX || 0},${startY}`,
+    ...points.map(([x, y]) => `L ${x},${y}`),
+    closed ? "Z" : "",
+  ]
+    .join(" ")
+    .trim();
+  return path;
+}
+
+function translate(x: number = 0, y: number = 0, unit?: "px" | "%"): string {
+  return `translate(${x}${unit ?? ""}, ${y}${unit ?? ""})`;
+}
+
+function scale(scaleX: number = 1, scaleY?: number, unit?: "%"): string {
+  return `scale(${scaleX}${unit ?? ""}, ${scaleY || scaleX}${unit ?? ""})`;
+}
+
+const route = useRoute();
+const id = route.params.video_id;
+
+const videosUrl = `https://ws.elektron.art/messages?secret=eestiteatriauhinnad&type=VIDEO`;
+const { data: videos } = await useAsyncData<any[]>("videos", () =>
+  $fetch(videosUrl)
+);
+
+const video = videos.value
+  .map(processVideo)
+  .filter((video) => video.id === id)[0];
 
 const videoplayer = ref(null);
-const { currentTime } = useMediaControls(videoplayer, {
+const { currentTime, playing } = useMediaControls(videoplayer, {
   src: video.videoUrl,
 });
 
@@ -46,10 +80,17 @@ const onScrub = () => {
   }
 };
 
-const csvField = ref(csv);
-const data = computed(() => csvParse(csvField.value));
+const csv = ref("");
+const data = ref([]);
+
+watch(csv, () => (data.value = csvParse(csv.value)));
+
+const userIds = computed(() => unique(data.value.map((c) => c.userId)));
 const userNames = computed(() => unique(data.value.map((c) => c.userName)));
 const dataByUser = computed(() => {
+  // return userIds.value.map((userId: string) =>
+  //   data.value.filter((d) => d.userId === userId)
+  // );
   return userNames.value.map((userName: string) =>
     data.value.filter((d) => d.userName === userName)
   );
@@ -69,43 +110,27 @@ const paths = computed(() =>
 const zoom = 3;
 
 const hslStep = 25;
-
-const userIndex = ref(-1);
-
-const opacity = (index) => {
-  console.log(userIndex.value === index);
-  if (userIndex.value > -1) {
-    if (userIndex.value === index) {
-      return 1;
-    } else {
-      return 0.1;
-    }
-  }
-  return 0.5;
-};
 </script>
 
 <template>
-  <Stack class="w-full">
-    <video ref="videoplayer" controls class="aspect-video w-[25vw] rounded" />
+  <Stack class="p-4 md:p-6" v-if="video">
+    <Link left to="/lab/videos">Videos</Link>
+    <video ref="videoplayer" controls class="aspect-video w-96 rounded" />
     <Card class="flex justify-between font-mono text-sm text-gray-500">
       <p>{{ formatVideoDatetime(video.startDatetime) }}</p>
       <p>{{ formatVideoDatetime(xDatetimeScale.invert(currentX)) }}</p>
       <p>{{ formatVideoDatetime(video.endDatetime) }}</p>
     </Card>
-    <Card
-      v-if="userNames.length"
-      class="grid grid-cols-4 overflow-auto font-mono text-sm"
-    >
-      <div @click="userIndex = -1" class="cursor-pointer">All users</div>
-      <div
+    <Card v-if="userIds.length" class="font-mono text-sm">
+      UserIds: {{ userIds.join("|") }}
+    </Card>
+    <Card v-if="userNames.length" class="font-mono text-sm">
+      UserNames:
+      <span
         v-for="(name, i) in userNames"
-        :style="{ color: hsl(217 + i * hslStep, 91, 60, opacity(i) + 0.2) }"
-        @click="userIndex = i"
-        class="cursor-pointer"
+        :style="{ color: hsl(217 + i * hslStep, 91, 60, 0.9) }"
+        >{{ name }}&nbsp;</span
       >
-        {{ name }}&nbsp;&nbsp;
-      </div>
     </Card>
     <svg
       class="rounded-lg border-gray-700"
@@ -147,7 +172,7 @@ const opacity = (index) => {
         v-for="(path, i) in paths"
         :d="path"
         fill="none"
-        :stroke="hsl(217 + i * hslStep, 91, 60, opacity(i))"
+        :stroke="hsl(217 + i * hslStep, 91, 60, 0.5)"
         stroke-width="2"
       />
     </svg>
@@ -174,23 +199,14 @@ const opacity = (index) => {
           :d="path"
           fill="none"
           vector-effect="non-scaling-stroke"
-          :stroke="hsl(217 + i * hslStep, 91, 60, opacity(i))"
+          :stroke="hsl(217 + i * hslStep, 91, 60, 0.5)"
           stroke-width="2"
-          @click="userIndex = i"
-        />
-        <path
-          v-for="(path, i) in paths"
-          :d="path"
-          fill="none"
-          stroke="rgba(0,0,0,0)"
-          stroke-width="10"
-          @click="userIndex = i"
         />
       </g>
     </svg>
+    <p>Paste a CSV here:</p>
     <textarea
-      placeholder="Paste a CSV here"
-      v-model="csvField"
+      v-model="csv"
       rows="10"
       class="w-full whitespace-pre border-gray-500 bg-black/0 px-2 py-1 font-mono text-xs text-white focus:border-gray-500 focus:ring-0"
     />
