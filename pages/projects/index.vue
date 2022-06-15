@@ -3,14 +3,15 @@ definePageMeta({
   title: "Some Page",
 });
 
-const { data: pinnnedProjects } = await useProjects({
+const { data: pinnnedProjects, error } = await useProjects({
   //filters: { pinned: "$true" },
 });
 const { lang } = useLang();
 </script>
 
 <template>
-  <Stack class="p-4 md:p-6">
+  <ErrorCard v-if="error" />
+  <Stack v-else class="p-4 md:p-6">
     <Link left to="/" />
     <Title>
       {{ ["Projects", "Projektid"][lang] }}

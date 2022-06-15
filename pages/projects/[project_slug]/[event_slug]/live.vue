@@ -2,7 +2,7 @@
 const route = useRoute();
 const slug = route.params.event_slug;
 
-const { data: event } = await useEventBySlug(slug);
+const { data: event, error } = await useEventBySlug(slug);
 
 //const url = "https://le21.babahhcdn.com/bb1150-le/x_live_1_c1.smil/playlist.m3u8"
 const url = "https://sb.err.ee/live/etv.m3u8";
@@ -13,7 +13,11 @@ const { lang } = useLang();
 </script>
 
 <template>
-  <Stack class="relative grid p-4 md:h-full md:place-items-center md:p-6">
+  <ErrorCard v-if="error" />
+  <Stack
+    v-else
+    class="relative grid p-4 md:h-full md:place-items-center md:p-6"
+  >
     <Breadboard class="hidden md:block" />
     <Link class="md:absolute md:top-6 md:left-6" left :to="event.eventLink">
       Back to event

@@ -2,7 +2,7 @@
 const route = useRoute();
 const slug = route.params.episode;
 
-const { data: podcast } = usePodcast();
+const { data: podcast, error } = usePodcast();
 const item = computed(() =>
   podcast.value?.items.find((i) =>
     i.itunes.episode ? i.itunes.episode === slug : i.guid === slug
@@ -11,7 +11,8 @@ const item = computed(() =>
 </script>
 
 <template>
-  <Stack class="relative grid h-full p-4 md:place-items-center md:p-6">
+  <ErrorCard v-if="error" />
+  <Stack v-else class="relative grid h-full p-4 md:place-items-center md:p-6">
     <Breadboard class="hidden md:block" />
     <!-- <Link left to="/podcast">Podcast</Link>
     <Title>elektron.signal</Title> -->
