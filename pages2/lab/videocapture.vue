@@ -24,7 +24,7 @@ const clear = () => {
   <div class="grid gap-8 p-4 md:grid-cols-2 md:p-6">
     <Stack>
       <Link left to="/lab">Lab</Link>
-      <Title>useVideocapture</Title>
+      <Title>Video capture</Title>
       <p>Status: {{ status }}</p>
       <div class="flex gap-2">
         <Button @click="capture">Capture</Button>

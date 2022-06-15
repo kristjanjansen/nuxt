@@ -12,16 +12,18 @@
         <Title small>Chat</Title>
         <p class="text-gray-500">Chat over websocket</p>
       </LinkCard>
-      <LinkCard to="/lab/videocapture" class="border-re aspect-video pr-8">
-        <Title small>Videocapture</Title>
-        <p class="text-gray-500">Capture a frame from live video</p>
-      </LinkCard> -->
+      -->
+
       <LinkCard
         to="/lab/experiments/june_2022"
         class="border-re aspect-video pr-8"
       >
         <Title small>Experiment in June 2022</Title>
         <p>Sensors and sliders and skating on propaganda</p>
+      </LinkCard>
+      <LinkCard to="/lab/videocapture" class="border-re aspect-video pr-8">
+        <Title small>Videocapture</Title>
+        <p class="text-gray-500">Capture a frame from live video</p>
       </LinkCard>
       <!-- <LinkCard to="/lab/videos" class="border-re aspect-video pr-8">
         <Title small>Video analysis</Title>
