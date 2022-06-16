@@ -14,8 +14,8 @@ const front = ref("video");
 
 const dock = ref<any>({
   about: { docked: false, front: false },
-  chat: { docked: false, front: false },
   video: { docked: false, front: false },
+  chat: { docked: false, front: false },
 });
 
 const toggleDock = (key) => {
@@ -41,8 +41,11 @@ const { lang } = useLang();
     <Draggable
       :x="200"
       :y="100"
-      @startDrag="front = 'video'"
-      :isFront="front === 'video'"
+      @startDrag="dock.video.front = true"
+      :isFront="dock.video.front"
+      :dockable="true"
+      @dock="toggleDock('video')"
+      :docked="dock.video.docked"
     >
       <Videostream :url="url" class="md:w-[70vw]" />
     </Draggable>
@@ -81,8 +84,8 @@ const { lang } = useLang();
         <template v-for="(d, key) in dock">
           <button
             @click="toggleDock(key)"
-            class="text-mono !cursor-pointer border-t border-r border-gray-700 py-2 px-4 text-sm uppercase text-gray-700 transition duration-1000 first:border-l"
-            :class="d.docked ? '!text-gray-300' : ''"
+            class="text-mono !cursor-pointer border-t border-r border-gray-700 py-2 px-4 text-sm uppercase text-gray-300 transition first:border-l hover:bg-gray-900"
+            :class="d.docked ? '!text-gray-700' : ''"
           >
             {{ key }}
           </button>
