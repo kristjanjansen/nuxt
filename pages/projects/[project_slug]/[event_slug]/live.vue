@@ -8,7 +8,7 @@ const { data: event, error } = await useEventBySlug(slug);
 const url = "https://sb.err.ee/live/etv.m3u8";
 
 const front = ref("video");
-
+const dock = ref<any>({});
 const { lang } = useLang();
 </script>
 
@@ -26,8 +26,8 @@ const { lang } = useLang();
     <Draggable
       :x="200"
       :y="100"
-      @startDrag="front = 'chat'"
-      :isFront="front === 'chat'"
+      @startDrag="front = 'video'"
+      :isFront="front === 'video'"
     >
       <Videostream :url="url" class="md:w-[70vw]" />
     </Draggable>
@@ -35,8 +35,11 @@ const { lang } = useLang();
     <Draggable
       :x="900"
       :y="200"
-      @startDrag="front = 'video'"
-      :isFront="front === 'video'"
+      @startDrag="front = 'chat'"
+      :isFront="front === 'chat'"
+      :dockable="true"
+      @dock="dock.chat = true"
+      :docked="dock.chat"
     >
       <Chat class="h-[60vw] md:h-[30vw] md:w-[25vw]" />
     </Draggable>
@@ -46,6 +49,9 @@ const { lang } = useLang();
       :y="300"
       @startDrag="front = 'about'"
       :isFront="front === 'about'"
+      :dockable="true"
+      @dock="dock.about = true"
+      :docked="dock.about"
     >
       <Stack class="overflow-y-scroll p-4 md:h-[30vw] md:w-[30vw]">
         <Title>
@@ -55,5 +61,21 @@ const { lang } = useLang();
         <Content :content="event.descriptions[lang]" />
       </Stack>
     </Draggable>
+    <Fade>
+      <div
+        v-if="Object.values(dock).filter((d) => d).length"
+        class="fixed bottom-0 left-6 flex gap-2 font-mono"
+      >
+        <template v-for="(d, key) in dock">
+          <button
+            v-if="d"
+            @click="dock[key] = false"
+            class="text-mono !cursor-pointer border border-b-0 border-gray-700 py-2 px-3 text-sm uppercase text-gray-300"
+          >
+            {{ key }}
+          </button>
+        </template>
+      </div>
+    </Fade>
   </Stack>
 </template>
