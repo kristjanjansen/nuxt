@@ -8,7 +8,18 @@ const { data: event, error } = await useEventBySlug(slug);
 const url = "https://sb.err.ee/live/etv.m3u8";
 
 const front = ref("video");
-const dock = ref<any>({});
+const dock = ref<any>({
+  about: { docked: false, front: false },
+  chat: { docked: false, front: false },
+  video: { docked: false, front: false },
+});
+
+const toggleDock = (key) => {
+  dock.value[key].docked = !dock.value[key].docked;
+  Object.keys(dock.value).forEach((k) => (dock.value[k].front = false));
+  dock.value[key].front = true;
+};
+
 const { lang } = useLang();
 </script>
 
@@ -35,11 +46,11 @@ const { lang } = useLang();
     <Draggable
       :x="900"
       :y="200"
-      @startDrag="front = 'chat'"
-      :isFront="front === 'chat'"
+      @startDrag="dock.chat.front = true"
+      :isFront="dock.chat.front"
       :dockable="true"
-      @dock="dock.chat = true"
-      :docked="dock.chat"
+      @dock="toggleDock('chat')"
+      :docked="dock.chat.docked"
     >
       <Chat class="h-[60vw] md:h-[30vw] md:w-[25vw]" />
     </Draggable>
@@ -47,11 +58,11 @@ const { lang } = useLang();
     <Draggable
       :x="100"
       :y="300"
-      @startDrag="front = 'about'"
-      :isFront="front === 'about'"
+      @startDrag="dock.about.front = true"
+      :isFront="dock.about.front"
       :dockable="true"
-      @dock="dock.about = true"
-      :docked="dock.about"
+      @dock="toggleDock('about')"
+      :docked="dock.about.docked"
     >
       <Stack class="overflow-y-scroll p-4 md:h-[30vw] md:w-[30vw]">
         <Title>
@@ -62,15 +73,12 @@ const { lang } = useLang();
       </Stack>
     </Draggable>
     <Fade>
-      <div
-        v-if="Object.values(dock).filter((d) => d).length"
-        class="fixed bottom-0 left-6 flex gap-2 font-mono"
-      >
+      <div class="fixed bottom-0 left-6 flex font-mono">
         <template v-for="(d, key) in dock">
           <button
-            v-if="d"
-            @click="dock[key] = false"
-            class="text-mono !cursor-pointer border border-b-0 border-gray-700 py-2 px-3 text-sm uppercase text-gray-300"
+            @click="toggleDock(key)"
+            class="text-mono !cursor-pointer border-t border-r border-gray-700 py-2 px-4 text-sm uppercase text-gray-700 transition duration-1000 first:border-l"
+            :class="d.docked ? '!text-gray-300' : ''"
           >
             {{ key }}
           </button>
