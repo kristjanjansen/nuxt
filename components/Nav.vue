@@ -13,7 +13,6 @@ whenever(Ctrl_N, () => (showNav.value = !showNav.value));
 
 <template>
   <div
-    cclass="sticky top-0 z-50 grid grid-cols-1 bg-black/90 "
     class="sticky top-0 z-50 grid grid-cols-1 bg-black/90"
     :class="[
       showNav
