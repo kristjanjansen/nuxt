@@ -1,15 +1,8 @@
 <script setup lang="ts">
-import { getTicketableStatus } from "~~/composables/fienta";
 type Props = {
   event: any;
 };
-const { event: rawEvent } = defineProps<Props>();
-const event = computed(() => {
-  return {
-    ...rawEvent,
-    ...getTicketableStatus([rawEvent]),
-  };
-});
+const { event } = defineProps<Props>();
 const { lang } = useLang();
 </script>
 
