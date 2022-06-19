@@ -7,9 +7,6 @@ const config = useRuntimeConfig();
 const scrollable = ref<HTMLElement | null>(null);
 const textarea = ref<HTMLTextAreaElement | HTMLInputElement | null>(null);
 
-//@TODO Move to config
-const wsUrl = "wss://ws.elektron.art";
-
 const {
   chatMessages,
   newChatMessage,
@@ -17,7 +14,7 @@ const {
   newChatMessagesCount,
   scrollToBottom,
   focus,
-} = useChat(wsUrl, "test", scrollable, textarea);
+} = useChat(config.public.wsUrl, "test", scrollable, textarea);
 
 const paste = () => {
   newChatMessage.value = sample;
