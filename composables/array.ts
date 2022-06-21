@@ -15,3 +15,4 @@ export function uniqueCollection(arr: Record<string, any>, key: string) {
   }
   return result.reverse();
 }
+export const unique = (arr: any[]) => [...new Set(arr)];

@@ -2,12 +2,13 @@
 const route = useRoute();
 const slug = route.params.event_slug;
 
-const { data: event } = await useEventBySlug(slug);
+const { data: event, error } = await useEventBySlug(slug);
 const { lang } = useLang();
 </script>
 
 <template>
-  <Stack class="p-4 md:p-6">
+  <ErrorCard v-if="error" />
+  <Stack v-else class="p-4 md:p-6">
     <div class="grid gap-8 md:grid-cols-[2fr_4fr_auto]">
       <Stack>
         <Link left :to="event.projectLink">

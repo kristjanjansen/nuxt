@@ -40,7 +40,7 @@ export const useEventBySlug = (slug: any) => {
     },
     processEvent
   ).then((res) => {
-    res.data.value = res.data.value[0];
+    res.data.value = res.data.value?.[0];
     return res;
   });
 };
@@ -83,7 +83,7 @@ export const useProjectsBySlug = (slug: any) => {
     },
     processProject
   ).then((res) => {
-    res.data.value = res.data.value[0];
+    res.data.value = res.data.value?.[0];
     return res;
   });
 };

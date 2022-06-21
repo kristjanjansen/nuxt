@@ -6,15 +6,18 @@ definePageMeta({
   ttl: 60 * 30,
 });
 
-const { data: podcast } = await usePodcast();
-const { data: project } = await useProjectsBySlug("signal");
+const { data: podcast, error: podcastError } = await usePodcast();
+const { data: project, error: projectError } = await useProjectsBySlug(
+  "signal"
+);
 const { lang } = useLang();
 const items = computed(() =>
   podcast.value?.items.filter((i) => i.itunes.episode)
 );
 </script>
 <template>
-  <Stack class="gap-8 p-4 md:p-6">
+  <ErrorCard v-if="podcastError || projectError" />
+  <Stack v-else class="gap-8 p-4 md:p-6">
     <div class="grid gap-8 md:grid-cols-[2fr_4fr]">
       <Stack>
         <Link left to="/" />

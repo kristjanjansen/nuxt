@@ -13,7 +13,9 @@ export default {
 
 <template>
   <NuxtLink :to="to">
-    <Card v-bind="$attrs" class="transition-all hover:bg-gray-900"
+    <Card
+      v-bind="$attrs"
+      class="transition-all hover:border-gray-600 hover:bg-gray-900"
       ><slot
     /></Card>
   </NuxtLink>

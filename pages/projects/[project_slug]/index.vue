@@ -2,12 +2,13 @@
 const route = useRoute();
 const slug = route.params.project_slug;
 
-const { data: project } = await useProjectsBySlug(slug);
+const { data: project, error } = await useProjectsBySlug(slug);
 const { lang } = useLang();
 </script>
 
 <template>
-  <Stack class="gap-8 p-4 md:p-6">
+  <ErrorCard v-if="error" />
+  <Stack v-else class="gap-8 p-4 md:p-6">
     <div class="grid gap-8 md:grid-cols-[2fr_4fr]">
       <Stack>
         <Link left to="/projects">
@@ -33,7 +34,7 @@ const { lang } = useLang();
       <Card>
         <div class="grid gap-4 md:grid-cols-[1fr_3fr]">
           <div
-            class="text-gray-400 text-xs leading-loose"
+            class="text-xs leading-loose text-gray-400"
             v-html="project.detailss[lang]"
           />
           <Content :content="project.descriptions[lang]" />
