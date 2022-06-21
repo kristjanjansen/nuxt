@@ -40,8 +40,8 @@ async function getRemoteTicket(
   code: string
 ): Promise<{ fienta_status: string; fienta_id: string } | null> {
   const config = useRuntimeConfig();
-  const baseURL = config.fientaUrl;
-  const headers = { Authorization: `Bearer ${config.fientaToken}` };
+  const baseURL = config.public.fientaUrl;
+  const headers = { Authorization: `Bearer ${config.public.fientaToken}` };
   const res: any = await $fetch(`/tickets/${code}`, { baseURL, headers });
   if (res && res.ticket) {
     return {
@@ -109,35 +109,36 @@ export function getTicketableStatus(ticketables: Ticketable[]) {
   return { status, ticketLinks };
 }
 
-export function validateTicket(code: string): Promise<Ticketable | null> {
+export const validateTicket = async (
+  code: string
+): Promise<Ticketable | null> => {
   const ticketable = ref(null);
-  onMounted(async () => {
-    const localTicket = getLocalTicket(code);
-    if (localTicket) {
-      const ticketable = await getTicketable(localTicket.fientaid);
-      if (ticketable) {
-        return ticketable;
-      }
-      // TODO: Handle the case when you have validated ticket to
-      // non-existing ticketable (event), currently we just return null
-    } else {
-      const remoteTicket = await getRemoteTicket(code);
-      if (remoteTicket) {
-        const rawTicketable = await getTicketable(remoteTicket.fienta_id);
-        if (rawTicketable) {
-          setLocalTicket(code, remoteTicket.fienta_id);
-          return rawTicketable;
-        }
-        // TODO: Handle the case when you have nonvalidated ticket to
-        // non-existing ticketable (event), currently we just return ref(null)
-      }
+  const localTicket = getLocalTicket(code);
+  if (localTicket) {
+    const ticketable = await getTicketable(localTicket.fientaid);
+    if (ticketable) {
+      return ticketable;
     }
-    // TODO: Return {
-    //  status: TicketValidationStatus,
-    //  ticketable: Ticketable,
-    //  url: string
-    // }
-    // where url is `https://live.elektron.art/${festivalslug}/${eventslug}?code=${code}&fienta_id=${fienta_id}`
-  });
+    // TODO: Handle the case when you have validated ticket to
+    // non-existing ticketable (event), currently we just return null
+  } else {
+    const remoteTicket = await getRemoteTicket(code);
+    console.log(remoteTicket);
+    if (remoteTicket) {
+      const rawTicketable = await getTicketable(remoteTicket.fienta_id);
+      if (rawTicketable) {
+        setLocalTicket(code, remoteTicket.fienta_id);
+        return rawTicketable;
+      }
+      // TODO: Handle the case when you have nonvalidated ticket to
+      // non-existing ticketable (event), currently we just return ref(null)
+    }
+  }
+  // TODO: Return {
+  //  status: TicketValidationStatus,
+  //  ticketable: Ticketable,
+  //  url: string
+  // }
+  // where url is `https://live.elektron.art/${festivalslug}/${eventslug}?code=${code}&fienta_id=${fienta_id}`
   return ticketable;
-}
+};

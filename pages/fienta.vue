@@ -1,8 +1,20 @@
 <script setup lang="ts">
 import { parseMarkdown } from "~~/composables/strapi";
+const router = useRouter();
 const route = useRoute();
 const code = ref<string>((route.query.code as string) || "");
 const { lang } = useLang();
+
+const onValidate = async () => {
+  if (code.value) {
+    const event = await validateTicket(code.value);
+    console.log(event);
+    if (event?.eventLiveLink) {
+      router.push(event.eventLiveLink);
+    }
+    //@TODO: Handle invalid ticket code
+  }
+};
 </script>
 
 <template>
@@ -21,9 +33,9 @@ const { lang } = useLang();
         )
       "
     />
-    <Textarea v-model="code" placeholder="Code" class="w-[10ch]"></Textarea>
-    <Button primary>{{
-      ["Submit ticket code", "Kontrolli pileti koodi"][lang]
-    }}</Button>
+    <Textarea v-model="code" placeholder="Code" class="w-[12ch]" />
+    <Button primary @click="onValidate">
+      {{ ["Submit ticket code", "Kontrolli pileti koodi"][lang] }}
+    </Button>
   </Stack>
 </template>
