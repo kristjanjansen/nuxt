@@ -16,7 +16,7 @@ const { lang } = useLang();
 <template>
   <Stack class="p-4 md:p-6">
     <Link left to="/about">
-      {{ ["WTF Elektron", "Meis"][lang] }}
+      {{ ["WTF Elektron", "Meist"][lang] }}
     </Link>
     <Title>{{ titles[lang] }}</Title>
     <Content :content="contents[lang]" class="max-w-[70ch]" />

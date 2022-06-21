@@ -10,6 +10,11 @@ const {
   breakall = false,
 } = defineProps<Props>();
 
+const slots = useSlots();
+
+if (!content && slots.default?.().length === 1) {
+  content = slots.default()[0].children;
+}
 const html = computed(() => {
   return nolinks ? content.replace(/<a[^>]*>(.*?)<\/a>/gi, "$1") : content;
 });
