@@ -11,7 +11,7 @@ const onValidate = async () => {
     if (event?.eventLiveLink) {
       router.push(event.eventLiveLink);
     }
-    //@TODO: Handle invalid ticket code
+    // @TODO: Handle invalid ticket code
   }
 };
 </script>
