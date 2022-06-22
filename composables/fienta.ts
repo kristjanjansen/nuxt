@@ -63,11 +63,10 @@ async function getTicketable(fienta_id: string): Promise<Ticketable | null> {
       fienta_id: { $eq: fienta_id },
     },
   });
-  //@ts-ignore
-  if (events.length) {
+  if (events.value.length) {
     // TODO: What is the right thing to do
     // on multiple results?
-    return events[0];
+    return events.value[0];
   }
   // TODO: return { status: StapiStatus, ticketable: Ticketable }
 }
@@ -123,7 +122,6 @@ export const validateTicket = async (
     // non-existing ticketable (event), currently we just return null
   } else {
     const remoteTicket = await getRemoteTicket(code);
-    console.log(remoteTicket);
     if (remoteTicket) {
       const rawTicketable = await getTicketable(remoteTicket.fienta_id);
       if (rawTicketable) {

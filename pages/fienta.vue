@@ -8,7 +8,6 @@ const { lang } = useLang();
 const onValidate = async () => {
   if (code.value) {
     const event = await validateTicket(code.value);
-    console.log(event);
     if (event?.eventLiveLink) {
       router.push(event.eventLiveLink);
     }
