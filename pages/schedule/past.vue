@@ -22,7 +22,7 @@ const { lang } = useLang();
       <EventRow
         v-for="event in upcomingEvents"
         :event="event"
-        class="opacity-80 grayscale transition-all hover:opacity-100 hover:grayscale-0"
+        class="opacity-80 transition-all hover:opacity-100"
       />
     </Stack>
   </Stack>

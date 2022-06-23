@@ -71,9 +71,7 @@ const { idle } = useIdle(5000);
         <Stack class="overflow-y-auto p-6">
           <Title medium>{{ event.titles[lang] }}</Title>
           <EventDatetime :event="event" />
-          <NuxtLink :to="event.eventLiveLink">
-            <Button primary>Go to event</Button>
-          </NuxtLink>
+          <EventButton :event="event" />
           <Content nolinks :content="event.intros[lang]" />
           <Link to="/schedule" right>
             See all {{ upcomingEvents.length }} upcoming events

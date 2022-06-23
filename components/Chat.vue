@@ -1,4 +1,3 @@
-haha
 <script setup lang="ts">
 import IconArrowDown from "~icons/radix-icons/arrow-down";
 

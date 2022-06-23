@@ -2,13 +2,13 @@
 type Props = {
   event: any;
 };
-defineProps<Props>();
+const { event } = defineProps<Props>();
 const { lang } = useLang();
 </script>
 
 <template>
   <Card
-    class="grid gap-6 transition-all hover:bg-gray-900 md:grid-cols-[150px_auto_3fr_2fr_auto]"
+    class="group grid gap-6 transition-all hover:bg-gray-900 md:grid-cols-[150px_auto_3fr_2fr_150px]"
   >
     <NuxtLink :to="event.eventLink">
       <EventDatetime :event="event" />
@@ -30,8 +30,8 @@ const { lang } = useLang();
         <div class="text-gray-500" v-html="event.projects[0].authors" />
       </div>
     </NuxtLink>
-    <NuxtLink :to="event.eventLiveLink">
-      <Button primary>Go to event</Button>
-    </NuxtLink>
+    <div>
+      <EventButton :event="event" />
+    </div>
   </Card>
 </template>

@@ -10,27 +10,31 @@ const { lang } = useLang();
   <Card class="p-0">
     <Title class="p-4">{{ ["Events", "Sündmused"][lang] }}</Title>
     <Stack>
-      <NuxtLink
-        v-for="event in project.events"
-        :to="event.eventLink"
-        class="flex gap-4 p-4 transition-all hover:bg-gray-900"
-      >
-        <div class="aspect-square h-20 w-20 flex-shrink-0">
+      <div v-for="event in project.events" class="flex gap-4 p-4">
+        <NuxtLink
+          :to="event.eventLink"
+          class="aspect-square h-20 w-20 flex-shrink-0"
+        >
           <Image
             class="h-full rounded-lg object-cover"
             :image="event.thumbnail || project.thumbnail"
           />
-        </div>
+        </NuxtLink>
         <Stack>
-          <Title medium>{{ event.title }}</Title>
-          <Content
-            class="text-gray-500"
-            nolinks
-            :content="(event.intro || event.description).slice(0, 90)"
-          />
-          <EventDatetime :event="event" />
+          <NuxtLink :to="event.eventLink">
+            <Stack>
+              <Title medium>{{ event.title }}</Title>
+              <Content
+                class="text-gray-500"
+                nolinks
+                :content="(event.intro || event.description).slice(0, 90)"
+              />
+              <EventDatetime :event="event" />
+            </Stack>
+          </NuxtLink>
+          <EventButton :event="event" />
         </Stack>
-      </NuxtLink>
+      </div>
     </Stack>
   </Card>
 </template>

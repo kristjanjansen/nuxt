@@ -8,7 +8,7 @@ export default defineNuxtConfig({
   ],
   runtimeConfig: {
     strapiUrl: "",
-    public: { wsUrl: "" },
+    public: { wsUrl: "", fientaUrl: "", fientaToken: "" },
   },
   experimental: { reactivityTransform: true },
 });

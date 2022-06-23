@@ -131,15 +131,20 @@ const processEvent = (event) => {
   event = processLocalizations(event);
   event = proccessMarkdown(event);
   event = processEventDatetime(event);
+  event = processEventFienta(event);
   return event;
 };
 
 const processProjectEvent = (event, project) => {
   event.projectLink = `/projects/${project.slug}`;
   event.eventLink = `/projects/${project.slug}/${event.slug}`;
+  event.eventLiveLink = project
+    ? `/projects/${project.slug}/${event.slug}/live`
+    : "/";
   event = processLocalizations(event);
   event = proccessMarkdown(event);
   event = processEventDatetime(event);
+  event = processEventFienta(event);
   return event;
 };
 
@@ -175,7 +180,6 @@ export const parseMarkdown = (str: string) =>
   marked.parse(str || "", { breaks: true });
 
 const proccessMarkdown = (item) => {
-  const process = (str) => marked.parse(str || "", { breaks: true });
   item.titles = item.titles.map(parseMarkdown);
   item.intros = item.intros.map(parseMarkdown);
   item.descriptions = item.descriptions.map(parseMarkdown);
@@ -193,6 +197,10 @@ const processEventDatetime = (event) => {
   };
 };
 
+const processEventFienta = (event) => {
+  // TODO: Add [event,event.project]
+  return { ...event, ...getTicketableStatus([event]) };
+};
 // From https://github.com/ComfortablyCoding/strapi-plugin-transformer/blob/master/server/services/transform-service.js
 // @TODO: Move to strapi instance?
 
