@@ -6,10 +6,11 @@ const { event } = defineProps<Props>();
 const { lang } = useLang();
 
 // @TODO Handle past events
+// @TODO Handle event.live_url
 </script>
 
 <template>
-  <Stack class="items-end !gap-2">
+  <Stack class="items-end !gap-2" v-if="event.live">
     <NuxtLink
       v-if="event.status === 'FREE' || event.status === 'HAS_TICKET'"
       :to="event.eventLiveLink"

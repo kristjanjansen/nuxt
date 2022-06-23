@@ -22,9 +22,7 @@ const { lang } = useLang();
       <Title class="lg:pr-32">
         {{ event.intros[lang] }}
       </Title>
-      <NuxtLink :to="event.eventLiveLink">
-        <Button primary>Go to event</Button>
-      </NuxtLink>
+      <EventButton :event="event" />
     </div>
     <div class="flex gap-5 overflow-x-auto">
       <Image
