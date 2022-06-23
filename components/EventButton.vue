@@ -1,0 +1,29 @@
+<script setup lang="ts">
+type Props = {
+  event: any;
+};
+const { event } = defineProps<Props>();
+const { lang } = useLang();
+</script>
+
+<template>
+  <Stack class="items-end !gap-2">
+    <NuxtLink
+      v-if="event.status === 'FREE' || event.status === 'HAS_TICKET'"
+      :to="event.eventLiveLink"
+    >
+      <Button primary>{{ ["Watch event", "Vaata üritust"][lang] }}</Button>
+    </NuxtLink>
+    <p v-if="event.status === 'HAS_TICKET'" class="text-sm text-gray-300">
+      {{ ["You have a ticket", "Sul on ürituse pilet"][lang] }}
+    </p>
+    <a
+      v-if="event.status === 'REQUIRES_TICKET'"
+      v-for="ticketLink in event.ticketLinks"
+      :href="ticketLink"
+      target="_blank"
+    >
+      <Button>{{ ["Get a ticket", "Osta pilet"][lang] }} </Button>
+    </a>
+  </Stack>
+</template>

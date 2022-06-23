@@ -8,7 +8,7 @@ const { lang } = useLang();
 
 <template>
   <Card
-    class="group grid gap-6 transition-all hover:bg-gray-900 md:grid-cols-[150px_auto_3fr_2fr_auto]"
+    class="group grid gap-6 transition-all hover:bg-gray-900 md:grid-cols-[150px_auto_3fr_2fr_150px]"
   >
     <NuxtLink :to="event.eventLink">
       <EventDatetime :event="event" />
@@ -31,19 +31,7 @@ const { lang } = useLang();
       </div>
     </NuxtLink>
     <div>
-      <NuxtLink
-        v-if="event.status === 'FREE' || event.status === 'HAS_TICKET'"
-        :to="event.eventLiveLink"
-      >
-        <Button primary> Go to event </Button>
-      </NuxtLink>
-      <a
-        v-for="ticketLink in event.ticketLinks"
-        :href="ticketLink"
-        target="_blank"
-      >
-        <Button>Get a ticket</Button>
-      </a>
+      <EventButton :event="event" />
     </div>
   </Card>
 </template>
