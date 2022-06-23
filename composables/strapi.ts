@@ -138,6 +138,9 @@ const processEvent = (event) => {
 const processProjectEvent = (event, project) => {
   event.projectLink = `/projects/${project.slug}`;
   event.eventLink = `/projects/${project.slug}/${event.slug}`;
+  event.eventLiveLink = project
+    ? `/projects/${project.slug}/${event.slug}/live`
+    : "/";
   event = processLocalizations(event);
   event = proccessMarkdown(event);
   event = processEventDatetime(event);

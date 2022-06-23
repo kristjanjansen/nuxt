@@ -32,7 +32,6 @@ const { lang } = useLang();
               <EventDatetime :event="event" />
             </Stack>
           </NuxtLink>
-          {{ event.eventLiveLink ? "yes" : "no" }}
           <EventButton :event="event" />
         </Stack>
       </div>
