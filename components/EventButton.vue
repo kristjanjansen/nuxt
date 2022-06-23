@@ -4,6 +4,8 @@ type Props = {
 };
 const { event } = defineProps<Props>();
 const { lang } = useLang();
+
+// @TODO Handle past events
 </script>
 
 <template>
