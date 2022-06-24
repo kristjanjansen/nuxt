@@ -1,6 +1,7 @@
 import { Strapi4RequestParams } from "@nuxtjs/strapi/dist/runtime/types";
 import { marked } from "marked";
 import { merge, has, isArray, head, forEach, isObject } from "lodash-es";
+import { compareAsc, compareDesc } from "date-fns";
 
 // Public API
 
@@ -19,7 +20,7 @@ export const useEvents = (params: Strapi4RequestParams = {}) => {
       },
       params
     ),
-    processEvent
+    (events) => events.map(processEvent)
   );
 };
 
@@ -38,7 +39,7 @@ export const useEventBySlug = (slug: any) => {
         "projects.thumbnail",
       ],
     },
-    processEvent
+    (events) => events.map(processEvent)
   ).then((res) => {
     res.data.value = res.data.value?.[0];
     return res;
@@ -51,7 +52,7 @@ export const useProjects = (params: Strapi4RequestParams = {}) => {
     "projects",
     merge(
       {
-        sort: ["updatedAt:desc"],
+        // sort: ["createdAt:desc"],
         populate: [
           "localizations",
           "thumbnail",
@@ -62,7 +63,7 @@ export const useProjects = (params: Strapi4RequestParams = {}) => {
       },
       params
     ),
-    processProject
+    (projects) => projects.map(processProject).sort(sortProjects)
   );
 };
 
@@ -81,7 +82,7 @@ export const useProjectsBySlug = (slug: any) => {
         "events.thumbnail",
       ],
     },
-    processProject
+    (projects) => projects.map(processProject)
   ).then((res) => {
     res.data.value = res.data.value?.[0];
     return res;
@@ -100,7 +101,7 @@ export const useFind = (
   return useAsyncData(key, () =>
     find(contentType, params)
       .then((res) => parseStrapi(res))
-      .then((res) => res.map(process))
+      .then(process)
   );
 };
 
@@ -115,6 +116,28 @@ export const processEvents = (result) => {
   result.data.value = result.data.value.map(processEvent);
   return result;
 };
+
+// Sorting
+
+export function sortEvents(a: any, b: any) {
+  if (a.start_at && b.start_at) {
+    return compareAsc(new Date(b.start_at), new Date(a.start_at));
+  }
+  return 0; // Keep original sort order if no data for sorting
+}
+
+export function sortProjects(a: any, b: any) {
+  if (a.events.length && b.events.length) {
+    return compareAsc(
+      new Date(b.events[0].start_at),
+      new Date(a.events[0].start_at)
+    );
+  }
+  if (a.created_at && b.created_at) {
+    return compareAsc(new Date(b.created_at), new Date(a.created_at));
+  }
+  return 0; // Keep original sort order if no data for sorting
+}
 
 // Project and event processing
 
@@ -151,9 +174,9 @@ const processProjectEvent = (event, project) => {
 const processProject = (project) => {
   project.projectLink = `/projects/${project.slug}`;
   if (project.events) {
-    project.events = project.events.map((event) =>
-      processProjectEvent(event, project)
-    );
+    project.events = project.events
+      .map((event) => processProjectEvent(event, project))
+      .sort(sortEvents);
   }
   project = processLocalizations(project);
   project = proccessMarkdown(project);

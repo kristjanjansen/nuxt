@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { useFormattedDistance } from "~~/composables/datetime";
 definePageMeta({
   title: "Some Page",
 });
@@ -27,9 +28,14 @@ const { lang } = useLang();
             class="aspect-square h-full rounded-2xl object-cover"
             :image="project.thumbnail"
           />
-          <Title class="block !text-xl">
+          <Title class="block">
             {{ project.titles[lang] }}
           </Title>
+          <pre>{{ project.slug }}</pre>
+          <div v-for="event in project.events">
+            <Title small>{{ event.title }}</Title>
+            <EventDatetime :event="event" />
+          </div>
         </Stack>
       </NuxtLink>
     </div>
