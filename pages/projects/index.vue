@@ -5,7 +5,7 @@ definePageMeta({
 });
 
 const { data: pinnnedProjects, error } = await useProjects({
-  //filters: { pinned: "$true" },
+  filters: { slug: { $notIn: ["signal"] } },
 });
 const { lang } = useLang();
 </script>
