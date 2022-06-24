@@ -10,7 +10,7 @@ const { lang } = useLang();
 </script>
 
 <template>
-  <Stack class="items-end !gap-2" v-if="event.live">
+  <Stack class="!gap-2" v-if="event.live">
     <NuxtLink
       v-if="event.status === 'FREE' || event.status === 'HAS_TICKET'"
       :to="event.eventLiveLink"

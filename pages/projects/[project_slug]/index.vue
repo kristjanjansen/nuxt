@@ -40,7 +40,12 @@ const { lang } = useLang();
           <Content :content="project.descriptions[lang]" />
         </div>
       </Card>
-      <ProjectEvents v-if="project.events" :project="project" />
+      <Card v-if="project.events">
+        <Stack>
+          <Title>{{ ["Events", "Sündmused"][lang] }}</Title>
+          <EventCard v-for="event in project.events" :event="event" />
+        </Stack>
+      </Card>
     </div>
   </Stack>
 </template>
