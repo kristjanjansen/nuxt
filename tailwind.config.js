@@ -33,9 +33,9 @@ module.exports = {
   plugins: [tailwindTypography, tailwindForms],
   theme: {
     fontFamily: {
-      title: "title",
-      sans: "sans",
-      mono: "mono",
+      title: "title, sans-serif",
+      sans: "sans, sans-serif",
+      mono: "mono, monospaced",
     },
     fontMetrics,
     extend: {
