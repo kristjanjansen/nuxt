@@ -1,4 +1,3 @@
-<script setup lang="ts"></script>
 <template>
   <div class="h-screen min-h-screen flex-col md:flex">
     <Body class="bg-black text-gray-50 antialiased transition-colors" />
