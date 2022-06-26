@@ -20,7 +20,7 @@ if (process.server) {
 </script>
 
 <template>
-  <NuxtLayout name="default">
+  <NuxtLayout>
     <NuxtPage />
   </NuxtLayout>
 </template>

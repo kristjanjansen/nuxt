@@ -34,13 +34,18 @@ const { lang } = useLang();
       <Card>
         <div class="grid gap-4 md:grid-cols-[1fr_3fr]">
           <div
-            class="text-xs leading-loose text-gray-400"
+            class="font-sans-alt text-sm leading-loose tracking-wide text-gray-400"
             v-html="project.detailss[lang]"
           />
           <Content :content="project.descriptions[lang]" />
         </div>
       </Card>
-      <ProjectEvents v-if="project.events" :project="project" />
+      <Card v-if="project.events">
+        <Stack>
+          <Title>{{ ["Events", "Sündmused"][lang] }}</Title>
+          <EventCard v-for="event in project.events" :event="event" />
+        </Stack>
+      </Card>
     </div>
   </Stack>
 </template>
