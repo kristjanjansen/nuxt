@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import { parse } from "yaml";
 const route = useRoute();
 const slug = route.params.project_slug;
 
