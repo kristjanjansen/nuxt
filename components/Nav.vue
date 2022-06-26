@@ -53,7 +53,6 @@ const menu = ref(false);
       <NavLink>{{ ["WTF elektron", "Meist"][lang] }}</NavLink>
     </NuxtLink>
     <NuxtLink
-      v-if="showNav"
       to="/podcast"
       class="md:block"
       :class="[menu ? 'block' : 'hidden']"
