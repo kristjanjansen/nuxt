@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import { useFormattedDistance } from "~~/composables/datetime";
 definePageMeta({
   title: "Some Page",
 });
