@@ -36,7 +36,7 @@ module.exports = {
       title: "title, sans-serif",
       sans: "sans, sans-serif",
       sans2: "sans2, sans-serif",
-      mono: "mono, monospaced",
+      mono: "mono, monospace",
     },
     fontMetrics,
     extend: {

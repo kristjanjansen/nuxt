@@ -32,14 +32,14 @@
   font-display: swap;
 }
 @font-face {
-  font-family: "sans2";
+  font-family: "sans";
   font-style: normal;
   font-weight: 400;
   font-display: swap;
   src: url("./assets/fonts/dmsans-regular.woff2") format("woff2");
 }
 @font-face {
-  font-family: "sans";
+  font-family: "sans2";
   font-style: normal;
   font-weight: 400;
   font-display: swap;
