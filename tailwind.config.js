@@ -35,6 +35,7 @@ module.exports = {
     fontFamily: {
       title: "title, sans-serif",
       sans: "sans, sans-serif",
+      sans2: "sans2, sans-serif",
       mono: "mono, monospaced",
     },
     fontMetrics,

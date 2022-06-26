@@ -31,6 +31,10 @@
         <Title small>Chat</Title>
         <p class="text-gray-500">Chat over websocket</p>
       </LinkCard>
+      <LinkCard to="/lab/social" class="aspect-video pr-8">
+        <Title small>Social cards</Title>
+        <p class="text-gray-500">Going socialite</p>
+      </LinkCard>
     </div>
   </Stack>
 </template>
