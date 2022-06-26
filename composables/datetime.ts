@@ -24,7 +24,7 @@ export const formatDatetime = (datetime: Date | null) => {
   return `${formatDate(datetime)} ${formatTime(datetime)}`;
 };
 
-const useFormattedDistance = (dateTime: Date) => {
+export const useFormattedDistance = (dateTime: Date) => {
   return computed(() => {
     const distance = sentenceCase(
       formatDistanceStrict(dateTime, now.value, {
