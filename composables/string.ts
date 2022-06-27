@@ -22,6 +22,7 @@ export const parseDetails = (str = ""): any[] => {
           parseMarkdown(s)
             .replace(/^<p>/, "")
             .replace(/<\/p>\n$/, "")
+            .replace(" href", ' target="_blank" href')
         )
     )
     .map((row) => {
@@ -32,20 +33,4 @@ export const parseDetails = (str = ""): any[] => {
     });
 
   return details.at(-1).length ? details : details.slice(0, -1);
-};
-
-export const parseDetails2 = (
-  str = "",
-  format = (match) => `**${match}**`
-): string => {
-  if (!str) return null;
-  const details = str
-    .replace(/<\/?p>/g, "")
-    .replace("<br>", "\n")
-    //.replace(":\n", ": ")
-    .split("\n")
-    .map((row) => row.replace(/^(.*):/, format))
-    .map(parseMarkdown)
-    .join("");
-  return details;
 };

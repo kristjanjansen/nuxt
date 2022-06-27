@@ -6,7 +6,7 @@ const { details = [] } = defineProps<Props>();
 </script>
 
 <template>
-  <div class="Details grid auto-rows-min gap-2 md:grid-cols-[1fr_2fr]">
+  <div class="Details grid auto-rows-min gap-1 md:grid-cols-[1fr_2fr] md:gap-2">
     <template v-for="detail in details">
       <div class="text-gray-500" :class="[!detail[1] ? 'col-span-2' : '']">
         <span v-html="detail[0] || ''" />
