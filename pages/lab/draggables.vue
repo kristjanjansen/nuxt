@@ -3,8 +3,8 @@ import { useDraggable } from "@vueuse/core";
 
 const useDraggables = (initialDraggables: any) => {
   const makeDraggable = (initialDraggable: any) => {
-    const front = ref(false);
-    const docked = ref(false);
+    const front = false;
+    const docked = initialDraggable.docked || false;
     return { ...initialDraggable, front, docked };
   };
 
@@ -14,7 +14,7 @@ const useDraggables = (initialDraggables: any) => {
         key,
         {
           ...makeDraggable(draggable),
-          onStart: () => {
+          toggleFront: () => {
             Object.keys(draggables).forEach(
               (k) => (draggables[k].front = false)
             );
@@ -22,7 +22,7 @@ const useDraggables = (initialDraggables: any) => {
           },
           toggleDock: () => {
             draggables[key].docked = !draggables[key].docked;
-            draggables[key].onStart();
+            draggables[key].toggleFront();
           },
         },
       ])
@@ -32,20 +32,20 @@ const useDraggables = (initialDraggables: any) => {
   return draggables;
 };
 const d = useDraggables({
-  first: { x: 300, y: 300 },
+  first: { x: 300, y: 300, docked: true },
   second: { x: 400, y: 400 },
 });
 
 const draggable1 = ref<HTMLElement | null>(null);
 const { style: style1, isDragging: isDragging1 } = useDraggable(draggable1, {
   initialValue: { x: d.first.x, y: d.first.y },
-  onStart: d.first.onStart,
+  onStart: d.first.toggleFront,
 });
 
 const draggable2 = ref<HTMLElement | null>(null);
 const { style: style2, isDragging: isDragging2 } = useDraggable(draggable2, {
   initialValue: { x: d.second.x, y: d.second.y },
-  onStart: d.second.onStart,
+  onStart: d.second.toggleFront,
 });
 </script>
 
