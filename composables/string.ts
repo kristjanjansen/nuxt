@@ -13,12 +13,12 @@ export const parseUrls = (str: string) => {
   );
 };
 
-export const parseDetails = (str = ""): Object | null => {
-  if (!str) return null;
+export const parseDetails = (str = ""): any[] => {
+  if (!str) return [];
   const details = str
     .replace(/<\/?p>/g, "")
     .replace("<br>", "\n")
-    .replace(":\n", ": ")
+    .replace("\n{2,}", "\n\n")
     .split("\n")
     .map((el) =>
       el
@@ -27,5 +27,21 @@ export const parseDetails = (str = ""): Object | null => {
         .filter((s) => s)
         .map((s) => parseUrls(s))
     );
-  return details.length ? Object.fromEntries(details) : null;
+  return details.at(-1).length ? details : details.slice(0, -1);
+};
+
+export const parseDetails2 = (
+  str = "",
+  format = (match) => `**${match}**`
+): string => {
+  if (!str) return null;
+  const details = str
+    .replace(/<\/?p>/g, "")
+    .replace("<br>", "\n")
+    //.replace(":\n", ": ")
+    .split("\n")
+    .map((row) => row.replace(/^(.*):/, format))
+    .map(parseMarkdown)
+    .join("");
+  return details;
 };
