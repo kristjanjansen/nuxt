@@ -8,13 +8,16 @@ const debug = ref(false);
     <Link left to="/lab">lab</Link>
     <Title>Parsing details</Title>
     <Button @click="debug = !debug">Toggle debug</Button>
-    <div class="grid gap-4 text-gray-500 md:grid-cols-3">
+    <div class="grid gap-16 text-gray-500 md:grid-cols-3">
       <Title small>Input data</Title>
       <Title small>Parsed data</Title>
       <Title small>Output data</Title>
       <template v-for="project in projects">
-        <div class="overflow-auto whitespace-pre-wrap font-mono">
-          {{ project.details }}
+        <div>
+          <div class="overflow-auto whitespace-pre-wrap font-mono">
+            {{ project.details }}
+          </div>
+          <Link right :to="project.projectLink">Visit project</Link>
         </div>
         <div class="overflow-auto whitespace-pre-wrap font-mono">
           {{ parseDetails(project.details) }}
@@ -25,8 +28,11 @@ const debug = ref(false);
         />
       </template>
       <template v-for="event in events.filter((e) => e.details)">
-        <div class="overflow-auto whitespace-pre-wrap font-mono">
-          {{ event.details }}
+        <div>
+          <div class="overflow-auto whitespace-pre-wrap font-mono">
+            {{ event.details }}
+          </div>
+          <Link right class="mt-16" :to="event.eventLink">Visit event</Link>
         </div>
         <div class="overflow-auto whitespace-pre-wrap font-mono">
           {{ parseDetails(event.details) }}

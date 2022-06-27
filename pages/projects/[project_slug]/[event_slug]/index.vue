@@ -34,11 +34,8 @@ const { lang } = useLang();
     </div>
     <div class="grid gap-5">
       <Card>
-        <div class="grid gap-8 md:grid-cols-[1fr_3fr_2fr]">
-          <div
-            class="text-xs leading-loose text-gray-400"
-            v-html="event.detailss[lang]"
-          />
+        <div class="grid gap-8 md:grid-cols-[2fr_3fr_2fr]">
+          <Details :details="parseDetails(event.detailss[lang])" />
           <Content :content="event.descriptions[lang]" />
         </div>
       </Card>

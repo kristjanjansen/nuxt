@@ -32,11 +32,8 @@ const { lang } = useLang();
     </div>
     <div class="grid gap-5 md:grid-cols-[4fr_2fr]">
       <Card>
-        <div class="grid gap-4 md:grid-cols-[1fr_3fr]">
-          <div
-            class="text-sm leading-loose tracking-wide text-gray-400"
-            v-html="project.detailss[lang]"
-          />
+        <div class="grid gap-8 md:grid-cols-[1fr_2fr]">
+          <Details :details="parseDetails(project.detailss[lang])" />
           <Content :content="project.descriptions[lang]" />
         </div>
       </Card>
