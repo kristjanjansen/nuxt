@@ -52,10 +52,10 @@ const { style: style2, isDragging: isDragging2 } = useDraggable(draggable2, {
 <template>
   <div class="p-4 md:p-6">
     <pre>{{ d.first }}</pre>
-    <div class="flex">
+    <div class="fixed bottom-0 left-4 flex">
       <div v-for="(dock, key) in d" class="border p-4">
         {{ key }} / {{ dock.docked }}
-        <Button v-if="dock.docked" @click="d[key].toggleDock">Undock</Button>
+        <Button @click="d[key].toggleDock">Dock</Button>
       </div>
     </div>
     <div
