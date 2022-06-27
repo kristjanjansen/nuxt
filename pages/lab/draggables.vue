@@ -3,8 +3,8 @@ import { useDraggable } from "@vueuse/core";
 
 const useDraggables = (initialDraggables: any) => {
   const makeDraggable = (initialDraggable: any) => {
-    const front = false;
-    const docked = initialDraggable.docked || false;
+    const front = ref(false);
+    const docked = ref(initialDraggable.docked || false);
     return { ...initialDraggable, front, docked };
   };
 
@@ -58,41 +58,45 @@ const { style: style2, isDragging: isDragging2 } = useDraggable(draggable2, {
         <Button @click="d[key].toggleDock">Dock</Button>
       </div>
     </div>
-    <div
-      v-if="!d.first.docked"
-      ref="draggable1"
-      class="z-10 w-full cursor-grab touch-none select-none overflow-hidden rounded border border-gray-700 bg-black/80 p-16 backdrop-blur-lg transition-colors md:fixed md:w-fit md:border-gray-500 md:hover:border-gray-400"
-      :class="[
-        isDragging1 ? 'z-40 cursor-grabbing !border-gray-100' : '',
-        d.first.front ? 'z-40' : '',
-        d.first.docked ? 'opacity-10' : '',
-      ]"
-      :style="style1"
-    >
-      <Stack>
-        <div>First front {{ d.first.front }}</div>
-        <div>docked {{ d.first.docked }}</div>
-        <Button @click="d.first.toggleDock"> Dock </Button>
-      </Stack>
-    </div>
-    <div
-      v-if="!d.second.docked"
-      ref="draggable2"
-      class="z-10 w-full cursor-grab touch-none select-none overflow-hidden rounded border border-gray-700 bg-black/80 p-16 backdrop-blur-lg transition-colors md:fixed md:w-fit md:border-gray-500 md:hover:border-gray-400"
-      :class="[
-        isDragging2 ? 'z-40 cursor-grabbing !border-gray-100' : '',
-        d.second.front ? 'z-40' : '',
-        d.second.docked ? 'opacity-50' : '',
-      ]"
-      :style="style2"
-    >
-      <Stack>
-        <div>Second front {{ d.second.front }}</div>
-        <div>dock {{ d.second.docked }}</div>
-        <Button v-if="!d.second.docked" @click="d.second.toggleDock"
-          >Dock</Button
-        >
-      </Stack>
-    </div>
+    <Fade>
+      <div
+        v-if="!d.first.docked"
+        ref="draggable1"
+        class="z-10 w-full cursor-grab touch-none select-none overflow-hidden rounded border border-gray-700 bg-black/80 p-16 backdrop-blur-lg transition-colors md:fixed md:w-fit md:border-gray-500 md:hover:border-gray-400"
+        :class="[
+          isDragging1 ? 'z-40 cursor-grabbing !border-gray-100' : '',
+          d.first.front ? 'z-40' : '',
+          d.first.docked ? 'opacity-10' : '',
+        ]"
+        :style="style1"
+      >
+        <Stack>
+          <div>First front {{ d.first.front }}</div>
+          <div>docked {{ d.first.docked }}</div>
+          <Button @click="d.first.toggleDock"> Dock </Button>
+        </Stack>
+      </div>
+    </Fade>
+    <Fade>
+      <div
+        v-if="!d.second.docked"
+        ref="draggable2"
+        class="z-10 w-full cursor-grab touch-none select-none overflow-hidden rounded border border-gray-700 bg-black/80 p-16 backdrop-blur-lg transition-colors md:fixed md:w-fit md:border-gray-500 md:hover:border-gray-400"
+        :class="[
+          isDragging2 ? 'z-40 cursor-grabbing !border-gray-100' : '',
+          d.second.front ? 'z-40' : '',
+          d.second.docked ? 'opacity-50' : '',
+        ]"
+        :style="style2"
+      >
+        <Stack>
+          <div>Second front {{ d.second.front }}</div>
+          <div>dock {{ d.second.docked }}</div>
+          <Button v-if="!d.second.docked" @click="d.second.toggleDock"
+            >Dock</Button
+          >
+        </Stack>
+      </div>
+    </Fade>
   </div>
 </template>
