@@ -9,7 +9,7 @@ const { lang } = useLang();
 <template>
   <ErrorCard v-if="error" />
   <Stack v-else class="p-4 md:p-6">
-    <div class="grid gap-8 md:grid-cols-[2fr_4fr_auto]">
+    <div class="grid gap-8 md:grid-cols-[1fr_2fr_1fr]">
       <Stack>
         <Link left :to="event.projectLink">
           {{ ["Project", "Projekt"][lang] }}
@@ -22,23 +22,24 @@ const { lang } = useLang();
       <Title class="lg:pr-32">
         {{ event.intros[lang] }}
       </Title>
-      <EventButton :event="event" />
+      <EventButton class="items-end" :event="event" />
     </div>
     <div class="flex gap-5 overflow-x-auto">
       <Image
-        class="aspect-auto h-72 rounded-3xl object-cover"
+        class="aspect-auto h-96 rounded-3xl object-cover"
         :class="[event.images.length === 1 ? '!aspect-video' : '']"
         v-for="image in event.images"
         :image="image"
       />
     </div>
-    <div class="grid gap-5">
+    <div class="grid gap-8 md:grid-cols-[3fr_1fr]">
       <Card>
-        <div class="grid gap-8 md:grid-cols-[2fr_3fr_2fr]">
+        <div class="grid gap-8 md:grid-cols-[1fr_2fr]">
           <Details :details="parseDetails(event.detailss[lang])" />
           <Content :content="event.descriptions[lang]" />
         </div>
       </Card>
+      <div />
     </div>
   </Stack>
 </template>
