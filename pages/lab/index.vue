@@ -33,7 +33,11 @@
       </LinkCard>
       <LinkCard to="/lab/social" class="aspect-video pr-8">
         <Title small>Social cards</Title>
-        <p class="text-gray-500">Going socialite</p>
+        <p class="text-gray-500">Going social using generative art</p>
+      </LinkCard>
+      <LinkCard to="/lab/parsedetails" class="aspect-video pr-8">
+        <Title small>Parsing details</Title>
+        <p class="text-gray-500">Extra focus on project and event details</p>
       </LinkCard>
     </div>
   </Stack>
