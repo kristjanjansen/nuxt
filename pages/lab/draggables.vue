@@ -32,7 +32,7 @@ const useDraggables = (initialDraggables: any) => {
   return draggables;
 };
 const d = useDraggables({
-  first: { x: 300, y: 300, docked: true },
+  first: { x: 300, y: 300 },
   second: { x: 400, y: 400 },
 });
 
@@ -59,6 +59,7 @@ const { style: style2, isDragging: isDragging2 } = useDraggable(draggable2, {
       </div>
     </div>
     <div
+      v-if="!d.first.docked"
       ref="draggable1"
       class="z-10 w-full cursor-grab touch-none select-none overflow-hidden rounded border border-gray-700 bg-black/80 p-16 backdrop-blur-lg transition-colors md:fixed md:w-fit md:border-gray-500 md:hover:border-gray-400"
       :class="[
@@ -75,12 +76,13 @@ const { style: style2, isDragging: isDragging2 } = useDraggable(draggable2, {
       </Stack>
     </div>
     <div
+      v-if="!d.second.docked"
       ref="draggable2"
       class="z-10 w-full cursor-grab touch-none select-none overflow-hidden rounded border border-gray-700 bg-black/80 p-16 backdrop-blur-lg transition-colors md:fixed md:w-fit md:border-gray-500 md:hover:border-gray-400"
       :class="[
         isDragging2 ? 'z-40 cursor-grabbing !border-gray-100' : '',
         d.second.front ? 'z-40' : '',
-        d.second.docked ? 'opacity-20' : '',
+        d.second.docked ? 'opacity-50' : '',
       ]"
       :style="style2"
     >
