@@ -9,9 +9,6 @@ const url = "https://sb.err.ee/live/etv.m3u8";
 
 const front = ref("video");
 
-// TODO: Abstract into
-// const { draggables = { key : Ref({ x, y, onDrag, onDock, docked, front })]} = useDraggables({ key: { x, y }})
-
 const dock = ref<any>({
   about: { docked: false, front: false },
   video: { docked: false, front: false },

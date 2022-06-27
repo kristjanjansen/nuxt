@@ -18,7 +18,7 @@
       </LinkCard>
     </div>
     <Title>Other research</Title>
-    <div class="grid w-full auto-rows-fr gap-5 md:grid-cols-3">
+    <div class="grid w-full auto-rows-fr gap-5 md:grid-cols-4">
       <LinkCard to="/lab/videocapture" class="border-re aspect-video pr-8">
         <Title small>Videocapture</Title>
         <p class="text-gray-500">Capture a frame from live video</p>
@@ -38,6 +38,10 @@
       <LinkCard to="/lab/parsedetails" class="aspect-video pr-8">
         <Title small>Parsing details</Title>
         <p class="text-gray-500">Extra focus on project and event details</p>
+      </LinkCard>
+      <LinkCard to="/lab/draggables" class="aspect-video pr-8">
+        <Title small>Draggables</Title>
+        <p class="text-gray-500">Find your inner drag</p>
       </LinkCard>
     </div>
   </Stack>
