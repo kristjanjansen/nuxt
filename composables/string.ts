@@ -6,13 +6,6 @@ export const replaceTokens = (str: string, obj: Record<string, string>) => {
   return str.replace(/\${(.*?)}/g, (_, v) => obj[v]);
 };
 
-export const parseUrls = (str: string) => {
-  return str.replace(
-    /(\b(https?|ftp|file):\/\/([-A-Z0-9+&@#%?=~_|!:,.;]*)([-A-Z0-9+&@#%?\/=~_|!:,.;]*)[-A-Z0-9+&@#\/%=~_|])/gi,
-    `<a href="$1" target="_blank">$3</a>`
-  );
-};
-
 export const parseDetails = (str = ""): any[] => {
   if (!str) return [];
   const details = str
@@ -25,8 +18,19 @@ export const parseDetails = (str = ""): any[] => {
         .split(/:(.*)/s)
         .map((s) => s.trim())
         .filter((s) => s)
-        .map((s) => parseUrls(s))
-    );
+        .map((s) =>
+          parseMarkdown(s)
+            .replace(/^<p>/, "")
+            .replace(/<\/p>\n$/, "")
+        )
+    )
+    .map((row) => {
+      if (row[1]) {
+        row[0] = `${row[0]}:`;
+      }
+      return row;
+    });
+
   return details.at(-1).length ? details : details.slice(0, -1);
 };
 
