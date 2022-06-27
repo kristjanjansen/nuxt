@@ -4,24 +4,6 @@ const slug = route.params.project_slug;
 
 const { data: project, error } = await useProjectsBySlug(slug);
 const { lang } = useLang();
-
-const parseUrls = (str) => {
-  return str.replace(
-    /(\b(https?|ftp|file):\/\/([-A-Z0-9+&@#%?=~_|!:,.;]*)([-A-Z0-9+&@#%?\/=~_|!:,.;]*)[-A-Z0-9+&@#\/%=~_|])/gi,
-    `<a href='$1' target='_blank'>$3</a>`
-  );
-};
-const a = project.value.detailss[0]
-  .replace(/<\/?p>/g, "")
-  .split("<br>")
-  .map((el) =>
-    el
-      .split(/:(.*)/s)
-      .map((s) => s.trim())
-      .filter((s) => s)
-      .map((s) => parseUrls(s))
-  );
-console.log(Object.fromEntries(a));
 </script>
 
 <template>
