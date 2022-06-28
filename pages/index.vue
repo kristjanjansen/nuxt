@@ -4,6 +4,10 @@ import IconMuted from "~icons/radix-icons/speaker-off";
 import IconUnmuted from "~icons/radix-icons/speaker-loud";
 import { parseStrapi } from "~~/composables/strapi";
 
+const d = useDraggables({
+  upcoming: { x: 300, y: 300 },
+});
+
 const video = ref();
 const src =
   "https://fra1.digitaloceanspaces.com/elektron/strapi/0ea3ff8704a2e6b444d3fe442532923e.mp4";
@@ -53,13 +57,13 @@ const event = upcomingEvents.value?.[0];
       :content="description"
     />
     <button
-      class="absolute bottom-4 left-4 rounded-full p-3 transition-all hover:bg-neutral-100/20"
+      class="absolute bottom-1 left-1 rounded-full p-3 transition-all hover:bg-neutral-100/20"
       @click.stop="muted = !muted"
     >
-      <IconMuted v-if="muted" />
-      <IconUnmuted v-if="!muted" />
+      <IconMuted v-if="muted" class="h-4 w-4" />
+      <IconUnmuted v-if="!muted" class="h-4 w-4" />
     </button>
-    <Draggable v-if="event" :x="200" :y="200">
+    <Draggable2 v-bind="d.upcoming">
       <div class="grid grid-cols-[1fr_1fr] md:h-[25vw] md:w-[50vw]">
         <div>
           <Image
@@ -80,6 +84,7 @@ const event = upcomingEvents.value?.[0];
           </Link>
         </Stack>
       </div>
-    </Draggable>
+    </Draggable2>
+    <Dock :draggables="d" class="left-12" />
   </div>
 </template>

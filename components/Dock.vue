@@ -10,8 +10,8 @@ const { draggables } = defineProps<Props>();
     <button
       v-for="(draggable, key) in draggables"
       @click="draggable.setDocked"
-      class="flex border-t border-r border-gray-600 py-2 px-4 font-mono text-sm uppercase text-gray-400 transition first:border-l hover:bg-gray-900"
-      :class="draggable.getDocked() ? '!bg-gray-700 !text-gray-200' : ''"
+      class="flex border-t border-r border-gray-600 bg-black/50 py-2 px-4 font-mono text-sm uppercase text-gray-400 transition first:border-l hover:bg-black/30"
+      :class="draggable.getDocked() ? '!bg-gray-500/50 !text-gray-200' : ''"
     >
       {{ key }}
     </button>
