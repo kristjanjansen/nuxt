@@ -20,7 +20,7 @@ const {
   y: newY,
 } = useDraggable(draggable, {
   initialValue: { x: x.value, y: y.value },
-  onEnd: async () => {
+  onEnd: () => {
     useTimeoutFn(
       () =>
         updateXY({

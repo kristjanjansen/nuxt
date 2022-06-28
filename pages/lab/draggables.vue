@@ -1,7 +1,8 @@
 <script setup lang="ts">
 const draggables = useDraggables({
-  first: { x: 300, y: 300 },
-  second: { x: 400, y: 100 },
+  first: { x: 200, y: 200 },
+  second: { x: 300, y: 300 },
+  third: { x: 400, y: 400 },
 });
 </script>
 
