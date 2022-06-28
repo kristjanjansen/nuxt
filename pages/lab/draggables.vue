@@ -1,6 +1,4 @@
 <script setup lang="ts">
-import { useDraggable } from "@vueuse/core";
-
 const indexes = ref([]);
 const zIndex = (key) => {
   const index = indexes.value.findIndex((index) => index === key);
@@ -11,14 +9,19 @@ const useDraggables = (initialDraggables: any) => {
   const draggables = keys.map((key) => {
     const x = ref(initialDraggables[key].x);
     const y = ref(initialDraggables[key].y);
-    const update = ({ x: newX, y: newY }) => {
+    const updateIndex = () =>
+      (indexes.value = unique([...indexes.value, key].reverse()).reverse());
+    const update = ({ x: newX = undefined, y: newY = undefined }) => {
       x.value = newX;
       y.value = newY;
-      indexes.value = unique([...indexes.value, key].reverse()).reverse();
+      updateIndex();
     };
     const docked = ref(initialDraggables[key].docked || false);
-    const dock = () => (docked.value = !docked.value);
-
+    const dock = () => {
+      docked.value = !docked.value;
+      updateIndex();
+    };
+    const index = () => zIndex(key);
     return {
       ...initialDraggables[key],
       x,
@@ -26,6 +29,7 @@ const useDraggables = (initialDraggables: any) => {
       update,
       docked,
       dock,
+      index,
     };
   });
 
@@ -93,37 +97,23 @@ const log = (a) => console.log(a);
         <Button @click="d[key].dock">{{ d[key].docked }}</Button>
       </div>
     </div>
-    <Draggable2
-      v-bind="d.first"
-      @dock="d.first.dock"
-      @update="d.first.update"
-      :style="{ zIndex: zIndex('first') }"
-    >
+    <Draggable2 v-bind="d.first" @dock="d.first.dock" @update="d.first.update">
       <Stack class="p-16">
         <Button @click="d.first.dock">First Dock</Button>
-        {{ zIndex("first") }}
       </Stack>
     </Draggable2>
     <Draggable2
       v-bind="d.second"
       @dock="d.second.dock"
       @update="d.second.update"
-      :style="{ zIndex: zIndex('second') }"
     >
       <Stack class="p-16">
         <Button @click="d.second.dock">Second Dock</Button>
-        {{ zIndex("second") }}
       </Stack>
     </Draggable2>
-    <Draggable2
-      v-bind="d.third"
-      @dock="d.third.dock"
-      @update="d.third.update"
-      :style="{ zIndex: zIndex('third') }"
-    >
+    <Draggable2 v-bind="d.third" @dock="d.third.dock" @update="d.third.update">
       <Stack class="p-16">
         <Button @click="d.third.dock">Third Dock</Button>
-        {{ zIndex("third") }}
       </Stack>
     </Draggable2>
   </div>
