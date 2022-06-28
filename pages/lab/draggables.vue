@@ -1,6 +1,11 @@
 <script setup lang="ts">
 import { useDraggable } from "@vueuse/core";
 
+const indexes = ref([]);
+const zIndex = (key) => {
+  const index = indexes.value.findIndex((index) => index === key);
+  return index;
+};
 const useDraggables = (initialDraggables: any) => {
   const keys = Object.keys(initialDraggables);
   const draggables = keys.map((key) => {
@@ -9,6 +14,7 @@ const useDraggables = (initialDraggables: any) => {
     const update = ({ x: newX, y: newY }) => {
       x.value = newX;
       y.value = newY;
+      indexes.value = unique([...indexes.value, key].reverse()).reverse();
     };
     const docked = ref(initialDraggables[key].docked || false);
     const dock = () => (docked.value = !docked.value);
@@ -59,6 +65,7 @@ const useDraggables = (initialDraggables: any) => {
 const d = useDraggables({
   first: { x: 300, y: 300 },
   second: { x: 400, y: 400 },
+  third: { x: 500, y: 500 },
 });
 
 // const draggable1 = ref<HTMLElement | null>(null);
@@ -78,6 +85,7 @@ const log = (a) => console.log(a);
 
 <template>
   <div class="p-4 md:p-6">
+    <pre>{{ indexes }}</pre>
     <pre>{{ d }}</pre>
     <div class="fixed bottom-0 left-4 flex">
       <div v-for="(dock, key) in d" class="border p-4">
@@ -88,6 +96,7 @@ const log = (a) => console.log(a);
     <Draggable2 v-bind="d.first" @dock="d.first.dock" @update="d.first.update">
       <Stack class="p-16">
         <Button @click="d.first.dock">First Dock</Button>
+        {{ zIndex("first") }}
       </Stack>
     </Draggable2>
     <Draggable2
@@ -97,6 +106,13 @@ const log = (a) => console.log(a);
     >
       <Stack class="p-16">
         <Button @click="d.second.dock">Second Dock</Button>
+        {{ zIndex("second") }}
+      </Stack>
+    </Draggable2>
+    <Draggable2 v-bind="d.third" @dock="d.third.dock" @update="d.third.update">
+      <Stack class="p-16">
+        <Button @click="d.third.dock">Third Dock</Button>
+        {{ zIndex("third") }}
       </Stack>
     </Draggable2>
   </div>

@@ -9,7 +9,7 @@ type Props = {
   docked?: any;
 };
 const { x, y, docked = false } = defineProps<Props>();
-const emit = defineEmits(["update", "dock"]);
+const emit = defineEmits(["start", "update", "dock"]);
 const draggable = ref<HTMLElement | null>(null);
 
 const {
@@ -19,7 +19,7 @@ const {
   y: newY,
 } = useDraggable(draggable, {
   initialValue: { x: x.value, y: y.value },
-  // onStart: () => emit("toggleFront"),
+  onStart: () => emit("start"),
   onEnd: () =>
     emit("update", { x: Math.floor(newX.value), y: Math.floor(newY.value) }),
 });
