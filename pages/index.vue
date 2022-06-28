@@ -63,7 +63,7 @@ const event = upcomingEvents.value?.[0];
       <IconMuted v-if="muted" class="h-4 w-4" />
       <IconUnmuted v-if="!muted" class="h-4 w-4" />
     </button>
-    <Draggable2 v-bind="d.upcoming">
+    <Draggable v-bind="d.upcoming">
       <div class="grid grid-cols-[1fr_1fr] md:h-[25vw] md:w-[50vw]">
         <div>
           <Image
@@ -84,7 +84,7 @@ const event = upcomingEvents.value?.[0];
           </Link>
         </Stack>
       </div>
-    </Draggable2>
+    </Draggable>
     <Dock :draggables="d" class="left-12" />
   </div>
 </template>

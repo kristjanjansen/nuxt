@@ -8,11 +8,11 @@ const draggables = useDraggables({
 <template>
   <div class="p-4 md:p-6">
     <Dock :draggables="draggables" />
-    <Draggable2 v-for="(draggable, key) in draggables" v-bind="draggable">
+    <Draggable v-for="(draggable, key) in draggables" v-bind="draggable">
       <Stack class="p-8">
         <Title small>{{ key }}</Title>
         <Button @click="draggable.setDocked">Dock it</Button>
       </Stack>
-    </Draggable2>
+    </Draggable>
   </div>
 </template>

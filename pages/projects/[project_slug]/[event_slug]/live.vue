@@ -27,15 +27,15 @@ const d = useDraggables({
       Back to event
     </Link>
 
-    <Draggable2 v-bind="d.video">
+    <Draggable v-bind="d.video">
       <Videostream :url="url" class="md:w-[70vw]" />
-    </Draggable2>
+    </Draggable>
 
-    <Draggable2 v-bind="d.chat">
+    <Draggable v-bind="d.chat">
       <Chat class="h-[60vw] md:h-[30vw] md:w-[25vw]" />
-    </Draggable2>
+    </Draggable>
 
-    <Draggable2 v-bind="d.about">
+    <Draggable v-bind="d.about">
       <Stack class="overflow-y-scroll p-4 md:h-[30vw] md:w-[30vw]">
         <Title>
           {{ event.titles[lang] }}
@@ -43,7 +43,7 @@ const d = useDraggables({
         <EventDatetime :event="event" />
         <Content :content="event.descriptions[lang]" />
       </Stack>
-    </Draggable2>
+    </Draggable>
 
     <Dock :draggables="d" />
   </Stack>
