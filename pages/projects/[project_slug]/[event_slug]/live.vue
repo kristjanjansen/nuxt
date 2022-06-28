@@ -7,21 +7,13 @@ const { data: event, error } = await useEventBySlug(slug);
 //const url = "https://le21.babahhcdn.com/bb1150-le/x_live_1_c1.smil/playlist.m3u8"
 const url = "https://sb.err.ee/live/etv.m3u8";
 
-const front = ref("video");
-
-const dock = ref<any>({
-  about: { docked: false, front: false },
-  video: { docked: false, front: false },
-  chat: { docked: false, front: false },
-});
-
-const toggleDock = (key) => {
-  dock.value[key].docked = !dock.value[key].docked;
-  Object.keys(dock.value).forEach((k) => (dock.value[k].front = false));
-  dock.value[key].front = true;
-};
-
 const { lang } = useLang();
+
+const d = useDraggables({
+  about: { x: 100, y: 300 },
+  video: { x: 200, y: 100 },
+  chat: { x: 900, y: 200 },
+});
 </script>
 
 <template>
@@ -35,39 +27,15 @@ const { lang } = useLang();
       Back to event
     </Link>
 
-    <Draggable
-      :x="200"
-      :y="100"
-      @startDrag="dock.video.front = true"
-      :isFront="dock.video.front"
-      :dockable="true"
-      @dock="toggleDock('video')"
-      :docked="dock.video.docked"
-    >
+    <Draggable2 v-bind="d.video">
       <Videostream :url="url" class="md:w-[70vw]" />
-    </Draggable>
+    </Draggable2>
 
-    <Draggable
-      :x="900"
-      :y="200"
-      @startDrag="dock.chat.front = true"
-      :isFront="dock.chat.front"
-      :dockable="true"
-      @dock="toggleDock('chat')"
-      :docked="dock.chat.docked"
-    >
+    <Draggable2 v-bind="d.chat">
       <Chat class="h-[60vw] md:h-[30vw] md:w-[25vw]" />
-    </Draggable>
+    </Draggable2>
 
-    <Draggable
-      :x="100"
-      :y="300"
-      @startDrag="dock.about.front = true"
-      :isFront="dock.about.front"
-      :dockable="true"
-      @dock="toggleDock('about')"
-      :docked="dock.about.docked"
-    >
+    <Draggable2 v-bind="d.about">
       <Stack class="overflow-y-scroll p-4 md:h-[30vw] md:w-[30vw]">
         <Title>
           {{ event.titles[lang] }}
@@ -75,19 +43,8 @@ const { lang } = useLang();
         <EventDatetime :event="event" />
         <Content :content="event.descriptions[lang]" />
       </Stack>
-    </Draggable>
-    <Fade>
-      <div class="fixed bottom-0 left-6 flex font-mono">
-        <template v-for="(d, key) in dock">
-          <button
-            @click="toggleDock(key)"
-            class="text-mono !cursor-pointer border-t border-r border-gray-700 py-2 px-4 text-sm uppercase text-gray-300 transition first:border-l hover:bg-gray-900"
-            :class="d.docked ? '!text-gray-700' : ''"
-          >
-            {{ key }}
-          </button>
-        </template>
-      </div>
-    </Fade>
+    </Draggable2>
+
+    <Dock :draggables="d" />
   </Stack>
 </template>
