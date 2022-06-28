@@ -6,12 +6,12 @@ import IconDock from "~icons/radix-icons/chevron-down";
 type Props = {
   x: Ref<number>;
   y: Ref<number>;
-  docked?: any;
-  index: Function;
-  update: Function;
-  dock: Function;
+  updateXY: Function;
+  getDocked: Function;
+  setDocked: Function;
+  getIndex: Function;
 };
-const { x, y, docked = false, index, update, dock } = defineProps<Props>();
+const { x, y, updateXY, getDocked, setDocked, getIndex } = defineProps<Props>();
 const draggable = ref<HTMLElement | null>(null);
 
 const {
@@ -23,7 +23,7 @@ const {
   onEnd: async () => {
     useTimeoutFn(
       () =>
-        update({
+        updateXY({
           x: Math.floor(newX.value),
           y: Math.floor(newY.value),
         }),
@@ -35,7 +35,7 @@ const style = computed(() => {
   return {
     top: `${newY.value}px`,
     left: `${newX.value}px`,
-    zIndex: isDragging.value ? "100" : index(),
+    zIndex: isDragging.value ? "100" : getIndex(),
   };
 });
 </script>
@@ -43,19 +43,19 @@ const style = computed(() => {
 <template>
   <Fade>
     <div
-      v-if="!docked.value"
+      v-if="!getDocked()"
       ref="draggable"
       :style="style"
       class="w-full cursor-grab touch-none select-none overflow-hidden rounded border border-gray-700 bg-black/80 backdrop-blur-lg transition-colors md:fixed md:w-fit md:border-gray-500 md:hover:border-gray-400"
       :class="[
-        docked.value ? 'opacity-50' : '',
+        getDocked() ? 'opacity-50' : '',
         isDragging ? 'cursor-grabbing !border-gray-100' : '',
       ]"
     >
       <div class="relative">
         <button
           class="absolute top-0 right-0 p-2 text-gray-500 hover:text-gray-100 focus:z-50"
-          @click="() => dock()"
+          @click="() => setDocked()"
         >
           <IconDock />
         </button>
