@@ -31,10 +31,10 @@ const {
       v-if="!docked.value"
       ref="draggable"
       :style="style"
-      class="z-10 w-full cursor-grab touch-none select-none overflow-hidden rounded border border-gray-700 bg-black/80 backdrop-blur-lg transition-colors md:fixed md:w-fit md:border-gray-500 md:hover:border-gray-400"
+      class="w-full cursor-grab touch-none select-none overflow-hidden rounded border border-gray-700 bg-black/80 backdrop-blur-lg transition-colors md:fixed md:w-fit md:border-gray-500 md:hover:border-gray-400"
       :class="[
         docked.value ? 'opacity-50' : '',
-        isDragging ? 'z-40 cursor-grabbing !border-gray-100' : '',
+        isDragging ? 'z-[1000] cursor-grabbing !border-gray-100' : '',
       ]"
     >
       <div class="relative">

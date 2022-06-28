@@ -4,7 +4,7 @@ import { useDraggable } from "@vueuse/core";
 const indexes = ref([]);
 const zIndex = (key) => {
   const index = indexes.value.findIndex((index) => index === key);
-  return index;
+  return index > -1 ? index + 1 : "";
 };
 const useDraggables = (initialDraggables: any) => {
   const keys = Object.keys(initialDraggables);
@@ -93,7 +93,12 @@ const log = (a) => console.log(a);
         <Button @click="d[key].dock">{{ d[key].docked }}</Button>
       </div>
     </div>
-    <Draggable2 v-bind="d.first" @dock="d.first.dock" @update="d.first.update">
+    <Draggable2
+      v-bind="d.first"
+      @dock="d.first.dock"
+      @update="d.first.update"
+      :style="{ zIndex: zIndex('first') }"
+    >
       <Stack class="p-16">
         <Button @click="d.first.dock">First Dock</Button>
         {{ zIndex("first") }}
@@ -103,13 +108,19 @@ const log = (a) => console.log(a);
       v-bind="d.second"
       @dock="d.second.dock"
       @update="d.second.update"
+      :style="{ zIndex: zIndex('second') }"
     >
       <Stack class="p-16">
         <Button @click="d.second.dock">Second Dock</Button>
         {{ zIndex("second") }}
       </Stack>
     </Draggable2>
-    <Draggable2 v-bind="d.third" @dock="d.third.dock" @update="d.third.update">
+    <Draggable2
+      v-bind="d.third"
+      @dock="d.third.dock"
+      @update="d.third.update"
+      :style="{ zIndex: zIndex('third') }"
+    >
       <Stack class="p-16">
         <Button @click="d.third.dock">Third Dock</Button>
         {{ zIndex("third") }}
