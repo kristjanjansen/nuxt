@@ -1,50 +1,65 @@
 <script setup lang="ts">
-import { useDraggable } from "@vueuse/core";
+import { useDraggable, useTimeoutFn } from "@vueuse/core";
+import { Ref } from "vue";
 import IconDock from "~icons/radix-icons/chevron-down";
 
 type Props = {
-  x: number;
-  y: number;
-  isFront?: boolean;
-  dockable?: boolean;
-  docked?: boolean;
+  x: Ref<number>;
+  y: Ref<number>;
+  updateXY: Function;
+  getDocked: Function;
+  setDocked: Function;
+  getIndex: Function;
 };
-const {
-  x,
-  y,
-  isFront = false,
-  dockable = false,
-  docked = false,
-} = defineProps<Props>();
-const emit = defineEmits(["startDrag", "dock"]);
+const { x, y, updateXY, getDocked, setDocked, getIndex } = defineProps<Props>();
 const draggable = ref<HTMLElement | null>(null);
 
-const { style, isDragging } = useDraggable(draggable, {
-  initialValue: { x, y },
-  onStart: () => emit("startDrag"),
+const {
+  isDragging,
+  x: newX,
+  y: newY,
+} = useDraggable(draggable, {
+  initialValue: { x: x.value, y: y.value },
+  onEnd: () => {
+    useTimeoutFn(
+      () =>
+        updateXY({
+          x: Math.floor(newX.value),
+          y: Math.floor(newY.value),
+        }),
+      0
+    );
+  },
+});
+const style = computed(() => {
+  return {
+    top: `${newY.value}px`,
+    left: `${newX.value}px`,
+    zIndex: isDragging.value ? "100" : getIndex(),
+  };
 });
 </script>
 
 <template>
   <Fade>
     <div
-      v-if="!docked"
+      v-if="!getDocked()"
       ref="draggable"
       :style="style"
-      class="z-10 w-full cursor-grab touch-none select-none overflow-hidden rounded border border-gray-700 bg-black/80 backdrop-blur-lg transition-colors md:fixed md:w-fit md:border-gray-500 md:hover:border-gray-400"
+      class="w-full cursor-grab touch-none select-none overflow-hidden rounded border border-gray-700 bg-black/80 backdrop-blur-lg transition-colors md:fixed md:w-fit md:border-gray-500 md:hover:border-gray-400"
       :class="[
-        isDragging ? 'z-40 cursor-grabbing !border-gray-100' : '',
-        isFront ? 'z-40' : '',
+        getDocked() ? 'opacity-50' : '',
+        isDragging ? 'cursor-grabbing !border-gray-100' : '',
       ]"
     >
       <div class="relative">
         <button
-          v-if="dockable"
-          class="absolute top-0 right-0 z-50 p-2 text-gray-500 hover:text-gray-100 focus:z-50"
-          @click="emit('dock')"
+          class="absolute top-0 right-0 z-[100] p-2 text-gray-500 hover:text-gray-100 focus:z-50"
+          @click="() => setDocked()"
         >
           <IconDock />
         </button>
+
         <slot />
       </div>
     </div>
