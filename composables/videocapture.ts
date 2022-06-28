@@ -29,5 +29,6 @@ export const useVideocapture = (videoRef, canvasRef, width, height) => {
   const frames = ref([]);
   const frame = ref(null);
 
-  return { context, capture, frame, frames };
+  const reversedFrames = computed(() => frames.value.reverse());
+  return { context, capture, frame, frames, reversedFrames };
 };
