@@ -7,7 +7,8 @@ const slug = route.params.event_slug;
 const { data: event, error } = await useEventBySlug(slug);
 
 //const url = "https://le21.babahhcdn.com/bb1150-le/x_live_1_c1.smil/playlist.m3u8"
-const url = "https://sb.err.ee/live/etv.m3u8";
+const url = "https://sb.err.ee/live/etv2.m3u8";
+//const url = "https://cloudflare.tv/hls/live.m3u8";
 
 const { lang } = useLang();
 
@@ -20,7 +21,12 @@ const d = useDraggables({
 const video = ref<HTMLVideoElement>();
 const canvas = ref<HTMLCanvasElement>();
 const { width, height } = useVideostream(video, url);
-const { capture, frames } = useVideocapture(video, canvas, width, height);
+const { capture, frames, reversedFrames } = useVideocapture(
+  video,
+  canvas,
+  width,
+  height
+);
 </script>
 
 <template>
@@ -44,11 +50,16 @@ const { capture, frames } = useVideocapture(video, canvas, width, height);
 
     <Draggable v-bind="d.capture">
       <Stack class="h-72 p-4">
-        <div><Button @click="capture">Capture</Button></div>
+        <div><Button @click.stop="capture">Capture</Button></div>
         <div class="grid grid-cols-3 overflow-y-auto">
-          <div v-if="!frames.length" class="aspect-video h-48" />
+          <div v-if="!reversedFrames.length" class="aspect-video h-48" />
           <FadeGroup>
-            <img v-for="f in frames" :src="f" class="aspect-video h-48" />
+            <img
+              :key="f.slice(-200)"
+              v-for="f in reversedFrames"
+              :src="f"
+              class="aspect-video h-48"
+            />
           </FadeGroup>
         </div>
       </Stack>

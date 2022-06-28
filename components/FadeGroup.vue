@@ -1,10 +1,8 @@
 <template>
   <transition-group
-    appear
-    move-class="duration-300 transition-all ease-in"
     enter-active-class="duration-300 transition-all ease-in"
-    enter-from-class="opacity-0"
-    enter-to-class="opacity-100"
+    enter-from-class="opacity-0 -translate-y-10"
+    enter-to-class="opacity-100 translate-y-0"
     leave-active-class="duration-300 transition-all ease-out"
     leave-from-class="opacity-100"
     leave-to-class="opacity-0"
