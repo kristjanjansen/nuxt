@@ -22,6 +22,7 @@ const useDraggables = (initialDraggables: any) => {
       updateIndex();
     };
     const index = () => zIndex(key);
+    const getDock = () => docked.value;
     return {
       ...initialDraggables[key],
       x,
@@ -30,6 +31,7 @@ const useDraggables = (initialDraggables: any) => {
       docked,
       dock,
       index,
+      getDock,
     };
   });
 
@@ -66,7 +68,7 @@ const useDraggables = (initialDraggables: any) => {
   return Object.fromEntries(keys.map((key, i) => [key, draggables[i]]));
 };
 
-const d = useDraggables({
+const draggables = useDraggables({
   first: { x: 300, y: 300 },
   second: { x: 400, y: 400 },
   third: { x: 500, y: 500 },
@@ -89,31 +91,23 @@ const log = (a) => console.log(a);
 
 <template>
   <div class="p-4 md:p-6">
-    <pre>{{ indexes }}</pre>
-    <pre>{{ d }}</pre>
+    <pre class="pointer-events-none select-none text-gray-500">
+      {{ draggables }}
+    </pre>
     <div class="fixed bottom-0 left-4 flex">
-      <div v-for="(dock, key) in d" class="border p-4">
+      <button
+        v-for="(draggable, key) in draggables"
+        @click="draggable.dock"
+        class="flex border-t border-r border-gray-600 py-2 px-4 font-mono text-sm uppercase text-gray-400 transition first:border-l hover:bg-gray-900"
+        :class="draggable.getDock() ? '!bg-gray-700 !text-gray-200' : ''"
+      >
         {{ key }}
-        <Button @click="d[key].dock">{{ d[key].docked }}</Button>
-      </div>
+      </button>
     </div>
-    <Draggable2 v-bind="d.first" @dock="d.first.dock" @update="d.first.update">
-      <Stack class="p-16">
-        <Button @click="d.first.dock">First Dock</Button>
-      </Stack>
-    </Draggable2>
-    <Draggable2
-      v-bind="d.second"
-      @dock="d.second.dock"
-      @update="d.second.update"
-    >
-      <Stack class="p-16">
-        <Button @click="d.second.dock">Second Dock</Button>
-      </Stack>
-    </Draggable2>
-    <Draggable2 v-bind="d.third" @dock="d.third.dock" @update="d.third.update">
-      <Stack class="p-16">
-        <Button @click="d.third.dock">Third Dock</Button>
+    <Draggable2 v-for="(draggable, key) in draggables" v-bind="draggable">
+      <Stack class="p-8">
+        <Title small>{{ key }}</Title>
+        <Button @click="draggable.dock">Dock it</Button>
       </Stack>
     </Draggable2>
   </div>

@@ -12,7 +12,6 @@ type Props = {
   dock: Function;
 };
 const { x, y, docked = false, index, update, dock } = defineProps<Props>();
-const emit = defineEmits(["start", "update", "dock"]);
 const draggable = ref<HTMLElement | null>(null);
 
 const {
@@ -22,10 +21,9 @@ const {
 } = useDraggable(draggable, {
   initialValue: { x: x.value, y: y.value },
   onEnd: async () => {
-    //update({ x: Math.floor(newX.value), y: Math.floor(newY.value) });
     useTimeoutFn(
       () =>
-        emit("update", {
+        update({
           x: Math.floor(newX.value),
           y: Math.floor(newY.value),
         }),
@@ -33,14 +31,13 @@ const {
     );
   },
 });
-const style2 = computed(() => {
+const style = computed(() => {
   return {
     top: `${newY.value}px`,
     left: `${newX.value}px`,
     zIndex: isDragging.value ? "100" : index(),
   };
 });
-const log = (a) => console.log(a);
 </script>
 
 <template>
@@ -48,7 +45,7 @@ const log = (a) => console.log(a);
     <div
       v-if="!docked.value"
       ref="draggable"
-      :style="style2"
+      :style="style"
       class="w-full cursor-grab touch-none select-none overflow-hidden rounded border border-gray-700 bg-black/80 backdrop-blur-lg transition-colors md:fixed md:w-fit md:border-gray-500 md:hover:border-gray-400"
       :class="[
         docked.value ? 'opacity-50' : '',
