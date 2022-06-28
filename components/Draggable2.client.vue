@@ -1,15 +1,14 @@
 <script setup lang="ts">
 import { useDraggable } from "@vueuse/core";
+import { Ref } from "vue";
 import IconDock from "~icons/radix-icons/chevron-down";
 
 type Props = {
-  x: number;
-  y: number;
-  front?: boolean;
-  docked?: boolean;
+  x: Ref<number>;
+  y: Ref<number>;
+  front?: any;
+  docked?: any;
   dockable?: boolean;
-  toggleFront: Function;
-  toggleDock: Function;
 };
 const {
   x,
@@ -18,19 +17,26 @@ const {
   docked = false,
   dockable = true,
 } = defineProps<Props>();
-const emit = defineEmits(["toggleFront", "toggleDock"]);
+const emit = defineEmits(["toggleFront", "toggleDocked", "update"]);
 const draggable = ref<HTMLElement | null>(null);
 
-const { style, isDragging } = useDraggable(draggable, {
-  initialValue: { x, y },
+const {
+  style,
+  isDragging,
+  x: newX,
+  y: newY,
+} = useDraggable(draggable, {
+  initialValue: { x: x.value, y: y.value },
   onStart: () => emit("toggleFront"),
+  onEnd: () =>
+    emit("update", { x: Math.floor(newX.value), y: Math.floor(newY.value) }),
 });
 </script>
 
 <template>
   <Fade>
     <div
-      v-if="!docked"
+      v-show="!docked.value"
       ref="draggable"
       :style="style"
       class="z-10 w-full cursor-grab touch-none select-none overflow-hidden rounded border border-gray-700 bg-black/80 backdrop-blur-lg transition-colors md:fixed md:w-fit md:border-gray-500 md:hover:border-gray-400"
@@ -43,7 +49,7 @@ const { style, isDragging } = useDraggable(draggable, {
         <button
           v-if="dockable"
           class="absolute top-0 right-0 z-50 p-2 text-gray-500 hover:text-gray-100 focus:z-50"
-          @click="emit('toggleDock')"
+          @click="emit('toggleDocked')"
         >
           <IconDock />
         </button>
