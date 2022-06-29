@@ -49,7 +49,7 @@ const { capture, frames, reversedFrames } = useVideocapture(
     </Draggable>
 
     <Draggable v-bind="d.capture">
-      <Stack class="h-72 p-4">
+      <Stack class="h-[20vw] w-[60vw] p-4">
         <div><Button @click.stop="capture">Capture</Button></div>
         <div class="grid grid-cols-3 overflow-y-auto">
           <div v-if="!reversedFrames.length" class="aspect-video h-48" />
@@ -58,7 +58,7 @@ const { capture, frames, reversedFrames } = useVideocapture(
               :key="f.slice(-300)"
               v-for="f in reversedFrames"
               :src="f"
-              class="aspect-video h-48"
+              class="aspect-video"
             />
           </FadeGroup>
         </div>

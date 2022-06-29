@@ -7,8 +7,8 @@ export const useVideocapture = (videoRef, canvasRef, width, height) => {
       context.value = canvasRef.value.getContext("2d");
     }
     if (width.value && height.value) {
-      canvasRef.value.width = width.value * canvasMultiplier;
-      canvasRef.value.height = height.value * canvasMultiplier;
+      canvasRef.value.width = (width.value || 1600) * canvasMultiplier;
+      canvasRef.value.height = (height.value || 900) * canvasMultiplier;
     }
   });
 
