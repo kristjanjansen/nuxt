@@ -41,7 +41,7 @@ const style = computed(() => {
 </script>
 
 <template>
-  <Fade>
+  <FadeTransition>
     <div
       v-show="!getDocked()"
       ref="draggable"
@@ -63,5 +63,5 @@ const style = computed(() => {
         <slot />
       </div>
     </div>
-  </Fade>
+  </FadeTransition>
 </template>

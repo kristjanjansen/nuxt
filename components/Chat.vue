@@ -30,7 +30,7 @@ const {
       </div>
     </div>
     <div class="flex h-0 -translate-y-10 justify-center">
-      <Fade>
+      <FadeTransition>
         <div
           v-if="newChatMessagesCount > 0"
           @click="scrollToBottom"
@@ -38,7 +38,7 @@ const {
         >
           <IconArrowDown class="h-3 w-3 border-gray-500" />
         </div>
-      </Fade>
+      </FadeTransition>
     </div>
     <div class="flex w-full items-end gap-2">
       <Textarea
