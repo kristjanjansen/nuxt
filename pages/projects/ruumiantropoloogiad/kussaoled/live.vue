@@ -42,7 +42,14 @@ const { capture, frames, reversedFrames } = useVideocapture(
 
     <Draggable v-bind="d.video">
       <div class="md:w-[70vw]">
-        <Videostream :url="url" />
+        <Videostream :url="url">
+          <button
+            @click.stop="capture"
+            class="rounded-full p-3 transition-all hover:bg-neutral-100/20"
+          >
+            <IconCapture />
+          </button>
+        </Videostream>
         <video
           ref="video"
           muted
@@ -55,14 +62,14 @@ const { capture, frames, reversedFrames } = useVideocapture(
     </Draggable>
 
     <Draggable v-bind="d.capture">
-      <Stack class="h-[20vw] w-[60vw] p-4">
+      <Stack class="h-[70vw] w-full p-4 md:h-[20vw] md:w-[60vw]">
         <div>
           <Button @click.stop="capture" class="!flex gap-2">
             <IconCapture />
             {{ ["Capture", "Tee pilti"][lang] }}
           </Button>
         </div>
-        <div class="grid grid-cols-3 overflow-y-auto">
+        <div class="grid w-full grid-cols-2 overflow-y-auto md:grid-cols-3">
           <div v-if="!reversedFrames.length" class="aspect-video h-48" />
           <FadeGroup>
             <img

@@ -32,7 +32,7 @@ const { lang } = useLang();
         {{ Math.floor(parseFloat(item.enclosure.length) / 1024 / 1024) }}MB MP3
       </Link>
       <audio
-        class="debug w-full"
+        class="w-full"
         :class="['invert', ''][theme]"
         controls
         :src="item.enclosure.url"
