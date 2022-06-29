@@ -81,7 +81,12 @@ const event = upcomingEvents.value?.[0];
           <EventButton :event="event" />
           <Content nolinks :content="event.intros[lang]" />
           <Link to="/schedule" right>
-            See all {{ upcomingEvents.length }} upcoming events
+            {{
+              [
+                `See all ${upcomingEvents.length} events`,
+                "Vaata kõiki tulevasi sündmusi",
+              ][lang]
+            }}
           </Link>
         </Stack>
       </div>
