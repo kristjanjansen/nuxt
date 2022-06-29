@@ -6,13 +6,16 @@ const config = useRuntimeConfig();
 const scrollable = ref<HTMLElement | null>(null);
 const textarea = ref<HTMLTextAreaElement | HTMLInputElement | null>(null);
 
+// const userId = useState<string>("user_id");
+// const userName = useState<string>("user_name");
+
 const {
   chatMessages,
   newChatMessage,
   sendChatMessage,
   newChatMessagesCount,
   scrollToBottom,
-} = useChat(config.public.wsUrl, "test", scrollable, textarea);
+} = useChat(config.public.wsUrl, "test", scrollable, textarea, {});
 </script>
 
 <template>
@@ -22,11 +25,13 @@ const {
       class="relative flex h-full flex-col gap-6 overflow-y-auto p-2"
       :class="[newChatMessagesCount ? 'scroll-smooth' : '']"
     >
-      <div
-        v-for="message in chatMessages"
-        class="whitespace-pre-wrap font-mono text-sm"
-      >
-        {{ message.value }}
+      <div v-for="message in chatMessages">
+        <div class="mb-1 whitespace-pre-wrap font-mono text-xs text-gray-500">
+          {{ message.userName }}
+        </div>
+        <div class="whitespace-pre-wrap font-mono text-sm">
+          {{ message.value }}
+        </div>
       </div>
     </div>
     <div class="flex h-0 -translate-y-10 justify-center">

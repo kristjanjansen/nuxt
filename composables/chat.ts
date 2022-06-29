@@ -16,8 +16,8 @@ export function useChat(
   options: UseChatOptions = {}
 ) {
   const {
-    userId = ref(""),
-    userName = ref(""),
+    userId = useUserId(),
+    userName = useUserName(),
     sentMessageType = "CHAT",
     receiveMessageType = "CHAT",
   } = options;
