@@ -32,9 +32,9 @@ const sortFrames = (frame1, frame2) => frame2.timestamp - frame1.timestamp;
 </script>
 
 <template>
-  <Stack class="relative grid p-4 md:h-full md:place-items-center md:p-0">
-    <canvas ref="canvas" class="hidden" />
-    <Breadboard />
+  <Stack class="relative grid p-6 md:place-items-center md:p-0">
+    <canvas ref="canvas" class="border-3 hidden border-red-500 opacity-0" />
+    <Breadboard class="hidden md:block" />
     <Draggable v-bind="d.video">
       <div class="md:w-[70vw]">
         <Videostream :url="url">
@@ -50,7 +50,8 @@ const sortFrames = (frame1, frame2) => frame2.timestamp - frame1.timestamp;
           muted
           autoplay
           playsinline
-          class="pointer-events-none fixed top-0 left-0 -z-50 touch-none opacity-100"
+          crossorigin="anonymous"
+          class="pointer-events-none fixed top-0 left-0 -z-50 touch-none opacity-0"
         />
       </div>
     </Draggable>
@@ -70,7 +71,7 @@ const sortFrames = (frame1, frame2) => frame2.timestamp - frame1.timestamp;
               v-for="frame in frames.sort(sortFrames)"
               :key="frame.timestamp"
               :src="frame.src"
-              class="aspect-video"
+              class="aspect-video transform"
             />
           </CaptureTransition>
         </div>

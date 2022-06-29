@@ -1,5 +1,5 @@
 <template>
-  <div class="breadboard h-full w-full opacity-50" />
+  <div class="breadboard h-full w-full opacity-30" />
 </template>
 
 <style>
@@ -8,15 +8,15 @@
   background: repeating-linear-gradient(
       0.25turn,
       transparent var(--pin-size),
-      rgb(var(--gray-800)) var(--pin-size),
-      rgb(var(--gray-800)) calc(var(--breadboard-tile-size) - var(--pin-size)),
+      rgb(var(--gray-900)) var(--pin-size),
+      rgb(var(--gray-900)) calc(var(--breadboard-tile-size) - var(--pin-size)),
       transparent calc(var(--breadboard-tile-size) - var(--pin-size)),
       transparent calc(var(--breadboard-tile-size) + var(--pin-size))
     ),
     repeating-linear-gradient(
       transparent var(--pin-size),
-      rgb(var(--gray-800)) var(--pin-size),
-      rgb(var(--gray-800)) calc(var(--breadboard-tile-size) - var(--pin-size)),
+      rgb(var(--gray-900)) var(--pin-size),
+      rgb(var(--gray-900)) calc(var(--breadboard-tile-size) - var(--pin-size)),
       transparent calc(var(--breadboard-tile-size) - var(--pin-size)),
       transparent calc(var(--breadboard-tile-size) + var(--pin-size))
     ),

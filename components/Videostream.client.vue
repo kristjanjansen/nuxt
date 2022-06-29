@@ -29,7 +29,13 @@ defineExpose({ video });
 
 <template>
   <div class="relative" ref="videoWrapper">
-    <video class="w-full" ref="video" autoplay playsinline />
+    <video
+      class="w-full"
+      ref="video"
+      autoplay
+      playsinline
+      crossorigin="anonymous"
+    />
     <FadeTransition>
       <div class="absolute right-2 bottom-2 flex" v-if="!idle">
         <slot />

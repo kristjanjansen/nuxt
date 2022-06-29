@@ -12,7 +12,7 @@ const textarea = ref<any>(null);
     <FadeTransition>
       <Stack
         v-show="edit"
-        class="fixed right-4 bottom-10 z-[100] w-[70vw] !gap-2 rounded border border-gray-600 bg-black/80 p-4 backdrop-blur-lg md:left-auto md:w-[20vw]"
+        class="fixed right-4 bottom-10 z-[100] w-[70vw] !gap-2 border border-gray-700 bg-black/80 p-4 backdrop-blur-lg md:left-auto md:w-[20vw]"
       >
         <div class="text-sm text-gray-300">Your name</div>
         <Textarea ref="textarea" v-model="userName" class="text-sm" />
@@ -26,10 +26,10 @@ const textarea = ref<any>(null);
     </FadeTransition>
 
     <div class="fixed right-4 bottom-0">
-      <DockButton @click="edit = !edit">
+      <DockButton @click="edit = !edit" class="!normal-case">
         <div class="flex w-full justify-between gap-2">
-          <div class="hidden truncate md:block">{{ userName || "&nbsp;" }}</div>
           <IconCircle class="text-green-500" />
+          <div class="hidden truncate md:block">{{ userName || "&nbsp;" }}</div>
         </div>
       </DockButton>
     </div>

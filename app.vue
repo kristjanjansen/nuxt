@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import "./styles.css";
 
-const route = useRoute();
+const route: any = useRoute();
 const siteName = "elektron.art";
 
 const titleTemplate = (title = undefined) =>
@@ -9,6 +9,7 @@ const titleTemplate = (title = undefined) =>
 
 useHead({
   titleTemplate,
+  viewport: "width=device-width, initial-scale=1, maximum-scale=1",
   link: [{ rel: "icon", type: "image/svg+xml", href: "/favicon.svg" }],
   meta: [{ name: "og:title", content: titleTemplate(route.meta.title) }],
 });
