@@ -6,7 +6,6 @@ const { draggables } = defineProps<Props>();
 </script>
 
 <template>
-  <div class="block h-2 md:hidden" />
   <div class="fixed bottom-0 left-4 z-[100] flex">
     <DockButton
       v-for="(draggable, key) in draggables"

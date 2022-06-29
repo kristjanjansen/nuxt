@@ -30,7 +30,9 @@ const { lang } = useLang();
 const description = computed(() => {
   const descriptionEn = frontpage.value.localizations?.[0].description;
   const descriptionEt = frontpage.value.description;
-  return [descriptionEn, descriptionEt][lang.value];
+  return [descriptionEn, descriptionEt].map((d) =>
+    d.replace(/<br\s?\/?>/g, "")
+  )[lang.value];
 });
 
 const { data: upcomingEvents, error: eventsError } = await useEvents({
@@ -41,7 +43,7 @@ const event = upcomingEvents.value?.[0];
 
 <template>
   <ErrorCard v-if="frontpageError || eventsError" />
-  <div v-else class="relative h-full">
+  <Stack v-else class="relative h-full p-4 md:p-0">
     <video
       ref="video"
       loop
@@ -51,13 +53,12 @@ const event = upcomingEvents.value?.[0];
       class="absolute inset-0 h-full w-full flex-col object-cover opacity-70"
       :class="[['', 'invert'][theme]]"
     />
-    <Breadboard />
     <Content
-      class="absolute top-8 left-8 right-8 font-title text-xl md:right-auto md:text-2xl"
+      class="top-8 left-8 right-8 w-auto font-title text-2xl text-white md:absolute md:right-auto md:w-[30vw] md:text-3xl"
       :content="description"
     />
     <button
-      class="absolute bottom-1 left-1 rounded-full p-3 transition-all hover:bg-neutral-100/20"
+      class="absolute bottom-0 left-1 rounded-full p-3"
       @click.stop="muted = !muted"
     >
       <IconMuted v-if="muted" class="h-4 w-4" />
@@ -80,11 +81,16 @@ const event = upcomingEvents.value?.[0];
           <EventButton :event="event" />
           <Content nolinks :content="event.intros[lang]" />
           <Link to="/schedule" right>
-            See all {{ upcomingEvents.length }} upcoming events
+            {{
+              [
+                `See all ${upcomingEvents.length} events`,
+                "Vaata kõiki tulevasi sündmusi",
+              ][lang]
+            }}
           </Link>
         </Stack>
       </div>
     </Draggable>
-    <Dock :draggables="d" class="left-12" />
-  </div>
+    <Dock :draggables="d" class="!left-12" />
+  </Stack>
 </template>
