@@ -9,7 +9,6 @@ interface UseChatOptions {
 }
 
 export function useChat(
-  url: string,
   channel: string,
   scrollable: Ref<HTMLElement>,
   textarea: Ref<HTMLInputElement | HTMLTextAreaElement>,
@@ -22,7 +21,7 @@ export function useChat(
     receiveMessageType = "CHAT",
   } = options;
 
-  const { messages, sendMessage } = useMessages(url);
+  const { messages, sendMessage } = useMessages();
   const scrollData = useScroll(scrollable);
   const { focused: focus } = useFocus(textarea, { initialValue: true });
   const newChatMessagesCount = ref(0);

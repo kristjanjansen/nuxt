@@ -1,9 +1,11 @@
 import { ref } from "vue";
 import { useWebSocket } from "@vueuse/core";
 
-export const useMessages = (url = "wss://ws.postman-echo.com/raw") => {
+const wsUrl = "wss://ws.elektron.art";
+
+export const useMessages = () => {
   const messages = ref([]);
-  const { ws, send } = useWebSocket(url, {
+  const { ws, send } = useWebSocket(wsUrl, {
     autoReconnect: true,
   });
   ws.value.addEventListener("message", ({ data }) => {

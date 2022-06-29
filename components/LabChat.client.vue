@@ -2,8 +2,6 @@
 const sample =
   "The broad narrative of Hitchhiker follows the misadventures of the last surviving man, Arthur Dent, following the demolition of the Earth by a Vogon constructor fleet to make way for a hyperspace bypass. Dent is rescued from Earth's destruction by Ford Prefect—a human-like alien writer for the eccentric, electronic travel guide The Hitchhiker's Guide to the Galaxy—by hitchhiking onto a passing Vogon spacecraft. Following his rescue, Dent explores the galaxy with Prefect and encounters Trillian, another human who had been taken from Earth (before its destruction) by the two-headed President of the Galaxy Zaphod Beeblebrox and the depressed Marvin, the Paranoid Android. Certain narrative details were changed among the various adaptations.";
 
-const config = useRuntimeConfig();
-
 const scrollable = ref<HTMLElement | null>(null);
 const textarea = ref<HTMLTextAreaElement | HTMLInputElement | null>(null);
 
@@ -14,7 +12,7 @@ const {
   newChatMessagesCount,
   scrollToBottom,
   focus,
-} = useChat(config.public.wsUrl, "test", scrollable, textarea);
+} = useChat("test", scrollable, textarea);
 
 const paste = () => {
   newChatMessage.value = sample;
