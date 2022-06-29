@@ -7,7 +7,7 @@ const slug = route.params.event_slug;
 const { data: event, error } = await useEventBySlug(slug);
 
 //const url = "https://le21.babahhcdn.com/bb1150-le/x_live_1_c1.smil/playlist.m3u8"
-const url = "https://sb.err.ee/live/etv2.m3u8";
+const url = "https://sb.err.ee/live/etv.m3u8";
 //const url = "https://cloudflare.tv/hls/live.m3u8";
 
 const { lang } = useLang();
@@ -43,7 +43,7 @@ const { capture, frames, reversedFrames } = useVideocapture(
 
     <Draggable v-bind="d.video">
       <div class="md:w-[70vw]">
-        <video ref="video" muted autoplay playsinline class="w-full" />
+        <video ref="video" muted autoplay playsinline controls class="w-full" />
       </div>
       <canvas ref="canvas" class="hidden" />
     </Draggable>
@@ -55,7 +55,7 @@ const { capture, frames, reversedFrames } = useVideocapture(
           <div v-if="!reversedFrames.length" class="aspect-video h-48" />
           <FadeGroup>
             <img
-              :key="f.slice(-200)"
+              :key="f.slice(-300)"
               v-for="f in reversedFrames"
               :src="f"
               class="aspect-video h-48"
