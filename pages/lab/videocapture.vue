@@ -47,7 +47,7 @@ const clear = () => {
     <div class="grid aspect-video border">
       <img
         v-if="frames.length"
-        :src="frames[currentFrame % frames.length]"
+        :src="frames[currentFrame % frames.length].src"
         class=""
       />
     </div>

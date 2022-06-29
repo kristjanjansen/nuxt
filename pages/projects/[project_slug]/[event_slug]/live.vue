@@ -20,9 +20,9 @@ const d = useDraggables({
   <ErrorCard v-if="error" />
   <Stack
     v-else
-    class="relative grid p-4 md:h-full md:place-items-center md:p-6"
+    class="relative grid p-4 md:h-full md:place-items-center md:p-0"
   >
-    <Breadboard class="hidden md:block" />
+    <Breadboard />
     <Link class="md:absolute md:top-6 md:left-6" left :to="event.eventLink">
       Back to event
     </Link>

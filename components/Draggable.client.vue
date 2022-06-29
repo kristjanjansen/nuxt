@@ -41,7 +41,7 @@ const style = computed(() => {
 </script>
 
 <template>
-  <Fade>
+  <FadeTransition>
     <div
       v-show="!getDocked()"
       ref="draggable"
@@ -49,7 +49,7 @@ const style = computed(() => {
       class="w-full cursor-grab touch-none select-none overflow-hidden rounded border border-gray-700 bg-black/80 backdrop-blur-lg transition-colors md:fixed md:w-fit md:border-gray-500 md:hover:border-gray-400"
       :class="[
         getDocked() ? 'opacity-50' : '',
-        isDragging ? 'cursor-grabbing !border-gray-100' : '',
+        isDragging ? '!md:border-gray-100 md:cursor-grabbing' : '',
       ]"
     >
       <div class="relative">
@@ -63,5 +63,5 @@ const style = computed(() => {
         <slot />
       </div>
     </div>
-  </Fade>
+  </FadeTransition>
 </template>

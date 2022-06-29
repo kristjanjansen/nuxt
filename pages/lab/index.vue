@@ -2,7 +2,7 @@
   <Stack class="p-4 md:p-6">
     <Link left to="/" />
     <Title>Experiments</Title>
-    <div class="grid w-full auto-rows-fr gap-5 md:grid-cols-3">
+    <div class="grid w-full auto-rows-fr gap-5 md:grid-cols-4">
       <LinkCard
         to="/lab/experiments/june_2022"
         class="border-re aspect-video pr-8"
@@ -17,8 +17,15 @@
         <p class="text-gray-500">Analyze and augment video data</p>
       </LinkCard>
     </div>
-    <Title>Other research</Title>
+    <Title>Other lab projects</Title>
     <div class="grid w-full auto-rows-fr gap-5 md:grid-cols-4">
+      <LinkCard
+        to="/projects/ruumiantropoloogiad/kussaoled/live"
+        class="border-re aspect-video pr-8"
+      >
+        <Title small>Where are you</Title>
+        <p class="text-gray-500">Video capture as an installation art</p>
+      </LinkCard>
       <LinkCard to="/lab/videocapture" class="border-re aspect-video pr-8">
         <Title small>Videocapture</Title>
         <p class="text-gray-500">Capture a frame from live video</p>

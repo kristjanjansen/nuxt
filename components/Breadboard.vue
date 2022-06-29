@@ -1,7 +1,5 @@
 <template>
-  <div class="breadboard h-full w-full transform-gpu opacity-50">
-    <slot />
-  </div>
+  <div class="breadboard h-full w-full opacity-30" />
 </template>
 
 <style>
@@ -10,15 +8,15 @@
   background: repeating-linear-gradient(
       0.25turn,
       transparent var(--pin-size),
-      rgb(var(--black)) var(--pin-size),
-      rgb(var(--black)) calc(var(--breadboard-tile-size) - var(--pin-size)),
+      rgb(var(--gray-900)) var(--pin-size),
+      rgb(var(--gray-900)) calc(var(--breadboard-tile-size) - var(--pin-size)),
       transparent calc(var(--breadboard-tile-size) - var(--pin-size)),
       transparent calc(var(--breadboard-tile-size) + var(--pin-size))
     ),
     repeating-linear-gradient(
       transparent var(--pin-size),
-      rgb(var(--black)) var(--pin-size),
-      rgb(var(--black)) calc(var(--breadboard-tile-size) - var(--pin-size)),
+      rgb(var(--gray-900)) var(--pin-size),
+      rgb(var(--gray-900)) calc(var(--breadboard-tile-size) - var(--pin-size)),
       transparent calc(var(--breadboard-tile-size) - var(--pin-size)),
       transparent calc(var(--breadboard-tile-size) + var(--pin-size))
     ),

@@ -28,13 +28,19 @@ defineExpose({ video });
 </script>
 
 <template>
-  <div class="relative" ref="videoWrapper">
-    <video class="w-full" ref="video" autoplay playsinline />
-    <Fade>
+  <div class="relative flex items-center bg-black" ref="videoWrapper">
+    <video
+      class="w-full"
+      ref="video"
+      autoplay
+      playsinline
+      crossorigin="anonymous"
+    />
+    <FadeTransition>
       <div class="absolute right-2 bottom-2 flex" v-if="!idle">
         <slot />
         <button
-          class="rounded-full p-3 transition-all hover:bg-neutral-100/20"
+          class="transform rounded-full p-3 transition-all hover:bg-neutral-100/20"
           @click="muted = !muted"
         >
           <IconMuted v-if="muted" class="text-neutral-100" />
@@ -55,6 +61,6 @@ defineExpose({ video });
           <IconEnterFullscreen v-if="!isFullscreen" class="text-neutral-100" />
         </button>
       </div>
-    </Fade>
+    </FadeTransition>
   </div>
 </template>

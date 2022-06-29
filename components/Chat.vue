@@ -11,13 +11,15 @@ const {
   newChatMessagesCount,
   scrollToBottom,
 } = useChat("test", scrollable, textarea);
+
+const { lang } = useLang();
 </script>
 
 <template>
   <div class="flex flex-col gap-2 p-2 pt-3">
     <div
       ref="scrollable"
-      class="relative flex h-full flex-col gap-6 overflow-y-auto p-2"
+      class="relative flex h-full flex-col gap-5 overflow-y-auto p-2"
       :class="[newChatMessagesCount ? 'scroll-smooth' : '']"
     >
       <div v-for="message in chatMessages">
@@ -30,7 +32,7 @@ const {
       </div>
     </div>
     <div class="flex h-0 -translate-y-10 justify-center">
-      <Fade>
+      <FadeTransition>
         <div
           v-if="newChatMessagesCount > 0"
           @click="scrollToBottom"
@@ -38,15 +40,18 @@ const {
         >
           <IconArrowDown class="h-3 w-3 border-gray-500" />
         </div>
-      </Fade>
+      </FadeTransition>
     </div>
     <div class="flex w-full items-end gap-2">
       <Textarea
         class="overflow-x-scroll text-sm"
         ref="textarea"
         v-model="newChatMessage"
+        :placeholder="['Your chat message', 'Sinu sõnum'][lang]"
       />
-      <Button primary @click="sendChatMessage">Send</Button>
+      <Button primary @click="sendChatMessage">{{
+        ["Send", "Saada"][lang]
+      }}</Button>
     </div>
   </div>
 </template>
