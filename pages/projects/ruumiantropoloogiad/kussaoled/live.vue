@@ -71,7 +71,7 @@ const sortFrames = (frame1, frame2) => frame2.timestamp - frame1.timestamp;
               v-for="frame in frames.sort(sortFrames)"
               :key="frame.timestamp"
               :src="frame.src"
-              class="aspect-video transform"
+              class="pointer-events-none aspect-video transform"
             />
           </CaptureTransition>
         </div>

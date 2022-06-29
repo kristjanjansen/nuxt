@@ -28,7 +28,7 @@ defineExpose({ video });
 </script>
 
 <template>
-  <div class="relative" ref="videoWrapper">
+  <div class="relative flex items-center bg-black" ref="videoWrapper">
     <video
       class="w-full"
       ref="video"
@@ -40,7 +40,7 @@ defineExpose({ video });
       <div class="absolute right-2 bottom-2 flex" v-if="!idle">
         <slot />
         <button
-          class="rounded-full p-3 transition-all hover:bg-neutral-100/20"
+          class="transform rounded-full p-3 transition-all hover:bg-neutral-100/20"
           @click="muted = !muted"
         >
           <IconMuted v-if="muted" class="text-neutral-100" />
