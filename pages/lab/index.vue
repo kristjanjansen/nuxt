@@ -19,15 +19,8 @@
     </div>
     <Title>Other lab projects</Title>
     <div class="grid w-full auto-rows-fr gap-5 md:grid-cols-4">
-      <LinkCard
-        to="/projects/ruumiantropoloogiad/kussaoled/live"
-        class="border-re aspect-video pr-8"
-      >
-        <Title small>Where are you</Title>
-        <p class="text-gray-500">Video capture as an installation art</p>
-      </LinkCard>
       <LinkCard to="/lab/videocapture" class="border-re aspect-video pr-8">
-        <Title small>Videocapture</Title>
+        <Title small>Video capture</Title>
         <p class="text-gray-500">Capture a frame from live video</p>
       </LinkCard>
       <LinkCard to="/lab/messages" class="aspect-video pr-8">
@@ -43,12 +36,19 @@
         <p class="text-gray-500">Going social using generative art</p>
       </LinkCard>
       <LinkCard to="/lab/parsedetails" class="aspect-video pr-8">
-        <Title small>Parsing details</Title>
-        <p class="text-gray-500">Extra focus on project and event details</p>
+        <Title small>Details</Title>
+        <p class="text-gray-500">Parsing project and event details</p>
       </LinkCard>
       <LinkCard to="/lab/draggables" class="aspect-video pr-8">
         <Title small>Draggables</Title>
-        <p class="text-gray-500">Find your inner drag</p>
+        <p class="text-gray-500">Drag galore</p>
+      </LinkCard>
+      <LinkCard
+        to="/projects/ruumiantropoloogiad/kussaoled/live"
+        class="border-re aspect-video bg-green-400 pr-8 hover:bg-green-500"
+      >
+        <Title small class="!text-black">Where are you</Title>
+        <p class="text-black">Video capture as an installation</p>
       </LinkCard>
     </div>
   </Stack>

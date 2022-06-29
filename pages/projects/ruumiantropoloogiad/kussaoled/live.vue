@@ -33,8 +33,10 @@ const sortFrames = (frame1, frame2) => frame2.timestamp - frame1.timestamp;
 
 <template>
   <Stack class="relative grid p-6 md:place-items-center md:p-0">
-    <canvas ref="canvas" class="border-3 hidden border-red-500 opacity-0" />
-    <Breadboard class="hidden md:block" />
+    <canvas ref="canvas" class="border-3 hidden opacity-0" />
+
+    <Breadboard />
+
     <Draggable v-bind="d.video">
       <div class="md:w-[70vw]">
         <Videostream :url="url">
@@ -57,7 +59,7 @@ const sortFrames = (frame1, frame2) => frame2.timestamp - frame1.timestamp;
     </Draggable>
 
     <Draggable v-bind="d.capture">
-      <Stack class="h-[70vw] w-full p-4 md:h-[20vw] md:w-[60vw]">
+      <Stack class="h-[80vw] w-full p-4 md:h-[40vw] md:w-[70vw]">
         <div>
           <Button primary @click.stop="capture" class="!flex gap-2">
             <IconCapture />
