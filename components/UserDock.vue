@@ -1,8 +1,7 @@
 <script setup lang="ts">
-import { MaybeElementRef, useFocus } from "@vueuse/core";
-import { Ref } from "vue";
 import IconCircle from "~icons/ph/circle-fill";
 import IconClose from "~icons/radix-icons/cross-2";
+
 const userName = useUserName();
 const edit = ref(false);
 const textarea = ref<any>(null);

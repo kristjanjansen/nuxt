@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { useInterval } from "@vueuse/core";
+import IconCapture from "~icons/radix-icons/camera";
 
 const route = useRoute();
 const slug = route.params.event_slug;
@@ -8,7 +8,6 @@ const { data: event, error } = await useEventBySlug(slug);
 
 //const url = "https://le21.babahhcdn.com/bb1150-le/x_live_1_c1.smil/playlist.m3u8"
 const url = "https://sb.err.ee/live/etv.m3u8";
-//const url = "https://cloudflare.tv/hls/live.m3u8";
 
 const { lang } = useLang();
 
@@ -57,7 +56,12 @@ const { capture, frames, reversedFrames } = useVideocapture(
 
     <Draggable v-bind="d.capture">
       <Stack class="h-[20vw] w-[60vw] p-4">
-        <div><Button @click.stop="capture">Capture</Button></div>
+        <div>
+          <Button @click.stop="capture" class="!flex gap-2">
+            <IconCapture />
+            {{ ["Capture", "Tee pilti"][lang] }}
+          </Button>
+        </div>
         <div class="grid grid-cols-3 overflow-y-auto">
           <div v-if="!reversedFrames.length" class="aspect-video h-48" />
           <FadeGroup>
