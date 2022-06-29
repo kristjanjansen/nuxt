@@ -32,9 +32,9 @@ const sortFrames = (frame1, frame2) => frame2.timestamp - frame1.timestamp;
 </script>
 
 <template>
-  <Stack class="relative grid p-4 md:h-full md:place-items-center md:p-6">
+  <Stack class="relative grid md:h-full md:place-items-center">
     <canvas ref="canvas" class="hidden" />
-    <Breadboard class="hidden md:block" />
+    <Breadboard />
     <Draggable v-bind="d.video">
       <div class="md:w-[70vw]">
         <Videostream :url="url">
