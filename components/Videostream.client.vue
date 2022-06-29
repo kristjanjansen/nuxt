@@ -13,7 +13,7 @@ type Props = {
 };
 const { url } = defineProps<Props>();
 
-const video = ref(null);
+const video = ref<HTMLVideoElement | null>(null);
 const videoWrapper = ref(null);
 
 useVideostream(video, url);
@@ -24,6 +24,7 @@ const { muted } = useMediaControls(video);
 onMounted(() => (muted.value = true));
 
 const { idle } = useIdle(5000);
+defineExpose({ video });
 </script>
 
 <template>

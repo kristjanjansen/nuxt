@@ -43,7 +43,14 @@ const { capture, frames, reversedFrames } = useVideocapture(
 
     <Draggable v-bind="d.video">
       <div class="md:w-[70vw]">
-        <video ref="video" muted autoplay playsinline controls class="w-full" />
+        <Videostream :url="url" />
+        <video
+          ref="video"
+          muted
+          autoplay
+          playsinline
+          class="pointer-events-none fixed top-0 left-0 -z-50 touch-none opacity-100"
+        />
       </div>
       <canvas ref="canvas" class="hidden" />
     </Draggable>
