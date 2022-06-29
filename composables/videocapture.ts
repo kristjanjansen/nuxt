@@ -6,9 +6,9 @@ export const useVideocapture = (videoRef, canvasRef, width, height) => {
     if (videoRef.value && canvasRef.value) {
       context.value = canvasRef.value.getContext("2d");
     }
-    if (width.value && height.value) {
-      canvasRef.value.width = width.value * canvasMultiplier;
-      canvasRef.value.height = height.value * canvasMultiplier;
+    if (width.value && height.value && canvasRef.value) {
+      canvasRef.value.width = (width.value || 1600) * canvasMultiplier;
+      canvasRef.value.height = (height.value || 900) * canvasMultiplier;
     }
   });
 
@@ -29,5 +29,6 @@ export const useVideocapture = (videoRef, canvasRef, width, height) => {
   const frames = ref([]);
   const frame = ref(null);
 
-  return { context, capture, frame, frames };
+  const reversedFrames = computed(() => frames.value.reverse());
+  return { context, capture, frame, frames, reversedFrames };
 };

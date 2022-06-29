@@ -13,7 +13,7 @@ type Props = {
 };
 const { url } = defineProps<Props>();
 
-const video = ref(null);
+const video = ref<HTMLVideoElement | null>(null);
 const videoWrapper = ref(null);
 
 useVideostream(video, url);
@@ -24,6 +24,7 @@ const { muted } = useMediaControls(video);
 onMounted(() => (muted.value = true));
 
 const { idle } = useIdle(5000);
+defineExpose({ video });
 </script>
 
 <template>
@@ -31,6 +32,7 @@ const { idle } = useIdle(5000);
     <video class="w-full" ref="video" autoplay playsinline />
     <Fade>
       <div class="absolute right-2 bottom-2 flex" v-if="!idle">
+        <slot />
         <button
           class="rounded-full p-3 transition-all hover:bg-neutral-100/20"
           @click="muted = !muted"

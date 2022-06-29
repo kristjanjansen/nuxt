@@ -14,6 +14,6 @@ const { primary = false } = defineProps<Props>();
         : '',
     ]"
   >
-    <div class="translate-y-[0.25rem]"><slot /></div>
+    <div class="flex translate-y-[0.25rem] gap-2"><slot /></div>
   </button>
 </template>

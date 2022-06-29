@@ -1,6 +1,5 @@
 <script setup lang="ts">
-const config = useRuntimeConfig();
-const { messages, sendMessage } = useMessages(config.public.wsUrl);
+const { messages, sendMessage } = useMessages();
 const testMessages = computed(() =>
   messages.value.filter((m) => m.type === "TEST")
 );

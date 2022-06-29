@@ -16,3 +16,11 @@ export function uniqueCollection(arr: Record<string, any>, key: string) {
   return result.reverse();
 }
 export const unique = (arr: any[]) => [...new Set(arr)];
+
+export function shuffle(arr: any[]) {
+  return arr.sort(() => Math.random() - 0.5);
+}
+
+export function any(arr: any[]) {
+  return shuffle(arr)[0];
+}

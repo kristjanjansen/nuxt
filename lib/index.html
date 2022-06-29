@@ -15,9 +15,7 @@
       const sendMessageEl = document.getElementById("sendMessageEl");
       const messagesEl = document.getElementById("messagesEl");
 
-      const { ws, messages, sendMessage } = useMessages(
-        "wss://ws.elektron.art"
-      );
+      const { ws, messages, sendMessage } = useMessages();
 
       // Sending a test message
 

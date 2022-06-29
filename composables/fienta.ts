@@ -1,5 +1,8 @@
 import { useStorage } from "@vueuse/core";
 
+const fientaUrl = "https://fienta.com/api/v1";
+const fientaToken = "5d3c8e89f216ac38b9a7f6add38f6f74";
+
 type TicketStatus = "FREE" | "REQUIRES_TICKET" | "HAS_TICKET";
 
 export type Ticketable = {
@@ -39,10 +42,11 @@ function setLocalTicket(code: string, fienta_id: string) {
 async function getRemoteTicket(
   code: string
 ): Promise<{ fienta_status: string; fienta_id: string } | null> {
-  const config = useRuntimeConfig();
-  const baseURL = config.public.fientaUrl;
-  const headers = { Authorization: `Bearer ${config.public.fientaToken}` };
-  const res: any = await $fetch(`/tickets/${code}`, { baseURL, headers });
+  const headers = { Authorization: `Bearer ${fientaToken}` };
+  const res: any = await $fetch(`/tickets/${code}`, {
+    baseURL: fientaUrl,
+    headers,
+  });
   if (res && res.ticket) {
     return {
       fienta_status: res.ticket.status, // TODO: type Fienta statuses
