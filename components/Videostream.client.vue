@@ -30,7 +30,7 @@ defineExpose({ video });
 <template>
   <div class="relative" ref="videoWrapper">
     <video class="w-full" ref="video" autoplay playsinline />
-    <Fade>
+    <FadeTransition>
       <div class="absolute right-2 bottom-2 flex" v-if="!idle">
         <slot />
         <button
@@ -55,6 +55,6 @@ defineExpose({ video });
           <IconEnterFullscreen v-if="!isFullscreen" class="text-neutral-100" />
         </button>
       </div>
-    </Fade>
+    </FadeTransition>
   </div>
 </template>

@@ -32,7 +32,7 @@ const sortFrames = (frame1, frame2) => frame2.timestamp - frame1.timestamp;
 </script>
 
 <template>
-  <Stack class="relative grid md:h-full md:place-items-center">
+  <Stack class="relative grid p-4 md:h-full md:place-items-center md:p-0">
     <canvas ref="canvas" class="hidden" />
     <Breadboard />
     <Draggable v-bind="d.video">
@@ -58,7 +58,7 @@ const sortFrames = (frame1, frame2) => frame2.timestamp - frame1.timestamp;
     <Draggable v-bind="d.capture">
       <Stack class="h-[70vw] w-full p-4 md:h-[20vw] md:w-[60vw]">
         <div>
-          <Button @click.stop="capture" class="!flex gap-2">
+          <Button primary @click.stop="capture" class="!flex gap-2">
             <IconCapture />
             {{ ["Capture", "Tee pilti"][lang] }}
           </Button>

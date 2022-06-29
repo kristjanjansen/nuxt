@@ -11,6 +11,8 @@ const {
   newChatMessagesCount,
   scrollToBottom,
 } = useChat("test", scrollable, textarea);
+
+const { lang } = useLang();
 </script>
 
 <template>
@@ -45,8 +47,11 @@ const {
         class="overflow-x-scroll text-sm"
         ref="textarea"
         v-model="newChatMessage"
+        :placeholder="['Your chat message', 'Sinu sõnum'][lang]"
       />
-      <Button primary @click="sendChatMessage">Send</Button>
+      <Button primary @click="sendChatMessage">{{
+        ["Send", "Saada"][lang]
+      }}</Button>
     </div>
   </div>
 </template>

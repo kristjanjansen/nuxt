@@ -12,7 +12,7 @@ const menu = ref(false);
     class="sticky top-0 z-50 grid grid-cols-1 bg-black/90 md:grid-cols-[1fr_1fr_1fr_1fr_1fr_1fr_0.5fr_0.5fr]"
   >
     <div
-      class="flex h-10 w-full items-center justify-between border-b border-r border-gray-700 md:border-l"
+      class="flex h-10 w-full items-center justify-between border border-gray-700"
     >
       <NuxtLink
         to="/"
