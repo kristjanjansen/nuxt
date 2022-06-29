@@ -6,8 +6,9 @@ const slug = route.params.event_slug;
 
 const { data: event, error } = await useEventBySlug(slug);
 
-//const url = "https://le21.babahhcdn.com/bb1150-le/x_live_1_c1.smil/playlist.m3u8"
-const url = "https://sb.err.ee/live/etv.m3u8";
+const url =
+  "https://le21.babahhcdn.com/bb1150-le/x_live_1_c1.smil/playlist.m3u8";
+//const url = "https://sb.err.ee/live/etv.m3u8";
 
 const { lang } = useLang();
 
