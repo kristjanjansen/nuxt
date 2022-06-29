@@ -14,7 +14,7 @@ const urls = [
   "https://cloudflare.tv/hls/live.m3u8",
 ];
 
-const url = urls[3];
+const url = urls[0];
 
 const { lang } = useLang();
 
