@@ -6,16 +6,13 @@ const config = useRuntimeConfig();
 const scrollable = ref<HTMLElement | null>(null);
 const textarea = ref<HTMLTextAreaElement | HTMLInputElement | null>(null);
 
-// const userId = useState<string>("user_id");
-// const userName = useState<string>("user_name");
-
 const {
   chatMessages,
   newChatMessage,
   sendChatMessage,
   newChatMessagesCount,
   scrollToBottom,
-} = useChat(config.public.wsUrl, "test", scrollable, textarea, {});
+} = useChat(config.public.wsUrl, "test", scrollable, textarea);
 </script>
 
 <template>
