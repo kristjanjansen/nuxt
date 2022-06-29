@@ -6,9 +6,9 @@ const slug = route.params.event_slug;
 
 //const { data: event, error } = await useEventBySlug(slug);
 
-const url =
-  "https://le21.babahhcdn.com/bb1150-le/x_live_1_c1.smil/playlist.m3u8";
-//const url = "https://sb.err.ee/live/etv.m3u8";
+//const url =
+//("https://le21.babahhcdn.com/bb1150-le/x_live_1_c1.smil/playlist.m3u8");
+const url = "https://sb.err.ee/live/etv2.m3u8";
 
 const { lang } = useLang();
 
@@ -21,7 +21,7 @@ const d = useDraggables({
 const video = ref<HTMLVideoElement>();
 const canvas = ref<HTMLCanvasElement>();
 const { width, height } = useVideostream(video, url);
-const { capture, frames, reversedFrames } = useVideocapture(
+const { capture, reversedFrames } = useVideocapture(
   video,
   canvas,
   width,
@@ -40,7 +40,7 @@ const { capture, frames, reversedFrames } = useVideocapture(
             @click.stop="capture"
             class="rounded-full p-3 transition-all hover:bg-neutral-100/20"
           >
-            <IconCapture />
+            <IconCapture class="text-neutral-100" />
           </button>
         </Videostream>
         <video
