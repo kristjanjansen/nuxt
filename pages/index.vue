@@ -6,7 +6,7 @@ import { parseStrapi } from "~~/composables/strapi";
 
 // Page data
 
-const { data: frontpage, error: frontpageError } = useFrontpage();
+const { data: frontpage, error: frontpageError } = useFrontPage();
 
 // Video
 

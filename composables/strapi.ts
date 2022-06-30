@@ -46,13 +46,11 @@ export const useEventBySlug = (slug: any) => {
   });
 };
 
-// "events.start_at:desc",
 export const useProjects = (params: Strapi4RequestParams = {}) => {
   return useFind(
     "projects",
     merge(
       {
-        // sort: ["createdAt:desc"],
         populate: [
           "localizations",
           "thumbnail",
@@ -89,7 +87,7 @@ export const useProjectsBySlug = (slug: any) => {
   });
 };
 
-export const useFrontpage = (params: Strapi4RequestParams = {}) => {
+export const useFrontPage = (params: Strapi4RequestParams = {}) => {
   return useFind(
     "frontpage",
     merge(
@@ -98,7 +96,20 @@ export const useFrontpage = (params: Strapi4RequestParams = {}) => {
       },
       params
     ),
-    processLocalizations
+    processPage
+  );
+};
+
+export const usePodcastPage = (params: Strapi4RequestParams = {}) => {
+  return useFind(
+    "podcast",
+    merge(
+      {
+        populate: ["localizations", "images"],
+      },
+      params
+    ),
+    processPage
   );
 };
 
@@ -127,6 +138,12 @@ export const processProjects = (result) => {
 
 export const processEvents = (result) => {
   result.data.value = result.data.value.map(processEvent);
+  return result;
+};
+
+export const processPage = (result) => {
+  result = processLocalizations(result);
+  result = proccessMarkdown(result);
   return result;
 };
 
