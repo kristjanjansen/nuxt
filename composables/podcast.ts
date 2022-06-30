@@ -6,9 +6,21 @@ export const usePodcast = () =>
       "https://api.allorigins.win/get?url=https://elektronsignal.captivate.fm/rssfeed";
     const parser = new Parser();
 
-    const podcast = $fetch(rssUrl).then((res: any) => {
-      return parser.parseString(res.contents) as Podcast;
-    });
+    const podcast = $fetch(rssUrl)
+      .then((res: any) => {
+        return parser.parseString(res.contents) as Podcast;
+      })
+      .then((res) => {
+        res.items = res.items.map((item) => {
+          item["content"] = item["content"].replace(/&nbsp;/g, " ");
+          item["content:encoded"] = item["content:encoded"].replace(
+            /&nbsp;/g,
+            " "
+          );
+          return item;
+        });
+        return res;
+      });
     return podcast;
   });
 

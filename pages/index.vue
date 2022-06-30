@@ -4,41 +4,34 @@ import IconMuted from "~icons/radix-icons/speaker-off";
 import IconUnmuted from "~icons/radix-icons/speaker-loud";
 import { parseStrapi } from "~~/composables/strapi";
 
-const d = useDraggables({
-  upcoming: { x: 300, y: 300 },
-});
+// Page data
 
-const video = ref();
-const src =
-  "https://fra1.digitaloceanspaces.com/elektron/strapi/0ea3ff8704a2e6b444d3fe442532923e.mp4";
+const { data: frontpage, error: frontpageError } = useFrontPage();
 
+// Video
+
+const video = ref<HTMLVideoElement | null>(null);
 const { muted } = useMediaControls(video, {
-  src,
+  src: frontpage.value?.background.url || "",
 });
+
 onMounted(() => (muted.value = true));
-const { theme } = useTheme();
 
-const { data: frontpage, error: frontpageError } = await useAsyncData<any>(
-  "frontpage",
-  () =>
-    $fetch("https://strapi4.elektron.art/api/frontpage?populate=*").then(
-      (res: any) => parseStrapi(res.data)
-    )
-);
-
-const { lang } = useLang();
-const description = computed(() => {
-  const descriptionEn = frontpage.value.localizations?.[0].description;
-  const descriptionEt = frontpage.value.description;
-  return [descriptionEn, descriptionEt].map((d) =>
-    d.replace(/<br\s?\/?>/g, "")
-  )[lang.value];
-});
+// Events data
 
 const { data: upcomingEvents, error: eventsError } = await useEvents({
   filters: { start_at: { $gte: today() } },
 });
 const event = upcomingEvents.value?.[0];
+
+const d = useDraggables({
+  upcoming: { x: 300, y: 300 },
+});
+
+// Utilities
+
+const { theme } = useTheme();
+const { lang } = useLang();
 </script>
 
 <template>
@@ -55,7 +48,7 @@ const event = upcomingEvents.value?.[0];
     />
     <Content
       class="top-8 left-8 right-8 w-auto font-title text-2xl text-white md:absolute md:right-auto md:w-[30vw] md:text-3xl"
-      :content="description"
+      :content="frontpage.descriptions[lang]"
     />
     <button
       class="absolute bottom-0 left-1 rounded-full p-3"

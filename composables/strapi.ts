@@ -46,13 +46,11 @@ export const useEventBySlug = (slug: any) => {
   });
 };
 
-// "events.start_at:desc",
 export const useProjects = (params: Strapi4RequestParams = {}) => {
   return useFind(
     "projects",
     merge(
       {
-        // sort: ["createdAt:desc"],
         populate: [
           "localizations",
           "thumbnail",
@@ -89,6 +87,32 @@ export const useProjectsBySlug = (slug: any) => {
   });
 };
 
+export const useFrontPage = (params: Strapi4RequestParams = {}) => {
+  return useFind(
+    "frontpage",
+    merge(
+      {
+        populate: ["localizations", "background"],
+      },
+      params
+    ),
+    processPage
+  );
+};
+
+export const usePodcastPage = (params: Strapi4RequestParams = {}) => {
+  return useFind(
+    "podcast",
+    merge(
+      {
+        populate: ["localizations", "images"],
+      },
+      params
+    ),
+    processPage
+  );
+};
+
 // Public Strapi request wrapper
 
 export const useFind = (
@@ -114,6 +138,12 @@ export const processProjects = (result) => {
 
 export const processEvents = (result) => {
   result.data.value = result.data.value.map(processEvent);
+  return result;
+};
+
+export const processPage = (result) => {
+  result = processLocalizations(result);
+  result = proccessMarkdown(result);
   return result;
 };
 
@@ -186,15 +216,21 @@ const processProject = (project) => {
 // Processors
 
 const processLocalizations = (item) => {
-  item.titles = [item.title, item.localizations?.[0].title || item.title];
-  item.intros = [item.intro, item.localizations?.[0].intro || item.intro];
+  item.titles = [
+    item.title || null,
+    item.localizations?.[0].title || item.title || null,
+  ];
+  item.intros = [
+    item.intro || null,
+    item.localizations?.[0].intro || item.intro || null,
+  ];
   item.descriptions = [
-    item.description,
-    item.localizations?.[0].description || item.description,
+    item.description || null,
+    item.localizations?.[0].description || item.description || null,
   ];
   item.detailss = [
-    item.details,
-    item.localizations?.[0].details || item.details,
+    item.details || null,
+    item.localizations?.[0].details || item.details || null,
   ];
   return item;
 };
