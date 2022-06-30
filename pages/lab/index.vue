@@ -19,9 +19,16 @@
     </div>
     <Title>Other lab projects</Title>
     <div class="grid w-full auto-rows-fr gap-5 md:grid-cols-4">
+      <LinkCard
+        to="/projects/ruumiantropoloogiad/kussaoled/live"
+        class="border-re aspect-video bg-green-400 pr-8 hover:bg-green-500"
+      >
+        <Title small class="!text-black">Where are you</Title>
+        <p class="text-black">Video capture as an installation</p>
+      </LinkCard>
       <LinkCard to="/lab/videocapture" class="border-re aspect-video pr-8">
-        <Title small>Video capture</Title>
-        <p class="text-gray-500">Capture a frame from live video</p>
+        <Title small>Capturing the loop</Title>
+        <p class="text-gray-500">Video capture as tech demo</p>
       </LinkCard>
       <LinkCard to="/lab/messages" class="aspect-video pr-8">
         <Title small>Messages</Title>
@@ -40,15 +47,13 @@
         <p class="text-gray-500">Parsing project and event details</p>
       </LinkCard>
       <LinkCard to="/lab/draggables" class="aspect-video pr-8">
-        <Title small>Draggables</Title>
-        <p class="text-gray-500">Drag galore</p>
+        <Title small>Draggables and Dockables</Title>
+        <p class="text-gray-500">Get down to get up</p>
       </LinkCard>
-      <LinkCard
-        to="/projects/ruumiantropoloogiad/kussaoled/live"
-        class="border-re aspect-video bg-green-400 pr-8 hover:bg-green-500"
-      >
-        <Title small class="!text-black">Where are you</Title>
-        <p class="text-black">Video capture as an installation</p>
+
+      <LinkCard to="/lab/board" class="aspect-video pr-8">
+        <Title small>Video breadboard</Title>
+        <p class="text-gray-500">Get your focus</p>
       </LinkCard>
     </div>
   </Stack>
