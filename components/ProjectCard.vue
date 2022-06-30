@@ -8,16 +8,34 @@ const { lang } = useLang();
 
 <template>
   <Stack>
-    <Image
-      class="aspect-square h-full rounded-2xl object-cover"
-      :image="project.thumbnail"
-    />
-    <!-- <Title class="block">
-      {{ project.titles[lang] }}
-    </Title>
-    <div v-for="event in project.events">
-      <Title small>{{ event.title }}</Title>
-      <EventDatetime :event="event" />
-    </div> -->
-  </Stack>
+    <div class="group relative overflow-auto rounded-2xl">
+      <Image
+        class="aspect-square h-full object-cover transition group-hover:scale-105 group-hover:blur"
+        :image="project.thumbnail"
+      />
+      <Stack
+        class="absolute inset-0 bg-black/50 p-4 opacity-0 transition group-hover:opacity-100"
+      >
+        <Stack class="!gap-1">
+          <Title small v-if="project.authors">
+            {{ project.authors }}
+          </Title>
+          <Title>
+            {{ project.titles[lang] }}
+          </Title>
+        </Stack>
+        <Content :content="project.intros[lang]" />
+      </Stack>
+    </div>
+    <Stack class="block md:hidden">
+      <Stack class="!gap-1">
+        <Title small v-if="project.authors">
+          {{ project.authors }}
+        </Title>
+        <Title>
+          {{ project.titles[lang] }}
+        </Title>
+      </Stack>
+      <Content :content="project.intros[lang]" /> </Stack
+  ></Stack>
 </template>
