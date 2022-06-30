@@ -4,19 +4,7 @@ import IconMuted from "~icons/radix-icons/speaker-off";
 import IconUnmuted from "~icons/radix-icons/speaker-loud";
 import { parseStrapi } from "~~/composables/strapi";
 
-const d = useDraggables({
-  upcoming: { x: 300, y: 300 },
-});
-
-const video = ref();
-const src =
-  "https://fra1.digitaloceanspaces.com/elektron/strapi/0ea3ff8704a2e6b444d3fe442532923e.mp4";
-
-const { muted } = useMediaControls(video, {
-  src,
-});
-onMounted(() => (muted.value = true));
-const { theme } = useTheme();
+// Page data
 
 const { data: frontpage, error: frontpageError } = await useAsyncData<any>(
   "frontpage",
@@ -26,19 +14,38 @@ const { data: frontpage, error: frontpageError } = await useAsyncData<any>(
     )
 );
 
-const { lang } = useLang();
-const description = computed(() => {
-  const descriptionEn = frontpage.value.localizations?.[0].description;
-  const descriptionEt = frontpage.value.description;
-  return [descriptionEn, descriptionEt].map((d) =>
-    d.replace(/<br\s?\/?>/g, "")
-  )[lang.value];
+// Video
+
+const video = ref<HTMLVideoElement | null>(null);
+
+const { muted } = useMediaControls(video, {
+  src: frontpage.value.background?.url,
 });
+
+onMounted(() => (muted.value = true));
+
+// Description
+
+const descriptions = [
+  frontpage.value.localizations?.[0].description || frontpage.value.description,
+  frontpage.value.description,
+];
+
+// Upcoming events
 
 const { data: upcomingEvents, error: eventsError } = await useEvents({
   filters: { start_at: { $gte: today() } },
 });
 const event = upcomingEvents.value?.[0];
+
+const d = useDraggables({
+  upcoming: { x: 300, y: 300 },
+});
+
+// Utilities
+
+const { theme } = useTheme();
+const { lang } = useLang();
 </script>
 
 <template>
@@ -55,7 +62,7 @@ const event = upcomingEvents.value?.[0];
     />
     <Content
       class="top-8 left-8 right-8 w-auto font-title text-2xl text-white md:absolute md:right-auto md:w-[30vw] md:text-3xl"
-      :content="description"
+      :content="descriptions[lang]"
     />
     <button
       class="absolute bottom-0 left-1 rounded-full p-3"
@@ -65,7 +72,7 @@ const event = upcomingEvents.value?.[0];
       <IconUnmuted v-if="!muted" class="h-4 w-4" />
     </button>
     <Draggable v-bind="d.upcoming">
-      <div class="grid grid-cols-[1fr_1fr] md:h-[25vw] md:w-[50vw]">
+      <div class="grid grid-cols-[1fr_1fr] md:h-[20vw] md:w-[40vw]">
         <div>
           <Image
             class="pointer-events-none h-full w-full object-cover"
