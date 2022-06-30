@@ -8,7 +8,7 @@ const { lang } = useLang();
 
 <template>
   <Stack>
-    <div class="group relative overflow-auto rounded-2xl">
+    <div class="group relative overflow-hidden rounded-2xl">
       <Image
         class="aspect-square h-full object-cover transition group-hover:scale-105 group-hover:blur"
         :image="project.thumbnail"
