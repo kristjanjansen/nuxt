@@ -58,7 +58,7 @@ const menu = ref(false);
       :class="[menu ? 'block' : 'hidden']"
       @click="menu = false"
     >
-      <NavLink>{{ ["podcast", "podcast"][lang] }}</NavLink>
+      <NavLink>{{ ["Podcast", "Taskuhääling"][lang] }}</NavLink>
     </NuxtLink>
     <NuxtLink
       to="/lab"
@@ -66,7 +66,7 @@ const menu = ref(false);
       :class="[menu ? 'block' : 'hidden']"
       @click="menu = false"
     >
-      <NavLink>{{ ["lab", "lab"][lang] }}</NavLink>
+      <NavLink>{{ ["Lab", "Labor"][lang] }}</NavLink>
     </NuxtLink>
     <button
       @click="
@@ -90,7 +90,9 @@ const menu = ref(false);
       class="text-left md:block"
       :class="[menu ? 'block' : 'hidden']"
     >
-      <NavLink>{{ ["night", "day"][theme] }}</NavLink>
+      <NavLink>
+        {{ [["Night", "Öö"][lang], ["Day", "Päev"][lang]][theme] }}
+      </NavLink>
     </button>
   </div>
 </template>
