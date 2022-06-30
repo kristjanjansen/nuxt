@@ -1,8 +1,8 @@
 <script setup lang="ts">
 import { useInterval } from "@vueuse/core";
 
-const url = "https://cloudflare.tv/hls/live.m3u8";
-//const url = "https://sb.err.ee/live/etv.m3u8";
+//const url = "https://cloudflare.tv/hls/live.m3u8";
+const url = "https://sb.err.ee/live/etvpluss.m3u8";
 
 const currentFrame = useInterval(200);
 const video = ref<HTMLVideoElement>();
