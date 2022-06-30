@@ -5,31 +5,27 @@ import IconUnmuted from "~icons/radix-icons/speaker-loud";
 import { parseStrapi } from "~~/composables/strapi";
 
 // Page data
+// @TODO Move to useFrontpage()
 
-const { data: frontpage, error: frontpageError } = await useAsyncData<any>(
-  "frontpage",
-  () =>
-    $fetch("https://strapi4.elektron.art/api/frontpage?populate=*").then(
-      (res: any) => parseStrapi(res.data)
-    )
-);
+const { data: frontpage, error: frontpageError } = useFind("frontpage", {
+  populate: ["localizations", "background"],
+});
+
+const descriptions = computed(() => [
+  frontpage.value?.localizations?.[0].description ||
+    frontpage.value.description,
+  frontpage.value?.description,
+]);
 
 // Video
 
 const video = ref<HTMLVideoElement | null>(null);
 
 const { muted } = useMediaControls(video, {
-  src: frontpage.value.background?.url,
+  src: frontpage.value?.background?.url,
 });
 
 onMounted(() => (muted.value = true));
-
-// Description
-
-const descriptions = [
-  frontpage.value.localizations?.[0].description || frontpage.value.description,
-  frontpage.value.description,
-];
 
 // Upcoming events
 
