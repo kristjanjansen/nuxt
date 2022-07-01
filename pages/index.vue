@@ -50,7 +50,7 @@ const { lang } = useLang();
     <Stack class="absolute top-4 left-4 right-4 gap-4 md:top-6 md:left-6">
       <Content
         class="w-auto font-title text-xl text-white md:w-[30vw] md:text-2xl"
-        :content="frontpage.descriptions[lang]"
+        :content="frontpage?.descriptions[lang]"
       />
       <Draggable v-bind="d.upcoming">
         <div
