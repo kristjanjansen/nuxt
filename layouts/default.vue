@@ -3,7 +3,8 @@
     <Body class="bg-black text-gray-50 antialiased transition-colors" />
     <Nav />
     <div class="relative h-full"><slot /></div>
+    <slot name="a" />
     <div class="pointer-events-none fixed inset-0 border border-gray-700" />
-    <UserDock />
+    <!-- <UserDock /> -->
   </div>
 </template>

@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import IconCapture from "~icons/radix-icons/camera";
-import { useUpload } from "~~/composables/files";
 
 //const route = useRoute();
 //const slug = route.params.event_slug;

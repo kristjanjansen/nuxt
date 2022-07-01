@@ -23,15 +23,12 @@ const second = isSameDay
     <div v-if="event.urgency !== 'soon'" class="text-gray-500">
       {{ event.formattedStartAtDistance }}
     </div>
-    <div
-      v-if="event.urgency === 'soon'"
-      class="inline-block rounded border border-yellow-500 px-2 py-1 font-bold uppercase tracking-wider text-yellow-500 text-xs"
-    >
+    <SoonBadge>
       {{ event.formattedStartAtDistance }}
-    </div>
+    </SoonBadge>
     <div
       v-if="event.urgency === 'live'"
-      class="inline-block rounded border border-red-500 px-2 py-1 font-bold uppercase tracking-wider text-red-500 text-xs"
+      class="inline-block rounded border border-red-500 px-2 py-1 text-xs font-bold uppercase tracking-wider text-red-500"
     >
       Live
     </div>

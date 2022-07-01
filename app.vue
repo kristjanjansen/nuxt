@@ -16,7 +16,7 @@ useHead({
 
 if (process.server) {
   const nuxtApp = useNuxtApp();
-  nuxtApp.ssrContext.res.setHeader("ttl", route.meta.ttl || 60 * 10); // 10 minutes
+  nuxtApp.ssrContext.event.res.setHeader("ttl", route.meta.ttl || 60 * 10); // 10 minutes
 }
 </script>
 
