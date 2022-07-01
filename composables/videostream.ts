@@ -92,10 +92,22 @@ export const useVideostream = (
         hls.loadSource(videoSrc.value);
         hls.startLoad();
       });
-      hls.on(Hls.Events.ERROR, (_, data) => {
-        hls.recoverMediaError();
-        if (data.type !== Hls.ErrorTypes.MEDIA_ERROR) {
-          hls.startLoad();
+      hls.on(Hls.Events.ERROR, (e, data) => {
+        if (data.fatal) {
+          switch (data.type) {
+            case Hls.ErrorTypes.NETWORK_ERROR:
+              console.log("fatal network error encountered, try to recover");
+              setTimeout(() => {
+                hls.startLoad();
+              }, 10);
+              break;
+            case Hls.ErrorTypes.MEDIA_ERROR:
+              console.log("fatal media error encountered, try to recover");
+              setTimeout(() => {
+                hls.recoverMediaError();
+              }, 10);
+              break;
+          }
         }
       });
 

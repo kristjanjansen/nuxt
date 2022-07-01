@@ -35,6 +35,7 @@ defineExpose({ video });
       autoplay
       playsinline
       crossorigin="anonymous"
+      loop
     />
     <FadeTransition>
       <div class="absolute right-2 bottom-2 flex" v-if="!idle">
