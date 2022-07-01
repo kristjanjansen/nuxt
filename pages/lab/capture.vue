@@ -49,7 +49,7 @@ useIntervalFn(refresh, 1000 & 10);
     </div>
     <Title>Previous captures</Title>
     <div class="grid grid-cols-2 gap-4 md:grid-cols-4">
-      <CaptureTransition>
+      <MoveTransition>
         <img
           v-for="file in files"
           :key="file.filename"
@@ -57,7 +57,7 @@ useIntervalFn(refresh, 1000 & 10);
           class="w-full"
           @click="frame.src = file.src"
         />
-      </CaptureTransition>
+      </MoveTransition>
     </div>
   </Stack>
 </template>

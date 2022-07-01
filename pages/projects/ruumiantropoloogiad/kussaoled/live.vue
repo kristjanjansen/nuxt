@@ -1,9 +1,9 @@
 <script setup lang="ts">
 import IconCapture from "~icons/radix-icons/camera";
+import { useUpload } from "~~/composables/files";
 
-const route = useRoute();
-const slug = route.params.event_slug;
-
+//const route = useRoute();
+//const slug = route.params.event_slug;
 //const { data: event, error } = await useEventBySlug(slug);
 
 const urls = [
@@ -27,8 +27,21 @@ const d = useDraggables({
 const video = ref<HTMLVideoElement>();
 const canvas = ref<HTMLCanvasElement>();
 const { width, height } = useVideostream(video, url);
-const { capture, frames } = useVideoframe(video, canvas, width, height);
-const sortFrames = (frame1, frame2) => frame2.timestamp - frame1.timestamp;
+const { capture: captureFrame, frame } = useVideoframe(
+  video,
+  canvas,
+  width,
+  height
+);
+
+const { getFiles, uploadFile } = useFiles();
+const { data: files, refresh } = await getFiles();
+
+const capture = async () => {
+  captureFrame();
+  await uploadFile(randomFilename("jpg"), frame.value.src);
+  await refresh();
+};
 </script>
 
 <template>
@@ -71,15 +84,15 @@ const sortFrames = (frame1, frame2) => frame2.timestamp - frame1.timestamp;
           </Button>
         </div>
         <div class="grid w-full grid-cols-2 overflow-y-auto md:grid-cols-3">
-          <div v-if="!frames.length" class="aspect-video h-48" />
-          <CaptureTransition>
+          <div v-if="!files.length" class="aspect-video h-48" />
+          <MoveTransition>
             <img
-              v-for="frame in frames.sort(sortFrames)"
-              :key="frame.timestamp"
-              :src="frame.src"
+              v-for="file in files"
+              :key="file.filename"
+              :src="file.src"
               class="pointer-events-none aspect-video transform"
             />
-          </CaptureTransition>
+          </MoveTransition>
         </div>
       </Stack>
     </Draggable>
