@@ -10,8 +10,17 @@ type Props = {
   getDocked: Function;
   setDocked: Function;
   getIndex: Function;
+  dockable?: boolean;
 };
-const { x, y, updateXY, getDocked, setDocked, getIndex } = defineProps<Props>();
+const {
+  x,
+  y,
+  updateXY,
+  getDocked,
+  setDocked,
+  getIndex,
+  dockable = true,
+} = defineProps<Props>();
 const draggable = ref<HTMLElement | null>(null);
 
 const {
@@ -46,7 +55,7 @@ const style = computed(() => {
       v-show="!getDocked()"
       ref="draggable"
       :style="style"
-      class="w-full cursor-grab touch-none select-none overflow-hidden rounded border border-gray-700 bg-black/80 backdrop-blur-lg transition-colors md:fixed md:w-fit md:border-gray-500 md:hover:border-gray-400"
+      class="w-full cursor-grab touch-none select-none overflow-hidden rounded border border-gray-700 bg-black/70 backdrop-blur-lg transition-colors md:fixed md:w-fit md:border-gray-500 md:hover:border-gray-400"
       :class="[
         getDocked() ? 'opacity-50' : '',
         isDragging ? '!md:border-gray-100 md:cursor-grabbing' : '',
@@ -54,6 +63,7 @@ const style = computed(() => {
     >
       <div class="relative">
         <button
+          v-if="dockable"
           class="absolute top-0 right-0 z-[100] p-2 text-gray-500 hover:text-gray-100 focus:z-50"
           @click="() => setDocked()"
         >
