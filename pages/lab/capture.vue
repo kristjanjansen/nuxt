@@ -33,6 +33,7 @@ useIntervalFn(refresh, 1000 & 10);
           autoplay
           controls
           playsinline
+          crossorigin="anonymous"
           :width="width / 2"
           :height="height / 2"
           class="aspect-video w-full"
