@@ -17,14 +17,16 @@ const { capture, frame, frames, context } = useVideocapture(
 
 const res = ref();
 
-const upload = async () => {
-  console.log(frame.value);
-  res.value = await $fetch("http://localhost:8080/api/spaces/upload", {
-    method: "PUT",
-    body: frame.value,
-  });
+const { getFiles, uploadFile } = useFiles();
+
+const save = async () => {
+  await uploadFile(randomFilename("jpg"), frame.value.src);
 };
 
+console.log(randomFilename("jpg"));
+
+const { data: files } = await getFiles();
+console.log(files.value);
 const clear = () => {
   context.value.clearRect(0, 0, width.value, height.value);
   frames.value = [];
@@ -40,7 +42,7 @@ const clear = () => {
       <p>Status: {{ status }}</p>
       <div class="flex gap-2">
         <Button @click="capture">Capture</Button>
-        <Button @click="upload">Upload</Button>
+        <Button @click="save">Save</Button>
         <Button @click="clear">Clear</Button>
       </div>
     </Stack>
@@ -56,7 +58,7 @@ const clear = () => {
         class="w-full"
       />
     </div>
-    <canvas ref="canvas" class="block w-full border" />
+    <canvas ref="canvas" class="hidden" />
     <div class="grid aspect-video border">
       <img
         v-if="frames.length"
