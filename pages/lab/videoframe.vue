@@ -7,8 +7,8 @@ const url = "https://sb.err.ee/live/etvpluss.m3u8";
 const currentFrame = useInterval(200);
 const video = ref<HTMLVideoElement>();
 const canvas = ref<HTMLCanvasElement>();
-const { width, height, status } = useVideostream(video, url);
-const { capture, frames, context } = useVideocapture(
+const { width, height } = useVideostream(video, url);
+const { capture, frames, context } = useVideoframe(
   video,
   canvas,
   width,
@@ -24,11 +24,10 @@ const clear = () => {
   <div class="grid gap-8 p-4 md:grid-cols-2 md:p-6">
     <Stack>
       <Link left to="/lab">Lab</Link>
-      <Title>useVideocapture</Title>
-      <p>Status: {{ status }}</p>
+      <Title>Videoframes</Title>
       <div class="flex gap-2">
-        <Button @click="capture">Capture</Button>
-        <Button @click="clear">Clear</Button>
+        <Button @click="capture">Add new frame</Button>
+        <Button @click="clear">Clear all frames</Button>
       </div>
     </Stack>
     <div class="border">

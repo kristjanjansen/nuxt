@@ -1,3 +1,5 @@
+import { format } from "date-fns";
+
 export const sentenceCase = (str: string): string => {
   return str.charAt(0).toUpperCase() + str.slice(1);
 };
@@ -11,3 +13,8 @@ export function randomString(length = 36): string {
     .map(() => (~~(Math.random() * 36)).toString(36))
     .join("");
 }
+
+export const randomFilename = (ext) => {
+  const date = format(new Date(), "dd-MM-yyyy-HH-mm-ss-SSS");
+  return `${date}.${randomString(4)}.${ext}`;
+};
