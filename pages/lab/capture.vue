@@ -1,4 +1,6 @@
 <script setup lang="ts">
+import { useIntervalFn } from "@vueuse/core";
+
 const url = "https://sb.err.ee/live/etvpluss.m3u8";
 
 const video = ref<HTMLVideoElement>();
@@ -14,19 +16,17 @@ const save = async () => {
   await uploadFile(randomFilename("jpg"), frame.value.src);
   await refresh();
 };
+
+useIntervalFn(refresh, 1000 & 10);
 </script>
 
 <template>
   <Stack class="p-4 md:p-6">
     <Link left to="/lab">Lab</Link>
     <Title>New capture</Title>
-    <div class="flex gap-2">
-      <Button @click="capture">Capture</Button>
-      <Button @click="save">Save</Button>
-    </div>
     <canvas ref="canvas" class="hidden" />
     <div class="grid gap-8 md:grid-cols-2">
-      <div class="border">
+      <div class="">
         <video
           ref="video"
           muted
@@ -38,12 +38,16 @@ const save = async () => {
           class="aspect-video w-full"
         />
       </div>
-      <div class="aspect-video border">
+      <div class="aspect-video">
         <img v-if="frame" :src="frame.src" />
       </div>
     </div>
+    <div class="flex gap-4">
+      <Button primary @click="capture">Capture</Button>
+      <Button primary @click="save">Save</Button>
+    </div>
     <Title>Previous captures</Title>
-    <div class="grid grid-cols-6 gap-4">
+    <div class="grid grid-cols-2 gap-4 md:grid-cols-4">
       <CaptureTransition>
         <img
           v-for="file in files"
