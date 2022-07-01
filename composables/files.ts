@@ -2,7 +2,7 @@ export const useFiles = () => {
   //const baseURL = useStrapiUrl();
   const baseURL = "http://127.0.0.1:8080/api";
   const getFiles = () =>
-    useFetch("/files", {
+    useFetch<any[]>("/files", {
       baseURL,
     });
   const uploadFile = (filename, src) =>
