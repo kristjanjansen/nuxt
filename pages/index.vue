@@ -36,54 +36,56 @@ const { lang } = useLang();
 
 <template>
   <ErrorCard v-if="frontpageError || eventsError" />
-  <Stack v-else class="relative h-full p-4 md:p-0">
+  <div v-else class="relative h-full">
     <video
       ref="video"
       loop
       muted
       autoplay
       playsinline
-      class="absolute inset-0 h-full w-full flex-col object-cover opacity-70"
+      class="h-full w-full flex-col object-cover"
       :class="[['', 'invert'][theme]]"
     />
-    <Content
-      class="top-8 left-8 right-8 w-auto font-title text-2xl text-white md:absolute md:right-auto md:w-[30vw] md:text-3xl"
-      :content="frontpage.descriptions[lang]"
-    />
-    <button
-      class="absolute bottom-0 left-1 rounded-full p-3"
-      @click.stop="muted = !muted"
-    >
-      <IconMuted v-if="muted" class="h-4 w-4" />
-      <IconUnmuted v-if="!muted" class="h-4 w-4" />
-    </button>
-    <Draggable v-bind="d.upcoming">
-      <div class="grid grid-cols-[1fr_1fr] md:h-[25vw] md:w-[50vw]">
-        <div>
+    <Breadboard class="bg-black/80" />
+    <Stack class="absolute top-4 left-4 right-4 gap-4 md:top-6 md:left-6">
+      <Content
+        class="w-auto font-title text-xl text-white md:w-[30vw] md:text-2xl"
+        :content="frontpage.descriptions[lang]"
+      />
+      <Draggable v-bind="d.upcoming">
+        <div
+          class="grid gap-4 p-4 md:h-[25vw] md:w-[50vw] md:grid-cols-[1fr_3fr]"
+        >
           <Image
-            class="pointer-events-none h-full w-full object-cover"
+            class="pointer-events-none aspect-square rounded object-cover"
             :image="
               event.thumbnail ||
               'data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22/%3E'
             "
           />
+          <Stack>
+            <Title medium>{{ event.titles[lang] }}</Title>
+            <EventDatetime :event="event" />
+            <EventButton :event="event" />
+            <Content nolinks :content="event.intros[lang]" />
+            <Link to="/schedule" right>
+              {{
+                [`See all upcoming events`, "Vaata kõiki tulevasi sündmusi"][
+                  lang
+                ]
+              }}
+            </Link>
+          </Stack>
         </div>
-        <Stack class="overflow-y-auto p-6">
-          <Title medium>{{ event.titles[lang] }}</Title>
-          <EventDatetime :event="event" />
-          <EventButton :event="event" />
-          <Content nolinks :content="event.intros[lang]" />
-          <Link to="/schedule" right>
-            {{
-              [
-                `See all ${upcomingEvents.length} events`,
-                "Vaata kõiki tulevasi sündmusi",
-              ][lang]
-            }}
-          </Link>
-        </Stack>
-      </div>
-    </Draggable>
+      </Draggable>
+    </Stack>
+    <button
+      class="fixed bottom-0 left-1 rounded-full p-3"
+      @click.stop="muted = !muted"
+    >
+      <IconMuted v-if="muted" class="h-4 w-4" />
+      <IconUnmuted v-if="!muted" class="h-4 w-4" />
+    </button>
     <Dock :draggables="d" class="!left-12" />
-  </Stack>
+  </div>
 </template>
