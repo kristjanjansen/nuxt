@@ -5,9 +5,9 @@ export const parseDetails = (str = ""): any[] => {
     .replace("<br>", "\n")
     .replace("\n{2,}", "\n\n")
     .split("\n")
-    .map((el) =>
-      el
-        .split(/:(.*)/s)
+    .map((el) => {
+      return el
+        .split(/:(?!\/\/|\d)/)
         .map((s) => s.trim())
         .filter((s) => s)
         .map((s) =>
@@ -15,8 +15,8 @@ export const parseDetails = (str = ""): any[] => {
             .replace(/^<p>/, "")
             .replace(/<\/p>\n$/, "")
             .replace(" href", ' target="_blank" href')
-        )
-    )
+        );
+    })
     .map((row) => {
       if (row[1]) {
         row[0] = `${row[0]}:`;
