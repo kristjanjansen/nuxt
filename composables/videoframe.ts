@@ -1,4 +1,4 @@
-export const useVideocapture = (videoRef, canvasRef, width, height) => {
+export const useVideoframe = (videoRef, canvasRef, width, height) => {
   const context = ref<CanvasRenderingContext2D | null>(null);
   const canvasMultiplier = 1;
   const frames = ref([]);

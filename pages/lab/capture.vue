@@ -4,12 +4,7 @@ const url = "https://sb.err.ee/live/etvpluss.m3u8";
 const video = ref<HTMLVideoElement>();
 const canvas = ref<HTMLCanvasElement>();
 const { width, height } = useVideostream(video, url);
-const { capture, frame, context } = useVideocapture(
-  video,
-  canvas,
-  width,
-  height
-);
+const { capture, frame } = useVideoframe(video, canvas, width, height);
 
 const { getFiles, uploadFile } = useFiles();
 
@@ -55,6 +50,7 @@ const save = async () => {
           :key="file.filename"
           :src="file.src"
           class="w-full"
+          @click="frame.src = file.src"
         />
       </CaptureTransition>
     </div>

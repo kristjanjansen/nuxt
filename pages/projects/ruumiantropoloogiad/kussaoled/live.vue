@@ -27,7 +27,7 @@ const d = useDraggables({
 const video = ref<HTMLVideoElement>();
 const canvas = ref<HTMLCanvasElement>();
 const { width, height } = useVideostream(video, url);
-const { capture, frames } = useVideocapture(video, canvas, width, height);
+const { capture, frames } = useVideoframe(video, canvas, width, height);
 const sortFrames = (frame1, frame2) => frame2.timestamp - frame1.timestamp;
 </script>
 

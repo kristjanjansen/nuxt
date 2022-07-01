@@ -1,7 +1,7 @@
 <template>
   <Stack class="p-4 md:p-6">
     <Link left to="/" />
-    <Title>Experiments</Title>
+    <Title>Current projects</Title>
     <div class="grid w-full auto-rows-fr gap-5 md:grid-cols-4">
       <LinkCard
         to="/lab/experiments/june_2022"
@@ -16,19 +16,24 @@
         <Title small>Video analysis</Title>
         <p class="text-gray-500">Analyze and augment video data</p>
       </LinkCard>
-    </div>
-    <Title>Other lab projects</Title>
-    <div class="grid w-full auto-rows-fr gap-5 md:grid-cols-4">
       <LinkCard
         to="/projects/ruumiantropoloogiad/kussaoled/live"
-        class="border-re aspect-video bg-green-400 pr-8 hover:bg-green-500"
+        class="border-re aspect-video pr-8"
       >
-        <Title small class="!text-black">Where are you</Title>
-        <p class="text-black">Video capture as an installation</p>
+        <Title small>Where are you</Title>
+        <p class="text-gray-500">Video capture as an installation</p>
       </LinkCard>
-      <LinkCard to="/lab/videocapture" class="border-re aspect-video pr-8">
-        <Title small>Capturing the loop</Title>
-        <p class="text-gray-500">Video capture as tech demo</p>
+
+      <LinkCard to="/lab/capture" class="border-re aspect-video pr-8">
+        <Title small>Capture and store the frames</Title>
+        <p class="text-gray-500">Storing the frames from live video</p>
+      </LinkCard>
+    </div>
+    <Title>Other projects</Title>
+    <div class="grid w-full auto-rows-fr gap-5 md:grid-cols-4">
+      <LinkCard to="/lab/videoframe" class="border-re aspect-video pr-8">
+        <Title small>Videoframes</Title>
+        <p class="text-gray-500">Capturing the frames from live video</p>
       </LinkCard>
       <LinkCard to="/lab/messages" class="aspect-video pr-8">
         <Title small>Messages</Title>
