@@ -52,12 +52,6 @@ const draggables = useDraggables({
       <Draggable v-bind="draggables.first" class="p-16 text-center">
         Draggable
       </Draggable>
-      <Button @click="showDesaturate = !showDesaturate">
-        Desaturate: {{ showDesaturate ? "on" : "off" }}
-      </Button>
-      <Button @click="showBlur = !showBlur">
-        Blur: {{ showBlur ? "on" : "off" }}
-      </Button>
     </Stack>
   </div>
 </template>
