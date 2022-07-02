@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { useDraggable, useTimeoutFn } from "@vueuse/core";
+import { useDraggable, useIdle, useTimeoutFn } from "@vueuse/core";
 import { Ref } from "vue";
 import IconDock from "~icons/radix-icons/chevron-down";
 
@@ -47,6 +47,7 @@ const style = computed(() => {
     zIndex: isDragging.value ? "100" : getIndex(),
   };
 });
+const { idle } = useIdle(5000);
 </script>
 
 <template>
@@ -62,14 +63,15 @@ const style = computed(() => {
       ]"
     >
       <div class="relative">
-        <button
-          v-if="dockable"
-          class="absolute top-0 right-0 z-[100] p-2 text-gray-500 hover:text-gray-100 focus:z-50"
-          @click="() => setDocked()"
-        >
-          <IconDock />
-        </button>
-
+        <FadeTransition>
+          <button
+            v-if="dockable && !idle"
+            class="absolute top-0 right-0 z-[100] p-2 text-gray-500 hover:text-gray-100 focus:z-50"
+            @click="() => setDocked()"
+          >
+            <IconDock />
+          </button>
+        </FadeTransition>
         <slot />
       </div>
     </div>
