@@ -1,4 +1,4 @@
-import { Ref, ref, watch, onMounted, onUnmounted } from "vue";
+import { ref, watch, onMounted, onUnmounted } from "vue";
 import Hls from "hls.js";
 import type { MaybeRef } from "@vueuse/core";
 
