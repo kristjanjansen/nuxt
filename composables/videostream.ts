@@ -1,4 +1,4 @@
-import { ref, watch, onMounted, onUnmounted } from "vue";
+import { Ref, ref, watch, onMounted, onUnmounted } from "vue";
 import Hls from "hls.js";
 import type { MaybeRef } from "@vueuse/core";
 
@@ -96,13 +96,11 @@ export const useVideostream = (
         if (data.fatal) {
           switch (data.type) {
             case Hls.ErrorTypes.NETWORK_ERROR:
-              console.log("fatal network error encountered, try to recover");
               setTimeout(() => {
                 hls.startLoad();
               }, 10);
               break;
             case Hls.ErrorTypes.MEDIA_ERROR:
-              console.log("fatal media error encountered, try to recover");
               setTimeout(() => {
                 hls.recoverMediaError();
               }, 10);

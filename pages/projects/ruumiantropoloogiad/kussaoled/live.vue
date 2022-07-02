@@ -1,20 +1,9 @@
 <script setup lang="ts">
 import IconCapture from "~icons/radix-icons/camera";
-import { useUpload } from "~~/composables/files";
 
-//const route = useRoute();
-//const slug = route.params.event_slug;
-//const { data: event, error } = await useEventBySlug(slug);
-
-const urls = [
-  "https://le21.babahhcdn.com/bb1150-le/x_live_1_c1.smil/playlist.m3u8",
-  "https://sb.err.ee/live/etv.m3u8",
-  "https://sb.err.ee/live/etv2.m3u8",
-  "https://sb.err.ee/live/etvpluss.m3u8",
-  "https://cloudflare.tv/hls/live.m3u8",
-];
-
-const url = urls[0];
+const slug = "kussaoled";
+const { data: event } = await useEventBySlug(slug);
+const videostreams = getVideostreams(event.value.streamkey);
 
 const { lang } = useLang();
 
@@ -26,7 +15,7 @@ const d = useDraggables({
 
 const video = ref<HTMLVideoElement>();
 const canvas = ref<HTMLCanvasElement>();
-const { width, height } = useVideostream(video, url);
+const { width, height } = useVideostream(video, videostreams[0].url);
 const { capture: captureFrame, frame } = useVideoframe(
   video,
   canvas,
@@ -54,9 +43,9 @@ const capture = async () => {
       <Chat class="h-[60vw] md:h-[30vw] md:w-[25vw]" />
     </Draggable>
 
-    <Draggable v-bind="d.video">
+    <Draggable v-bind="d.video" v-if="videostreams.length">
       <div class="md:w-[70vw]">
-        <Videostream :url="url">
+        <Videostream :url="videostreams[0].url">
           <button
             @click.stop="capture"
             class="rounded-full p-3 transition-all hover:bg-neutral-100/20"
