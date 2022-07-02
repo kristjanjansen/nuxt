@@ -2,6 +2,7 @@ import { Strapi4RequestParams } from "@nuxtjs/strapi/dist/runtime/types";
 import { marked } from "marked";
 import { merge, has, isArray, head, forEach, isObject } from "lodash-es";
 import { compareAsc, compareDesc } from "date-fns";
+import { getVideostreamKey, getVideostreams } from "./videostreams";
 
 // Public API
 
@@ -185,6 +186,7 @@ const processEvent = (event) => {
   event = proccessMarkdown(event);
   event = processEventDatetime(event);
   event = processEventFienta(event);
+  event = processEventVideostreams(event);
   return event;
 };
 
@@ -198,6 +200,7 @@ const processProjectEvent = (event, project) => {
   event = proccessMarkdown(event);
   event = processEventDatetime(event);
   event = processEventFienta(event);
+  event = processEventVideostreams(event);
   return event;
 };
 
@@ -260,6 +263,11 @@ const processEventFienta = (event) => {
   // TODO: Add [event,event.project]
   return { ...event, ...getTicketableStatus([event]) };
 };
+
+const processEventVideostreams = (event) => {
+  return { ...event, streams: getVideostreams(event.streamkey) };
+};
+
 // From https://github.com/ComfortablyCoding/strapi-plugin-transformer/blob/master/server/services/transform-service.js
 // @TODO: Move to strapi instance?
 
