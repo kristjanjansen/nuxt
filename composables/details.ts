@@ -24,5 +24,5 @@ export const parseDetails = (str = ""): any[] => {
       return row;
     });
 
-  return details.at(-1).length ? details : details.slice(0, -1);
+  return details;
 };
