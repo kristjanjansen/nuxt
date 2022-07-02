@@ -18,3 +18,9 @@ export const randomFilename = (ext) => {
   const date = format(new Date(), "dd-MM-yyyy-HH-mm-ss-SSS");
   return `${date}.${randomString(4)}.${ext}`;
 };
+
+export const split = (str = "", separator = ",") =>
+  str
+    .split(separator)
+    .map((s) => s.trim())
+    .filter((s) => s);
