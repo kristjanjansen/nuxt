@@ -3,8 +3,7 @@ const route = useRoute();
 const slug = route.params.event_slug;
 
 const { data: event, error } = await useEventBySlug(slug);
-//const url = "https://le21.babahhcdn.com/bb1150-le/x_live_1_c1.smil/playlist.m3u8"
-const url = "https://sb.err.ee/live/etv.m3u8";
+const videostreams = getVideostreams(event.value.streamkey);
 
 const { lang } = useLang();
 
@@ -22,12 +21,12 @@ const d = useDraggables({
     class="relative grid p-4 md:h-full md:place-items-center md:p-0"
   >
     <Breadboard />
-    <Link class="md:absolute md:top-6 md:left-6" left :to="event.eventLink">
+    <Link class="md:absolute md:top-6 md:left-6" left :to="event?.eventLink">
       Back to event
     </Link>
 
-    <Draggable v-bind="d.video">
-      <Videostream :url="url" class="md:w-[70vw]" />
+    <Draggable v-bind="d.video" v-if="videostreams.length">
+      <Videostream :url="videostreams[0].url" class="md:w-[70vw]" />
     </Draggable>
 
     <Draggable v-bind="d.chat">
@@ -40,7 +39,7 @@ const d = useDraggables({
           {{ event.titles[lang] }}
         </Title>
         <EventDatetime :event="event" />
-        <Content :content="event.descriptions[lang]" />
+        <Content :content="event?.descriptions[lang]" />
       </Stack>
     </Draggable>
 

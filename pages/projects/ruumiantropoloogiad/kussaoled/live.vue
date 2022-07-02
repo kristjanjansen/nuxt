@@ -5,16 +5,6 @@ const slug = "kussaoled";
 const { data: event } = await useEventBySlug(slug);
 const videostreams = getVideostreams(event.value.streamkey);
 
-const urls = [
-  "https://le21.babahhcdn.com/bb1150-le/x_live_1_c1.smil/playlist.m3u8",
-  "https://sb.err.ee/live/etv.m3u8",
-  "https://sb.err.ee/live/etv2.m3u8",
-  "https://sb.err.ee/live/etvpluss.m3u8",
-  "https://cloudflare.tv/hls/live.m3u8",
-];
-
-const url = urls[0];
-
 const { lang } = useLang();
 
 const d = useDraggables({
