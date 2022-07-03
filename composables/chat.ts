@@ -42,7 +42,7 @@ export function useChat(
         userName: userName.value,
         type: sentMessageType,
         value: newChatMessage.value,
-        // store: true,
+        store: true,
       });
       newChatMessage.value = "";
       focus.value = true;
