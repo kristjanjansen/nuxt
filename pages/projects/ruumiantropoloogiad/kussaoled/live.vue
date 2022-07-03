@@ -40,7 +40,7 @@ const capture = async () => {
     <Breadboard />
 
     <Draggable v-bind="d.chat">
-      <Chat class="h-[60vw] md:h-[30vw] md:w-[25vw]" />
+      <Chat :channel="slug" class="h-[60vw] md:h-[30vw] md:w-[25vw]" />
     </Draggable>
 
     <Draggable v-bind="d.video" v-if="videostreams.length">

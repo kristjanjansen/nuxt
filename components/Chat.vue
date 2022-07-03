@@ -1,6 +1,11 @@
 <script setup lang="ts">
 import IconArrowDown from "~icons/radix-icons/arrow-down";
 
+type Props = {
+  channel: string;
+};
+const { channel } = defineProps<Props>();
+
 const scrollable = ref<HTMLElement | null>(null);
 const textarea = ref<HTMLTextAreaElement | HTMLInputElement | null>(null);
 
@@ -10,8 +15,15 @@ const {
   sendChatMessage,
   newChatMessagesCount,
   scrollToBottom,
-} = useChat("test", scrollable, textarea);
-
+} = useChat(channel, scrollable, textarea);
+const { data: chatMessagesHistory } = await useChatHistory(channel);
+const messages = computed(() => [
+  ...chatMessagesHistory.value,
+  ...chatMessages.value,
+]);
+onMounted(() => {
+  scrollToBottom();
+});
 const { lang } = useLang();
 </script>
 
@@ -22,7 +34,7 @@ const { lang } = useLang();
       class="relative flex h-full flex-col gap-5 overflow-y-auto p-2"
       :class="[newChatMessagesCount ? 'scroll-smooth' : '']"
     >
-      <div v-for="message in chatMessages">
+      <div v-for="message in messages">
         <div class="mb-1 whitespace-pre-wrap font-mono text-xs text-gray-500">
           {{ message.userName }}
         </div>

@@ -1,6 +1,6 @@
 <script setup lang="ts">
 const route = useRoute();
-const slug = route.params.event_slug;
+const slug = route.params.event_slug as string;
 
 const { data: event, error } = await useEventBySlug(slug);
 const videostreams = getVideostreams(event.value.streamkey);
@@ -30,7 +30,7 @@ const d = useDraggables({
     </Draggable>
 
     <Draggable v-bind="d.chat">
-      <Chat class="h-[60vw] md:h-[30vw] md:w-[25vw]" />
+      <Chat :channel="slug" class="h-[60vw] md:h-[30vw] md:w-[25vw]" />
     </Draggable>
 
     <Draggable v-bind="d.about">

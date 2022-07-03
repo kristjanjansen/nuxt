@@ -14,12 +14,19 @@ const {
   focus,
 } = useChat("test", scrollable, textarea);
 
+const { data: chatMessagesHistory } = await useChatHistory("test");
+
 const paste = () => {
   newChatMessage.value = sample;
   focus.value = true;
 };
 
 const scrollToTop = () => (scrollable.value.scrollTop = 0);
+
+const messages = computed(() => [
+  ...chatMessagesHistory.value,
+  ...chatMessages.value,
+]);
 </script>
 
 <template>
@@ -30,10 +37,7 @@ const scrollToTop = () => (scrollable.value.scrollTop = 0);
         class="flex flex-col gap-6 overflow-y-auto"
         :class="[newChatMessagesCount ? 'scroll-smooth' : '']"
       >
-        <Card
-          v-for="message in chatMessages"
-          class="whitespace-pre-wrap font-mono"
-        >
+        <Card v-for="message in messages" class="whitespace-pre-wrap font-mono">
           {{ message.value }}
         </Card>
       </div>
