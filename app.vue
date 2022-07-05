@@ -2,7 +2,7 @@
 import "./styles.css";
 
 const route: any = useRoute();
-const siteName = "elektron.art";
+const siteName = "new.elektron.art";
 
 const titleTemplate = (title = undefined) =>
   title ? `${title} / ${siteName}` : siteName;
@@ -16,8 +16,9 @@ useHead({
 
 if (process.server) {
   const nuxtApp = useNuxtApp();
-  nuxtApp.ssrContext.res.setHeader("ttl", route.meta.ttl || 60 * 10); // 10 minutes
+  nuxtApp.ssrContext.event.res.setHeader("ttl", route.meta.ttl || 60 * 10); // 10 minutes
 }
+plausible.enableAutoPageviews();
 </script>
 
 <template>
