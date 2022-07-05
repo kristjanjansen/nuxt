@@ -5,8 +5,8 @@ const url = "https://sb.err.ee/live/etv.m3u8";
 const video = ref<HTMLVideoElement>();
 const { width, height } = useVideostream(video, url);
 const showVideo = ref(false);
-const showDesaturate = ref(false);
-const showBlur = ref(false);
+const blur = ref(0);
+
 const { theme } = useTheme();
 
 const draggables = useDraggables({
@@ -30,11 +30,8 @@ const draggables = useDraggables({
     </FadeTransition>
     <Breadboard
       v-if="showVideo"
-      class="bg-black/80 transition duration-[2000ms]"
-      :class="[
-        showBlur ? 'backdrop-blur-xl' : '',
-        showDesaturate ? 'backdrop-saturate-[0.1]' : '',
-      ]"
+      class="bg-black/80"
+      :style="{ backdropFilter: 'blur(' + blur + 'px)' }"
     />
     <Breadboard v-else class="bg-gray-900" />
     <Stack class="absolute top-4 left-4 right-4 gap-4 md:top-6 md:left-6">
@@ -43,15 +40,17 @@ const draggables = useDraggables({
       <Button @click="showVideo = !showVideo">
         Video: {{ showVideo ? "on" : "off" }}
       </Button>
-      <Button @click="showDesaturate = !showDesaturate" :disabled="!showVideo">
-        Desaturate: {{ showDesaturate ? "on" : "off" }}
-      </Button>
-      <Button @click="showBlur = !showBlur" :disabled="!showVideo">
-        Blur: {{ showBlur ? "on" : "off" }}
-      </Button>
+      <div>Blur:</div>
+      <input type="range" v-model="blur" />
       <Draggable v-bind="draggables.first" class="p-16 text-center">
         Draggable
       </Draggable>
     </Stack>
   </div>
 </template>
+
+<style>
+input[type="range"] {
+  @apply accent-green-500;
+}
+</style>

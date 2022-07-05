@@ -20,7 +20,7 @@ const d = useDraggables({
     v-else
     class="relative grid p-4 md:h-full md:place-items-center md:p-0"
   >
-    <Breadboard />
+    <Breadboard class="bg-gray-900" />
     <Link class="md:absolute md:top-6 md:left-6" left :to="event?.eventLink">
       Back to event
     </Link>

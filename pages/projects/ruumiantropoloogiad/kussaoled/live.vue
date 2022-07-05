@@ -1,5 +1,7 @@
 <script setup lang="ts">
 import IconCapture from "~icons/radix-icons/camera";
+import IconTheme from "~icons/radix-icons/half-2";
+
 definePageMeta({
   layout: "minimal",
 });
@@ -8,7 +10,7 @@ const slug = "kussaoled";
 const { data: event } = await useEventBySlug(slug);
 const videostreams = getVideostreams(event.value.streamkey);
 
-const { lang } = useLang();
+const { theme, changeTheme } = useTheme();
 
 const d = useDraggables({
   chat: { x: 900, y: 150 },
@@ -40,18 +42,21 @@ const capture = async () => {
   <Stack class="relative grid p-6 md:place-items-center md:p-0">
     <canvas ref="canvas" class="border-3 hidden opacity-0" />
 
-    <Breadboard />
-    <Link
-      class="md:absolute md:top-6 md:left-6"
-      left
-      to="https://elektron.art/projects/ruumiantropoloogiad/kussaoled"
+    <Breadboard class="bg-gray-900" />
+    <div
+      class="z-10 flex items-center justify-between md:absolute md:top-6 md:left-6 md:right-6"
     >
-      See to event info
-    </Link>
-
-    <Draggable v-bind="d.chat">
-      <Chat :channel="slug" class="h-[60vw] md:h-[30vw] md:w-[25vw]" />
-    </Draggable>
+      <Link
+        left
+        to="https://elektron.art/projects/ruumiantropoloogiad/kussaoled"
+      >
+        Ruumiantropoloogiad
+      </Link>
+      <IconTheme
+        @click="changeTheme"
+        class="scale-75 cursor-pointer text-gray-300 transition-colors hover:text-gray-500"
+      />
+    </div>
 
     <Draggable v-bind="d.video" v-if="videostreams.length">
       <div class="md:w-[70vw]">
@@ -79,7 +84,7 @@ const capture = async () => {
         <div>
           <Button primary @click.stop="capture" class="!flex gap-2">
             <IconCapture />
-            {{ ["Capture", "Tee pilti"][lang] }}
+            Capture / Pildista
           </Button>
         </div>
         <div class="grid w-full grid-cols-2 overflow-y-auto md:grid-cols-3">
@@ -96,6 +101,11 @@ const capture = async () => {
       </Stack>
     </Draggable>
 
+    <Draggable v-bind="d.chat">
+      <Chat :channel="slug" class="h-[60vw] md:h-[30vw] md:w-[25vw]" />
+    </Draggable>
+
+    <div class="block h-8 md:hidden" />
     <Dock :draggables="d" />
   </Stack>
 </template>
