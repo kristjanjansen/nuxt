@@ -18,7 +18,9 @@ if (process.server) {
   const nuxtApp = useNuxtApp();
   nuxtApp.ssrContext.event.res.setHeader("ttl", route.meta.ttl || 60 * 10); // 10 minutes
 }
-plausible.enableAutoPageviews();
+onMounted(() => {
+  plausible.enableAutoPageviews();
+});
 </script>
 
 <template>
