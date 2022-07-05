@@ -16,6 +16,7 @@ const d = useDraggables({
   chat: { x: 900, y: 150 },
   video: { x: 100, y: 100 },
   capture: { x: 300, y: 200 },
+  about: { x: 150, y: 400 },
 });
 
 const video = ref<HTMLVideoElement>();
@@ -103,6 +104,16 @@ const capture = async () => {
 
     <Draggable v-bind="d.chat">
       <Chat :channel="slug" class="h-[60vw] md:h-[30vw] md:w-[25vw]" />
+    </Draggable>
+
+    <Draggable v-bind="d.about">
+      <Stack class="overflow-y-scroll p-4 md:h-[25vw] md:w-[25vw]">
+        <Title small>
+          {{ event.titles[0] }}
+        </Title>
+        <EventDatetime :event="event" />
+        <Content :content="event?.descriptions[0]" />
+      </Stack>
     </Draggable>
 
     <div class="block h-8 md:hidden" />
