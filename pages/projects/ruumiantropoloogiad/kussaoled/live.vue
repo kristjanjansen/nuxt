@@ -1,6 +1,8 @@
 <script setup lang="ts">
 import IconCapture from "~icons/radix-icons/camera";
-
+onMounted(() => {
+  plausible.trackPageview();
+});
 definePageMeta({
   layout: "minimal",
 });
