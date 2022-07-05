@@ -1,6 +1,5 @@
 <script setup lang="ts">
-import { useNow } from "@vueuse/core";
-import { add } from "date-fns";
+import IconChevron from "~icons/radix-icons/chevron-right";
 
 type Props = {
   event: any;
@@ -18,20 +17,23 @@ const second = isSameDay
 
 <template>
   <div class="text-sm">
-    <div class="text-gray-300">{{ first }}</div>
-    <div class="mb-1 text-gray-300">{{ second }}</div>
+    <div class="flex items-center gap-1">
+      <div class="text-gray-300">{{ first }}</div>
+      <IconChevron class="text-gray-500" />
+      <div class="text-gray-300">{{ second }}</div>
+    </div>
     <div v-if="event.urgency !== 'soon'" class="text-gray-500">
       {{ event.formattedStartAtDistance }}
     </div>
     <div
       v-if="event.urgency === 'soon'"
-      class="inline-block rounded border border-yellow-500 px-2 py-1 font-bold uppercase tracking-wider text-yellow-500 text-xs"
+      class="inline-block rounded border border-yellow-500 px-2 py-1 text-xs font-bold uppercase tracking-wider text-yellow-500"
     >
       {{ event.formattedStartAtDistance }}
     </div>
     <div
       v-if="event.urgency === 'live'"
-      class="inline-block rounded border border-red-500 px-2 py-1 font-bold uppercase tracking-wider text-red-500 text-xs"
+      class="inline-block rounded border border-red-500 px-2 py-1 text-xs font-bold uppercase tracking-wider text-red-500"
     >
       Live
     </div>

@@ -107,11 +107,12 @@ const capture = async () => {
     </Draggable>
 
     <Draggable v-bind="d.about">
-      <Stack class="overflow-y-scroll p-4 md:h-[25vw] md:w-[25vw]">
-        <Title small>
-          {{ event.titles[0] }}
+      <Stack class="overflow-y-scroll p-4 md:h-[25vw] md:w-[35vw]">
+        <Title class="flex">
+          {{ event.titles.join(" / ").replace(/<\/?p>/gm, "") }}
         </Title>
         <EventDatetime :event="event" />
+        <Details :details="parseDetails(event.detailss[0])" />
         <Content :content="event?.descriptions[0]" />
       </Stack>
     </Draggable>

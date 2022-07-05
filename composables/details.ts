@@ -1,8 +1,8 @@
 export const parseDetails = (str = ""): any[] => {
   if (!str) return [];
   const details = str
-    .replace(/<\/?p>/g, "")
-    .replace("<br>", "\n")
+    .replace(/<\/?p>/gim, "")
+    .replace(/<br>/gim, "\n")
     .replace("\n{2,}", "\n\n")
     .split("\n")
     .map((el) => {
