@@ -1,6 +1,10 @@
 <script setup lang="ts">
 import IconCapture from "~icons/radix-icons/camera";
 
+definePageMeta({
+  layout: "minimal",
+});
+
 const slug = "kussaoled";
 const { data: event } = await useEventBySlug(slug);
 const videostreams = getVideostreams(event.value.streamkey);
@@ -38,6 +42,13 @@ const capture = async () => {
     <canvas ref="canvas" class="border-3 hidden opacity-0" />
 
     <Breadboard />
+    <Link
+      class="md:absolute md:top-6 md:left-6"
+      left
+      to="https://elektron.art/projects/ruumiantropoloogiad/kussaoled"
+    >
+      See to event info
+    </Link>
 
     <Draggable v-bind="d.chat">
       <Chat :channel="slug" class="h-[60vw] md:h-[30vw] md:w-[25vw]" />
