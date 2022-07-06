@@ -29,6 +29,7 @@ const remaining = computed(() =>
 watch(remaining, () => emit("remaining", remaining.value), { immediate: true });
 
 const clicks = ref(maxclicks);
+
 const clicksStyle = computed(() => ({
   width: `${remap(clicks.value, 0, maxclicks, 0, 100)}%`,
 }));
@@ -57,17 +58,19 @@ watch(recharge, () => {
 <template>
   <div class="relative inline-flex overflow-hidden rounded">
     <Button
-      class="cursor-default border-neutral-300 bg-neutral-300 text-neutral-700 hover:border-neutral-300 hover:bg-neutral-300"
+      class="cursor-default border-neutral-300 bg-neutral-300 text-neutral-700 transition hover:border-neutral-300 hover:bg-neutral-300"
       @click="onClick"
+      :class="recharging ? 'text-neutral-400' : ''"
     >
       <slot />
     </Button>
     <div
-      class="remaining-0 pointer-events-none absolute top-0 bottom-0 bg-green-500 mix-blend-multiply"
+      class="pointer-events-none absolute left-0 top-0 bottom-0 bg-green-500 mix-blend-multiply transition duration-1000"
+      :class="recharging ? 'opacity-0' : 'opacity-100'"
       :style="clicksStyle"
     />
     <div
-      class="remaining-0 pointer-events-none absolute bottom-0 h-1 bg-green-500 mix-blend-multiply"
+      class="pointer-events-none absolute left-0 bottom-0 h-1 bg-green-500 mix-blend-multiply"
       :style="rechargeStyle"
     />
   </div>

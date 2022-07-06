@@ -7,7 +7,7 @@ const clicks = ref(0);
   <Stack class="p-4 md:p-6">
     <RechargingButton @click="clicks++" @remaining="(r) => (remaining = r)">
       <IconCapture />
-      Capture / Pildista
+      Capture
     </RechargingButton>
     <div>Clicks {{ clicks }}</div>
     <div>
