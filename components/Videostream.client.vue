@@ -42,10 +42,10 @@ defineExpose({ video });
         class="absolute right-2 bottom-2 left-4 grid grid-cols-[1fr_auto] items-center"
         v-if="!idle"
       >
-        <div>
+        <div v-if="isFullscreen">
           <slot />
         </div>
-        <div class="flex w-full">
+        <div class="flex w-full justify-end">
           <button
             class="transform rounded-full p-3 transition-all hover:bg-neutral-100/20"
             @click="muted = !muted"
