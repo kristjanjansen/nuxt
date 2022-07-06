@@ -44,7 +44,7 @@ defineExpose({ video });
         class="absolute right-2 bottom-2 left-4 grid grid-cols-[1fr_auto] items-center"
         v-if="!idle"
       >
-        <div v-if="isFullscreen">
+        <div>
           <slot />
         </div>
         <div class="flex w-full justify-end">
