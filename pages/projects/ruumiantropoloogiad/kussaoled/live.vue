@@ -79,7 +79,10 @@ const wallpapers = [
   <Stack class="relative grid p-6 md:place-items-center md:p-0">
     <canvas ref="canvas" class="border-3 hidden opacity-0" />
 
-    <img :src="wallpapers[0]" class="fixed inset-0 w-full object-cover" />
+    <img
+      :src="wallpapers[0]"
+      class="fixed inset-0 h-full w-full object-cover"
+    />
     <div
       class="fixed inset-0 h-full w-full"
       :class="['bg-black/80', 'bg-black/50'][theme]"
@@ -94,7 +97,7 @@ const wallpapers = [
         {{ ["Anthropologies of Space", "Ruumiantropoloogiad"][lang] }}
       </Link>
       <div class="flex items-center gap-4">
-        <Link @click="changeLang" class="cursor-pointer">
+        <Link @click="changeLang" class="cursor-pointer !text-gray-300">
           {{ ["Eesti keeles", "In english"][lang] }}
         </Link>
         <IconTheme
@@ -108,7 +111,7 @@ const wallpapers = [
       <div class="md:w-[70vw]">
         <Videostream :url="videostreams[0].url">
           <RechargingButton @click="capture">
-            <IconCapture /> Capture
+            <IconCapture /> {{ ["Capture", "Pildista"][lang] }}
           </RechargingButton>
           <template #overlay>
             <ChatOverlay
@@ -137,7 +140,7 @@ const wallpapers = [
             @click="capture"
             class="shrink-0"
           >
-            <IconCapture /> {{ ["Capture", "Tee pilti"][lang] }}
+            <IconCapture /> {{ ["Capture", "Pildista"][lang] }}
           </RechargingButton>
           <div class="font-sm text-gray-500">
             {{
