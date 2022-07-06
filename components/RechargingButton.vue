@@ -64,9 +64,9 @@ watch(recharge, () => {
 <template>
   <div class="relative inline-flex overflow-hidden rounded">
     <Button
-      class="cursor-default border-neutral-300 bg-neutral-300 text-neutral-700 transition hover:border-neutral-300 hover:bg-neutral-300"
+      class="border-neutral-200 bg-neutral-200 text-neutral-700 transition hover:border-neutral-200 hover:bg-neutral-200"
       @click="onClick"
-      :class="recharging ? 'text-neutral-400' : ''"
+      :class="recharging ? 'cursor-default text-neutral-400' : 'cursor-pointer'"
     >
       <slot />
     </Button>
