@@ -19,7 +19,7 @@ const { lang } = useLang();
         </Title>
         <EventDatetime :event="event" />
       </Stack>
-      <Title class="lg:pr-32">
+      <Title class="lg:pr-16">
         {{ event.intros[lang] }}
       </Title>
       <EventButton class="items-end" :event="event" />

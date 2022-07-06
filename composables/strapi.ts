@@ -65,7 +65,7 @@ export const useProjects = (params: Strapi4RequestParams = {}) => {
   );
 };
 
-export const useProjectsBySlug = (slug: any) => {
+export const useProjectBySlug = (slug: any) => {
   return useFind(
     "projects",
     {

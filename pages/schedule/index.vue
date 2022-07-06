@@ -4,7 +4,7 @@ definePageMeta({
 });
 
 const { data: upcomingEvents, error } = await useEvents({
-  filters: { start_at: { $gte: today() } },
+  filters: { end_at: { $gt: today() } },
 });
 const { lang } = useLang();
 </script>

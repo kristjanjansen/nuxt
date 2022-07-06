@@ -25,7 +25,6 @@ const { muted } = useMediaControls(video);
 onMounted(() => (muted.value = true));
 
 const { idle } = useIdle(5000);
-defineExpose({ video });
 </script>
 
 <template>
