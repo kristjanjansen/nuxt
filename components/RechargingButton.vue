@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { useInterval } from "@vueuse/core";
+import { useInterval, useStorage } from "@vueuse/core";
 
 type Emits = {
   (e: "click"): void;
@@ -19,7 +19,15 @@ const {
   isActive: recharging,
 } = useInterval(step, { controls: true });
 
-stopRecharge();
+const clicks = useState("elektron_clicks", () =>
+  useStorage("elektron_clicks", maxclicks)
+);
+
+if (clicks.value === 0) {
+  startRecharge();
+} else {
+  stopRecharge();
+}
 
 const remaining = computed(() =>
   Math.floor(
@@ -27,8 +35,6 @@ const remaining = computed(() =>
   )
 );
 watch(remaining, () => emit("remaining", remaining.value), { immediate: true });
-
-const clicks = ref(maxclicks);
 
 const clicksStyle = computed(() => ({
   width: `${remap(clicks.value, 0, maxclicks, 0, 100)}%`,

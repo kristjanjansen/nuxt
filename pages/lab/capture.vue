@@ -16,8 +16,6 @@ const save = async () => {
   await uploadFile(randomFilename("jpg"), frame.value.src);
   await refresh();
 };
-
-useIntervalFn(refresh, 1000 & 10);
 </script>
 
 <template>

@@ -1,6 +1,8 @@
 <script setup lang="ts">
+import { useIntervalFn } from "@vueuse/core";
 import IconCapture from "~icons/radix-icons/camera";
 import IconTheme from "~icons/radix-icons/half-2";
+const REFRESH_INTERVAL = 1000 * 10;
 
 definePageMeta({
   layout: "minimal",
@@ -37,6 +39,8 @@ const capture = async () => {
   await uploadFile(randomFilename("jpg"), frame.value.src);
   await refresh();
 };
+
+useIntervalFn(refresh, REFRESH_INTERVAL);
 
 const remaining = ref();
 </script>
@@ -84,6 +88,7 @@ const remaining = ref();
         <div class="flex gap-4">
           <RechargingButton
             @remaining="(r) => (remaining = r)"
+            @click="capture"
             class="!flex shrink-0 gap-2"
           >
             <IconCapture /> Capture
