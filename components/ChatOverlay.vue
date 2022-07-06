@@ -9,7 +9,7 @@ const messageStyle = (message, i) => {
   return {
     left: message.x - 5 + "%",
     top: message.y + "%",
-    opacity: 0.3 + i * 0.02,
+    opacity: 0.5 + i * 0.02,
   };
 };
 </script>
