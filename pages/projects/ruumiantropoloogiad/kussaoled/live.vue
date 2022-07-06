@@ -37,6 +37,8 @@ const capture = async () => {
   await uploadFile(randomFilename("jpg"), frame.value.src);
   await refresh();
 };
+
+const remaining = ref();
 </script>
 
 <template>
@@ -62,12 +64,9 @@ const capture = async () => {
     <Draggable v-bind="d.video" v-if="videostreams.length">
       <div class="md:w-[70vw]">
         <Videostream :url="videostreams[0].url">
-          <button
-            @click.stop="capture"
-            class="rounded-full p-3 transition-all hover:bg-neutral-100/20"
-          >
+          <RechargingButton @click="capture">
             <IconCapture class="text-neutral-100" />
-          </button>
+          </RechargingButton>
         </Videostream>
         <video
           ref="video"
@@ -82,11 +81,17 @@ const capture = async () => {
 
     <Draggable v-bind="d.capture">
       <Stack class="h-[80vw] w-full p-4 md:h-[35vw] md:w-[60vw]">
-        <div>
-          <Button primary @click.stop="capture" class="!flex gap-2">
-            <IconCapture />
-            Capture / Pildista
-          </Button>
+        <div class="flex gap-4">
+          <RechargingButton
+            @remaining="(r) => (remaining = r)"
+            class="!flex shrink-0 gap-2"
+          >
+            <IconCapture /> Capture
+          </RechargingButton>
+          <div class="font-sans2 text-gray-500">
+            When you use all your captures, you can capture again in
+            {{ remaining }} s
+          </div>
         </div>
         <div class="grid w-full grid-cols-2 overflow-y-auto md:grid-cols-3">
           <div v-if="!files.length" class="aspect-video h-48" />
