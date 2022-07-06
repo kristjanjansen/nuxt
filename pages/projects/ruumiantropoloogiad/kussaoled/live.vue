@@ -69,7 +69,7 @@ const remaining = ref();
       <div class="md:w-[70vw]">
         <Videostream :url="videostreams[0].url">
           <RechargingButton @click="capture">
-            <IconCapture class="text-neutral-100" />
+            <IconCapture /> Capture
           </RechargingButton>
         </Videostream>
         <video
@@ -85,19 +85,6 @@ const remaining = ref();
 
     <Draggable v-bind="d.capture">
       <Stack class="h-[80vw] w-full p-4 md:h-[35vw] md:w-[60vw]">
-        <div class="flex gap-4">
-          <RechargingButton
-            @remaining="(r) => (remaining = r)"
-            @click="capture"
-            class="!flex shrink-0 gap-2"
-          >
-            <IconCapture /> Capture
-          </RechargingButton>
-          <div class="font-sans2 text-gray-500">
-            When you use all your captures, you can capture again in
-            {{ remaining }} s
-          </div>
-        </div>
         <div class="grid w-full grid-cols-2 overflow-y-auto md:grid-cols-3">
           <div v-if="!files.length" class="aspect-video h-48" />
           <MoveTransition>
@@ -108,6 +95,18 @@ const remaining = ref();
               class="pointer-events-none aspect-video transform"
             />
           </MoveTransition>
+        </div>
+        <div class="flex gap-4">
+          <RechargingButton
+            @remaining="(r) => (remaining = r)"
+            @click="capture"
+          >
+            <IconCapture /> Capture
+          </RechargingButton>
+          <div class="font-sans2 text-gray-500">
+            When you use all your captures, you can capture again in
+            {{ remaining }} s
+          </div>
         </div>
       </Stack>
     </Draggable>
