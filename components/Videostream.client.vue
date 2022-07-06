@@ -29,7 +29,10 @@ defineExpose({ video });
 </script>
 
 <template>
-  <div class="relative flex items-center bg-black" ref="videoWrapper">
+  <div
+    class="relative flex items-center overflow-hidden bg-black"
+    ref="videoWrapper"
+  >
     <video
       class="w-full"
       ref="video"
