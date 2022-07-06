@@ -8,8 +8,9 @@ type Emits = {
 
 const emit = defineEmits<Emits>();
 
-const max = 200;
+const max = 100;
 const step = 100;
+const maxclicks = 3;
 
 const {
   counter: recharge,
@@ -27,9 +28,9 @@ const remaining = computed(() =>
 );
 watch(remaining, () => emit("remaining", remaining.value), { immediate: true });
 
-const clicks = ref(5);
+const clicks = ref(maxclicks);
 const clicksStyle = computed(() => ({
-  width: `${remap(clicks.value, 0, 5, 0, 100)}%`,
+  width: `${remap(clicks.value, 0, maxclicks, 0, 100)}%`,
 }));
 const rechargeStyle = computed(() => ({
   width: `${remap(recharge.value, 0, max, 0, 100)}%`,
@@ -40,7 +41,7 @@ const onClick = () => {
     clicks.value--;
     emit("click");
   }
-  if (clicks.value === 0) {
+  if (clicks.value === 0 && !recharging.value) {
     recharge.value = 0;
     startRecharge();
   }
@@ -49,14 +50,14 @@ watch(recharge, () => {
   if (recharge.value >= max) {
     stopRecharge();
     recharge.value = 0;
-    clicks.value = 5;
+    clicks.value = maxclicks;
   }
 });
 </script>
 <template>
   <div class="relative inline-flex overflow-hidden rounded">
     <Button
-      class="cursor-default border-neutral-300 bg-neutral-300 text-neutral-400 hover:border-neutral-300 hover:bg-neutral-300"
+      class="cursor-default border-neutral-300 bg-neutral-300 text-neutral-700 hover:border-neutral-300 hover:bg-neutral-300"
       @click="onClick"
     >
       <slot />
