@@ -32,18 +32,32 @@ const { capture: captureFrame, frame } = useVideoframe(
 );
 
 const { getFiles, uploadFile } = useFiles();
-const { data: files, refresh } = await getFiles();
+const { data: files, refresh: refreshCaptures } = await getFiles();
 
 const capture = async () => {
   captureFrame();
   await uploadFile(randomFilename("jpg"), frame.value.src);
-  await refresh();
+  await refreshCaptures();
 };
-
-useIntervalFn(refresh, REFRESH_INTERVAL);
 
 const remaining = ref();
 
+const { data: historicChatMessages, refresh: refreshChat } =
+  await useChatHistory(slug);
+const messages = computed(() =>
+  historicChatMessages.value.map((m) => {
+    return {
+      ...m,
+      x: stringToCoords(m.value, 100, 100)[0],
+      y: stringToCoords(m.value, 100, 100)[1],
+    };
+  })
+);
+
+useIntervalFn(() => {
+  refreshCaptures();
+  refreshChat();
+}, REFRESH_INTERVAL);
 const { lang, changeLang } = useLang();
 onMounted(changeLang);
 </script>
@@ -79,6 +93,14 @@ onMounted(changeLang);
           <RechargingButton @click="capture">
             <IconCapture /> Capture
           </RechargingButton>
+          <template #overlay>
+            <ChatOverlay
+              v-slot="overlay"
+              :messages="messages"
+              class="absolute inset-0 aspect-video w-full"
+              :channel="slug"
+            />
+          </template>
         </Videostream>
         <video
           ref="video"
