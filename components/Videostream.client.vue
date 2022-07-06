@@ -17,6 +17,7 @@ const video = ref<HTMLVideoElement | null>(null);
 const videoWrapper = ref(null);
 
 useVideostream(video, url);
+
 const { isFullscreen, toggle: toggleFullscreen } = useFullscreen(videoWrapper);
 const { isPip, toggle: togglePip } = usePip(video);
 
@@ -37,6 +38,7 @@ defineExpose({ video });
       crossorigin="anonymous"
       loop
     />
+    <div class="absolute inset-0"><slot name="overlay" /></div>
     <FadeTransition>
       <div
         class="absolute right-2 bottom-2 left-4 grid grid-cols-[1fr_auto] items-center"
