@@ -8,8 +8,7 @@ export const useChatHistory = (channel) =>
     default: () => [],
     transform: (messages: any) => {
       return messages.filter((m) => {
-        const filtered = m.type === "CHAT" && m.channel === channel;
-        return filtered;
+        return m.type === "CHAT" && m.channel === channel;
       });
     },
   });

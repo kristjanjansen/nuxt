@@ -69,8 +69,6 @@ useIntervalFn(() => {
 }, REFRESH_INTERVAL);
 const { lang, changeLang } = useLang();
 onMounted(changeLang);
-
-watchEffect(() => historicChatMessages.value.length);
 </script>
 
 <template>
