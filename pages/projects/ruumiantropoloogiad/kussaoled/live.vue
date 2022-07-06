@@ -58,6 +58,8 @@ useIntervalFn(() => {
   refreshCaptures();
   refreshChat();
 }, REFRESH_INTERVAL);
+const { lang, changeLang } = useLang();
+onMounted(changeLang);
 </script>
 
 <template>
@@ -72,12 +74,17 @@ useIntervalFn(() => {
         left
         to="https://elektron.art/projects/ruumiantropoloogiad/kussaoled"
       >
-        Ruumiantropoloogiad
+        {{ ["Anthropologies of Space", "Ruumiantropoloogiad"][lang] }}
       </Link>
-      <IconTheme
-        @click="changeTheme"
-        class="scale-75 cursor-pointer text-gray-300 transition-colors hover:text-gray-500"
-      />
+      <div class="flex items-center gap-4">
+        <Link @click="changeLang" class="cursor-pointer">
+          {{ ["Eesti keeles", "In english"][lang] }}
+        </Link>
+        <IconTheme
+          @click="changeTheme"
+          class="cursor-pointer text-gray-300 transition-colors hover:text-gray-500"
+        />
+      </div>
     </div>
 
     <Draggable v-bind="d.video" v-if="videostreams.length">
@@ -114,11 +121,16 @@ useIntervalFn(() => {
             @click="capture"
             class="shrink-0"
           >
-            <IconCapture /> Capture
+            <IconCapture /> {{ ["Capture", "Tee pilti"][lang] }}
           </RechargingButton>
-          <div class="text-gray-500">
-            When you use all your captures, you can capture again in
-            {{ remaining }} s
+          <div class="font-sans2 text-gray-500">
+            {{
+              [
+                "When you use all your captures, you can capture again in",
+                "Kui sul film otsa saab, pead ootama",
+              ][lang]
+            }}
+            {{ remaining }}s
           </div>
         </div>
 
@@ -143,11 +155,12 @@ useIntervalFn(() => {
     <Draggable v-bind="d.about">
       <Stack class="overflow-y-scroll p-4 md:h-[25vw] md:w-[35vw]">
         <Title class="flex">
-          {{ event.titles.join(" / ").replace(/<\/?p>/gm, "") }}
+          {{ event.titles[lang] }}
         </Title>
         <EventDatetime :event="event" />
-        <Details :details="parseDetails(event.detailss[0])" />
-        <Content :content="event?.descriptions[0]" />
+        <Content :content="event.intros[lang]" />
+        <Content :content="event?.descriptions[lang]" />
+        <Details :details="parseDetails(event.detailss[lang])" />
       </Stack>
     </Draggable>
 
