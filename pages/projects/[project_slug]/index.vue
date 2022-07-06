@@ -2,7 +2,7 @@
 const route = useRoute();
 const slug = route.params.project_slug;
 
-const { data: project, error } = await useProjectsBySlug(slug);
+const { data: project, error } = await useProjectBySlug(slug);
 const { lang } = useLang();
 </script>
 
