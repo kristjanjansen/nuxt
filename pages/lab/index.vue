@@ -60,6 +60,10 @@
         <Title small>Video breadboard</Title>
         <p class="text-gray-500">Get your focus</p>
       </LinkCard>
+      <LinkCard to="/lab/cooldown" class="aspect-video pr-8">
+        <Title small>Cooldown</Title>
+        <p class="text-gray-500">The coolest button to button</p>
+      </LinkCard>
     </div>
   </Stack>
 </template>
