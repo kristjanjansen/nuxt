@@ -1,5 +1,7 @@
 // @TODO Use config
 
+import { fi } from "date-fns/locale";
+
 const url = "https://ws.elektron.art/messages?secret=eestiteatriauhinnad";
 
 export const useChatHistory = (channel) =>
@@ -8,7 +10,8 @@ export const useChatHistory = (channel) =>
     default: () => [],
     transform: (messages: any) => {
       return messages.filter((m) => {
-        return m.type === "CHAT" && m.channel === channel;
+        const filtered = m.type === "CHAT" && m.channel === channel;
+        return filtered;
       });
     },
   });

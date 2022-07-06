@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { useIntervalFn } from "@vueuse/core";
+import { differenceInHours } from "date-fns";
 import IconCapture from "~icons/radix-icons/camera";
 import IconTheme from "~icons/radix-icons/half-2";
 const REFRESH_INTERVAL = 1000 * 10;
@@ -44,14 +45,22 @@ const remaining = ref();
 
 const { data: historicChatMessages, refresh: refreshChat } =
   await useChatHistory(slug);
-const messages = computed(() =>
-  historicChatMessages.value.map((m) => {
-    return {
-      ...m,
-      x: stringToCoords(m.value, 100, 100)[0],
-      y: stringToCoords(m.value, 100, 100)[1],
-    };
-  })
+
+const messages = computed(
+  () =>
+    historicChatMessages.value.map((m, i) => {
+      const hours = differenceInHours(
+        new Date(event.value.start_at),
+        new Date(m.datetime)
+      );
+      return {
+        value: m.value,
+        x: stringToCoords(m.value, 100, 100)[0],
+        y: stringToCoords(m.value, 100, 100)[1],
+        hours,
+      };
+    })
+  //.filter((m) => m.hours > 1)
 );
 
 useIntervalFn(() => {
@@ -60,6 +69,8 @@ useIntervalFn(() => {
 }, REFRESH_INTERVAL);
 const { lang, changeLang } = useLang();
 onMounted(changeLang);
+
+watchEffect(() => historicChatMessages.value.length);
 </script>
 
 <template>
@@ -95,8 +106,7 @@ onMounted(changeLang);
           </RechargingButton>
           <template #overlay>
             <ChatOverlay
-              v-slot="overlay"
-              :messages="messages"
+              :messages="messages.filter((h) => h.hours < 24)"
               class="absolute inset-0 aspect-video w-full"
               :channel="slug"
             />
