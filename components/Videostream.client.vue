@@ -29,10 +29,7 @@ defineExpose({ video });
 </script>
 
 <template>
-  <div
-    class="relative flex items-center overflow-hidden bg-black"
-    ref="videoWrapper"
-  >
+  <div class="relative flex items-center bg-black" ref="videoWrapper">
     <video
       class="w-full"
       ref="video"
@@ -41,7 +38,7 @@ defineExpose({ video });
       crossorigin="anonymous"
       loop
     />
-    <div class="absolute inset-0"><slot name="overlay" /></div>
+    <div class="absolute inset-0 overflow-hidden"><slot name="overlay" /></div>
     <FadeTransition>
       <div
         class="absolute right-2 bottom-2 left-4 grid grid-cols-[1fr_auto] items-center"
