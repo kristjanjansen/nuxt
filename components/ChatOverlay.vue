@@ -18,14 +18,14 @@ const messageStyle = (message, i) => {
   <div class="relative">
     <div
       v-for="(message, i) in messages"
-      class="md:font-base font-xs absolute font-mono text-sm leading-tight blur"
+      class="md:font-base font-xs absolute font-mono text-sm leading-tight text-neutral-200 blur"
       :style="{ ...messageStyle(message, i), opacity: 1 }"
     >
       {{ message.value }}
     </div>
     <div
       v-for="(message, i) in messages"
-      class="md:font-base font-xs absolute font-mono text-sm leading-tight"
+      class="md:font-base font-xs absolute font-mono text-sm leading-tight text-neutral-200"
       :style="messageStyle(message, i)"
     >
       {{ message.value }}
