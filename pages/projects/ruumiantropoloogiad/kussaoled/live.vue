@@ -69,13 +69,24 @@ useIntervalFn(() => {
 }, REFRESH_INTERVAL);
 const { lang, changeLang } = useLang();
 onMounted(changeLang);
+
+const wallpapers = [
+  "https://elektron.fra1.cdn.digitaloceanspaces.com/assets/wallpaper.jpg",
+];
 </script>
 
 <template>
   <Stack class="relative grid p-6 md:place-items-center md:p-0">
     <canvas ref="canvas" class="border-3 hidden opacity-0" />
 
-    <Breadboard class="bg-gray-900" />
+    <img
+      :src="wallpapers[0]"
+      class="fixed inset-0 h-full w-full object-cover"
+    />
+    <div
+      class="fixed inset-0 h-full w-full"
+      :class="['bg-black/80', 'bg-black/50'][theme]"
+    />
     <div
       class="z-10 flex items-center justify-between md:absolute md:top-6 md:left-6 md:right-6"
     >
@@ -86,7 +97,7 @@ onMounted(changeLang);
         {{ ["Anthropologies of Space", "Ruumiantropoloogiad"][lang] }}
       </Link>
       <div class="flex items-center gap-4">
-        <Link @click="changeLang" class="cursor-pointer">
+        <Link @click="changeLang" class="cursor-pointer !text-gray-300">
           {{ ["Eesti keeles", "In english"][lang] }}
         </Link>
         <IconTheme
@@ -100,7 +111,7 @@ onMounted(changeLang);
       <div class="md:w-[70vw]">
         <Videostream :url="videostreams[0].url">
           <RechargingButton @click="capture">
-            <IconCapture /> Capture
+            <IconCapture /> {{ ["Capture", "Pildista"][lang] }}
           </RechargingButton>
           <template #overlay>
             <ChatOverlay
@@ -129,9 +140,9 @@ onMounted(changeLang);
             @click="capture"
             class="shrink-0"
           >
-            <IconCapture /> {{ ["Capture", "Tee pilti"][lang] }}
+            <IconCapture /> {{ ["Capture", "Pildista"][lang] }}
           </RechargingButton>
-          <div class="font-sans2 text-gray-500">
+          <div class="font-sm text-gray-500">
             {{
               [
                 "When you use all your captures, you can capture again in",
