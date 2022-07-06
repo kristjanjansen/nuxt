@@ -82,3 +82,28 @@ export const seed = [
   0.23, 0.89, 0.91, 0.99, 0.39, 0.54, 0.31, 0.9, 0.33, 0.56, 0.29, 0.82, 0.23,
   0.72, 0.01, 0.44, 0.19, 0.49, 0.62, 0.85, 0.5, 0.55, 0.8,
 ];
+
+const average = (arr: number[]) =>
+  Math.floor(arr.reduce((a, b) => a + b, 0) / arr.length);
+
+const stringToNumbers = (str: string) => [...str].map((s) => s.codePointAt(0));
+
+const numberToRandom = (numbers: number[]) => {
+  const half = Math.ceil(numbers.length / 2);
+  const x = Math.floor(average(numbers.slice(0, half)));
+  const y = Math.floor(average(numbers.slice(-half)));
+  return [seed[x % 1000], seed[y % 1000]];
+};
+
+const numbersToRandom = (numbers) => {
+  if (numbers.length === 1) {
+    const half = Math.ceil(numbers[0] / 2);
+    return numberToRandom([numbers[0], half]);
+  }
+  return numberToRandom(numbers);
+};
+
+export const stringToCoords = (str, xSize, ySize) => {
+  const [x, y] = numbersToRandom(stringToNumbers(str));
+  return [x * xSize, y * ySize];
+};

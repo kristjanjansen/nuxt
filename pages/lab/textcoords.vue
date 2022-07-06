@@ -20,9 +20,7 @@ const numbersToCoords = (numbers) => {
   return numberToRandom(numbers);
 };
 
-const output = computed(() =>
-  numbersToCoords(stringToNumbers(input.value)).map((c) => Math.floor(c * 300))
-);
+const output = computed(() => stringToCoords(input.value, 100, 100));
 </script>
 <template>
   <Stack class="grid grid-cols-3 p-4 md:p-6">
