@@ -5,10 +5,11 @@ type Props = {
   messages: any[];
 };
 const { messages } = defineProps<Props>();
-const messageStyle = (message) => {
+const messageStyle = (message, i) => {
   return {
     left: message.x - 5 + "%",
     top: message.y + "%",
+    opacity: 0.3 + i * 0.02,
   };
 };
 </script>
@@ -16,9 +17,16 @@ const messageStyle = (message) => {
 <template>
   <div class="relative">
     <div
-      v-for="message in messages"
-      class="font-xs md:font-base absolute leading-tight"
-      :style="messageStyle(message)"
+      v-for="(message, i) in messages"
+      class="md:font-base font-xs absolute font-mono text-sm leading-tight blur"
+      :style="{ ...messageStyle(message, i), opacity: 1 }"
+    >
+      {{ message.value }}
+    </div>
+    <div
+      v-for="(message, i) in messages"
+      class="md:font-base font-xs absolute font-mono text-sm leading-tight"
+      :style="messageStyle(message, i)"
     >
       {{ message.value }}
     </div>
