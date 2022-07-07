@@ -40,7 +40,7 @@ const { theme } = useTheme();
             <Content :content="event1.intros[lang]" />
           </Stack>
           <Audiostream class="absolute right-0 bottom-6 left-0" :url="url" />
-          <p />
+          <br />
           <Details :details="parseDetails(event1.detailss[lang])" />
         </div>
       </Draggable>
