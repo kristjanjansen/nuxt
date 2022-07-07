@@ -28,13 +28,14 @@ const { theme } = useTheme();
       class="fixed inset-0 h-full w-full backdrop-blur md:backdrop-blur-none"
       :class="['bg-black/60', 'bg-black/80'][theme]"
     />
+    <!-- <Videostream class="absolute right-0 bottom-6 left-0" :url="url" /> -->
     <Stack class="absolute top-4 left-4 right-4 gap-4 md:top-6 md:left-6">
       <Draggable v-bind="d.signal">
         <img
           class="pointer-events-none absolute inset-0 h-full w-full touch-none object-cover opacity-40"
           src="https://www.baltoscandal.ee/sites/default/files/inline/images/elektronfamily_alissasnaider_2022-149_1000.jpg"
         />
-        <div class="h-[60vh] overflow-auto p-4 md:h-[40vw] md:w-[40vw]">
+        <div class="h-[60vh] overflow-auto p-4 md:h-[30vw] md:w-[40vw]">
           <Stack>
             <Title>{{ event1.titles[lang] }}</Title>
             <Content :content="event1.intros[lang]" />
