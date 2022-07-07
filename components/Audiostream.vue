@@ -13,21 +13,25 @@ const video = ref<HTMLVideoElement | null>(null);
 
 const { status } = useVideostream(video, url);
 
-const { muted } = useMediaControls(video);
-onMounted(() => (muted.value = true));
+const { volume } = useMediaControls(video);
+onMounted(() => {
+  //muted.value = true;
+  //video.value.play();
+});
 </script>
 
 <template>
-  <div>
-    <video
+  <div class="flex justify-center px-4">
+    <audio
       ref="video"
-      class="h-0 w-full"
+      class="opacity-70"
       autoplay
       playsinline
+      controls
       crossorigin="anonymous"
       loop
     />
-    <div>
+    <!-- <div>
       <div class="relative flex h-20 justify-center">
         <IconCircle
           class="absolute h-20 w-20"
@@ -48,6 +52,6 @@ onMounted(() => (muted.value = true));
           @click="muted = true"
         />
       </div>
-    </div>
+    </div> -->
   </div>
 </template>
