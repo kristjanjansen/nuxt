@@ -10,8 +10,8 @@ const videostreams = getVideostreams(event1.value.streamkey);
 const { lang } = useLang();
 
 const d = useDraggables({
-  project1: { x: 50, y: 100 },
-  event1: { x: 700, y: 400 },
+  project1: { x: 50, y: 100, titles: project1.value.titles },
+  event1: { x: 700, y: 400, titles: event1.value.titles },
 });
 
 const url = videostreams[0].url;

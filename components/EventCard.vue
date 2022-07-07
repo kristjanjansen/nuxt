@@ -10,7 +10,7 @@ const { lang } = useLang();
   <div class="flex w-full gap-4 rounded-2xl p-2 transition">
     <NuxtLink
       :to="event.eventLink"
-      class="aspect-square h-20 w-20 flex-shrink-0"
+      class="aspect-square h-12 w-12 flex-shrink-0 md:h-20 md:w-20"
     >
       <Image class="h-full rounded-lg object-cover" :image="event.thumbnail" />
     </NuxtLink>
