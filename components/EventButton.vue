@@ -10,10 +10,11 @@ const { lang } = useLang();
 </script>
 
 <template>
-  <Stack class="!gap-2" v-if="event.live">
+  <Stack class="w-full items-stretch !gap-2" v-if="event.streamkey">
     <NuxtLink
       v-if="event.status === 'FREE' || event.status === 'HAS_TICKET'"
       :to="event.eventLiveLink"
+      class="w-full"
     >
       <Button primary>{{ ["Watch event", "Vaata üritust"][lang] }}</Button>
     </NuxtLink>

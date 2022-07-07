@@ -8,8 +8,8 @@ const { lang } = useLang();
 
 <template>
   <ErrorCard v-if="error" />
-  <Stack v-else class="p-4 md:p-6">
-    <div class="grid gap-8 md:grid-cols-[1fr_2fr_1fr]">
+  <Stack v-else class="items-stretch p-4 md:p-6">
+    <div class="grid gap-8 md:grid-cols-[1fr_2fr_auto]">
       <Stack>
         <Link left :to="event.projectLink">
           {{ ["Project", "Projekt"][lang] }}
