@@ -10,15 +10,14 @@ const videostreams = getVideostreams(event1.value.streamkey);
 const { lang } = useLang();
 
 const d = useDraggables({
-  project1: { x: 50, y: 100, titles: project1.value.titles },
-  event1: { x: 700, y: 400, titles: event1.value.titles },
+  space: { x: 50, y: 100 },
+  signal: { x: 700, y: 400 },
 });
 
 const url = videostreams[0].url;
-//const url = "https://sb.err.ee/live/vikerraadio.m3u8";
-
 const wallpaper =
   "https://elektron.fra1.cdn.digitaloceanspaces.com/assets/wallpaper2.jpg";
+
 const { theme } = useTheme();
 </script>
 
@@ -30,7 +29,7 @@ const { theme } = useTheme();
       :class="['bg-black/60', 'bg-black/80'][theme]"
     />
     <Stack class="absolute top-4 left-4 right-4 gap-4 md:top-6 md:left-6">
-      <Draggable v-bind="d.event1">
+      <Draggable v-bind="d.signal">
         <img
           class="pointer-events-none absolute inset-0 h-full w-full touch-none object-cover opacity-40"
           src="https://www.baltoscandal.ee/sites/default/files/inline/images/elektronfamily_alissasnaider_2022-149_1000.jpg"
@@ -44,8 +43,8 @@ const { theme } = useTheme();
         </div>
       </Draggable>
 
-      <Draggable v-bind="d.project1">
-        <Stack class="grid overflow-auto p-4 md:w-[70vw] md:grid-cols-2">
+      <Draggable v-bind="d.space">
+        <Stack class="grid overflow-auto p-4 md:w-[55vw] md:grid-cols-2">
           <Stack>
             <Title>{{ project1.titles[lang] }}</Title>
             <Content :content="project1.intros[lang]" class="text-gray-500" />
