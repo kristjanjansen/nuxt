@@ -2,7 +2,7 @@
 import "./styles.css";
 
 const route: any = useRoute();
-const siteName = "new.elektron.art";
+const siteName = "elektron.art";
 
 const titleTemplate = (title = undefined) =>
   title ? `${title} / ${siteName}` : siteName;
