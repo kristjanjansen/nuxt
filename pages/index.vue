@@ -11,7 +11,7 @@ const { lang } = useLang();
 
 const d = useDraggables({
   space: { x: 50, y: 100 },
-  signal: { x: 700, y: 400 },
+  signal: { x: 700, y: 200 },
 });
 
 const url = videostreams[0].url;
@@ -34,12 +34,14 @@ const { theme } = useTheme();
           class="pointer-events-none absolute inset-0 h-full w-full touch-none object-cover opacity-40"
           src="https://www.baltoscandal.ee/sites/default/files/inline/images/elektronfamily_alissasnaider_2022-149_1000.jpg"
         />
-        <div class="h-[60vh] overflow-auto p-4 md:h-[20vw] md:w-[40vw]">
+        <div class="h-[60vh] overflow-auto p-4 md:h-[40vw] md:w-[40vw]">
           <Stack>
             <Title>{{ event1.titles[lang] }}</Title>
             <Content :content="event1.intros[lang]" />
           </Stack>
           <Audiostream class="absolute right-0 bottom-6 left-0" :url="url" />
+          <br />
+          <Details :details="parseDetails(event1.detailss[lang])" />
         </div>
       </Draggable>
 
