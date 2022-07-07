@@ -45,14 +45,16 @@ const { theme } = useTheme();
       </Draggable>
 
       <Draggable v-bind="d.project1">
-        <Stack
-          class="grid overflow-auto p-4 md:h-[35vw] md:w-[70vw] md:grid-cols-2"
-        >
+        <Stack class="grid overflow-auto p-4 md:w-[70vw] md:grid-cols-2">
           <Stack>
             <Title>{{ project1.titles[lang] }}</Title>
-            <Content :content="project1.intros[lang]" />
+            <Content :content="project1.intros[lang]" class="text-gray-500" />
           </Stack>
-          <EventCard v-for="event in project1.events" :event="event" />
+          <EventCard
+            v-for="event in project1.events"
+            :event="event"
+            class="transition hover:brightness-125"
+          />
         </Stack>
       </Draggable>
     </Stack>
