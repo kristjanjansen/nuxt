@@ -5,13 +5,13 @@ const slug = route.params.event_slug as string;
 const { data: event, error } = await useEventBySlug(slug);
 const videostreams = getVideostreams(event.value.streamkey);
 
-const { lang } = useLang();
-
 const d = useDraggables({
   about: { x: 100, y: 300 },
   video: { x: 200, y: 100 },
   chat: { x: 900, y: 200 },
 });
+
+const { lang } = useLang();
 </script>
 
 <template>
@@ -22,7 +22,7 @@ const d = useDraggables({
   >
     <Breadboard class="bg-gray-900" />
     <Link class="md:absolute md:top-6 md:left-6" left :to="event?.eventLink">
-      Back to event
+      {{ ["Event info", "Ürituse info"][lang] }}
     </Link>
 
     <Draggable v-bind="d.video" v-if="videostreams.length">

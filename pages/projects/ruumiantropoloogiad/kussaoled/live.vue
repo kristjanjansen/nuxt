@@ -90,11 +90,8 @@ const wallpapers = [
     <div
       class="z-10 flex items-center justify-between md:absolute md:top-6 md:left-6 md:right-6"
     >
-      <Link
-        left
-        to="https://elektron.art/projects/ruumiantropoloogiad/kussaoled"
-      >
-        {{ ["Anthropologies of Space", "Ruumiantropoloogiad"][lang] }}
+      <Link left :to="event?.eventLink">
+        {{ ["Event info", "Ürituse info"][lang] }}
       </Link>
       <div class="flex items-center gap-4">
         <Link @click="changeLang" class="cursor-pointer !text-gray-300">
