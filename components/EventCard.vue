@@ -7,19 +7,21 @@ const { lang } = useLang();
 </script>
 
 <template>
-  <div class="flex w-full gap-4 rounded-2xl p-2 transition hover:bg-gray-900">
+  <div class="flex w-full gap-4 rounded-2xl p-2 transition">
     <NuxtLink
       :to="event.eventLink"
-      class="aspect-square h-20 w-20 flex-shrink-0"
+      class="aspect-square h-12 w-12 flex-shrink-0 md:h-20 md:w-20"
     >
       <Image class="h-full rounded-lg object-cover" :image="event.thumbnail" />
     </NuxtLink>
     <Stack>
       <NuxtLink :to="event.eventLink">
         <Stack class="!gap-2">
-          <Title medium>{{ event.titles[lang] }}</Title>
+          <Title medium class="transition">
+            {{ event.titles[lang] }}
+          </Title>
           <Content
-            class="text-gray-500"
+            class="text-gray-500 transition"
             nolinks
             :content="event.intros[lang]"
           />

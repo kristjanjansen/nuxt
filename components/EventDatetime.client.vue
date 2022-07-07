@@ -24,7 +24,9 @@ const second = isSameDay
     </div>
     <div>
       <div v-if="event.urgency === 'now'">
-        <span class="inline-block pr-1 font-bold uppercase text-red-500">
+        <span
+          class="inline-block animate-pulse pr-1 font-bold uppercase text-green-500"
+        >
           LIVE
         </span>
         <span class="text-gray-500">
