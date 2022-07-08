@@ -87,6 +87,11 @@ const wallpapers = [
     />
     <canvas ref="canvas" class="border-3 hidden opacity-0" />
 
+    <img
+      :src="wallpapers[0]"
+      class="fixed inset-0 h-full w-full object-cover"
+    />
+
     <div
       class="fixed inset-0 h-full w-full"
       :class="['bg-black/80', 'bg-black/50'][theme]"
