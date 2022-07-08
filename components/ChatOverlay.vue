@@ -19,7 +19,7 @@ const messageStyle = (message, i, l) => {
   <div class="relative">
     <div
       v-for="(message, i) in messages"
-      class="md:font-base absolute font-title text-3xl leading-tight text-neutral-200"
+      class="md:font-base absolute font-title leading-tight text-neutral-200 md:text-3xl"
       :style="messageStyle(message, i, messages.length)"
     >
       {{ message.value }}

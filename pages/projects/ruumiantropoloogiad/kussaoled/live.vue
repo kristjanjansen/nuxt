@@ -68,11 +68,15 @@ useIntervalFn(() => {
   refreshChat();
 }, REFRESH_INTERVAL);
 const { lang, changeLang } = useLang();
-onMounted(changeLang);
 
 const wallpapers = [
   "https://elektron.fra1.cdn.digitaloceanspaces.com/assets/wallpaper.jpg",
 ];
+
+onMounted(() => {
+  changeLang();
+  changeTheme();
+});
 </script>
 
 <template>
@@ -102,7 +106,7 @@ const wallpapers = [
       <Link left :to="event?.eventLink">
         {{ ["Event info", "Ürituse info"][lang] }}
       </Link>
-      <div class="flex items-center gap-4">
+      <div class="flex items-center space-x-4">
         <Link @click="changeLang" class="cursor-pointer !text-gray-300">
           {{ ["Eesti keeles", "In english"][lang] }}
         </Link>
@@ -132,7 +136,7 @@ const wallpapers = [
 
     <Draggable v-bind="d.capture">
       <Stack class="h-[80vw] w-full p-4 md:h-[35vw] md:w-[60vw]">
-        <div class="flex items-start gap-4">
+        <div class="flex items-start space-x-4">
           <RechargingButton
             @remaining="(r) => (remaining = r)"
             @click="capture"
