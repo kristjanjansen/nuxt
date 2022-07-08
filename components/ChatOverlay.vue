@@ -9,7 +9,7 @@ const messageStyle = (message, i, l) => {
   return {
     left: message.x - 5 + "%",
     top: message.y + "%",
-    opacity: 0.2 + i * 0.02,
+    opacity: 0.5 + i * 0.03,
     filter: `blur(${10 - (i / l) * 10}px)`,
   };
 };
