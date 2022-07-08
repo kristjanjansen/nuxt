@@ -14,9 +14,14 @@ const { lang } = useLang();
         <Link left :to="event.projectLink">
           {{ ["Project", "Projekt"][lang] }}
         </Link>
-        <Title>
-          {{ event.titles[lang] }}
-        </Title>
+        <div>
+          <Title v-if="event.authors" medium class="text-gray-500"
+            >{{ event.authors }}
+          </Title>
+          <Title>
+            {{ event.titles[lang] }}
+          </Title>
+        </div>
         <EventDatetime :event="event" />
       </Stack>
       <Title class="lg:pr-16">
@@ -32,9 +37,9 @@ const { lang } = useLang();
         :image="image"
       />
     </div>
-    <div class="grid gap-8 md:grid-cols-[3fr_1fr]">
+    <div class="grid gap-8 md:grid-cols-[5fr_1fr]">
       <Card>
-        <div class="grid gap-8 md:grid-cols-[1fr_2fr]">
+        <div class="grid gap-16 md:grid-cols-[1fr_2fr]">
           <Details :details="parseDetails(event.detailss[lang])" />
           <Content :content="event.descriptions[lang]" />
         </div>
