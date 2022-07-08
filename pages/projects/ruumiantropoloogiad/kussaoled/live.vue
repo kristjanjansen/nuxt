@@ -68,21 +68,34 @@ useIntervalFn(() => {
   refreshChat();
 }, REFRESH_INTERVAL);
 const { lang, changeLang } = useLang();
-onMounted(changeLang);
 
 const wallpapers = [
   "https://elektron.fra1.cdn.digitaloceanspaces.com/assets/wallpaper.jpg",
 ];
+
+onMounted(() => {
+  changeLang();
+  changeTheme();
+});
 </script>
 
 <template>
   <Stack class="relative grid p-6 md:place-items-center md:p-0">
+    <video
+      ref="video"
+      muted
+      autoplay
+      playsinline
+      crossorigin="anonymous"
+      class="pointer-events-none fixed top-0 left-0 z-[1000] h-0 w-0 touch-none"
+    />
     <canvas ref="canvas" class="border-3 hidden opacity-0" />
 
     <img
       :src="wallpapers[0]"
       class="fixed inset-0 h-full w-full object-cover"
     />
+
     <div
       class="fixed inset-0 h-full w-full"
       :class="['bg-black/80', 'bg-black/50'][theme]"
@@ -93,7 +106,7 @@ const wallpapers = [
       <Link left :to="event?.eventLink">
         {{ ["Event info", "Ürituse info"][lang] }}
       </Link>
-      <div class="flex items-center gap-4">
+      <div class="flex items-center space-x-4">
         <Link @click="changeLang" class="cursor-pointer !text-gray-300">
           {{ ["Eesti keeles", "In english"][lang] }}
         </Link>
@@ -118,20 +131,12 @@ const wallpapers = [
             />
           </template>
         </Videostream>
-        <video
-          ref="video"
-          muted
-          autoplay
-          playsinline
-          crossorigin="anonymous"
-          class="pointer-events-none fixed top-0 left-0 -z-50 touch-none opacity-0"
-        />
       </div>
     </Draggable>
 
     <Draggable v-bind="d.capture">
       <Stack class="h-[80vw] w-full p-4 md:h-[35vw] md:w-[60vw]">
-        <div class="flex items-start gap-4">
+        <div class="flex items-start space-x-4">
           <RechargingButton
             @remaining="(r) => (remaining = r)"
             @click="capture"
