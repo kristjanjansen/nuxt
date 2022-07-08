@@ -170,9 +170,14 @@ const wallpapers = [
 
     <Draggable v-bind="d.about">
       <Stack class="overflow-y-scroll p-4 md:h-[25vw] md:w-[35vw]">
-        <Title class="flex">
-          {{ event.titles[lang] }}
-        </Title>
+        <div>
+          <Title v-if="event.authors" small class="text-gray-500">
+            {{ event.authors }}
+          </Title>
+          <Title medium class="transition">
+            {{ event.titles[lang] }}
+          </Title>
+        </div>
         <EventDatetime :event="event" />
         <Content :content="event.intros[lang]" />
         <Content :content="event?.descriptions[lang]" />
