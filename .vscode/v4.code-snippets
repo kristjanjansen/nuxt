@@ -1,0 +1,15 @@
+{
+    "page": {
+        "prefix": "page",
+        "body": [
+            "<script setup lang=\"ts\"></script>",
+            "",
+            "<template>",
+            "  <div class=\"p-4 md:p-6\">",
+            "    $1",
+            "  </div>",
+            "</template>"
+          ],
+        "description": "Creates page template"
+    }
+}
