@@ -9,7 +9,10 @@ const { medium = false, small = false } = defineProps<Props>();
 <template>
   <h2
     class="break-words font-title text-2xl font-normal leading-9 text-gray-300 md:text-3xl"
-    :class="[medium ? '!md:text-2xl !text-xl' : '', small ? '!text-lg' : '']"
+    :class="[
+      medium ? '!md:text-2xl !text-xl leading-8' : '',
+      small ? '!text-base !leading-6' : '',
+    ]"
     v-html="$slots.default()[0].children"
   />
 </template>

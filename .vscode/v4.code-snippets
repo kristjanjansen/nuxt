@@ -2,7 +2,9 @@
     "page": {
         "prefix": "page",
         "body": [
-            "<script setup lang=\"ts\"></script>",
+            "<script setup lang=\"ts\">",
+            "const { lang } = useLang();",
+            "</script>",
             "",
             "<template>",
             "  <div class=\"p-4 md:p-6\">",
@@ -10,6 +12,6 @@
             "  </div>",
             "</template>"
           ],
-        "description": "Creates page template"
+        "description": "Creates page"
     }
 }
