@@ -77,12 +77,16 @@ const wallpapers = [
 
 <template>
   <Stack class="relative grid p-6 md:place-items-center md:p-0">
+    <video
+      ref="video"
+      muted
+      autoplay
+      playsinline
+      crossorigin="anonymous"
+      class="pointer-events-none fixed top-0 left-0 z-[1000] h-0 w-0 touch-none"
+    />
     <canvas ref="canvas" class="border-3 hidden opacity-0" />
 
-    <img
-      :src="wallpapers[0]"
-      class="fixed inset-0 h-full w-full object-cover"
-    />
     <div
       class="fixed inset-0 h-full w-full"
       :class="['bg-black/80', 'bg-black/50'][theme]"
@@ -118,14 +122,6 @@ const wallpapers = [
             />
           </template>
         </Videostream>
-        <video
-          ref="video"
-          muted
-          autoplay
-          playsinline
-          crossorigin="anonymous"
-          class="pointer-events-none fixed top-0 left-0 -z-50 touch-none opacity-0"
-        />
       </div>
     </Draggable>
 
