@@ -130,13 +130,13 @@ onMounted(() => {
           <RechargingButton @click="capture">
             <IconCapture /> {{ ["Capture", "Pildista"][lang] }}
           </RechargingButton>
-          <template #overlay>
+          <!-- <template #overlay>
             <ChatOverlay
               :messages="messages.filter((h) => h.hours < 24)"
               class="absolute inset-0 aspect-video w-full"
               :channel="slug"
             />
-          </template>
+          </template> -->
         </Videostream>
       </div>
     </Draggable>
