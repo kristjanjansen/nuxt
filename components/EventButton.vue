@@ -16,7 +16,11 @@ const { lang } = useLang();
       :to="event.eventLiveLink"
       class="w-full"
     >
-      <Button primary>{{ ["Watch event", "Vaata üritust"][lang] }}</Button>
+      <Button primary>{{
+        event.urgency === "past"
+          ? ["Revisit event", "Järelvaata üritust"][lang]
+          : ["Watch event", "Vaata üritust"][lang]
+      }}</Button>
     </NuxtLink>
     <p v-if="event.status === 'HAS_TICKET'" class="text-sm text-gray-300">
       {{ ["You have a ticket", "Sul on ürituse pilet"][lang] }}
