@@ -16,10 +16,10 @@ const videostreams = getVideostreams(event.value.streamkey);
 const { theme, changeTheme } = useTheme();
 
 const d = useDraggables({
-  chat: { x: 900, y: 150 },
-  video: { x: 100, y: 100 },
-  capture: { x: 300, y: 200 },
-  about: { x: 150, y: 400 },
+  //chat: { x: 900, y: 150 },
+  //video: { x: 100, y: 100 },
+  capture: { x: 300, y: 100 },
+  about: { x: 150, y: 300 },
 });
 
 const video = ref<HTMLVideoElement>();
@@ -80,7 +80,7 @@ onMounted(() => {
 </script>
 
 <template>
-  <Stack class="relative grid p-6 md:place-items-center md:p-0">
+  <div class="relative p-6 md:place-items-center md:p-0">
     <video
       ref="video"
       muted
@@ -103,7 +103,7 @@ onMounted(() => {
 
     <ChatOverlay
       :messages="messages.filter((h) => h.hours < 24)"
-      class="absolute inset-0 aspect-video w-full"
+      class="absolute inset-0 aspect-video h-full"
       :channel="slug"
     />
 
@@ -124,26 +124,19 @@ onMounted(() => {
       </div>
     </div>
 
-    <Draggable v-bind="d.video" v-if="videostreams.length">
+    <!-- <Draggable v-bind="d.video" v-if="videostreams.length">
       <div class="md:w-[70vw]">
         <Videostream :url="videostreams[0].url">
           <RechargingButton @click="capture">
             <IconCapture /> {{ ["Capture", "Pildista"][lang] }}
           </RechargingButton>
-          <!-- <template #overlay>
-            <ChatOverlay
-              :messages="messages.filter((h) => h.hours < 24)"
-              class="absolute inset-0 aspect-video w-full"
-              :channel="slug"
-            />
-          </template> -->
         </Videostream>
       </div>
-    </Draggable>
+    </Draggable> -->
 
     <Draggable v-bind="d.capture">
       <Stack class="h-[80vw] w-full p-4 md:h-[35vw] md:w-[60vw]">
-        <div class="flex items-start space-x-4">
+        <!-- <div class="flex items-start space-x-4">
           <RechargingButton
             @remaining="(r) => (remaining = r)"
             @click="capture"
@@ -160,7 +153,7 @@ onMounted(() => {
             }}
             {{ remaining }}s
           </div>
-        </div>
+        </div> -->
 
         <div class="grid w-full grid-cols-2 overflow-y-auto md:grid-cols-3">
           <div v-if="!files.length" class="aspect-video h-48" />
@@ -176,9 +169,9 @@ onMounted(() => {
       </Stack>
     </Draggable>
 
-    <Draggable v-bind="d.chat">
+    <!-- <Draggable v-bind="d.chat">
       <Chat :channel="slug" class="h-[60vw] md:h-[30vw] md:w-[25vw]" />
-    </Draggable>
+    </Draggable> -->
 
     <Draggable v-bind="d.about">
       <Stack class="overflow-y-scroll p-4 md:h-[25vw] md:w-[35vw]">
@@ -199,5 +192,5 @@ onMounted(() => {
 
     <div class="block h-8 md:hidden" />
     <Dock :draggables="d" />
-  </Stack>
+  </div>
 </template>

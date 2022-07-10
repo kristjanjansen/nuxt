@@ -40,7 +40,7 @@ const { theme } = useTheme();
             <Title>{{ event1.titles[lang] }}</Title>
             <Content :content="event1.intros[lang]" />
           </Stack>
-          <Audiostream class="absolute right-0 bottom-6 left-0" :url="url" />
+          <!-- <Audiostream class="absolute right-0 bottom-6 left-0" :url="url" /> -->
           <br />
           <Details :details="parseDetails(event1.detailss[lang])" />
         </div>
