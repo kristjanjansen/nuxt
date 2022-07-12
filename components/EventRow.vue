@@ -8,7 +8,7 @@ const { lang } = useLang();
 
 <template>
   <Card
-    class="group grid gap-8 transition-all hover:bg-gray-900 md:grid-cols-[auto_auto_3fr_2fr_150px]"
+    class="group grid gap-8 transition-all hover:bg-gray-900 md:grid-cols-[250px_auto_3fr_2fr_150px]"
   >
     <NuxtLink :to="event.eventLink">
       <EventDatetime :event="event" />
@@ -30,7 +30,7 @@ const { lang } = useLang();
       </Stack>
     </NuxtLink>
     <NuxtLink :to="event.projectLink">
-      <div v-if="event.projects.length">
+      <div v-if="event.projects?.length">
         <Title small>{{ event.projects[0].titles[lang] }} </Title>
       </div>
     </NuxtLink>

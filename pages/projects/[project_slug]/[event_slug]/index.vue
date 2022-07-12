@@ -29,16 +29,16 @@ const { lang } = useLang();
       </Title>
       <EventButton class="items-end" :event="event" />
     </div>
-    <div class="flex gap-5 overflow-x-auto">
+    <div class="flex gap-5 overflow-x-auto" v-if="event.images.length">
       <Image
-        class="aspect-auto h-96 rounded-3xl object-cover"
+        class="h-128 aspect-auto rounded-3xl object-cover"
         :class="[event.images.length === 1 ? '!aspect-video' : '']"
         v-for="image in event.images"
         :image="image"
       />
     </div>
     <div class="grid gap-8 md:grid-cols-[5fr_1fr]">
-      <Card>
+      <Card v-if="event.details || event.description">
         <div class="grid gap-16 md:grid-cols-[1fr_2fr]">
           <Details :details="parseDetails(event.detailss[lang])" />
           <Content :content="event.descriptions[lang]" />
