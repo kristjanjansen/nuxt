@@ -16,7 +16,7 @@ const { lang } = useLang();
       <img class="h-32 w-32 rounded" :src="item.itunes.image" />
     </div>
     <Stack class="border-t border-gray-700 p-4 md:border-t-0 md:border-l">
-      <NuxtLink :to="'/podcast/' + (item.itunes.episode || item.guid)">
+      <NuxtLink :to="'/signal/' + (item.itunes.episode || item.guid)">
         <Title medium>{{ item.title }}</Title>
       </NuxtLink>
       <!-- @TODO: Edit the content to remove this -->

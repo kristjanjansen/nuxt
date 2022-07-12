@@ -1,65 +1,96 @@
 <script setup lang="ts">
-const { data: project1, error: project1Error } = await useProjectBySlug(
-  "ruumiantropoloogiad"
-);
-const { data: event1, error: event1Error } = await useEventBySlug(
-  "signal_baltoscandal"
-);
-const videostreams = getVideostreams(event1.value.streamkey);
+import { useIdle, useMediaControls, useTimeout } from "@vueuse/core";
+import IconMuted from "~icons/radix-icons/speaker-off";
+import IconUnmuted from "~icons/radix-icons/speaker-loud";
+import { parseStrapi } from "~~/composables/strapi";
 
-const { lang } = useLang();
+// Page data
 
-const d = useDraggables({
-  space: { x: 100, y: 100 },
-  signal: { x: 700, y: 200 },
+const { data: frontpage, error: frontpageError } = useFrontPage();
+
+// Video
+
+const video = ref<HTMLVideoElement | null>(null);
+const { muted } = useMediaControls(video, {
+  src: frontpage.value?.background.url || "",
 });
 
-const url = videostreams[0].url;
-const wallpaper =
-  "https://elektron.fra1.cdn.digitaloceanspaces.com/assets/wallpaper2.jpg";
+onMounted(() => (muted.value = true));
+
+// Events data
+
+const { data: upcomingEvents, error: eventsError } = await useEvents({
+  filters: { start_at: { $gte: today() } },
+});
+
+const event = computed(() =>
+  frontpage.value?.events?.length
+    ? frontpage.value.events[0]
+    : upcomingEvents.value?.length
+    ? upcomingEvents.value[0]
+    : null
+);
+
+const d = useDraggables({
+  upcoming: { x: 250, y: 250 },
+});
+
+// Utilities
 
 const { theme } = useTheme();
+const { lang } = useLang();
 </script>
 
 <template>
-  <Stack class="p-4">
-    <img :src="wallpaper" class="fixed inset-0 h-full w-full object-cover" />
-    <div
-      class="fixed inset-0 h-full w-full backdrop-blur md:backdrop-blur-none"
-      :class="['bg-black/60', 'bg-black/80'][theme]"
+  <ErrorCard v-if="frontpageError || eventsError" />
+  <div v-else class="relative h-full">
+    <video
+      ref="video"
+      loop
+      muted
+      autoplay
+      playsinline
+      class="h-full w-full flex-col object-cover"
+      :class="[['', 'invert'][theme]]"
     />
-    <!-- <Videostream class="absolute right-0 bottom-6 left-0" :url="url" /> -->
+    <Breadboard class="bg-black/80" />
     <Stack class="absolute top-4 left-4 right-4 gap-4 md:top-6 md:left-6">
-      <Draggable v-bind="d.signal">
-        <img
-          class="pointer-events-none absolute inset-0 h-full w-full touch-none object-cover opacity-40"
-          src="https://www.baltoscandal.ee/sites/default/files/inline/images/elektronfamily_alissasnaider_2022-149_1000.jpg"
-        />
-        <div class="h-[60vh] overflow-auto p-4 md:h-[30vw] md:w-[35vw]">
+      <Content
+        class="w-auto font-title text-xl text-white md:w-[30vw] md:text-2xl"
+        :content="frontpage?.descriptions[lang]"
+      />
+      <Draggable v-bind="d.upcoming">
+        <div class="grid gap-4 p-4 md:w-[50vw] md:grid-cols-[1fr_3fr]">
+          <Image
+            class="pointer-events-none aspect-square rounded object-cover"
+            :image="
+              event.thumbnail ||
+              'data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22/%3E'
+            "
+          />
           <Stack>
-            <Title>{{ event1.titles[lang] }}</Title>
-            <Content :content="event1.intros[lang]" />
+            <Title medium>{{ event.titles[lang] }}</Title>
+            <EventDatetime :event="event" />
+            <EventButton :event="event" />
+            <Content :content="event.intros[lang]" />
+            <Link to="/schedule" right>
+              {{
+                [`See all upcoming events`, "Vaata kõiki tulevasi sündmusi"][
+                  lang
+                ]
+              }}
+            </Link>
           </Stack>
-          <!-- <Audiostream class="absolute right-0 bottom-6 left-0" :url="url" /> -->
-          <br />
-          <Details :details="parseDetails(event1.detailss[lang])" />
         </div>
       </Draggable>
-
-      <Draggable v-bind="d.space">
-        <Stack class="grid overflow-auto p-4 md:w-[50vw] md:grid-cols-2">
-          <Stack>
-            <Title>{{ project1.titles[lang] }}</Title>
-            <Content :content="project1.intros[lang]" class="text-gray-500" />
-          </Stack>
-          <EventCard
-            v-for="event in project1.events"
-            :event="event"
-            class="transition hover:brightness-125"
-          />
-        </Stack>
-      </Draggable>
     </Stack>
-    <Dock :draggables="d" />
-  </Stack>
+    <button
+      class="fixed bottom-0 left-1 rounded-full p-3"
+      @click.stop="muted = !muted"
+    >
+      <IconMuted v-if="muted" class="h-4 w-4" />
+      <IconUnmuted v-if="!muted" class="h-4 w-4" />
+    </button>
+    <Dock :draggables="d" class="!left-12" />
+  </div>
 </template>

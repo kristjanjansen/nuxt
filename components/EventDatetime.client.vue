@@ -13,6 +13,7 @@ const first = isSameDay
 const second = isSameDay
   ? ""
   : `${event.formattedEndAtDate} ${event.formattedEndAtTime}`;
+const { lang } = useLang();
 </script>
 
 <template>
@@ -23,23 +24,21 @@ const second = isSameDay
       <div class="text-gray-300">{{ second }}</div>
     </div>
     <div>
-      <div v-if="event.urgency === 'now'">
-        <span
-          class="inline-block animate-pulse pr-1 font-bold uppercase text-green-500"
-        >
+      <div v-if="event.urgency === 'now'" class="flex gap-2">
+        <div class="animate-pulse pr-1 font-bold uppercase text-green-500">
           LIVE
-        </span>
-        <span class="text-gray-500">
+        </div>
+        <div class="text-gray-500">
           Started {{ event.formattedStartAtDistance }}
-        </span>
+        </div>
       </div>
-      <div v-if="event.urgency === 'soon'">
-        <span class="inline-block pr-1 font-bold uppercase text-orange-500">
-          LIVE
-        </span>
-        <span class="text-gray-500">
-          Started {{ event.formattedStartAtDistance }}
-        </span>
+      <div v-if="event.urgency === 'soon'" class="flex gap-2">
+        <div class="font-bold uppercase text-orange-500">
+          {{ ["Soon", "Varsti"][lang] }}
+        </div>
+        <div class="text-gray-500">
+          {{ event.formattedStartAtDistance }}
+        </div>
       </div>
     </div>
   </div>

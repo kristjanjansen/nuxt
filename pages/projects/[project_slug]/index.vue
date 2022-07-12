@@ -35,7 +35,10 @@ const { lang } = useLang();
         :image="image"
       />
     </div>
-    <div class="grid gap-5 md:grid-cols-[4fr_2fr]">
+    <div
+      class="grid gap-5 md:grid-cols-[4fr_2fr]"
+      v-if="project.details || project.description"
+    >
       <Card>
         <div class="grid gap-16 md:grid-cols-[1fr_2fr]">
           <Details :details="parseDetails(project.detailss[lang])" />
@@ -49,5 +52,8 @@ const { lang } = useLang();
         </Stack>
       </Card>
     </div>
+    <Stack v-else class="md:!grid-cols-[300px_auto_3fr_2fr_150px]">
+      <EventRow v-for="event in project.events" :event="event" />
+    </Stack>
   </Stack>
 </template>
