@@ -10,7 +10,7 @@ const videostreams = getVideostreams(event1.value.streamkey);
 const { lang } = useLang();
 
 const d = useDraggables({
-  space: { x: 50, y: 100 },
+  space: { x: 100, y: 100 },
   signal: { x: 700, y: 200 },
 });
 
@@ -35,7 +35,7 @@ const { theme } = useTheme();
           class="pointer-events-none absolute inset-0 h-full w-full touch-none object-cover opacity-40"
           src="https://www.baltoscandal.ee/sites/default/files/inline/images/elektronfamily_alissasnaider_2022-149_1000.jpg"
         />
-        <div class="h-[60vh] overflow-auto p-4 md:h-[30vw] md:w-[40vw]">
+        <div class="h-[60vh] overflow-auto p-4 md:h-[30vw] md:w-[35vw]">
           <Stack>
             <Title>{{ event1.titles[lang] }}</Title>
             <Content :content="event1.intros[lang]" />
@@ -47,7 +47,7 @@ const { theme } = useTheme();
       </Draggable>
 
       <Draggable v-bind="d.space">
-        <Stack class="grid overflow-auto p-4 md:w-[55vw] md:grid-cols-2">
+        <Stack class="grid overflow-auto p-4 md:w-[50vw] md:grid-cols-2">
           <Stack>
             <Title>{{ project1.titles[lang] }}</Title>
             <Content :content="project1.intros[lang]" class="text-gray-500" />
