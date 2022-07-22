@@ -1,7 +1,7 @@
 import { ref } from "vue";
 import { useWebSocket } from "@vueuse/core";
 
-const wsUrl = "wss://ws.elektron.art";
+const wsUrl = "wss://data.elektron.art";
 
 export const useMessages = () => {
   const messages = ref([]);
