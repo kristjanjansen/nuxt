@@ -1,8 +1,7 @@
 <script setup lang="ts">
-import { useIdle, useMediaControls, useTimeout } from "@vueuse/core";
+import { useMediaControls } from "@vueuse/core";
 import IconMuted from "~icons/radix-icons/speaker-off";
 import IconUnmuted from "~icons/radix-icons/speaker-loud";
-import { parseStrapi } from "~~/composables/strapi";
 
 // Page data
 
@@ -17,7 +16,7 @@ const { muted } = useMediaControls(video, {
 
 onMounted(() => (muted.value = true));
 
-// Events data
+// Upcoming events data
 
 const { data: upcomingEvents, error: eventsError } = await useEvents({
   filters: { start_at: { $gte: today() } },
@@ -59,14 +58,11 @@ const { lang } = useLang();
         class="w-auto font-title text-xl text-white md:w-[30vw] md:text-2xl"
         :content="frontpage?.descriptions[lang]"
       />
-      <Draggable v-bind="d.upcoming">
+      <Draggable v-if="event" v-bind="d.upcoming">
         <div class="grid gap-4 p-4 md:w-[50vw] md:grid-cols-[1fr_3fr]">
           <Image
             class="pointer-events-none aspect-square rounded object-cover"
-            :image="
-              event.thumbnail ||
-              'data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22/%3E'
-            "
+            :image="event.thumbnail"
           />
           <Stack>
             <Title medium>{{ event.titles[lang] }}</Title>

@@ -17,4 +17,9 @@ const format = "medium";
     decoding="async"
     class="block w-full"
   />
+  <img
+    v-else
+    src="data:image/svg+xml,%3Csvg%20xmlns=%22http://www.w3.org/2000/svg%22/%3E"
+    class="block w-full"
+  />
 </template>
