@@ -38,8 +38,8 @@ export function useChat(
     if (newChatMessage.value.trim()) {
       sendMessage({
         channel: channel,
-        userid: userId.value,
-        username: userName.value,
+        userId: userId.value,
+        userName: userName.value,
         type: sentMessageType,
         value: newChatMessage.value,
         store: true,
