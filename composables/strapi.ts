@@ -92,7 +92,17 @@ export const useFrontPage = (params: Strapi4RequestParams = {}) => {
     "frontpage",
     merge(
       {
-        populate: ["localizations", "background"],
+        populate: [
+          "localizations",
+          "background",
+          "events",
+          "events.thumbnail",
+          "events.images",
+          "event.projects",
+          "projects",
+          "projects.thumbnail",
+          "project.images",
+        ],
       },
       params
     ),
@@ -111,6 +121,10 @@ export const usePodcastPage = (params: Strapi4RequestParams = {}) => {
     ),
     processPage
   );
+};
+
+export const useMessagesHistory = (params: Strapi4RequestParams = {}) => {
+  return useFind("messages", params);
 };
 
 // Public Strapi request wrapper
@@ -144,6 +158,7 @@ export const processEvents = (result) => {
 export const processPage = (result) => {
   result = processLocalizations(result);
   result = proccessMarkdown(result);
+  result.events = result.events ? result.events.map(processEvent) : null;
   return result;
 };
 

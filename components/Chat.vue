@@ -36,7 +36,7 @@ const { lang } = useLang();
     >
       <div v-for="message in messages">
         <div class="mb-1 whitespace-pre-wrap font-mono text-xs text-gray-500">
-          {{ message.userName }}
+          {{ message.username }}
         </div>
         <div class="whitespace-pre-wrap font-mono text-sm">
           {{ message.value }}
