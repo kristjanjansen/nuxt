@@ -18,7 +18,7 @@ const { lang } = useLang();
     >
       <Button primary>{{
         event.urgency === "past"
-          ? ["Revisit event", "Järelvaata üritust"][lang]
+          ? ["Revisit event", "Meenuta üritust"][lang]
           : ["Watch event", "Vaata üritust"][lang]
       }}</Button>
     </NuxtLink>
