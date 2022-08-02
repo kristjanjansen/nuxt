@@ -1,17 +1,34 @@
 <script setup lang="ts">
 import { useIntervalFn } from "@vueuse/core";
+import { format, sub } from "date-fns";
 import { formatVideoDatetime } from "~~/composables/video";
 
 const videosUrl = `https://ws.elektron.art/messages?secret=eestiteatriauhinnad&type=VIDEO`;
 const { data, refresh, error } = await useAsyncData<any[]>("videos", () =>
   $fetch(videosUrl)
 );
-const processedVideos = (data.value || [])
-  .map(processVideo)
-  .reverse()
-  .slice(0, 24);
+const processedVideos = (data.value || []).map(processVideo).reverse();
 useIntervalFn(refresh, 1000 * 10);
 //const processedVideos = [];
+
+const formatLink = (video) => {
+  const date = format(
+    sub(new Date(video.startDatetime), { hours: 3 }),
+    "yy_MM_dd__HH_mm_ss"
+  );
+  const path = [video.key, date, video.duration].join("___");
+  return `${path}.mp4`;
+};
+
+watchEffect(() =>
+  console.log(
+    JSON.stringify(
+      processedVideos.map((v) => {
+        return { ...v, filename: formatLink(v) };
+      })
+    )
+  )
+);
 </script>
 
 <template>
@@ -19,7 +36,7 @@ useIntervalFn(refresh, 1000 * 10);
   <Stack v-else class="p-5 md:p-6">
     <Link to="/lab" left>Lab</Link>
     <Title>Video analysis</Title>
-    <NuxtLink
+    <div
       class="w-full"
       v-for="video in processedVideos"
       :to="'/lab/experiments/' + video.id"
@@ -38,8 +55,18 @@ useIntervalFn(refresh, 1000 * 10);
             }}
           </p>
           <p>uploadDatetme: {{ formatVideoDatetime(video.endDatetime) }}</p>
+          <p>{{ video.name }}</p>
+          <br />
+          Download
+          <a
+            class="text-white"
+            :href="video.videoUrl"
+            :download="formatLink(video)"
+          >
+            {{ formatLink(video) }}
+          </a>
         </div>
       </Card>
-    </NuxtLink>
+    </div>
   </Stack>
 </template>

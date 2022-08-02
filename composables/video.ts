@@ -16,7 +16,7 @@ export const processVideo2 = (video: any) => {
 export const processVideo = (video: any) => {
   const id = video.id;
   const path = video.value.path;
-  const name = video.value.files[0].name;
+  const name = video.value.files.slice(-1)[0].name;
   const key = getKey(video.value.original);
   const videoUrl = `https://pepe-dl.babahhcdn.com/bb1150/${path}/${name}`;
   const lastModified = name.split(".")[0].split("_").slice(-1)[0];
