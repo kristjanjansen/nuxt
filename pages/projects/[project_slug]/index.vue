@@ -29,9 +29,9 @@ const { lang } = useLang();
     </div>
     <div class="flex gap-5 overflow-x-auto">
       <Image
+        v-for="image in project.images"
         class="aspect-auto h-96 rounded-3xl object-cover"
         :class="[project.images.length === 1 ? '!aspect-video' : '']"
-        v-for="image in project.images"
         :image="image"
       />
     </div>
