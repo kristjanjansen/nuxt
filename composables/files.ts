@@ -1,3 +1,5 @@
+import { add, parse } from "date-fns";
+
 export const useFiles = () => {
   const baseURL = useStrapiUrl();
   console.log(baseURL);
@@ -13,4 +15,33 @@ export const useFiles = () => {
       body: { filename, src },
     });
   return { getFiles, uploadFile };
+};
+
+export const processFile = (file: any, path) => {
+  file.route = `/lab/files/${path}/${file.filename}`;
+  let f = file.filename.replace(/\.mp4$/, "").split("___");
+  if (f.length === 3) {
+    file.steamkey = f[0];
+    file.start_at_raw = f[1];
+    file.start_at = parse(f[1] + "__Z", "yy_MM_dd__HH_mm_ss__X", new Date());
+    file.start_at_formatted = formatDatetime(new Date(file.start_at));
+    file.length = parseFloat(f[2]);
+    file.end_at = add(file.start_at, { seconds: file.length });
+    file.end_at_formatted = formatDatetime(file.end_at);
+    file.length_formatted = new Date(file.length * 1000)
+      .toISOString()
+      .split("T")[1]
+      .replace("Z", "");
+  }
+  f = file.filename.split("-");
+  if (file.filename.endsWith(".jpg") && f.length === 7) {
+    file.start_at = file.filename.split(".")[0] + "__Z";
+
+    file.start_at = parse(
+      file.filename.split(".")[0] + "__Z",
+      "dd-MM-yyyy-HH-mm-ss-SSS__X",
+      new Date()
+    );
+  }
+  return file;
 };
