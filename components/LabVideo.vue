@@ -18,7 +18,7 @@ const { video, csv = "" } = defineProps<Props>();
 
 const videoplayer = ref(null);
 const { currentTime } = useMediaControls(videoplayer, {
-  src: video.videoUrl,
+  src: video.src,
 });
 
 const graph = ref(null);

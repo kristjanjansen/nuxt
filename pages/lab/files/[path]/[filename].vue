@@ -15,15 +15,9 @@ const f = computed(() => {
 
 <template>
   <Stack class="p-4 md:p-6">
-    <Link to="/lab/files" left>Files</Link>
-    <Title>File</Title>
-    <pre>{{ f }}</pre>
-    <!-- <video
-      v-if="f.src.endsWith('.mp4')"
-      :src="f.src"
-      controls
-      class="aspect-video w-1/2 shrink-0 rounded"
-    />
+    <Link :to="'/lab/files/' + path" left>Back</Link>
+    <Title>/{{ path }}/{{ filename }}</Title>
+    <LabVideo v-if="f.src.endsWith('.mp4')" :video="f" />
     <audio
       v-if="f.src.endsWith('.mp3')"
       :src="f.src"
@@ -41,6 +35,6 @@ const f = computed(() => {
       :src="f.src"
       class="w-1/2 shrink-0 rounded"
     />
-    <pre>{{ f }}</pre> -->
+    <pre>{{ f }}</pre>
   </Stack>
 </template>

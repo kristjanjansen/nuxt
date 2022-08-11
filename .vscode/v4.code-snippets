@@ -3,13 +3,13 @@
         "prefix": "page",
         "body": [
             "<script setup lang=\"ts\">",
-            "const { lang } = useLang();",
+            "  $1",
             "</script>",
             "",
             "<template>",
-            "  <div class=\"p-4 md:p-6\">",
-            "    $1",
-            "  </div>",
+            "  <Stack class=\"p-4 md:p-6\">",
+            "    $2",
+            "  </Stack>",
             "</template>"
           ],
         "description": "Creates page"
