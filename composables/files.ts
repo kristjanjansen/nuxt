@@ -1,11 +1,13 @@
 export const useFiles = () => {
   const baseURL = useStrapiUrl();
-  const getFiles = () =>
-    useFetch<any[]>("/files", {
+  console.log(baseURL);
+  const getFiles = (dir) =>
+    useFetch<any[]>(`/files/${dir}`, {
       baseURL,
+      server: false,
     });
-  const uploadFile = (filename, src) =>
-    useFetch("/files/upload", {
+  const uploadFile = (dir, filename, src) =>
+    useFetch(`/files/${dir}/upload`, {
       baseURL,
       method: "PUT",
       body: { filename, src },

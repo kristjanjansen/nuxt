@@ -4,6 +4,9 @@
       <Link left to="/" />
       <Title>Current projects</Title>
       <div class="grid w-full auto-rows-fr gap-5 md:grid-cols-4">
+        <LinkCard to="/lab/files" class="border-re aspect-video pr-8">
+          <Title small>Files</Title>
+        </LinkCard>
         <LinkCard
           to="/lab/experiments/june_2022"
           class="border-re aspect-video pr-8"
