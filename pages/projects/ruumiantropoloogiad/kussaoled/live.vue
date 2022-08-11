@@ -37,7 +37,7 @@ const { data: files, refresh: refreshCaptures } = await getFiles();
 
 const capture = async () => {
   captureFrame();
-  await uploadFile(randomFilename("jpg"), frame.value.src);
+  await uploadFile("files", randomFilename("jpg"), frame.value.src);
   await refreshCaptures();
 };
 

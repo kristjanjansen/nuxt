@@ -2,7 +2,6 @@ import { add, parse } from "date-fns";
 
 export const useFiles = () => {
   const baseURL = useStrapiUrl();
-  console.log(baseURL);
   const getFiles = (dir) =>
     useFetch<any[]>(`/files/${dir}`, {
       baseURL,

@@ -2,15 +2,23 @@
 const route = useRoute();
 const { path, filename } = route.params;
 const { getFiles } = useFiles();
-const { data } = await getFiles(path);
-const f = processFile(data.value[0], path);
+const { data: files } = await getFiles(path);
+const f = computed(() => {
+  if (files?.value) {
+    return files.value
+      .filter((file) => file.filename === filename)
+      .map(processFile)[0];
+  }
+  return null;
+});
 </script>
 
 <template>
   <Stack class="p-4 md:p-6">
     <Link to="/lab/files" left>Files</Link>
     <Title>File</Title>
-    <video
+    <pre>{{ f }}</pre>
+    <!-- <video
       v-if="f.src.endsWith('.mp4')"
       :src="f.src"
       controls
@@ -33,6 +41,6 @@ const f = processFile(data.value[0], path);
       :src="f.src"
       class="w-1/2 shrink-0 rounded"
     />
-    <pre>{{ f }}</pre>
+    <pre>{{ f }}</pre> -->
   </Stack>
 </template>
