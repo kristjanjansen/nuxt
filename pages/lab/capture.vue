@@ -1,19 +1,27 @@
 <script setup lang="ts">
-import { useIntervalFn } from "@vueuse/core";
+import IconCapture from "~icons/radix-icons/camera";
 
 const url = "https://sb.err.ee/live/etvpluss.m3u8";
 
 const video = ref<HTMLVideoElement>();
 const canvas = ref<HTMLCanvasElement>();
 const { width, height } = useVideostream(video, url);
-const { capture, frame } = useVideoframe(video, canvas, width, height);
+const { capture: captureFrame, frame } = useVideoframe(
+  video,
+  canvas,
+  width,
+  height
+);
 
 const { getFiles, uploadFile } = useFiles();
 
-const { data: files, refresh } = await getFiles();
+const path = "tmp";
 
-const save = async () => {
-  await uploadFile(randomFilename("jpg"), frame.value.src);
+const { data: files, refresh } = await getFiles(path);
+
+const capture = async () => {
+  captureFrame();
+  await uploadFile(path, randomFilename("jpg"), frame.value.src);
   await refresh();
 };
 </script>
@@ -42,8 +50,10 @@ const save = async () => {
       </div>
     </div>
     <div class="flex gap-4">
-      <Button primary @click="capture">Capture</Button>
-      <Button primary @click="save">Save</Button>
+      <RechargingButton @click="capture">
+        <IconCapture />
+        Capture
+      </RechargingButton>
     </div>
     <Title>Previous captures</Title>
     <div class="grid grid-cols-2 gap-4 md:grid-cols-4">

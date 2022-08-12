@@ -1,0 +1,24 @@
+<script setup lang="ts">
+type Props = {
+  file: any;
+};
+const { file } = defineProps<Props>();
+</script>
+
+<template>
+  <div class="grid font-mono text-sm text-gray-200 md:grid-cols-3">
+    <div>
+      <div v-if="!file.start_at_formatted && file.modified_at_formatted">
+        {{ file.modified_at_formatted }}
+      </div>
+      <div v-if="file.start_at_formatted">
+        {{ file.start_at_formatted }}
+      </div>
+      <div v-if="file.end_at_formatted">
+        {{ file.end_at_formatted }}
+      </div>
+    </div>
+    <div v-if="file.duration">{{ file.duration_formatted }}</div>
+    <div v-if="file.streamkey">{{ file.streamkey }}</div>
+  </div>
+</template>

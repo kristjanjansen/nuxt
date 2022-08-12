@@ -5,9 +5,7 @@ const { getFiles } = useFiles();
 const { data: files } = await getFiles(path);
 const f = computed(() => {
   if (files?.value) {
-    return files.value
-      .filter((file) => file.filename === filename)
-      .map(processFile)[0];
+    return files.value.filter((file) => file.filename === filename)[0];
   }
   return null;
 });

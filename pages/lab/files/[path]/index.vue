@@ -3,11 +3,7 @@ const route = useRoute();
 const { path } = route.params;
 
 const { getFiles } = useFiles();
-
-const { data } = await getFiles(path);
-const files = computed(() =>
-  (data.value || []).map((file) => processFile(file, path)).sort(sortEvents)
-);
+const { data: files } = await getFiles(path);
 </script>
 
 <template>
@@ -15,36 +11,38 @@ const files = computed(() =>
     <Link to="/lab/files" left>Files</Link>
     <Title>/{{ path }}</Title>
     <Stack class="w-full">
-      <Card v-for="f in files" class="flex items-start gap-4">
-        <video
-          v-if="f.src.endsWith('.mp4')"
-          :src="f.src"
-          controls
-          class="aspect-video w-72 shrink-0 rounded"
-        />
-        <audio
-          v-if="f.src.endsWith('.mp3')"
-          :src="f.src"
-          controls
-          class="w-72 shrink-0"
-        />
-        <img
-          v-if="
-            f.src.endsWith('.jpg') ||
-            f.src.endsWith('.jpeg') ||
-            f.src.endsWith('.png') ||
-            f.src.endsWith('.gif') ||
-            f.src.endsWith('.svg')
-          "
-          :src="f.src"
-          class="w-72 shrink-0 rounded"
-        />
-        <NuxtLink
-          :to="f.fileRoute"
-          class="overflow-auto whitespace-pre font-mono"
-        >
-          {{ f }}
-        </NuxtLink>
+      <Card
+        v-for="file in files"
+        class="grid w-full items-center gap-4 overflow-hidden p-0 md:grid-cols-[auto_1fr_auto_auto] md:gap-16"
+      >
+        <div>
+          <video
+            v-if="file.src.endsWith('.mp4')"
+            :src="file.src"
+            controls
+            class="aspect-video shrink-0 md:w-64"
+          />
+          <audio
+            v-if="file.src.endsWith('.mp3')"
+            :src="file.src"
+            controls
+            class="w-64 shrink-0"
+          />
+          <img
+            v-if="
+              file.src.endsWith('.jpg') ||
+              file.src.endsWith('.jpeg') ||
+              file.src.endsWith('.png') ||
+              file.src.endsWith('.gif') ||
+              file.src.endsWith('.svg')
+            "
+            :src="file.src"
+            class="shrink-0 md:w-64"
+          />
+        </div>
+        <FileDetails class="px-6" :file="file" />
+        <Link class="px-6" :to="file.src" down>Download</Link>
+        <p />
       </Card>
     </Stack>
   </Stack>
