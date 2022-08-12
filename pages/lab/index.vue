@@ -2,7 +2,7 @@
   <div class="p-4 md:p-6">
     <Stack>
       <Link left to="/" />
-      <Title>Tools for editor</Title>
+      <Title>Tools for editors</Title>
       <div class="grid w-full auto-rows-fr gap-5 md:grid-cols-4">
         <LinkCard to="/lab/files" class="border-re aspect-video pr-8">
           <Title small>Files</Title>
@@ -15,7 +15,8 @@
           <p class="text-gray-500">Parsing project and event details</p>
         </LinkCard>
       </div>
-      <Title>elektron.&shy;experiment</Title>
+      <p />
+      <Title>Experiments</Title>
       <div class="grid w-full auto-rows-fr gap-5 md:grid-cols-4">
         <LinkCard
           to="/lab/files/records/other___22_06_14__17_26_01___1809.88.mp4"
@@ -41,8 +42,8 @@
           <p class="text-gray-500">Storing the frames from live video</p>
         </LinkCard>
       </div>
+      <p />
       <Title>User interface prototyping</Title>
-
       <div class="grid w-full auto-rows-fr gap-5 md:grid-cols-4">
         <LinkCard to="/lab/videoframe" class="border-re aspect-video pr-8">
           <Title small>Animate video frames</Title>
@@ -64,11 +65,12 @@
         </LinkCard>
 
         <LinkCard to="/lab/draggables" class="aspect-video pr-8">
-          <Title small>Draggables and Dockables</Title>
-          <p class="text-gray-500">Get down to get up</p>
+          <Title small>Dragggable</Title>
+          <p class="text-gray-500">Testing Draggable component</p>
         </LinkCard>
         <LinkCard to="/lab/videobackground" class="aspect-video pr-8">
           <Title small>Video background</Title>
+          <p class="text-gray-500">Styling the video</p>
         </LinkCard>
       </div>
     </Stack>
