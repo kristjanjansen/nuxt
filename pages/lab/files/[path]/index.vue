@@ -37,7 +37,9 @@ const { data: files } = await getFiles(path);
             class="shrink-0 md:w-64"
           />
         </div>
-        <FileDetails class="px-6" :file="file" />
+        <NuxtLink :to="file.fileRoute">
+          <FileDetails class="px-6" :file="file" />
+        </NuxtLink>
         <Link class="px-6" :to="file.src" down>Download</Link>
         <p />
       </Card>

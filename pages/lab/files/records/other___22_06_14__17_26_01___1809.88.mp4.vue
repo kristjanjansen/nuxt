@@ -282,6 +282,6 @@ const csv = `id,datetime,channel,type,value,userId,userName,captureId
       class="w-1/2 shrink-0 rounded"
     />
     <LabVideo v-if="f.src.endsWith('.mp4')" :video="f" :csv="csv" />
-    <pre>{{ f }}</pre>
+    <pre class="text-sm">{{ f }}</pre>
   </Stack>
 </template>
