@@ -13,21 +13,18 @@ const { data: files } = await getFiles(path);
     <Stack class="w-full">
       <Card
         v-for="file in files"
-        class="grid w-full items-center gap-4 overflow-hidden p-0 md:grid-cols-[auto_1fr_auto_auto] md:gap-16"
+        class="grid w-full items-center gap-4 overflow-hidden p-0 md:grid-cols-[auto_1fr_auto_auto] md:gap-8"
       >
         <div>
           <video
             v-if="file.src.endsWith('.mp4')"
             :src="file.src"
             controls
-            class="aspect-video shrink-0 md:w-64"
+            class="aspect-video w-full shrink-0 md:w-64"
           />
-          <audio
-            v-if="file.src.endsWith('.mp3')"
-            :src="file.src"
-            controls
-            class="w-64 shrink-0"
-          />
+          <div class="p-4" v-if="file.src.endsWith('.mp3')">
+            <audio :src="file.src" controls class="w-full shrink-0 md:w-64" />
+          </div>
           <img
             v-if="
               file.src.endsWith('.jpg') ||

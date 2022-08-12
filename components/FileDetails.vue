@@ -6,7 +6,9 @@ const { file } = defineProps<Props>();
 </script>
 
 <template>
-  <div class="grid font-mono text-sm text-gray-200 md:grid-cols-3">
+  <div
+    class="grid items-center font-mono text-sm text-gray-200 md:grid-cols-3 md:gap-8"
+  >
     <div>
       <div v-if="!file.start_at_formatted && file.modified_at_formatted">
         {{ file.modified_at_formatted }}

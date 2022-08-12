@@ -11,6 +11,7 @@ const processPath = (p) => ({ title: p, path: `/lab/files/${p}` });
 
 <template>
   <Stack class="p-4 md:p-6">
+    <Link left to="/lab">Lab</Link>
     <Title>Files</Title>
     <div class="grid w-full gap-4 md:grid-cols-5">
       <NuxtLink v-for="p in paths.map(processPath)" :to="p.path">
