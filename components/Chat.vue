@@ -61,9 +61,9 @@ const { lang } = useLang();
         v-model="newChatMessage"
         :placeholder="['Your chat message', 'Sinu sõnum'][lang]"
       />
-      <Button primary @click="sendChatMessage">{{
-        ["Send", "Saada"][lang]
-      }}</Button>
+      <Button primary @click="sendChatMessage"
+        >{{ ["Send", "Saada"][lang] }}
+      </Button>
     </div>
   </div>
 </template>

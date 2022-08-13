@@ -124,7 +124,7 @@ export const usePodcastPage = (params: Strapi4RequestParams = {}) => {
 };
 
 export const useMessagesHistory = (params: Strapi4RequestParams = {}) => {
-  return useFind("messages", params);
+  return useFind("messages", { sort: ["datetime:asc"], ...params });
 };
 
 // Public Strapi request wrapper
