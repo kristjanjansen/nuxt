@@ -22,13 +22,9 @@ const { data: upcomingEvents, error: eventsError } = await useEvents({
   filters: { start_at: { $gte: today() } },
 });
 
-const event = computed(() =>
-  frontpage.value?.events?.length
-    ? frontpage.value.events[0]
-    : upcomingEvents.value?.length
-    ? upcomingEvents.value[0]
-    : null
-);
+const event = computed(() => {
+  return frontpage.value?.events?.length ? frontpage.value.events[0] : null;
+});
 
 const d = useDraggables({
   upcoming: { x: 250, y: 250 },
@@ -67,7 +63,15 @@ const { lang } = useLang();
           <Stack>
             <Title medium>{{ event.titles[lang] }}</Title>
             <EventDatetime :event="event" />
-            <EventButton :event="event" />
+            <EventButton v-if="event.slug !== 'kausaal-4'" :event="event" />
+            <NuxtLink
+              v-if="event.slug === 'kausaal-4'"
+              to="/projects/kausaal/kausaal-4/live"
+            >
+              <Button primary>{{
+                ["Watch event", "Vaata üritust"][lang]
+              }}</Button>
+            </NuxtLink>
             <Content :content="event.intros[lang]" />
             <Link to="/schedule" right>
               {{

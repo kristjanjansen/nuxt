@@ -188,6 +188,7 @@ export function sortProjects(a: any, b: any) {
 
 const processEvent = (event) => {
   const project = event.projects?.[0];
+  event.project = project;
   event.projectLink = project ? `/projects/${project.slug}` : "/";
   event.eventLink = project ? `/projects/${project.slug}/${event.slug}` : "/";
   event.eventLiveLink = project
