@@ -20,7 +20,7 @@ export function useChat(
     sentMessageType = "CHAT",
     receiveMessageType = "CHAT",
   } = options;
-
+  console.log(userName.value);
   const { messages, sendMessage } = useMessages();
   const scrollData = useScroll(scrollable);
   const { focused: focus } = useFocus(textarea, { initialValue: true });
@@ -38,8 +38,8 @@ export function useChat(
     if (newChatMessage.value.trim()) {
       sendMessage({
         channel: channel,
-        userId: userId.value,
-        userName: userName.value,
+        userid: userId.value,
+        username: userName.value,
         type: sentMessageType,
         value: newChatMessage.value,
         store: true,
