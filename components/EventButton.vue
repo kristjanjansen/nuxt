@@ -3,6 +3,7 @@ type Props = {
   event: any;
 };
 const { event } = defineProps<Props>();
+const { urgency } = useDatetime(event.start_at, event.end_at);
 const { lang } = useLang();
 
 // @TODO Handle past events
@@ -17,7 +18,7 @@ const { lang } = useLang();
       class="w-full"
     >
       <Button primary>{{
-        event.urgency === "past"
+        urgency === "past"
           ? ["Revisit event", "Meenuta üritust"][lang]
           : ["Watch event", "Vaata üritust"][lang]
       }}</Button>

@@ -18,10 +18,6 @@ onMounted(() => (muted.value = true));
 
 // Upcoming events data
 
-const { data: upcomingEvents, error: eventsError } = await useEvents({
-  filters: { start_at: { $gte: today() } },
-});
-
 const event = computed(() => {
   return frontpage.value?.events?.length ? frontpage.value.events[0] : null;
 });
@@ -37,7 +33,7 @@ const { lang } = useLang();
 </script>
 
 <template>
-  <ErrorCard v-if="frontpageError || eventsError" />
+  <ErrorCard v-if="frontpageError" />
   <div v-else class="relative h-full">
     <video
       ref="video"
@@ -55,24 +51,23 @@ const { lang } = useLang();
         :content="frontpage?.descriptions[lang]"
       />
       <Draggable v-if="event" v-bind="d.upcoming">
-        <div class="grid gap-4 p-4 md:w-[50vw] md:grid-cols-[1fr_3fr]">
+        <div class="grid gap-4 p-4 md:w-[40vw] md:grid-cols-[1fr_3fr]">
           <Image
             class="pointer-events-none aspect-square rounded object-cover"
             :image="event.thumbnail"
           />
           <Stack>
-            <Title medium>{{ event.titles[lang] }}</Title>
+            <div>
+              <Title v-if="event.authors" small class="text-gray-500"
+                >{{ event.authors }}
+              </Title>
+              <Title medium>{{ event.titles[lang] }}</Title>
+            </div>
             <EventDatetime :event="event" />
-            <EventButton v-if="event.slug !== 'kausaal-4'" :event="event" />
-            <NuxtLink
-              v-if="event.slug === 'kausaal-4'"
-              to="/projects/kausaal/kausaal-4/live"
-            >
-              <Button primary>{{
-                ["Watch event", "Vaata üritust"][lang]
-              }}</Button>
-            </NuxtLink>
             <Content :content="event.intros[lang]" />
+            <NuxtLink :to="event.eventLink" class="w-full">
+              <Button primary>{{ ["More info", "Lisainfo"][lang] }}</Button>
+            </NuxtLink>
             <Link to="/schedule" right>
               {{
                 [`See all upcoming events`, "Vaata kõiki tulevasi sündmusi"][
