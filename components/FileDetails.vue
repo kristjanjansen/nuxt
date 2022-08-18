@@ -20,6 +20,10 @@ const { file } = defineProps<Props>();
         {{ file.end_at_formatted }}
       </div>
     </div>
+    <!-- <div v-if="file.start_at">
+      {{ formatVideoDatetime(file.end_at) }}
+    </div>
+    <div v-if="file.duration">{{ file.duration }}</div> -->
     <div v-if="file.duration">{{ file.duration_formatted }}</div>
     <div v-if="file.streamkey">{{ file.streamkey }}</div>
   </div>

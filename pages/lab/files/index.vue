@@ -5,6 +5,7 @@ const paths = [
   "records",
   "strapi",
   "assets",
+  "babahh_records",
 ];
 const processPath = (p) => ({ title: p, path: `/lab/files/${p}` });
 </script>
