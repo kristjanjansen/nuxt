@@ -98,10 +98,10 @@ export const useFrontPage = (params: Strapi4RequestParams = {}) => {
           "events",
           "events.thumbnail",
           "events.images",
-          "event.projects",
+          "events.projects",
           "projects",
           "projects.thumbnail",
-          "project.images",
+          "useProjectBySlug.images",
         ],
       },
       params
@@ -198,7 +198,6 @@ const processEvent = (event) => {
   }
   event = processLocalizations(event);
   event = proccessMarkdown(event);
-  event = processEventDatetime(event);
   event = processEventFienta(event);
   return event;
 };
@@ -211,7 +210,6 @@ const processProjectEvent = (event, project) => {
     : "/";
   event = processLocalizations(event);
   event = proccessMarkdown(event);
-  event = processEventDatetime(event);
   event = processEventFienta(event);
   return event;
 };
@@ -260,16 +258,6 @@ const proccessMarkdown = (item) => {
   item.descriptions = item.descriptions.map(parseMarkdown);
   item.detailss = item.detailss.map(parseMarkdown);
   return item;
-};
-
-const processEventDatetime = (event) => {
-  if (!event.start_at && !event.end_at) {
-    return event;
-  }
-  return {
-    ...event,
-    ...useDatetime(event.start_at, event.end_at),
-  };
 };
 
 const processEventFienta = (event) => {

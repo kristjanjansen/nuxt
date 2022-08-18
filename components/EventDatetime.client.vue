@@ -6,19 +6,11 @@ type Props = {
 };
 const { event } = defineProps<Props>();
 const {
-  formattedStartAtDate,
-  formattedEndAtDate,
-  formattedStartAtTime,
-  formattedEndAtTime,
+  formattedDatetimeFirst,
+  formattedDatetimeSecond,
   formattedStartAtDistance,
   urgency,
 } = useDatetime(event.start_at, event.end_at);
-
-const isSameDay = formattedStartAtDate === formattedEndAtDate;
-const first = isSameDay
-  ? `${formattedStartAtDate} ${formattedStartAtTime}-${formattedEndAtTime}`
-  : `${formattedStartAtDate} ${formattedStartAtTime}`;
-const second = isSameDay ? "" : `${formattedEndAtDate} ${formattedEndAtTime}`;
 
 const { lang } = useLang();
 </script>
@@ -26,9 +18,9 @@ const { lang } = useLang();
 <template>
   <div class="text-sm">
     <div class="flex w-max items-center gap-1">
-      <div class="text-gray-300">{{ first }}</div>
-      <IconChevron v-if="second" class="text-gray-500" />
-      <div>{{ second }}</div>
+      <div class="text-gray-400">{{ formattedDatetimeFirst }}</div>
+      <IconChevron v-if="formattedDatetimeSecond" class="text-gray-500" />
+      <div class="text-gray-400">{{ formattedDatetimeSecond }}</div>
     </div>
     <div>
       <div v-if="urgency === 'now'" class="flex gap-2">
