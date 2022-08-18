@@ -1,5 +1,5 @@
 <script setup lang="ts">
-const url = "http://streaming.elektron.art/hls/stream6.m3u8";
+const url = "https://streaming.elektron.art/hls/stream6.m3u8";
 </script>
 
 <template>
