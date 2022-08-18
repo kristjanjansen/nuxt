@@ -109,11 +109,6 @@ export const useVideostream = (
         }
       });
 
-      hls.on(Hls.Events.LEVEL_LOADING, () => {
-        console.log("levels");
-        console.log(hls.levels);
-      });
-
       // Reconnect logic
       if (autoReconnect) {
         let prevEnd = 0;
