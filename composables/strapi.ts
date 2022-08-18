@@ -1,7 +1,7 @@
 import { Strapi4RequestParams } from "@nuxtjs/strapi/dist/runtime/types";
 import { marked } from "marked";
 import { merge, has, isArray, head, forEach, isObject } from "lodash-es";
-import { compareAsc, compareDesc } from "date-fns";
+import { compareAsc } from "date-fns";
 
 // Public API
 

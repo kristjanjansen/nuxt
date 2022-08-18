@@ -1,10 +1,8 @@
 <script setup lang="ts">
-import { useIdle } from "@vueuse/core";
-
 const url = "https://sb.err.ee/live/etv.m3u8";
 const video = ref<HTMLVideoElement>();
 const { width, height } = useVideostream(video, url);
-const showVideo = ref(false);
+const showVideo = ref(true);
 const blur = ref(0);
 
 const { theme } = useTheme();

@@ -2,40 +2,54 @@
   <div class="p-4 md:p-6">
     <Stack>
       <Link left to="/" />
-      <Title>Current projects</Title>
+      <Title>Tools for editors</Title>
       <div class="grid w-full auto-rows-fr gap-5 md:grid-cols-4">
-        <LinkCard
-          to="/lab/experiments/june_2022"
-          class="border-re aspect-video pr-8"
-        >
-          <Title small>Experiment in June 2022</Title>
+        <LinkCard to="/lab/files" class="border-re aspect-video pr-8">
+          <Title small>Files</Title>
           <p class="text-gray-500">
-            Sensors and sliders and skating on propaganda
+            Browse the past video recordings and other files
           </p>
         </LinkCard>
-        <LinkCard to="/lab/experiments" class="border-re aspect-video pr-8">
-          <Title small>Video analysis</Title>
-          <p class="text-gray-500">Analyze and augment video data</p>
+        <LinkCard to="/lab/parsedetails" class="aspect-video pr-8">
+          <Title small>Details</Title>
+          <p class="text-gray-500">Parsing project and event details</p>
+        </LinkCard>
+      </div>
+      <p />
+      <Title>Experiments</Title>
+      <div class="grid w-full auto-rows-fr gap-5 md:grid-cols-4">
+        <LinkCard
+          to="/lab/files/records/other___22_06_14__17_26_01___1809.88.mp4"
+          class="border-re aspect-video pr-8"
+        >
+          <Title small>Testing audience feedback</Title>
+          <p class="text-gray-500">
+            Measuring audience feedback with sliders in June 2022
+          </p>
         </LinkCard>
         <LinkCard
           to="/projects/ruumiantropoloogiad/kussaoled/live"
           class="border-re aspect-video pr-8"
         >
           <Title small>Where are you</Title>
-          <p class="text-gray-500">Video capture as an installation</p>
+          <p class="text-gray-500">
+            Interactive hybrid installation in Baltoscandal 2022
+          </p>
         </LinkCard>
 
         <LinkCard to="/lab/capture" class="border-re aspect-video pr-8">
-          <Title small>Capture and store the frames</Title>
+          <Title small>Capture video frames</Title>
           <p class="text-gray-500">Storing the frames from live video</p>
         </LinkCard>
       </div>
-      <Title>Other projects</Title>
-
+      <p />
+      <Title>User interface prototyping</Title>
       <div class="grid w-full auto-rows-fr gap-5 md:grid-cols-4">
         <LinkCard to="/lab/videoframe" class="border-re aspect-video pr-8">
-          <Title small>Videoframes</Title>
-          <p class="text-gray-500">Capturing the frames from live video</p>
+          <Title small>Animate video frames</Title>
+          <p class="text-gray-500">
+            Capturing the frames from live video and animate them
+          </p>
         </LinkCard>
         <LinkCard to="/lab/messages" class="aspect-video pr-8">
           <Title small>Messages</Title>
@@ -49,21 +63,14 @@
           <Title small>Social cards</Title>
           <p class="text-gray-500">Going social using generative art</p>
         </LinkCard>
-        <LinkCard to="/lab/parsedetails" class="aspect-video pr-8">
-          <Title small>Details</Title>
-          <p class="text-gray-500">Parsing project and event details</p>
-        </LinkCard>
+
         <LinkCard to="/lab/draggables" class="aspect-video pr-8">
-          <Title small>Draggables and Dockables</Title>
-          <p class="text-gray-500">Get down to get up</p>
+          <Title small>Dragggable</Title>
+          <p class="text-gray-500">Testing Draggable component</p>
         </LinkCard>
         <LinkCard to="/lab/videobackground" class="aspect-video pr-8">
           <Title small>Video background</Title>
-          <p class="text-gray-500">Blur your vision</p>
-        </LinkCard>
-        <LinkCard to="/lab/recharge" class="aspect-video pr-8">
-          <Title small>Recharging button</Title>
-          <p class="text-gray-500">The hardest button to recharge</p>
+          <p class="text-gray-500">Styling the video</p>
         </LinkCard>
       </div>
     </Stack>

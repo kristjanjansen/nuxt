@@ -1,25 +1,19 @@
 <script setup lang="ts">
-import { parse, sub } from "date-fns";
+const path = "records";
+const filename = "other___22_06_14__17_26_01___1809.88.mp4";
 
-const endDatetime = parse(
-  "2022-06-14-20.26.01.274",
-  "yyyy-MM-dd-HH.mm.ss.SSS",
-  new Date()
-);
+const { getFiles } = useFiles();
+const { data: files } = await getFiles(path);
+const f = computed(() => {
+  if (files?.value) {
+    return files.value
+      .filter((file) => file.filename === filename)
+      .map(processFile)[0];
+  }
+  return null;
+});
 
-const duration = 1809.882333;
-
-const video = {
-  videoUrl:
-    "https://elektron.fra1.cdn.digitaloceanspaces.com/backup/videos/elektron_0_2022-06-14-20.26.01.274-EEST_0_H1LO1.mp4",
-  startDatetime: sub(endDatetime, { seconds: duration }),
-  endDatetime,
-  duration,
-};
-
-const csv = ref("");
-
-csv.value = `id,datetime,channel,type,value,userId,userName,captureId
+const csv = `id,datetime,channel,type,value,userId,userName,captureId
 "6k91s97ydq69cdrx","2022-06-14T17:10:07.787Z","voogteater","DATA_1","8.25978638255016",""zhsavbjyiwutxnel"","th","14_06_2022__20_09_59"
 "8sod7l5lvl2xf39q","2022-06-14T17:10:13.179Z","voogteater","DATA_1","6.97066072990379",""zhsavbjyiwutxnel"","th","14_06_2022__20_09_59"
 "mjkmfse8vvdm2p4q","2022-06-14T17:10:18.518Z","voogteater","DATA_1","8.56510561607167",""zhsavbjyiwutxnel"","th","14_06_2022__20_09_59"
@@ -268,8 +262,26 @@ csv.value = `id,datetime,channel,type,value,userId,userName,captureId
 
 <template>
   <Stack class="p-4 md:p-6">
-    <Link to="/lab" left>Lab</Link>
-    <Title>Experiment in June 2022</Title>
-    <LabVideo :video="video" :csv="csv" />
+    <Link to="/lab/files" left>Files</Link>
+    <Title>Experiment at June 2022</Title>
+    <audio
+      v-if="f.src.endsWith('.mp3')"
+      :src="f.src"
+      controls
+      class="w-1/2 shrink-0"
+    />
+    <img
+      v-if="
+        f.src.endsWith('.jpg') ||
+        f.src.endsWith('.jpeg') ||
+        f.src.endsWith('.png') ||
+        f.src.endsWith('.gif') ||
+        f.src.endsWith('.svg')
+      "
+      :src="f.src"
+      class="w-1/2 shrink-0 rounded"
+    />
+    <LabVideo v-if="f.src.endsWith('.mp4')" :video="f" :csv="csv" />
+    <pre class="text-sm">{{ f }}</pre>
   </Stack>
 </template>

@@ -3,7 +3,9 @@ import { useIntervalFn } from "@vueuse/core";
 import { differenceInHours } from "date-fns";
 import IconCapture from "~icons/radix-icons/camera";
 import IconTheme from "~icons/radix-icons/half-2";
+
 const REFRESH_INTERVAL = 1000 * 10;
+const path = "anthropologies2";
 
 definePageMeta({
   layout: "minimal",
@@ -33,11 +35,11 @@ const { capture: captureFrame, frame } = useVideoframe(
 );
 
 const { getFiles, uploadFile } = useFiles();
-const { data: files, refresh: refreshCaptures } = await getFiles();
+const { data: files, refresh: refreshCaptures } = await getFiles(path);
 
 const capture = async () => {
   captureFrame();
-  await uploadFile(randomFilename("jpg"), frame.value.src);
+  await uploadFile(path, randomFilename("jpg"), frame.value.src);
   await refreshCaptures();
 };
 
