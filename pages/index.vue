@@ -18,17 +18,9 @@ onMounted(() => (muted.value = true));
 
 // Upcoming events data
 
-const { data: upcomingEvents, error: eventsError } = await useEvents({
-  filters: { start_at: { $gte: today() } },
+const event = computed(() => {
+  return frontpage.value?.events?.length ? frontpage.value.events[0] : null;
 });
-
-const event = computed(() =>
-  frontpage.value?.events?.length
-    ? frontpage.value.events[0]
-    : upcomingEvents.value?.length
-    ? upcomingEvents.value[0]
-    : null
-);
 
 const d = useDraggables({
   upcoming: { x: 250, y: 250 },
@@ -41,7 +33,7 @@ const { lang } = useLang();
 </script>
 
 <template>
-  <ErrorCard v-if="frontpageError || eventsError" />
+  <ErrorCard v-if="frontpageError" />
   <div v-else class="relative h-full">
     <video
       ref="video"
@@ -59,16 +51,23 @@ const { lang } = useLang();
         :content="frontpage?.descriptions[lang]"
       />
       <Draggable v-if="event" v-bind="d.upcoming">
-        <div class="grid gap-4 p-4 md:w-[50vw] md:grid-cols-[1fr_3fr]">
+        <div class="grid gap-4 p-4 md:w-[40vw] md:grid-cols-[1fr_3fr]">
           <Image
             class="pointer-events-none aspect-square rounded object-cover"
             :image="event.thumbnail"
           />
           <Stack>
-            <Title medium>{{ event.titles[lang] }}</Title>
+            <div>
+              <Title v-if="event.authors" small class="text-gray-500"
+                >{{ event.authors }}
+              </Title>
+              <Title medium>{{ event.titles[lang] }}</Title>
+            </div>
             <EventDatetime :event="event" />
-            <EventButton :event="event" />
             <Content :content="event.intros[lang]" />
+            <NuxtLink :to="event.eventLink" class="w-full">
+              <Button primary>{{ ["More info", "Lisainfo"][lang] }}</Button>
+            </NuxtLink>
             <Link to="/schedule" right>
               {{
                 [`See all upcoming events`, "Vaata kõiki tulevasi sündmusi"][
