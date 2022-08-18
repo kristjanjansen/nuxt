@@ -17,8 +17,8 @@ const { theme, changeTheme } = useTheme();
 
 const d = useDraggables({
   //chat: { x: 900, y: 150 },
-  //video: { x: 100, y: 100 },
-  capture: { x: 300, y: 100 },
+  video: { x: 100, y: 50 },
+  capture: { x: 350, y: 150 },
   about: { x: 150, y: 300 },
 });
 
@@ -124,7 +124,7 @@ onMounted(() => {
       </div>
     </div>
 
-    <!-- <Draggable v-bind="d.video" v-if="videostreams.length">
+    <Draggable v-bind="d.video" v-if="videostreams.length">
       <div class="md:w-[70vw]">
         <Videostream :url="videostreams[0].url">
           <RechargingButton @click="capture">
@@ -132,11 +132,11 @@ onMounted(() => {
           </RechargingButton>
         </Videostream>
       </div>
-    </Draggable> -->
+    </Draggable>
 
     <Draggable v-bind="d.capture">
       <Stack class="h-[80vw] w-full p-4 md:h-[35vw] md:w-[60vw]">
-        <!-- <div class="flex items-start space-x-4">
+        <div class="flex items-start space-x-4">
           <RechargingButton
             @remaining="(r) => (remaining = r)"
             @click="capture"
@@ -153,7 +153,7 @@ onMounted(() => {
             }}
             {{ remaining }}s
           </div>
-        </div> -->
+        </div>
 
         <div class="grid w-full grid-cols-2 overflow-y-auto md:grid-cols-3">
           <div v-if="!files.length" class="aspect-video h-48" />

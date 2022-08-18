@@ -29,10 +29,10 @@ const { lang } = useLang();
       </Title>
       <EventButton class="items-end" :event="event" />
     </div>
-    <div class="flex gap-5 overflow-x-auto" v-if="event.images.length">
+    <div class="flex gap-5 overflow-x-auto" v-if="event.images">
       <Image
-        class="h-128 aspect-auto rounded-3xl object-cover"
-        :class="[event.images.length === 1 ? '!aspect-video' : '']"
+        class="aspect-auto h-96 rounded-3xl object-cover"
+        :class="[event.images.length === 1 ? 'aspect-video' : '']"
         v-for="image in event.images"
         :image="image"
       />

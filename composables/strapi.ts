@@ -98,10 +98,10 @@ export const useFrontPage = (params: Strapi4RequestParams = {}) => {
           "events",
           "events.thumbnail",
           "events.images",
-          "event.projects",
+          "events.projects",
           "projects",
           "projects.thumbnail",
-          "project.images",
+          "useProjectBySlug.images",
         ],
       },
       params
@@ -124,7 +124,7 @@ export const usePodcastPage = (params: Strapi4RequestParams = {}) => {
 };
 
 export const useMessagesHistory = (params: Strapi4RequestParams = {}) => {
-  return useFind("messages", params);
+  return useFind("messages", { sort: ["datetime:asc"], ...params });
 };
 
 // Public Strapi request wrapper
@@ -198,7 +198,6 @@ const processEvent = (event) => {
   }
   event = processLocalizations(event);
   event = proccessMarkdown(event);
-  event = processEventDatetime(event);
   event = processEventFienta(event);
   return event;
 };
@@ -211,7 +210,6 @@ const processProjectEvent = (event, project) => {
     : "/";
   event = processLocalizations(event);
   event = proccessMarkdown(event);
-  event = processEventDatetime(event);
   event = processEventFienta(event);
   return event;
 };
@@ -231,27 +229,28 @@ const processProject = (project) => {
 // Processors
 
 const processLocalizations = (item) => {
-  item.titles = [
-    item.title || null,
-    item.localizations?.[0].title || item.title || null,
+  const keys = [
+    ["titles", "title"],
+    ["intros", "intro"],
+    ["descriptions", "description"],
+    ["detailss", "details"],
   ];
-  item.intros = [
-    item.intro || null,
-    item.localizations?.[0].intro || item.intro || null,
-  ];
-  item.descriptions = [
-    item.description || null,
-    item.localizations?.[0].description || item.description || null,
-  ];
-  item.detailss = [
-    item.details || null,
-    item.localizations?.[0].details || item.details || null,
-  ];
+  keys.forEach(([multiple, single]) => {
+    item[multiple] = [
+      item[single] || null,
+      item.localizations?.length && item.localizations[0][single]
+        ? item.localizations[0][single]
+        : item[single]
+        ? item[single]
+        : null,
+    ];
+  });
   return item;
 };
 
-export const parseMarkdown = (str: string) =>
-  marked.parse(str || "", { breaks: true });
+export const parseMarkdown = (str: string | null) => {
+  return marked.parse(str || "", { breaks: true });
+};
 
 const proccessMarkdown = (item) => {
   item.titles = item.titles.map(parseMarkdown);
@@ -259,16 +258,6 @@ const proccessMarkdown = (item) => {
   item.descriptions = item.descriptions.map(parseMarkdown);
   item.detailss = item.detailss.map(parseMarkdown);
   return item;
-};
-
-const processEventDatetime = (event) => {
-  if (!event.start_at && !event.end_at) {
-    return event;
-  }
-  return {
-    ...event,
-    ...useDatetime(event.start_at, event.end_at),
-  };
 };
 
 const processEventFienta = (event) => {

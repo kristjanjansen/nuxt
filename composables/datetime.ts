@@ -71,6 +71,16 @@ export const useDatetime = (
   const formattedStartAtDistance = useFormattedDistance(startAtDatetime);
   const urgency = useUrgency(startAtDatetime, endAtDatetime);
 
+  const isSameDay = formattedStartAtDate === formattedEndAtDate;
+
+  const formattedDatetimeFirst = isSameDay
+    ? `${formattedStartAtDate} ${formattedStartAtTime}-${formattedEndAtTime}`
+    : `${formattedStartAtDate} ${formattedStartAtTime}`;
+
+  const formattedDatetimeSecond = isSameDay
+    ? null
+    : `${formattedEndAtDate} ${formattedEndAtTime}`;
+
   return {
     formattedStartAtDate,
     formattedStartAtTime,
@@ -78,6 +88,8 @@ export const useDatetime = (
     formattedEndAtTime,
     formattedStartAtDistance,
     urgency,
+    formattedDatetimeFirst,
+    formattedDatetimeSecond,
   };
 };
 
