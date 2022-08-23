@@ -99,14 +99,23 @@ export const useFrontPage = (params: Strapi4RequestParams = {}) => {
           "events.thumbnail",
           "events.images",
           "events.projects",
+          "events.localizations",
           "projects",
-          "projects.thumbnail",
-          "useProjectBySlug.images",
         ],
       },
       params
     ),
     processPage
+  );
+};
+
+export const useAboutPage = (params: Strapi4RequestParams = {}) => {
+  return useFind(
+    "about",
+    merge({
+      populate: ["cards", "localizations.cards"],
+    }),
+    (data) => processCards(data)
   );
 };
 
@@ -200,6 +209,19 @@ const processEvent = (event) => {
   event = proccessMarkdown(event);
   event = processEventFienta(event);
   return event;
+};
+
+const processCards = (page) => {
+  const cards = page.cards.map((card, i) => {
+    if (card.title) {
+      card.titles = [card.title, page.localizations[0].cards[i].title];
+    }
+    if (card.content) {
+      card.contents = [card.content, page.localizations[0].cards[i].content];
+    }
+    return card;
+  });
+  return { ...page, cards };
 };
 
 const processProjectEvent = (event, project) => {
