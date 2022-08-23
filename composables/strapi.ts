@@ -109,6 +109,16 @@ export const useFrontPage = (params: Strapi4RequestParams = {}) => {
   );
 };
 
+export const useAboutPage = (params: Strapi4RequestParams = {}) => {
+  return useFind(
+    "about",
+    merge({
+      populate: ["cards", "localizations.cards"],
+    }),
+    (data) => processCards(data)
+  );
+};
+
 export const usePodcastPage = (params: Strapi4RequestParams = {}) => {
   return useFind(
     "podcast",
@@ -135,10 +145,13 @@ export const useFind = (
 ) => {
   const { find } = useStrapi4();
   const key = JSON.stringify({ contentType, ...params });
-  return useAsyncData(key, () =>
-    find(contentType, params)
-      .then((res) => parseStrapi(res))
-      .then(process)
+  return useAsyncData(
+    key,
+    () =>
+      find(contentType, params)
+        .then((res) => parseStrapi(res))
+        .then(process),
+    { server: false }
   );
 };
 
@@ -199,6 +212,19 @@ const processEvent = (event) => {
   event = proccessMarkdown(event);
   event = processEventFienta(event);
   return event;
+};
+
+const processCards = (page) => {
+  const cards = page.cards.map((card, i) => {
+    if (card.title) {
+      card.titles = [card.title, page.localizations[0].cards[i].title];
+    }
+    if (card.content) {
+      card.contents = [card.content, page.localizations[0].cards[i].content];
+    }
+    return card;
+  });
+  return { ...page, cards };
 };
 
 const processProjectEvent = (event, project) => {
