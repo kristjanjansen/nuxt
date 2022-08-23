@@ -145,13 +145,10 @@ export const useFind = (
 ) => {
   const { find } = useStrapi4();
   const key = JSON.stringify({ contentType, ...params });
-  return useAsyncData(
-    key,
-    () =>
-      find(contentType, params)
-        .then((res) => parseStrapi(res))
-        .then(process),
-    { server: false }
+  return useAsyncData(key, () =>
+    find(contentType, params)
+      .then((res) => parseStrapi(res))
+      .then(process)
   );
 };
 
