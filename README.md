@@ -1,4 +1,6 @@
-# new.elekton.art
+## About
+
+https://elektron.art
 
 ## Usage
 
