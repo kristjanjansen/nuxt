@@ -28,7 +28,3 @@ npm run lib:dev
 ```
 npm run lib:build
 ```
-
-## TODO
-
-https://github.com/amandaghassaei/canvas-capture
