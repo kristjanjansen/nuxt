@@ -37,7 +37,7 @@ useVideostream(video2, url2);
       <Stack>
         <Title medium>With transcoding</Title>
         <p>Input stream URL:</p>
-        <pre>rtmp://streaming.elektron.art/transcoding</pre>
+        <pre>rtmp://streaming.elektron.art/transcode</pre>
         <p>Input streamkey</p>
         <pre>test2</pre>
         <video
