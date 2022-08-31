@@ -18,7 +18,9 @@ export const useMessages = () => {
   return { ws, messages, sendMessage };
 };
 
-export const useMessages2 = () => {
+// TODO: Unify the two
+
+export const clientUseMessages = () => {
   const m = reactive({
     messages: [],
     sendMessage: (message: any) => null,
@@ -36,7 +38,13 @@ export const useMessages2 = () => {
     });
 
     m.sendMessage = (message: any) =>
-      send(JSON.stringify({ ...message, datetime: new Date().toISOString() }));
+      send(
+        JSON.stringify({
+          id: randomString(),
+          datetime: new Date().toISOString(),
+          ...message,
+        })
+      );
   });
   return m;
 };

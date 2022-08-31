@@ -54,26 +54,28 @@ const { idle } = useIdle(5000);
   <FadeTransition>
     <div
       v-show="!getDocked()"
-      ref="draggable"
       :style="style"
-      class="r w-full cursor-grab touch-none select-none overflow-hidden border border-gray-700 bg-black/70 backdrop-blur-lg transition-colors md:fixed md:w-fit md:border-gray-500 md:hover:border-gray-400"
+      class="w-full cursor-grab touch-none select-none overflow-hidden border border-gray-700 bg-black/70 backdrop-blur-lg transition-colors md:fixed md:w-fit md:border-gray-500 md:hover:border-gray-400"
       :class="[
         getDocked() ? 'opacity-50' : '',
         isDragging ? '!md:border-gray-100 md:cursor-grabbing' : '',
       ]"
     >
-      <div class="relative">
-        <FadeTransition>
-          <button
-            v-if="dockable && !idle"
-            class="absolute top-0 right-0 z-[100] p-1 text-gray-500 hover:text-gray-100 focus:z-50"
-            @click="() => setDocked()"
-          >
-            <IconDock />
-          </button>
-        </FadeTransition>
-        <slot />
+      <div ref="draggable">
+        <div class="relative">
+          <FadeTransition>
+            <button
+              v-if="dockable && !idle"
+              class="absolute top-0 right-0 z-[100] p-1 text-gray-500 hover:text-gray-100 focus:z-50"
+              @click="() => setDocked()"
+            >
+              <IconDock />
+            </button>
+          </FadeTransition>
+          <slot />
+        </div>
       </div>
+      <slot name="undraggable" />
     </div>
   </FadeTransition>
 </template>
