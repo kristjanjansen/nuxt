@@ -66,7 +66,7 @@ const { idle } = useIdle(5000);
         <FadeTransition>
           <button
             v-if="dockable && !idle"
-            class="absolute top-0 right-0 z-[100] p-2 text-gray-500 hover:text-gray-100 focus:z-50"
+            class="absolute top-0 right-0 z-[100] p-1 text-gray-500 hover:text-gray-100 focus:z-50"
             @click="() => setDocked()"
           >
             <IconDock />
