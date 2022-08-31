@@ -22,6 +22,10 @@
       <p />
       <Title>Experiments</Title>
       <div class="grid w-full auto-rows-fr gap-5 md:grid-cols-4">
+        <LinkCard to="/lab/experiment" class="border-re aspect-video pr-8">
+          <Title small>Start new experiment</Title>
+          <p class="text-gray-500">A virtual lab to work in</p>
+        </LinkCard>
         <LinkCard
           to="/lab/files/records/other___22_06_14__17_26_01___1809.88.mp4"
           class="border-re aspect-video pr-8"

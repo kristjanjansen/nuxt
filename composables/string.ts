@@ -8,7 +8,7 @@ export const replaceTokens = (str: string, obj: Record<string, string>) => {
   return str.replace(/\${(.*?)}/g, (_, v) => obj[v]);
 };
 
-export function randomString(length = 36): string {
+export function randomString(length = 16): string {
   return [...Array(length)]
     .map(() => (~~(Math.random() * 36)).toString(36))
     .join("");

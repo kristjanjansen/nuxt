@@ -18,7 +18,7 @@ const {
 } = useChat(channel, scrollable, textarea);
 const { data: chatMessagesHistory } = await useChatHistory(channel);
 const messages = computed(() => [
-  ...chatMessagesHistory.value,
+  ...(chatMessagesHistory.value || []),
   ...chatMessages.value,
 ]);
 onMounted(() => {
