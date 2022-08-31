@@ -17,3 +17,26 @@ export const useMessages = () => {
     send(JSON.stringify({ ...message, datetime: new Date().toISOString() }));
   return { ws, messages, sendMessage };
 };
+
+export const useMessages2 = () => {
+  const m = reactive({
+    messages: [],
+    sendMessage: (message: any) => null,
+    ws: null,
+  });
+
+  onMounted(() => {
+    const { ws, send } = useWebSocket(wsUrl, {
+      autoReconnect: true,
+    });
+
+    ws.value.addEventListener("message", ({ data }) => {
+      const message = JSON.parse(data);
+      m.messages.push(message);
+    });
+
+    m.sendMessage = (message: any) =>
+      send(JSON.stringify({ ...message, datetime: new Date().toISOString() }));
+  });
+  return m;
+};

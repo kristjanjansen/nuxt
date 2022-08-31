@@ -20,7 +20,6 @@ export function useChat(
     sentMessageType = "CHAT",
     receiveMessageType = "CHAT",
   } = options;
-  console.log(userName.value);
   const { messages, sendMessage } = useMessages();
   const scrollData = useScroll(scrollable);
   const { focused: focus } = useFocus(textarea, { initialValue: true });

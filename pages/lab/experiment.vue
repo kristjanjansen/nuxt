@@ -1,23 +1,34 @@
 <script setup lang="ts">
+import { debouncedWatch, useWebSocket } from "@vueuse/core";
+import { send } from "vite";
+
 const slug = "experiment";
 const videostreams = getVideostreams(slug);
+const type = "DATA_1";
 
 const d = useDraggables({
-  info: { x: 100, y: 400, docked: true },
+  info: { x: 100, y: 400 },
   video: { x: 200, y: 100 },
   chat: { x: 900, y: 300 },
-  controls: { x: 200, y: 600 },
 });
-
-const { lang } = useLang();
 
 const data_1 = ref(0);
+const m = useMessages2();
 
-watch(data_1, () => {
-  //console.log(data_1);
-});
-
-const onClick = () => console.log("click");
+debouncedWatch(
+  data_1,
+  () => {
+    const message = {
+      channel: slug,
+      userid: useUserId(),
+      username: useUserName(),
+      type,
+      value: data_1.value,
+    };
+    m.sendMessage(message);
+  },
+  { debounce: 200 }
+);
 </script>
 
 <template>
@@ -25,8 +36,9 @@ const onClick = () => console.log("click");
     <Breadboard class="bg-gray-900" />
     <Link left to="/lab">Lab</Link>
 
-    <Draggable v-bind="d.info" class="p-4">
-      <pre class="text-sm text-gray-200">{{ videostreams }}</pre>
+    <Draggable v-bind="d.info" class="h-[25vw] p-4 md:w-[25vw]">
+      <!-- <pre class="text-sm text-gray-200">{{ videostreams }}</pre> -->
+      <pre class="text-sm text-gray-200">{{ m.messages }}</pre>
     </Draggable>
 
     <Draggable v-bind="d.chat">
@@ -37,23 +49,22 @@ const onClick = () => console.log("click");
       <Videostream :url="videostreams[0].url" class="md:w-[70vw]" />
     </Draggable>
 
-    <Draggable
+    <div
       v-bind="d.controls"
-      class="fixed top-[50vw] left-[10vw] w-[20vw]"
+      class="fixed top-[40vw] left-[5vw] !w-[32vw] border border-gray-700 bg-black/70 p-4 backdrop-blur-lg transition-colors md:fixed md:w-fit md:border-gray-500 md:hover:border-gray-400"
     >
       <Stack>
         <p>Label comes here</p>
         <input
-          v-model="data_1"
+          v-model.number="data_1"
           type="range"
           max="10"
           step="any"
-          class="z-1000 w-full"
-          @click.prevent="onClick"
+          class="w-full"
         />
         <p>Markers will be here</p>
       </Stack>
-    </Draggable>
+    </div>
 
     <Dock :draggables="d" />
   </Stack>
