@@ -1,5 +1,5 @@
 <script setup lang="ts">
-const slug = "zahir";
+const slug = "seemsnormal";
 
 const wallpaper =
   "https://elektron.fra1.cdn.digitaloceanspaces.com/assets/zahir_seems_normal_wallpaper.jpg";
