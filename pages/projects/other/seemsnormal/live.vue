@@ -59,6 +59,7 @@ const { lang } = useLang();
           controls
           :class="['invert', ''][theme]"
           class="w-full"
+          controlsList="nodownload"
         />
       </div>
     </Draggable>
