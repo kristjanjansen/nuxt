@@ -1,0 +1,32 @@
+<script setup lang="ts">
+type Props = {
+  event: any;
+};
+const { event } = defineProps<Props>();
+const { lang } = useLang();
+</script>
+
+<template>
+  <div class="grid gap-4 p-4 md:w-[40vw] md:grid-cols-[1fr_3fr]">
+    <Image
+      class="pointer-events-none aspect-square rounded object-cover"
+      :image="event.thumbnail"
+    />
+    <Stack>
+      <div>
+        <Title v-if="event.authors" small class="text-gray-500"
+          >{{ event.authors }}
+        </Title>
+        <Title medium>{{ event.titles[lang] }}</Title>
+      </div>
+      <EventDatetime :event="event" />
+      <Content :content="event.intros[lang]" />
+      <NuxtLink :to="event.eventLink" class="w-full">
+        <Button primary>{{ ["More info", "Lisainfo"][lang] }}</Button>
+      </NuxtLink>
+      <Link to="/schedule" right>
+        {{ [`See all upcoming events`, "Vaata kõiki tulevasi sündmusi"][lang] }}
+      </Link>
+    </Stack>
+  </div>
+</template>

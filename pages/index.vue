@@ -18,12 +18,19 @@ onMounted(() => (muted.value = true));
 
 // Upcoming events data
 
-const event = computed(() => {
+const event1 = computed(() => {
   return frontpage.value?.events?.length ? frontpage.value.events[0] : null;
 });
 
+const event2 = computed(() => {
+  return frontpage.value?.events?.length >= 2
+    ? frontpage.value.events[1]
+    : null;
+});
+
 const d = useDraggables({
-  upcoming: { x: 250, y: 250 },
+  event1: { x: 250, y: 250 },
+  event2: { x: 600, y: 150 },
 });
 
 // Utilities
@@ -50,33 +57,11 @@ const { lang } = useLang();
         class="w-auto font-title text-xl text-white md:w-[30vw] md:text-2xl"
         :content="frontpage?.descriptions[lang]"
       />
-      <Draggable v-if="event" v-bind="d.upcoming">
-        <div class="grid gap-4 p-4 md:w-[40vw] md:grid-cols-[1fr_3fr]">
-          <Image
-            class="pointer-events-none aspect-square rounded object-cover"
-            :image="event.thumbnail"
-          />
-          <Stack>
-            <div>
-              <Title v-if="event.authors" small class="text-gray-500"
-                >{{ event.authors }}
-              </Title>
-              <Title medium>{{ event.titles[lang] }}</Title>
-            </div>
-            <EventDatetime :event="event" />
-            <Content :content="event.intros[lang]" />
-            <NuxtLink :to="event.eventLink" class="w-full">
-              <Button primary>{{ ["More info", "Lisainfo"][lang] }}</Button>
-            </NuxtLink>
-            <Link to="/schedule" right>
-              {{
-                [`See all upcoming events`, "Vaata kõiki tulevasi sündmusi"][
-                  lang
-                ]
-              }}
-            </Link>
-          </Stack>
-        </div>
+      <Draggable v-if="event1" v-bind="d.event1">
+        <FrontpageEvent :event="event1" />
+      </Draggable>
+      <Draggable v-if="event2" v-bind="d.event2">
+        <FrontpageEvent :event="event2" />
       </Draggable>
     </Stack>
     <button
