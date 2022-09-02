@@ -15,10 +15,10 @@ export const getVideostreams = (keys) => {
   const streamkeys = split(keys);
   return streamkeys.map((streamkey: string) => {
     return {
-      streamkey,
-      url: formatVideostreamUrl(streamkey),
       inputRawUrl,
       inputTranscodeUrl,
+      streamkey,
+      url: formatVideostreamUrl(streamkey),
     };
   });
 };

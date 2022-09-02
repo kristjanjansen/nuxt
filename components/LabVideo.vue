@@ -99,11 +99,7 @@ const opacity = (index) => {
 
 <template>
   <Stack class="w-full">
-    <video
-      ref="videoplayer"
-      controls
-      class="aspect-video rounded md:w-[25vw]"
-    />
+    <video ref="videoplayer" controls class="aspect-video rounded md:w-1/2" />
     <Card class="justify-between font-mono text-sm text-gray-500 md:flex">
       <p>{{ formatVideoDatetime(video.startDatetime) }}</p>
       <p>{{ formatVideoDatetime(xDatetimeScale.invert(currentX)) }}</p>
@@ -177,7 +173,7 @@ const opacity = (index) => {
           :y2="height * zoom"
           class="stroke-red-500"
         />
-        <text :x="currentX + 10" y="20" class="fill-white font-mono text-xs">
+        <text :x="currentX + 10" y="20" class="fill-white font-mono text-sm">
           {{ formattedCurrentTime }}
         </text>
         <g
@@ -210,7 +206,7 @@ const opacity = (index) => {
       placeholder="Paste a CSV here"
       v-model="csvField"
       rows="10"
-      class="w-full whitespace-pre border-gray-500 bg-black/0 px-2 py-1 font-mono text-xs text-white focus:border-gray-500 focus:ring-0"
+      class="w-full whitespace-pre border-gray-500 bg-black/0 px-2 py-1 font-mono text-sm text-white focus:border-gray-500 focus:ring-0"
     />
   </Stack>
 </template>

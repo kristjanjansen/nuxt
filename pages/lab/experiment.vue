@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { debouncedWatch, useWebSocket } from "@vueuse/core";
+import { debouncedWatch, useIntervalFn, useWebSocket } from "@vueuse/core";
 import { format } from "date-fns";
 import { send } from "vite";
 
@@ -36,6 +36,17 @@ debouncedWatch(
 const onDownloadCsv = () => {
   downloadCSV(m.messages, `${format(new Date(), "dd_MM_y__HH_mm_ss")}.csv`);
 };
+
+const { getFiles } = useFiles();
+const { data: files, refresh } = await getFiles("records");
+
+const experimentFiles = computed(() =>
+  (files.value || []).filter((f) => f.streamkey === slug)
+);
+
+useIntervalFn(() => {
+  refresh();
+}, 3000);
 </script>
 
 <template>
@@ -44,10 +55,27 @@ const onDownloadCsv = () => {
       <Breadboard class="bg-gray-900" />
       <Link left to="/lab" class="absolute top-4 left-4">Lab</Link>
 
-      <Draggable v-bind="d.help">
-        <div class="whitespace-pre-wrap p-4 font-mono text-sm text-gray-200">
-          {{ videostreams }}
-        </div>
+      <Draggable
+        v-if="experimentFiles.length"
+        v-bind="d.help"
+        class="h-[35vw] w-[40vw] overflow-y-scroll whitespace-pre-wrap p-4 font-mono text-sm text-gray-200"
+      >
+        <Stack>
+          <Title medium>Previous experiments</Title>
+          <div v-for="file in experimentFiles" class="flex items-center gap-6">
+            <video
+              v-if="file.src.endsWith('.mp4')"
+              :src="file.src"
+              controls
+              crossorigin="anonymous"
+              class="aspect-video w-full shrink-0 md:w-64"
+            />
+            <FileDetails :file="file" />
+            <NuxtLink :to="file.fileRoute" target="_blank">
+              <Button>Visit</Button>
+            </NuxtLink>
+          </div>
+        </Stack>
       </Draggable>
 
       <Draggable v-bind="d.data" class="md:w-[30vw]">
@@ -74,7 +102,7 @@ const onDownloadCsv = () => {
 
       <Draggable v-bind="d.controls" class="md:w-[40vw]">
         <Title medium class="p-4 pb-0">I am</Title>
-        <template #undraggable>
+        <template #nodrag>
           <Stack class="p-4">
             <input
               v-model.number="data_1"

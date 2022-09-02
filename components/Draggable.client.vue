@@ -75,7 +75,7 @@ const { idle } = useIdle(5000);
           <slot />
         </div>
       </div>
-      <slot name="undraggable" />
+      <slot name="nodrag" />
     </div>
   </FadeTransition>
 </template>

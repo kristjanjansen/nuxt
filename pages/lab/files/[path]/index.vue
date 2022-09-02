@@ -20,6 +20,7 @@ const { data: files } = await getFiles(path);
             v-if="file.src.endsWith('.mp4')"
             :src="file.src"
             controls
+            crossorigin="anonymous"
             class="aspect-video w-full shrink-0 md:w-64"
           />
           <div class="p-4" v-if="file.src.endsWith('.mp3')">

@@ -12,9 +12,10 @@ const f = computed(() => {
 </script>
 
 <template>
-  <Stack class="p-4 md:p-6">
+  <Stack class="p-4 md:p-6" v-if="f">
     <Link :to="'/lab/files/' + path" left>Back</Link>
-    <Title>/{{ path }}/{{ filename }}</Title>
+    <Title>File</Title>
+    <pre>/{{ path }}/{{ filename }}</pre>
     <LabVideo v-if="f.src.endsWith('.mp4')" :video="f" />
     <audio
       v-if="f.src.endsWith('.mp3')"
@@ -33,6 +34,5 @@ const f = computed(() => {
       :src="f.src"
       class="w-1/2 shrink-0 rounded"
     />
-    <pre>{{ f }}</pre>
   </Stack>
 </template>
