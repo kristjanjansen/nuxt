@@ -78,13 +78,13 @@ useIntervalFn(() => {
         </Stack>
       </Draggable>
 
-      <Draggable v-bind="d.data" class="md:w-[30vw]">
+      <Draggable v-bind="d.data" class="md:w-[50vw]">
         <Stack class="p-4">
           <Title medium>Data</Title>
           <div
             class="h-[15vw] overflow-auto whitespace-pre-wrap font-mono text-sm text-gray-200"
           >
-            {{ m.messages }}
+            <Table :rows="m.messages" />
           </div>
           <Button primary @click="onDownloadCsv" :disabled="!m.messages.length"
             >Download CSV</Button
