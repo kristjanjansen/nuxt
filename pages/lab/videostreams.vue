@@ -1,4 +1,6 @@
 <script setup lang="ts">
+const videostreams = getVideostreams("elektron,test");
+
 const url1 = "https://streaming.elektron.art/hls/test1.m3u8";
 const video1 = ref<HTMLVideoElement | null>(null);
 useVideostream(video1, url1);
@@ -12,6 +14,7 @@ useVideostream(video2, url2);
   <Stack class="p-4 md:p-6">
     <Link left to="/lab">Lab</Link>
     <Title>Streaming test</Title>
+    <pre>{{ videostreams }}</pre>
     <div class="grid grid-cols-2 gap-8">
       <Stack>
         <Title medium>No transcoding</Title>

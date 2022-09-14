@@ -1,24 +1,24 @@
-// We keep this code separare from videostream.ts
-// since these function are provider-specific and can change
-
 // @TODO: Move to config
-const streamUrl = "https://streaming.elektron.art/hls/${streamkey}.m3u8";
-const inputRawUrl = "rtmp://streaming.elektron.art/raw";
-const inputTranscodeUrl = "rtmp://streaming.elektron.art/transcode";
+const ingestUrl = "rtmp://streaming.elektron.art/raw";
+const ingestTranscodeUrl = "rtmp://live-eu1.icareus.com:1935/suitelive";
 
-const formatVideostreamUrl = (streamkey: string) => {
-  return replaceTokens(streamUrl as string, { streamkey });
-};
+const streamTranscodeKey = "elektron";
+
+const streamUrl = "https://streaming.elektron.art/hls/${streamkey}.m3u8";
+const streamTranscodeUrl =
+  "https://icareus-eu4-live.secure2.footprint.net/suitelive/ngrp:123636901/playlist.m3u8";
 
 export const getVideostreams = (keys) => {
   if (!keys) return [];
   const streamkeys = split(keys);
   return streamkeys.map((streamkey: string) => {
+    const url =
+      streamkey === streamTranscodeKey ? streamTranscodeUrl : streamUrl;
     return {
+      ingestUrl,
+      ingestTranscodeUrl,
       streamkey,
-      url: formatVideostreamUrl(streamkey),
-      inputRawUrl,
-      inputTranscodeUrl,
+      url: replaceTokens(url as string, { streamkey }),
     };
   });
 };

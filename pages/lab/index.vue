@@ -5,8 +5,8 @@
       <Title>Tools for editors</Title>
       <div class="grid w-full auto-rows-fr gap-5 md:grid-cols-4">
         <LinkCard to="/lab/streaming" class="border-re aspect-video pr-8">
-          <Title small>Streaming</Title>
-          <p class="text-gray-500">New streaming server</p>
+          <Title small>Videostreams</Title>
+          <p class="text-gray-500">Testing video providers</p>
         </LinkCard>
         <LinkCard to="/lab/files" class="border-re aspect-video pr-8">
           <Title small>Files</Title>
