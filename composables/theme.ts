@@ -1,6 +1,8 @@
 import { useCssVar } from "@vueuse/core";
 
 const vars = [
+  /* TODO Remove then not needed */
+  [useCssVar("--fg"), ["255 255 255", "0 0 0"]],
   [useCssVar("--white"), ["255 255 255", "0 0 0"]],
   [useCssVar("--gray-50"), ["250 250 250", "23 23 23"]],
   [useCssVar("--gray-100"), ["245 245 245", "38 38 38"]],
@@ -13,6 +15,8 @@ const vars = [
   [useCssVar("--gray-800"), ["38 38 38", "245 245 245"]],
   [useCssVar("--gray-900"), ["23 23 23", "250 250 250"]],
   [useCssVar("--black"), ["0 0 0", "255 255 255"]],
+  /* TODO Remove then not needed */
+  [useCssVar("--bg"), ["0 0 0", "255 255 255"]],
 ];
 
 export const useTheme = () => {
