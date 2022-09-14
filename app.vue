@@ -14,10 +14,13 @@ useHead({
   meta: [{ name: "og:title", content: titleTemplate(route.meta.title) }],
 });
 
-if (process.server) {
-  const nuxtApp = useNuxtApp();
-  nuxtApp.ssrContext.event.res.setHeader("ttl", route.meta.ttl || 60 * 10); // 10 minutes
-}
+// Uncomment when using Netifly on-demand builder
+// https://nitro.unjs.io/deploy/providers/netlify#on-demand-builders
+
+// if (process.server) {
+//   const nuxtApp = useNuxtApp();
+//   nuxtApp.ssrContext.event.res.setHeader("ttl", route.meta.ttl || 60 * 10); // 10 minutes
+// }
 </script>
 
 <template>
