@@ -3,7 +3,7 @@ import path from "path";
 
 export default defineConfig({
   root: "lib",
-  server: { port: 3001, open: true },
+  server: { port: 3000, open: true },
   resolve: {
     alias: {
       vue: "vue/dist/vue.esm-bundler.js",
