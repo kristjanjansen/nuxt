@@ -1,27 +1,26 @@
 <script setup lang="ts">
-const videostreams = getVideostreams("elektron,test");
+const [stream1, stream2] = getVideostreams("elektron,anything");
 
-const url1 = "https://streaming.elektron.art/hls/test1.m3u8";
 const video1 = ref<HTMLVideoElement | null>(null);
-useVideostream(video1, url1);
+useVideostream(video1, stream1.url);
 
 const video2 = ref<HTMLVideoElement | null>(null);
-const url2 = "https://streaming.elektron.art/hls/test2.m3u8";
-useVideostream(video2, url2);
+useVideostream(video2, stream2.url);
 </script>
 
 <template>
   <Stack class="p-4 md:p-6">
     <Link left to="/lab">Lab</Link>
     <Title>Streaming test</Title>
-    <pre>{{ videostreams }}</pre>
     <div class="grid grid-cols-2 gap-8">
       <Stack>
-        <Title medium>No transcoding</Title>
-        <p>Input stream URL</p>
-        <pre>rtmp://streaming.elektron.art/raw</pre>
-        <p>Input streamkey</p>
-        <pre>test1</pre>
+        <Title medium>Levira streaming with transcoding</Title>
+        <Title small>Input</Title>
+        <pre class="text-green-500">{{ stream1.ingest }}</pre>
+        <Title small>Streamkey in OBS etc</Title>
+        <pre class="text-green-500">{{ stream1.streamkey }}</pre>
+        <Title small>Streamkey in Strapi</Title>
+        <pre class="text-blue-500">elektron</pre>
         <video
           ref="video1"
           class="aspect-video w-full"
@@ -32,17 +31,18 @@ useVideostream(video2, url2);
           muted
           controls
         />
-        <p>Output stream URL</p>
-        <pre>{{ url1 }} </pre>
-        <a :href="url1" target="_blank" class="underline">Open in Safari</a>
+        <Title small>HLS output</Title>
+        <div class="break-all font-mono">{{ stream1.url }}</div>
+        <Link :href="stream1.url" target="_blank">Open stream in Safari</Link>
       </Stack>
-
       <Stack>
-        <Title medium>With transcoding</Title>
-        <p>Input stream URL:</p>
-        <pre>rtmp://streaming.elektron.art/transcode</pre>
-        <p>Input streamkey</p>
-        <pre>test2</pre>
+        <Title medium>Elektron streaming without transcoding</Title>
+        <Title small>Input</Title>
+        <pre class="text-green-500">{{ stream2.ingest }}</pre>
+        <Title small>Streamkey in OBS etc</Title>
+        <pre class="text-green-500">{{ stream2.streamkey }}</pre>
+        <Title small>Streamkey in Strapi</Title>
+        <pre class="text-blue-500">anything</pre>
         <video
           ref="video2"
           class="aspect-video w-full"
@@ -53,9 +53,9 @@ useVideostream(video2, url2);
           muted
           controls
         />
-        <p>Output stream URL</p>
-        <pre>{{ url2 }} </pre>
-        <a :href="url2" target="_blank" class="underline">Open in Safari</a>
+        <Title small>HLS output</Title>
+        <div class="break-all font-mono">{{ stream2.url }}</div>
+        <Link :href="stream2.url" target="_blank">Open stream in Safari</Link>
       </Stack>
     </div>
   </Stack>

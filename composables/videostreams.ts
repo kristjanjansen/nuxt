@@ -1,22 +1,27 @@
 // @TODO: Move to config
-const ingestUrl = "rtmp://streaming.elektron.art/raw";
+const ingestRawUrl = "rtmp://streaming.elektron.art/raw";
 const ingestTranscodeUrl = "rtmp://live-eu1.icareus.com:1935/suitelive";
 
-const streamTranscodeKey = "elektron";
+const streamTranscodeKeyIn = "elektron";
+const streamTranscodeKeyOut = "123636901";
 
-const streamUrl = "https://streaming.elektron.art/hls/${streamkey}.m3u8";
+const streamRawUrl = "https://streaming.elektron.art/hls/${streamkey}.m3u8";
 const streamTranscodeUrl =
   "https://icareus-eu4-live.secure2.footprint.net/suitelive/ngrp:123636901/playlist.m3u8";
 
 export const getVideostreams = (keys) => {
   if (!keys) return [];
   const streamkeys = split(keys);
-  return streamkeys.map((streamkey: string) => {
+  return streamkeys.map((key: string) => {
+    const ingest =
+      key === streamTranscodeKeyIn ? ingestTranscodeUrl : ingestRawUrl;
+    const streamkey =
+      key === streamTranscodeKeyIn ? streamTranscodeKeyOut : key;
     const url =
-      streamkey === streamTranscodeKey ? streamTranscodeUrl : streamUrl;
+      key === streamTranscodeKeyIn ? streamTranscodeUrl : streamRawUrl;
+
     return {
-      ingestUrl,
-      ingestTranscodeUrl,
+      ingest,
       streamkey,
       url: replaceTokens(url as string, { streamkey }),
     };
