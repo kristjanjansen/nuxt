@@ -215,15 +215,7 @@
   --gray-700: #121212;
 */
 
-  rgb(--gray-100): #f2f2f2;
-  rgb(--gray-200): #e0e0e0;
-  rgb(--gray-300): #9d9d9d;
-  rgb(--gray-400): #828282;
-  rgb(--gray-500): #454545;
-  rgb(--gray-600): #333333;
-  rgb(--gray-700): #121212;
-
-  --accent: #7bef87;
+  --accent: rgb(123, 239, 135);
   --breadboard-tile-size: calc(100vw / 4);
   --font-mono: "mono", monospace;
   --w-0: 0px;

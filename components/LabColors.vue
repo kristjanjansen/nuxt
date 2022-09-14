@@ -1,5 +1,11 @@
 <script setup>
 const colors = [
+  [
+    "var(--accent)",
+    "rgb(123, 239, 135)",
+    "rgb(74 222 128)",
+    "var(--accent) green-400",
+  ],
   ["var(--fg)", "#ffffff", "rgb(var(--white))"],
   ["N/A", "", "rgb(var(--gray-50))"],
   ["var(--gray-100)", "#f2f2f2", "rgb(var(--gray-100))"],
@@ -17,7 +23,7 @@ const colors = [
 <template>
   <div>
     <div
-      v-for="[thenName, thenColor, nowColor] in colors"
+      v-for="[thenName, thenColor, nowColor, nowName] in colors"
       class="grid grid-cols-2"
     >
       <div :style="{ background: thenColor }" class="relative h-20">
@@ -31,7 +37,7 @@ const colors = [
         <div
           class="absolute top-0 left-0 bg-[black] px-2 font-mono text-sm text-[white]"
         >
-          {{ nowColor }}
+          {{ nowName || nowColor }}
         </div>
       </div>
     </div>
