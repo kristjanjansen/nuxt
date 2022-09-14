@@ -77,7 +77,7 @@ input[type="range"] {
   appearance: none;
   width: 100%;
   height: var(--h-px);
-  background-color: var(rgb(--gray-300));
+  background-color: rgb(var(--gray-300));
   background-image: linear-gradient(var(--accent), var(--accent));
   background-repeat: no-repeat;
 }
@@ -118,13 +118,13 @@ input[type="range"]::-ms-thumb {
   transition: background 0.2s ease-in-out;
 }
 input[type="range"]::-webkit-slider-thumb:hover {
-  background: var(rgb(--gray-300));
+  background: rgb(var(--gray-300));
 }
 input[type="range"]::-moz-range-thumb:hover {
-  background: var(rgb(--gray-300));
+  background: rgb(var(--gray-300));
 }
 input[type="range"]::-ms-thumb:hover {
-  background: var(rgb(--gray-300));
+  background: rgb(var(--gray-300));
 }
 /* Input Track */
 input[type="range"]::-webkit-slider-runnable-track {

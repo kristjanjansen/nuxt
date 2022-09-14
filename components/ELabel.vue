@@ -22,7 +22,7 @@ const { fieldId, layout = "vertical", disabled = false } = defineProps<Props>();
   font-family: var(--font-mono);
   font-size: var(--text-xs);
   text-transform: uppercase;
-  color: var(rgb(--gray-300));
+  color: rgb(var(--gray-300));
   line-height: 1;
   display: inline-block;
 }
@@ -33,7 +33,7 @@ const { fieldId, layout = "vertical", disabled = false } = defineProps<Props>();
   margin-left: var(--p-1);
 }
 .ELabel.disabled {
-  color: var(rgb(--gray-500));
+  color: rgb(var(--gray-500));
   cursor: not-allowed;
 }
 </style>

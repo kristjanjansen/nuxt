@@ -4,7 +4,7 @@ const colors = [
     "var(--accent)",
     "rgb(123, 239, 135)",
     "rgb(74 222 128)",
-    "var(--accent) green-400",
+    "var(--accent) / bg-green-400",
   ],
   ["var(--fg)", "#ffffff", "rgb(var(--white))"],
   ["N/A", "", "rgb(var(--gray-50))"],
