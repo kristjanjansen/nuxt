@@ -13,7 +13,7 @@ const handleError = () => clearError({ redirect: "/" });
     <Nav />
     <Stack class="h-full p-4 md:p-6">
       <Title>Error</Title>
-      <pre>{{ error }}</pre>
+      <div class="whitespace-pre-wrap font-mono text-gray-500">{{ error }}</div>
       <Button @click="handleError">Back to frontpage</Button>
     </Stack>
     <div class="pointer-events-none fixed inset-0 border border-gray-700" />

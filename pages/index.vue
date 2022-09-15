@@ -5,7 +5,7 @@ import IconUnmuted from "~icons/radix-icons/speaker-loud";
 
 // Page data
 
-const { data: frontpage, error: frontpageError } = useFrontPage();
+const { data: frontpage, error: frontpageError } = await useFrontPage();
 
 // Video
 
