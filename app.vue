@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import "./styles.css";
+import "./estyles.css";
 
 const route: any = useRoute();
 const siteName = "elektron.art";
