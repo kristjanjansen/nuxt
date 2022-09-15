@@ -15,3 +15,6 @@ export function remap(
 ): number {
   return ((value - start1) / (stop1 - start1)) * (stop2 - start2) + start2;
 }
+
+export const average = (arr: number[]) =>
+  Math.floor(arr.reduce((a, b) => a + b, 0) / arr.length);

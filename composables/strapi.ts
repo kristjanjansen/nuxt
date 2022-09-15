@@ -24,7 +24,7 @@ export const useEvents = (params: Strapi4RequestParams = {}) => {
 };
 
 export const useEventBySlug = (
-  slug: any,
+  slug: string,
   params: Strapi4RequestParams = {}
 ) => {
   return useFind(
@@ -71,7 +71,7 @@ export const useProjects = (params: Strapi4RequestParams = {}) => {
 };
 
 export const useProjectBySlug = (
-  slug: any,
+  slug: string,
   params: Strapi4RequestParams = {}
 ) => {
   return useFind(
@@ -131,6 +131,28 @@ export const useAboutPage = (params: Strapi4RequestParams = {}) => {
     ),
     (data) => processCards(data)
   );
+};
+
+export const usePageBySlug = (
+  slug: string,
+  params: Strapi4RequestParams = {}
+) => {
+  return useFind(
+    "pages",
+    merge(
+      {
+        filters: {
+          slug: { $eq: slug },
+        },
+        populate: ["localizations"],
+      },
+      params
+    ),
+    (pages) => pages.map(processPage)
+  ).then((res) => {
+    res.data.value = res.data.value?.[0];
+    return res;
+  });
 };
 
 export const usePodcastPage = (params: Strapi4RequestParams = {}) => {
@@ -281,6 +303,7 @@ const processLocalizations = (item) => {
     ["intros", "intro"],
     ["descriptions", "description"],
     ["detailss", "details"],
+    ["contents", "content"],
   ];
   keys.forEach(([multiple, single]) => {
     item[multiple] = [
@@ -300,6 +323,7 @@ const proccessMarkdown = (item) => {
   item.intros = item.intros.map(parseMarkdown);
   item.descriptions = item.descriptions.map(parseMarkdown);
   item.detailss = item.detailss.map(parseMarkdown);
+  item.contents = item.contents.map(parseMarkdown);
   return item;
 };
 

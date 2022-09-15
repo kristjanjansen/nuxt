@@ -53,6 +53,7 @@ const { idle } = useIdle(5000);
 <template>
   <FadeTransition>
     <div
+      ref="draggable"
       v-show="!getDocked()"
       :style="style"
       class="w-full cursor-grab touch-none select-none overflow-hidden border border-gray-700 bg-black/70 backdrop-blur-lg transition-colors md:fixed md:w-fit md:border-gray-500 md:hover:border-gray-400"
@@ -61,7 +62,7 @@ const { idle } = useIdle(5000);
         isDragging ? '!md:border-gray-100 md:cursor-grabbing' : '',
       ]"
     >
-      <div ref="draggable">
+      <div>
         <div class="relative">
           <FadeTransition>
             <button

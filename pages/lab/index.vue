@@ -77,7 +77,6 @@
           <Title small>Social cards</Title>
           <p class="text-gray-500">Going social using generative art</p>
         </LinkCard>
-
         <LinkCard to="/lab/draggables" class="aspect-video pr-8">
           <Title small>Dragggable</Title>
           <p class="text-gray-500">Testing Draggable component</p>
@@ -85,6 +84,10 @@
         <LinkCard to="/lab/videobackground" class="aspect-video pr-8">
           <Title small>Video background</Title>
           <p class="text-gray-500">Styling the video</p>
+        </LinkCard>
+        <LinkCard to="/lab/coords" class="aspect-video pr-8">
+          <Title small>Text coordinates</Title>
+          <p class="text-gray-500">Assign unique XY coordinates to text</p>
         </LinkCard>
       </div>
     </Stack>

@@ -1,13 +1,8 @@
 <script setup lang="ts">
 const route = useRoute();
-const slug = route.params.episode;
+const episodeId = route.params.episode_id;
 
-const { data: podcast, error } = usePodcast();
-const item = computed(() =>
-  podcast.value?.items.find((i) =>
-    i.itunes.episode ? i.itunes.episode === slug : i.guid === slug
-  )
-);
+const { data: episode, error } = await usePodcastByEpisodeId(episodeId);
 </script>
 
 <template>
@@ -20,7 +15,7 @@ const item = computed(() =>
       Podcast
     </Link>
     <div class="bg-black md:absolute md:w-[60vw]">
-      <PodcastItem :item="item" />
+      <PodcastEpisode :episode="episode" />
     </div>
   </Stack>
 </template>

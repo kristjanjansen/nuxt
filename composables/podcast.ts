@@ -24,8 +24,18 @@ export const usePodcast = () =>
     return podcast;
   });
 
+export const usePodcastByEpisodeId = async (episodeId: any) => {
+  const { data: podcast, error } = await usePodcast();
+  const data = computed(() =>
+    podcast.value?.items.find((i) =>
+      i.itunes.episode ? i.itunes.episode === episodeId : i.guid === episodeId
+    )
+  );
+  return { data, error };
+};
+
 export interface Podcast {
-  items: PodcastItem[];
+  items: PodcastEpisode[];
   feedUrl: string;
   image: Image;
   paginationLinks: PaginationLinks;
@@ -40,7 +50,7 @@ export interface Podcast {
   itunes: Itunes2;
 }
 
-export interface PodcastItem {
+export interface PodcastEpisode {
   creator: string;
   title: string;
   link: string;

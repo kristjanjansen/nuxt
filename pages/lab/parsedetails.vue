@@ -1,6 +1,5 @@
 <script setup lang="ts">
 const { data: projects } = await useProjects();
-const { data: events } = await useEvents();
 const debug = ref(false);
 const input = ref("hello: world");
 </script>
@@ -29,21 +28,6 @@ const input = ref("hello: world");
         </div>
         <Details
           :details="parseDetails(project.details)"
-          :class="[debug ? 'debug' : '']"
-        />
-      </template>
-      <template v-for="event in events.filter((e) => e.details)">
-        <div>
-          <div class="overflow-auto whitespace-pre-wrap font-mono">
-            {{ event.details }}
-          </div>
-          <Link right class="mt-16" :to="event.eventLink">Visit event</Link>
-        </div>
-        <div class="overflow-auto whitespace-pre-wrap font-mono">
-          {{ parseDetails(event.details) }}
-        </div>
-        <Details
-          :details="parseDetails(event.details)"
           :class="[debug ? 'debug' : '']"
         />
       </template>

@@ -8,13 +8,13 @@ const { data: podcastPage, error: podcastPageError } = await usePodcastPage();
 const { data: podcast, error: podcastError } = await usePodcast();
 
 const { lang } = useLang();
-const items = computed(() =>
+const episodes = computed(() =>
   podcast.value?.items.filter((i) => i.itunes.episode)
 );
 </script>
 <template>
   <ErrorCard v-if="podcastPageError || podcastError" />
-  <Stack class="gap-8 p-4 md:p-6">
+  <Stack v-else class="gap-8 p-4 md:p-6">
     <div class="grid gap-8 md:grid-cols-[2fr_4fr]">
       <Stack>
         <Link left to="/" />
@@ -39,8 +39,10 @@ const items = computed(() =>
         <Stack>
           <Content :content="podcastPage.descriptions[lang]" />
         </Stack>
-        <Stack v-if="items">
-          <PodcastItem v-for="item in items" :item="item" />
+        <Stack v-if="episodes">
+          <Card v-for="episode in episodes">
+            <PodcastEpisode :episode="episode" />
+          </Card>
         </Stack>
       </div>
     </Stack>
