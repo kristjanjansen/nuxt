@@ -1,5 +1,6 @@
 import { useStorage } from "@vueuse/core";
 
+//TODO: Use config
 const fientaUrl = "https://fienta.com/api/v1";
 const fientaToken = "5d3c8e89f216ac38b9a7f6add38f6f74";
 

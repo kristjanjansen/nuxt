@@ -1,5 +1,4 @@
 import { Strapi4RequestParams } from "@nuxtjs/strapi/dist/runtime/types";
-import { marked } from "marked";
 import { merge, has, isArray, head, forEach, isObject } from "lodash-es";
 import { compareAsc } from "date-fns";
 
@@ -294,10 +293,6 @@ const processLocalizations = (item) => {
     ];
   });
   return item;
-};
-
-export const parseMarkdown = (str: string | null) => {
-  return marked.parse(str || "", { breaks: true });
 };
 
 const proccessMarkdown = (item) => {

@@ -1,9 +1,9 @@
-// const seed = Array.from({ length: 1000 }).map((_) =>
+// const randomNumbers = Array.from({ length: 1000 }).map((_) =>
 //   parseFloat(String(Math.random()).slice(0, 4))
 // );
-// console.log(seed)
+// console.log(randomNumbers)
 
-export const seed = [
+export const randomNumbers = [
   0.6, 0.9, 0.96, 0.69, 0.38, 0.47, 0.23, 0.46, 0.17, 0.83, 0.83, 0.51, 0.2,
   0.52, 0.37, 0.76, 0.29, 0.36, 0.75, 0.94, 0.18, 0.52, 0.87, 0.92, 0.02, 0.27,
   0.05, 0.06, 0.43, 0.19, 0.14, 0.2, 0.2, 0.09, 0.78, 0.01, 0.29, 0.39, 0.41,
@@ -92,7 +92,7 @@ const numberToRandom = (numbers: number[]) => {
   const half = Math.ceil(numbers.length / 2);
   const x = Math.floor(average(numbers.slice(0, half)));
   const y = Math.floor(average(numbers.slice(-half)));
-  return [seed[x % 1000], seed[y % 1000]];
+  return [randomNumbers[x % 1000], randomNumbers[y % 1000]];
 };
 
 const numbersToRandom = (numbers) => {
