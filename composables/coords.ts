@@ -3,6 +3,9 @@
 // );
 // console.log(randomNumbers)
 
+// TODO: Rely on autoload
+import { average } from "~~/composables/math";
+
 export const randomNumbers = [
   0.6, 0.9, 0.96, 0.69, 0.38, 0.47, 0.23, 0.46, 0.17, 0.83, 0.83, 0.51, 0.2,
   0.52, 0.37, 0.76, 0.29, 0.36, 0.75, 0.94, 0.18, 0.52, 0.87, 0.92, 0.02, 0.27,
@@ -83,19 +86,17 @@ export const randomNumbers = [
   0.72, 0.01, 0.44, 0.19, 0.49, 0.62, 0.85, 0.5, 0.55, 0.8,
 ];
 
-const average = (arr: number[]) =>
-  Math.floor(arr.reduce((a, b) => a + b, 0) / arr.length);
+export const stringToNumbers = (str: string) =>
+  [...str].map((s) => s.codePointAt(0));
 
-const stringToNumbers = (str: string) => [...str].map((s) => s.codePointAt(0));
-
-const numberToRandom = (numbers: number[]) => {
+export const numberToRandom = (numbers: number[]) => {
   const half = Math.ceil(numbers.length / 2);
   const x = Math.floor(average(numbers.slice(0, half)));
   const y = Math.floor(average(numbers.slice(-half)));
   return [randomNumbers[x % 1000], randomNumbers[y % 1000]];
 };
 
-const numbersToRandom = (numbers) => {
+export const numbersToRandom = (numbers) => {
   if (numbers.length === 1) {
     const half = Math.ceil(numbers[0] / 2);
     return numberToRandom([numbers[0], half]);
@@ -106,4 +107,12 @@ const numbersToRandom = (numbers) => {
 export const stringToCoords = (str, xSize, ySize) => {
   const [x, y] = numbersToRandom(stringToNumbers(str));
   return [x * xSize, y * ySize];
+};
+
+export const numbersToCoords = (numbers: number[]) => {
+  if (numbers.length === 1) {
+    const half = Math.ceil(numbers[0] / 2);
+    return numberToRandom([numbers[0], half]);
+  }
+  return numberToRandom(numbers);
 };

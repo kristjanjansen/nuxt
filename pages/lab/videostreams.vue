@@ -12,13 +12,15 @@ useVideostream(video2, stream2.url);
   <Stack class="p-4 md:p-6">
     <Link left to="/lab">Lab</Link>
     <Title>Streaming test</Title>
-    <div class="grid grid-cols-2 gap-8">
+    <div class="grid gap-8 md:grid-cols-2">
       <Stack>
         <Title medium>Levira streaming with transcoding</Title>
         <Title small>Input</Title>
-        <pre class="text-green-400">{{ stream1.ingest }}</pre>
+        <div class="break-all font-mono text-green-400">
+          {{ stream1.ingest }}
+        </div>
         <Title small>Streamkey in OBS etc</Title>
-        <pre class="text-green-400">{{ stream1.streamkey }}</pre>
+        <div class="font-mono text-green-400">{{ stream1.streamkey }}</div>
         <Title small>Streamkey in Strapi</Title>
         <pre class="text-blue-500">elektron</pre>
         <video
@@ -38,9 +40,11 @@ useVideostream(video2, stream2.url);
       <Stack>
         <Title medium>Elektron streaming without transcoding</Title>
         <Title small>Input</Title>
-        <pre class="text-green-400">{{ stream2.ingest }}</pre>
+        <div class="break-all font-mono text-green-400">
+          {{ stream2.ingest }}
+        </div>
         <Title small>Streamkey in OBS etc</Title>
-        <pre class="text-green-400">{{ stream2.streamkey }}</pre>
+        <div class="font-mono text-green-400">{{ stream2.streamkey }}</div>
         <Title small>Streamkey in Strapi</Title>
         <pre class="text-blue-500">anything</pre>
         <video
