@@ -24,7 +24,7 @@ const { lang } = useLang();
     </div>
     <div>
       <div v-if="urgency === 'now'" class="flex gap-2">
-        <div class="animate-pulse pr-1 font-bold uppercase text-green-500">
+        <div class="animate-pulse pr-1 font-bold uppercase text-green-400">
           LIVE
         </div>
         <div class="text-gray-500">Started {{ formattedStartAtDistance }}</div>

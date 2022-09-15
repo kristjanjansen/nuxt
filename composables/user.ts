@@ -440,12 +440,6 @@ export function randomName() {
   return `${any(adjectives)} ${any(animals)}`;
 }
 
-// export const useUserId = () =>
-//  useState("user_id", () => useStorage("elektron_user_id", randomString()));
-
-// export const useUserName = () =>
-//  useState("user_name", () => useStorage("elektron_user_name", randomName()));
-
 export const useUserId = () => useStorage("elektron_user_id", randomString());
 
 export const useUserName = () => useStorage("elektron_user_name", randomName());

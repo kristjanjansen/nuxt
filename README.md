@@ -28,3 +28,9 @@ npm run lib:dev
 ```
 npm run lib:build
 ```
+
+### Upgrade deps
+
+```
+npx taze major -w
+```

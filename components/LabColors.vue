@@ -1,11 +1,6 @@
 <script setup>
 const colors = [
-  [
-    "var(--accent)",
-    "rgb(123, 239, 135)",
-    "rgb(74 222 128)",
-    "var(--accent) / bg-green-400",
-  ],
+  ["var(--accent)", "#7bef87", "rgb(var(--green-400))"],
   ["var(--fg)", "#ffffff", "rgb(var(--white))"],
   ["N/A", "", "rgb(var(--gray-50))"],
   ["var(--gray-100)", "#f2f2f2", "rgb(var(--gray-100))"],
