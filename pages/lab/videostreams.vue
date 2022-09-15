@@ -16,9 +16,9 @@ useVideostream(video2, stream2.url);
       <Stack>
         <Title medium>Levira streaming with transcoding</Title>
         <Title small>Input</Title>
-        <pre class="text-green-500">{{ stream1.ingest }}</pre>
+        <pre class="text-green-400">{{ stream1.ingest }}</pre>
         <Title small>Streamkey in OBS etc</Title>
-        <pre class="text-green-500">{{ stream1.streamkey }}</pre>
+        <pre class="text-green-400">{{ stream1.streamkey }}</pre>
         <Title small>Streamkey in Strapi</Title>
         <pre class="text-blue-500">elektron</pre>
         <video
@@ -38,9 +38,9 @@ useVideostream(video2, stream2.url);
       <Stack>
         <Title medium>Elektron streaming without transcoding</Title>
         <Title small>Input</Title>
-        <pre class="text-green-500">{{ stream2.ingest }}</pre>
+        <pre class="text-green-400">{{ stream2.ingest }}</pre>
         <Title small>Streamkey in OBS etc</Title>
-        <pre class="text-green-500">{{ stream2.streamkey }}</pre>
+        <pre class="text-green-400">{{ stream2.streamkey }}</pre>
         <Title small>Streamkey in Strapi</Title>
         <pre class="text-blue-500">anything</pre>
         <video

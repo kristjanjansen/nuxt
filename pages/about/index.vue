@@ -29,7 +29,7 @@ const { lang } = useLang();
           target="_blank"
         >
           <Card
-            class="aspect-video bg-green-400 transition-colors hover:bg-green-500 md:aspect-square"
+            class="aspect-video bg-green-400 transition-colors hover:bg-green-400 md:aspect-square"
             :class="[colClass[card.layout]]"
           >
             <Title medium class="!text-black">{{ card.titles[lang] }}</Title>
@@ -40,7 +40,7 @@ const { lang } = useLang();
           :to="'/page/' + card.title"
         >
           <Card
-            class="aspect-video bg-green-400 transition-colors hover:bg-green-500 md:aspect-square"
+            class="aspect-video bg-green-400 transition-colors hover:bg-green-400 md:aspect-square"
             :class="[colClass[card.layout]]"
           >
             <Title medium class="!text-black">{{ card.titles[lang] }}</Title>

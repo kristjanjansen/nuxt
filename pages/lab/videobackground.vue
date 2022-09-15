@@ -49,6 +49,6 @@ const draggables = useDraggables({
 
 <style>
 input[type="range"] {
-  @apply accent-green-500;
+  @apply accent-green-400;
 }
 </style>
