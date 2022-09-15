@@ -21,7 +21,7 @@ const { file } = defineProps<Props>();
       </div>
     </div>
     <!-- <div v-if="file.start_at">
-      {{ formatVideoDatetime(file.end_at) }}
+      {{ formatLongDatetime(file.end_at) }}
     </div>
     <div v-if="file.duration">{{ file.duration }}</div> -->
     <div v-if="file.duration">{{ file.duration_formatted }}</div>

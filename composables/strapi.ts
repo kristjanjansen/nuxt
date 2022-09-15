@@ -24,21 +24,27 @@ export const useEvents = (params: Strapi4RequestParams = {}) => {
   );
 };
 
-export const useEventBySlug = (slug: any) => {
+export const useEventBySlug = (
+  slug: any,
+  params: Strapi4RequestParams = {}
+) => {
   return useFind(
     "events",
-    {
-      filters: {
-        slug: { $eq: slug },
+    merge(
+      {
+        filters: {
+          slug: { $eq: slug },
+        },
+        populate: [
+          "localizations",
+          "images",
+          "thumbnail",
+          "projects",
+          "projects.thumbnail",
+        ],
       },
-      populate: [
-        "localizations",
-        "images",
-        "thumbnail",
-        "projects",
-        "projects.thumbnail",
-      ],
-    },
+      params
+    ),
     (events) => events.map(processEvent)
   ).then((res) => {
     res.data.value = res.data.value?.[0];
@@ -65,21 +71,27 @@ export const useProjects = (params: Strapi4RequestParams = {}) => {
   );
 };
 
-export const useProjectBySlug = (slug: any) => {
+export const useProjectBySlug = (
+  slug: any,
+  params: Strapi4RequestParams = {}
+) => {
   return useFind(
     "projects",
-    {
-      filters: {
-        slug: { $eq: slug },
+    merge(
+      {
+        filters: {
+          slug: { $eq: slug },
+        },
+        populate: [
+          "localizations",
+          "images",
+          "thumbnail",
+          "events",
+          "events.thumbnail",
+        ],
       },
-      populate: [
-        "localizations",
-        "images",
-        "thumbnail",
-        "events",
-        "events.thumbnail",
-      ],
-    },
+      params
+    ),
     (projects) => projects.map(processProject)
   ).then((res) => {
     res.data.value = res.data.value?.[0];
@@ -112,9 +124,12 @@ export const useFrontPage = (params: Strapi4RequestParams = {}) => {
 export const useAboutPage = (params: Strapi4RequestParams = {}) => {
   return useFind(
     "about",
-    merge({
-      populate: ["cards", "localizations.cards"],
-    }),
+    merge(
+      {
+        populate: ["cards", "localizations.cards"],
+      },
+      params
+    ),
     (data) => processCards(data)
   );
 };
@@ -133,10 +148,10 @@ export const usePodcastPage = (params: Strapi4RequestParams = {}) => {
 };
 
 export const useMessagesHistory = (params: Strapi4RequestParams = {}) => {
-  return useFind("messages", { sort: ["datetime:asc"], ...params });
+  return useFind("messages", merge({ sort: ["datetime:asc"] }, params));
 };
 
-// Public Strapi request wrapper
+// Strapi request wrapper
 
 export const useFind = (
   contentType: string,
@@ -144,6 +159,7 @@ export const useFind = (
   process = (data) => data
 ) => {
   const { find } = useStrapi4();
+  // We create an unique cache key based on function arguments
   const key = JSON.stringify({ contentType, ...params });
   return useAsyncData(key, () =>
     find(contentType, params)
@@ -251,6 +267,16 @@ const processProject = (project) => {
 // Processors
 
 const processLocalizations = (item) => {
+  // Add localizations:
+  //
+  // item.titles = ["Title","Pealkiri"]
+  // ...
+  //
+  // They are used in components as follows:
+  //
+  // const lang = useLang()
+  // {{ item.titles[lang] }}
+
   const keys = [
     ["titles", "title"],
     ["intros", "intro"],

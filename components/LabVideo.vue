@@ -1,13 +1,11 @@
 <script setup lang="ts">
-import { differenceInSeconds, format, parse, sub } from "date-fns";
+import { format } from "date-fns";
 import { scaleTime, scaleLinear, csvParse } from "d3";
 import {
   useElementSize,
   useMediaControls,
   useMouseInElement,
 } from "@vueuse/core";
-import { formatVideoDatetime } from "~~/composables/video";
-import { hsl, translate, scale } from "~~/composables/svg";
 
 type Props = {
   video: any;
@@ -105,9 +103,9 @@ const opacity = (index) => {
       class="aspect-video rounded md:w-[25vw]"
     />
     <Card class="justify-between font-mono text-sm text-gray-500 md:flex">
-      <p>{{ formatVideoDatetime(video.startDatetime) }}</p>
-      <p>{{ formatVideoDatetime(xDatetimeScale.invert(currentX)) }}</p>
-      <p>{{ formatVideoDatetime(video.endDatetime) }}</p>
+      <p>{{ formatLongDatetime(video.startDatetime) }}</p>
+      <p>{{ formatLongDatetime(xDatetimeScale.invert(currentX)) }}</p>
+      <p>{{ formatLongDatetime(video.endDatetime) }}</p>
     </Card>
     <Card
       v-if="userNames.length"

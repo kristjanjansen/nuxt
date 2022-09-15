@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import { parseMarkdown } from "~~/composables/strapi";
 const router = useRouter();
 const route = useRoute();
 const code = ref<string>((route.query.code as string) || "");

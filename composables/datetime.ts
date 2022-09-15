@@ -94,3 +94,6 @@ export const useDatetime = (
 };
 
 export const today = () => formatISO(new Date(), { representation: "date" });
+
+export const formatLongDatetime = (str) =>
+  format(new Date(str), "dd.LL.yyyy HH:mm:ss z");
