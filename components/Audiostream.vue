@@ -9,49 +9,42 @@ type Props = {
 };
 const { url } = defineProps<Props>();
 
-const video = ref<HTMLVideoElement | null>(null);
+const audio = ref<HTMLVideoElement | null>(null);
 
-const { status } = useVideostream(video, url);
+useVideostream(audio, url);
 
-const { volume } = useMediaControls(video);
-onMounted(() => {
-  //muted.value = true;
-  //video.value.play();
-});
+const { playing } = useMediaControls(audio);
 </script>
 
 <template>
   <div class="flex justify-center px-4">
     <audio
-      ref="video"
-      class="opacity-70"
+      ref="audio"
+      class="hidden"
       autoplay
       playsinline
       controls
       crossorigin="anonymous"
       loop
     />
-    <!-- <div>
+    <div>
       <div class="relative flex h-20 justify-center">
         <IconCircle
           class="absolute h-20 w-20"
-          :class="[
-            !muted ? 'scale-125 animate-pulse blur-xl' : '',
-            status === 'playing' ? 'animate-pulse' : '',
-          ]"
+          :class="[playing ? 'scale-125 animate-pulse blur-xl' : 'opacity-0']"
         />
-        <IconCircle class="absolute h-20 w-20 text-black/50" />
+        <IconCircle class="absolute h-20 w-20 scale-95 text-black" />
         <IconPlay
-          v-if="muted"
+          v-if="!playing"
           class="absolute h-20 w-20"
-          @click="muted = false"
+          @click="playing = true"
         />
         <IconPause
-          v-if="!muted"
+          v-if="playing"
           class="absolute h-20 w-20"
-          @click="muted = true"
+          @click="playing = false"
         />
       </div>
-    </div> -->
+    </div>
   </div>
 </template>

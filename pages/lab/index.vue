@@ -89,6 +89,10 @@
           <Title small>Text coordinates</Title>
           <p class="text-gray-500">Assign unique XY coordinates to text</p>
         </LinkCard>
+        <LinkCard to="/lab/audio" class="aspect-video pr-8">
+          <Title small>Audiostream</Title>
+          <p class="text-gray-500">A custom audio player</p>
+        </LinkCard>
       </div>
     </Stack>
   </div>
