@@ -7,9 +7,9 @@ const { lang } = useLang();
 </script>
 
 <template>
-  <div class="grid gap-4 p-4 md:w-[40vw] md:grid-cols-[1fr_3fr]">
+  <div class="grid gap-4 p-4 md:grid-cols-[auto_1fr]">
     <Image
-      class="pointer-events-none aspect-square rounded object-cover"
+      class="pointer-events-none aspect-square h-32 w-32 rounded object-cover"
       :image="event.thumbnail"
     />
     <Stack>

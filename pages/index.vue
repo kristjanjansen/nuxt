@@ -33,9 +33,9 @@ const event2 = computed(() => {
 const { data: podcast } = usePodcast();
 
 const d = useDraggables({
-  event1: { x: 250, y: 250 },
-  event2: { x: 500, y: 150 },
-  podcast: { x: 600, y: 450 },
+  event1: { x: 200, y: 250 },
+  event2: { x: 400, y: 150 },
+  podcast: { x: 700, y: 300 },
 });
 
 // Utilities
@@ -63,13 +63,13 @@ const { lang } = useLang();
         :content="frontpage?.descriptions[lang]"
       />
       <Draggable v-if="podcast?.items?.length" v-bind="d.podcast">
-        <PodcastEpisode class="p-5 md:w-[50vw]" :episode="podcast.items[0]" />
+        <PodcastEpisode :episode="podcast.items[0]" class="p-5 md:w-[30vw]" />
       </Draggable>
       <Draggable v-if="event1" v-bind="d.event1">
-        <FrontpageEvent :event="event1" />
+        <FrontpageEvent :event="event1" class="md:w-[30vw]" />
       </Draggable>
       <Draggable v-if="event2" v-bind="d.event2">
-        <FrontpageEvent :event="event2" />
+        <FrontpageEvent :event="event2" class="md:w-[30vw]" />
       </Draggable>
     </Stack>
     <button
