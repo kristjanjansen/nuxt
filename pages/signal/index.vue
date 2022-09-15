@@ -8,7 +8,7 @@ const { data: podcastPage, error: podcastPageError } = await usePodcastPage();
 const { data: podcast, error: podcastError } = await usePodcast();
 
 const { lang } = useLang();
-const items = computed(() =>
+const episodes = computed(() =>
   podcast.value?.items.filter((i) => i.itunes.episode)
 );
 </script>
@@ -39,8 +39,10 @@ const items = computed(() =>
         <Stack>
           <Content :content="podcastPage.descriptions[lang]" />
         </Stack>
-        <Stack v-if="items">
-          <PodcastEpisode v-for="item in items" :item="item" />
+        <Stack v-if="episodes">
+          <Card v-for="episode in episodes">
+            <PodcastEpisode :episode="episode" />
+          </Card>
         </Stack>
       </div>
     </Stack>

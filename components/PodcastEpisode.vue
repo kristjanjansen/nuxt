@@ -3,9 +3,9 @@ import { PodcastEpisode } from "~~/composables/podcast";
 import { formatDatetime } from "~~/composables/datetime";
 
 interface Props {
-  item: PodcastEpisode;
+  episode: PodcastEpisode;
 }
-const { item } = defineProps<Props>();
+const { episode } = defineProps<Props>();
 const { theme } = useTheme();
 const { lang } = useLang();
 </script>
@@ -13,29 +13,30 @@ const { lang } = useLang();
 <template>
   <div class="gap-6 md:flex">
     <div class="shrink-0">
-      <img class="h-32 w-32 rounded" :src="item.itunes.image" />
+      <img class="h-32 w-32 rounded" :src="episode.itunes.image" />
     </div>
     <Stack>
-      <NuxtLink :to="'/signal/' + (item.itunes.episode || item.guid)">
-        <Title medium>{{ item.title }}</Title>
+      <NuxtLink :to="'/signal/' + (episode.itunes.episode || episode.guid)">
+        <Title medium>{{ episode.title }}</Title>
       </NuxtLink>
       <!-- @TODO: Edit the content to remove this -->
       <div class="text-sm text-gray-500">
-        {{ formatDatetime(new Date(item.isoDate)) }}
+        {{ formatDatetime(new Date(episode.isoDate)) }}
       </div>
       <Content
-        :breakall="item.itunes.episode === '2'"
-        :content="item['content:encoded']"
+        :breakall="episode.itunes.episode === '2'"
+        :content="episode['content:encoded']"
       />
-      <Link down :to="item.enclosure.url">
+      <Link down :to="episode.enclosure.url" target="_blank">
         {{ ["Download", "Laadi alla"][lang] }}
-        {{ Math.floor(parseFloat(item.enclosure.length) / 1024 / 1024) }}MB MP3
+        {{ Math.floor(parseFloat(episode.enclosure.length) / 1024 / 1024) }}MB
+        MP3
       </Link>
       <audio
         class="w-full"
         :class="['invert', ''][theme]"
         controls
-        :src="item.enclosure.url"
+        :src="episode.enclosure.url"
       />
     </Stack>
   </div>

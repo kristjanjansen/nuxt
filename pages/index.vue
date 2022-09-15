@@ -28,9 +28,14 @@ const event2 = computed(() => {
     : null;
 });
 
+// Podcast
+
+const { data: podcast } = usePodcast();
+
 const d = useDraggables({
   event1: { x: 250, y: 250 },
-  event2: { x: 600, y: 150 },
+  event2: { x: 500, y: 150 },
+  podcast: { x: 600, y: 450 },
 });
 
 // Utilities
@@ -57,6 +62,9 @@ const { lang } = useLang();
         class="w-auto font-title text-xl text-white md:w-[30vw] md:text-2xl"
         :content="frontpage?.descriptions[lang]"
       />
+      <Draggable v-if="podcast?.items?.length" v-bind="d.podcast">
+        <PodcastEpisode class="p-5 md:w-[50vw]" :episode="podcast.items[0]" />
+      </Draggable>
       <Draggable v-if="event1" v-bind="d.event1">
         <FrontpageEvent :event="event1" />
       </Draggable>
