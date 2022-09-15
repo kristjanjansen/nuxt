@@ -40,7 +40,7 @@ const items = computed(() =>
           <Content :content="podcastPage.descriptions[lang]" />
         </Stack>
         <Stack v-if="items">
-          <PodcastItem v-for="item in items" :item="item" />
+          <PodcastEpisode v-for="item in items" :item="item" />
         </Stack>
       </div>
     </Stack>

@@ -25,7 +25,7 @@ export const usePodcast = () =>
   });
 
 export interface Podcast {
-  items: PodcastItem[];
+  items: PodcastEpisode[];
   feedUrl: string;
   image: Image;
   paginationLinks: PaginationLinks;
@@ -40,7 +40,7 @@ export interface Podcast {
   itunes: Itunes2;
 }
 
-export interface PodcastItem {
+export interface PodcastEpisode {
   creator: string;
   title: string;
   link: string;

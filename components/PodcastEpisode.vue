@@ -1,9 +1,9 @@
 <script setup lang="ts">
-import { PodcastItem } from "~~/composables/podcast";
+import { PodcastEpisode } from "~~/composables/podcast";
 import { formatDatetime } from "~~/composables/datetime";
 
 interface Props {
-  item: PodcastItem;
+  item: PodcastEpisode;
 }
 const { item } = defineProps<Props>();
 const { theme } = useTheme();
@@ -11,11 +11,11 @@ const { lang } = useLang();
 </script>
 
 <template>
-  <Card class="p-0 md:flex">
-    <div class="shrink-0 p-4">
+  <div class="gap-6 md:flex">
+    <div class="shrink-0">
       <img class="h-32 w-32 rounded" :src="item.itunes.image" />
     </div>
-    <Stack class="border-t border-gray-700 p-4 md:border-t-0 md:border-l">
+    <Stack>
       <NuxtLink :to="'/signal/' + (item.itunes.episode || item.guid)">
         <Title medium>{{ item.title }}</Title>
       </NuxtLink>
@@ -38,5 +38,5 @@ const { lang } = useLang();
         :src="item.enclosure.url"
       />
     </Stack>
-  </Card>
+  </div>
 </template>

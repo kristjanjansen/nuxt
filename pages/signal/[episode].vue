@@ -20,7 +20,7 @@ const item = computed(() =>
       Podcast
     </Link>
     <div class="bg-black md:absolute md:w-[60vw]">
-      <PodcastItem :item="item" />
+      <PodcastEpisode :item="item" />
     </div>
   </Stack>
 </template>
