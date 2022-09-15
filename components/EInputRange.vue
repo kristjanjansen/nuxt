@@ -78,7 +78,10 @@ input[type="range"] {
   width: 100%;
   height: var(--h-px);
   background-color: rgb(var(--gray-300));
-  background-image: linear-gradient(var(--accent), var(--accent));
+  background-image: linear-gradient(
+    rgb(var(--green-400)),
+    rgb(var(--green-400))
+  );
   background-repeat: no-repeat;
 }
 /* Input Thumb */

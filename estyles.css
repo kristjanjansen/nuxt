@@ -203,19 +203,6 @@
   --opacity-95: 0.95;
   --opacity-100: 1;
 
-  /*
-  --white: #ffffff;
-  --black: #000000;
-  --gray-100: #f2f2f2;
-  --gray-200: #e0e0e0;
-  --gray-300: #9d9d9d;
-  --gray-400: #828282;
-  --gray-500: #454545;
-  --gray-600: #333333;
-  --gray-700: #121212;
-*/
-
-  --accent: rgb(123, 239, 135);
   --breadboard-tile-size: calc(100vw / 4);
   --font-mono: "mono", monospace;
   --w-0: 0px;
@@ -252,4 +239,8 @@
   --rounded-3xl: 1.25rem;
   --rounded-4xl: 2.5rem;
   --dock-item-size: 6rem;
+
+  /* New */
+
+  --green-400: 74 222 128;
 }
