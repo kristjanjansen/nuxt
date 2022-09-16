@@ -9,7 +9,7 @@ const menu = ref(false);
 
 <template>
   <div
-    class="sticky top-0 z-50 grid grid-cols-1 bg-black/90 md:grid-cols-[1fr_1fr_1fr_1fr_1fr_1fr_0.5fr_0.5fr]"
+    class="sticky top-0 z-50 grid grid-cols-1 bg-black/90 md:grid-cols-[1fr_1fr_1fr_1fr_1fr_1fr_0.3fr_0.3fr]"
   >
     <div
       class="flex h-10 w-full items-center justify-between border border-gray-700"
@@ -91,7 +91,7 @@ const menu = ref(false);
       :class="[menu ? 'block' : 'hidden']"
     >
       <NavLink>
-        {{ [["Night", "Öö"][lang], ["Day", "Päev"][lang]][theme] }}
+        {{ [["Nite", "Öö"][lang], ["Day", "Päev"][lang]][theme] }}
       </NavLink>
     </button>
   </div>
