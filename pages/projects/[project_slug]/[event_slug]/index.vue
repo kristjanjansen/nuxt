@@ -8,9 +8,9 @@ const { lang } = useLang();
 
 <template>
   <ErrorCard v-if="error" />
-  <Stack v-else class="debug items-stretch p-4 md:p-6">
-    <div class="debug grid md:grid-cols-[5fr_1fr]">
-      <div class="debug grid gap-8 md:grid-cols-[1fr_2fr]">
+  <Stack v-else class="items-stretch p-4 md:p-6">
+    <div class="grid md:grid-cols-[5fr_1fr]">
+      <div class="grid gap-8 md:grid-cols-[1fr_2fr]">
         <Stack>
           <Link left :to="event.projectLink">
             {{ ["Project", "Projekt"][lang] }}
@@ -39,10 +39,10 @@ const { lang } = useLang();
         v-for="image in event.images"
       />
     </div>
-    <div class="debug grid md:grid-cols-[5fr_1fr]">
+    <div class="grid md:grid-cols-[5fr_1fr]">
       <Card
         v-if="event.details || event.description"
-        class="debug grid gap-8 md:grid-cols-[1fr_2fr]"
+        class="grid gap-8 md:grid-cols-[1fr_2fr]"
       >
         <Details :details="parseDetails(event.detailss[lang])" />
         <Content :content="event.descriptions[lang]" />
