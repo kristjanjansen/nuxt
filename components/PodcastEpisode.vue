@@ -11,7 +11,7 @@ const { lang } = useLang();
 </script>
 
 <template>
-  <div class="gap-6 md:flex">
+  <div class="grid gap-4 md:grid-cols-[auto_auto]">
     <div class="shrink-0">
       <img class="h-32 w-32 rounded" :src="episode.itunes.image" />
     </div>

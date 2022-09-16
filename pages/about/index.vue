@@ -29,10 +29,13 @@ const { lang } = useLang();
           target="_blank"
         >
           <Card
-            class="aspect-video bg-green-400 transition-colors hover:bg-green-400 md:aspect-square"
+            class="flex aspect-video flex-col justify-between bg-green-400 transition-colors hover:bg-green-400 md:aspect-square"
             :class="[colClass[card.layout]]"
           >
-            <Title medium class="!text-black">{{ card.titles?.[lang] }}</Title>
+            <Title class="text-[black]">{{ card.titles?.[lang] }}</Title>
+            <p class="tracking-wide text-[black]">
+              {{ ["Read more", "Vaata"][lang] }}
+            </p>
           </Card></a
         >
         <NuxtLink
@@ -40,10 +43,10 @@ const { lang } = useLang();
           :to="'/page/' + card.title"
         >
           <Card
-            class="aspect-video bg-green-400 transition-colors hover:bg-green-400 md:aspect-square"
+            class="aspect-video bg-green-400 transition-colors hover:bg-green-500 md:aspect-square"
             :class="[colClass[card.layout]]"
           >
-            <Title medium class="!text-black">{{ card.titles?.[lang] }}</Title>
+            <Title class="text-[black]">{{ card.titles?.[lang] }}</Title>
           </Card>
         </NuxtLink>
         <Card
@@ -51,16 +54,20 @@ const { lang } = useLang();
           class="flex flex-col justify-between gap-2"
           :class="[colClass[card.layout]]"
         >
-          <Title medium>{{ card.titles?.[lang] || card.name }}</Title>
+          <Title class="text-gray-400">{{
+            card.titles?.[lang] || card.name
+          }}</Title>
           <Content medium :content="card.contents[lang]" />
         </Card>
 
         <Card
           v-if="card.__component === 'content.person-card'"
-          class="flex aspect-square flex-col gap-2"
+          class="flex flex-col justify-between gap-2"
           :class="[colClass[card.layout]]"
         >
-          <Title medium>{{ card.titles?.[lang] || card.name }}</Title>
+          <Title class="text-gray-400">{{
+            card.titles?.[lang] || card.name
+          }}</Title>
           <Content medium :content="card.contents[lang]" />
         </Card>
       </template>

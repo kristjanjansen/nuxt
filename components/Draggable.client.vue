@@ -56,7 +56,7 @@ const { idle } = useIdle(5000);
       ref="draggable"
       v-show="!getDocked()"
       :style="style"
-      class="w-full cursor-grab touch-none select-none overflow-hidden border border-gray-700 bg-black/70 backdrop-blur-lg transition-colors md:fixed md:w-fit md:border-gray-500 md:hover:border-gray-400"
+      class="w-full cursor-grab touch-none select-none overflow-hidden border border-gray-700 bg-black/70 backdrop-blur-lg transition-colors md:fixed md:w-fit"
       :class="[
         getDocked() ? 'opacity-50' : '',
         isDragging ? '!md:border-gray-100 md:cursor-grabbing' : '',

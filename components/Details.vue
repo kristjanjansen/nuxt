@@ -7,7 +7,7 @@ const { details = [] } = defineProps<Props>();
 
 <template>
   <div
-    class="Details grid auto-rows-min gap-1 font-sans2 text-sm leading-relaxed tracking-wide md:grid-cols-[1fr_2fr] md:gap-4"
+    class="Details grid auto-rows-min gap-1 font-sans text-sm leading-relaxed tracking-wide md:grid-cols-[1fr_2fr] md:gap-4"
   >
     <template v-for="detail in details">
       <div :class="[!detail[1] ? 'col-span-2 text-gray-200' : 'text-gray-500']">

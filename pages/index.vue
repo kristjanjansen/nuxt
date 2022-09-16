@@ -35,7 +35,7 @@ const { data: podcast } = usePodcast();
 const d = useDraggables({
   event1: { x: 200, y: 250 },
   event2: { x: 400, y: 150 },
-  podcast: { x: 700, y: 300 },
+  podcast: { x: 600, y: 300 },
 });
 
 // Utilities
@@ -58,10 +58,9 @@ const { lang } = useLang();
     />
     <Breadboard class="bg-black/80" />
     <Stack class="absolute top-4 left-4 right-4 gap-4 md:top-6 md:left-6">
-      <Content
-        class="w-auto font-title text-xl text-white md:w-[30vw] md:text-2xl"
-        :content="frontpage?.descriptions[lang]"
-      />
+      <Title class="w-auto text-gray-400 md:w-[30vw]">
+        {{ frontpage?.descriptions[lang] }}
+      </Title>
       <Draggable v-if="podcast?.items?.length" v-bind="d.podcast">
         <PodcastEpisode :episode="podcast.items[0]" class="p-5 md:w-[30vw]" />
       </Draggable>
