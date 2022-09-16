@@ -9,8 +9,8 @@ const { lang } = useLang();
 <template>
   <ErrorCard v-if="error" />
   <Stack v-else class="items-stretch p-4 md:p-6">
-    <div class="grid md:grid-cols-[5fr_1fr]">
-      <div class="grid gap-8 md:grid-cols-[1fr_2fr]">
+    <div class="grid gap-6 md:grid-cols-[5fr_1fr]">
+      <div class="grid gap-6 md:grid-cols-[1fr_2fr]">
         <Stack>
           <Link left :to="event.projectLink">
             {{ ["Project", "Projekt"][lang] }}
