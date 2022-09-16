@@ -15,22 +15,22 @@ const { lang } = useLang();
           {{ ["Projects", "Projektid"][lang] }}
         </Link>
         <div>
-          <Title v-if="project.authors" medium class="text-gray-500"
-            >{{ project.authors }}
+          <Title v-if="project.authors" medium class="text-gray-500">
+            {{ project.authors }}
           </Title>
           <Title>
             {{ project.titles[lang] }}
           </Title>
         </div>
       </Stack>
-      <Title>
+      <Title class="max-w-[64ch] text-gray-400">
         {{ project.intros[lang] }}
       </Title>
     </div>
     <div class="flex gap-5 overflow-x-auto">
       <Image
         v-for="image in project.images"
-        class="aspect-auto h-96 rounded-3xl object-cover"
+        class="h-96 rounded-3xl object-cover lg:h-[30vw]"
         :class="[project.images.length === 1 ? '!aspect-video' : '']"
         :image="image"
       />
@@ -42,7 +42,7 @@ const { lang } = useLang();
       <Card>
         <div class="grid gap-16 md:grid-cols-[1fr_2fr]">
           <Details :details="parseDetails(project.detailss[lang])" />
-          <Content :content="project.descriptions[lang]" />
+          <Content :content="project.descriptions[lang]" class="max-w-[64ch]" />
         </div>
       </Card>
       <Card v-if="project.events">

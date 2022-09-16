@@ -16,13 +16,13 @@ const menu = ref(false);
     >
       <NuxtLink
         to="/"
-        class="flex h-10 items-center px-2 font-title text-2xl font-normal lowercase"
+        class="flex h-10 items-center px-2 font-title text-2xl font-normal lowercase text-gray-400"
         @click="menu = false"
       >
         eˉlektron
       </NuxtLink>
       <button
-        class="flex h-10 w-10 items-center justify-center border-l border-gray-700 font-mono md:hidden"
+        class="flex h-10 w-10 items-center justify-center border-l border-gray-700 font-mono text-gray-400 md:hidden"
         @click="menu = !menu"
       >
         <IconMenu />

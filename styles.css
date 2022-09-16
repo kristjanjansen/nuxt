@@ -15,7 +15,7 @@
   --breadboard-tile-size: 5vw;
 }
 .debug > * {
-  @apply border border-red-500;
+  @apply border border-red-500 p-1;
 }
 @font-face {
   font-family: "title";
