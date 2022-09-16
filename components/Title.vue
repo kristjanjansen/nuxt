@@ -8,7 +8,7 @@ const { medium = false, small = false } = defineProps<Props>();
 
 <template>
   <h2
-    class="break-words font-title text-2xl font-normal leading-9 text-gray-300 md:text-3xl"
+    class="break-words font-title text-3xl font-normal leading-9 text-gray-300"
     :class="[
       medium ? '!md:text-2xl !text-xl leading-8' : '',
       small ? '!text-base !leading-6' : '',

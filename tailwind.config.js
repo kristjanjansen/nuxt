@@ -25,6 +25,9 @@ module.exports = {
         "gray-900": "rgb(var(--gray-900) / <alpha-value>)",
         black: "rgb(var(--black) / <alpha-value>)",
       },
+      borderRadius: {
+        "3xl": "2.5rem",
+      },
     },
   },
 };

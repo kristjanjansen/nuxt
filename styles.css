@@ -14,9 +14,7 @@
   --black: 0 0 0;
   --breadboard-tile-size: 5vw;
 }
-.debug > * {
-  @apply border border-red-500 p-1;
-}
+
 @font-face {
   font-family: "title";
   src: url("./assets/fonts/gthaptic-regular.woff2") format("woff2");
@@ -64,4 +62,19 @@
 .page-enter,
 .page-leave-to {
   @apply opacity-0;
+}
+
+.debug > * {
+  @apply border border-red-500 p-1;
+}
+
+.debug2 > *,
+.debug2 > * > * {
+  @apply border border-red-500 p-1;
+}
+
+.debug3 > *,
+.debug3 > * > *,
+.debug3 > * > * > * {
+  @apply border border-red-500 p-1;
 }

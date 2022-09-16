@@ -14,7 +14,7 @@ const { lang } = useLang();
         :image="project.thumbnail"
       />
       <Stack
-        class="absolute inset-0 bg-black/50 p-4 opacity-0 transition group-hover:opacity-100"
+        class="absolute inset-0 bg-black/80 p-4 opacity-0 transition group-hover:opacity-100"
       >
         <Stack class="!gap-1">
           <Title small v-if="project.authors">

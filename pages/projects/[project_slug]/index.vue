@@ -2,7 +2,7 @@
 const route = useRoute();
 const slug = route.params.project_slug;
 
-const { data: project, error } = await useProjectBySlug(slug);
+const { data: project, error } = await useProjectBySlug(slug as string);
 const { lang } = useLang();
 </script>
 
@@ -23,18 +23,9 @@ const { lang } = useLang();
           </Title>
         </div>
       </Stack>
-      <Title class="max-w-[64ch] text-gray-400">
-        {{ project.intros[lang] }}
-      </Title>
+      <Subtitle class="max-w-[64ch]">{{ project.intros[lang] }} </Subtitle>
     </div>
-    <div class="flex gap-5 overflow-x-auto">
-      <Image
-        v-for="image in project.images"
-        class="h-96 rounded-3xl object-cover lg:h-[30vw]"
-        :class="[project.images.length === 1 ? '!aspect-video' : '']"
-        :image="image"
-      />
-    </div>
+    <Images :images="project.images" />
     <div
       class="grid gap-5 md:grid-cols-[4fr_2fr]"
       v-if="project.details || project.description"
@@ -46,8 +37,10 @@ const { lang } = useLang();
         </div>
       </Card>
       <Card v-if="project.events">
-        <Stack>
-          <Title>{{ ["Events", "Sündmused"][lang] }}</Title>
+        <Stack class="gap-8">
+          <Title class="text-gray-400">{{
+            ["Events", "Sündmused"][lang]
+          }}</Title>
           <EventCard v-for="event in project.events" :event="event" />
         </Stack>
       </Card>

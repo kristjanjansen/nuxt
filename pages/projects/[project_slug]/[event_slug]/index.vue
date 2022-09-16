@@ -2,7 +2,7 @@
 const route = useRoute();
 const slug = route.params.event_slug;
 
-const { data: event, error } = await useEventBySlug(slug);
+const { data: event, error } = await useEventBySlug(slug as string);
 const { lang } = useLang();
 </script>
 
@@ -25,20 +25,13 @@ const { lang } = useLang();
           </div>
           <EventDatetime :event="event" />
         </Stack>
-        <Title class="text-gray-400">
+        <Subtitle>
           {{ event.intros[lang] }}
-        </Title>
+        </Subtitle>
       </div>
       <EventButton class="justify-self-end" :event="event" />
     </div>
-    <div class="flex gap-5 overflow-x-auto" v-if="event.images">
-      <Image
-        :image="image"
-        class="h-96 rounded-3xl object-cover lg:h-[30vw]"
-        :class="[event.images.length === 1 ? 'aspect-video' : '']"
-        v-for="image in event.images"
-      />
-    </div>
+    <Images :images="event.images" />
     <div class="grid md:grid-cols-[5fr_1fr]">
       <Card
         v-if="event.details || event.description"
