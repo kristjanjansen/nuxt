@@ -16,7 +16,7 @@ const processPath = (p) => ({ ...p, path: `/lab/files/${p.title}` });
     <div class="grid w-full gap-4 md:grid-cols-4">
       <LinkCard v-for="p in paths.map(processPath)" :to="p.path" class="h-48">
         <Title small>/{{ p.title }}</Title>
-        <p class="text-gray-500">{{ p.desc }}</p>
+        <p class="tracking-wide text-gray-500">{{ p.desc }}</p>
       </LinkCard>
     </div>
   </Stack>

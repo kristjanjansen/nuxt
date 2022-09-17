@@ -18,22 +18,24 @@ const { lang } = useLang();
 <template>
   <div class="text-sm">
     <div class="flex w-max items-center gap-1">
-      <div class="text-gray-400">{{ formattedDatetimeFirst }}</div>
+      <div class="tracking-wide">
+        {{ formattedDatetimeFirst }}
+      </div>
       <IconChevron v-if="formattedDatetimeSecond" class="text-gray-500" />
-      <div class="text-gray-400">{{ formattedDatetimeSecond }}</div>
+      <div class="tracking-wide">
+        {{ formattedDatetimeSecond }}
+      </div>
     </div>
     <div>
       <div v-if="urgency === 'now'" class="flex gap-2">
-        <div class="animate-pulse pr-1 font-bold uppercase text-green-400">
-          LIVE
+        <LiveBadge />
+        <div class="tracking-wide text-gray-500">
+          Started {{ formattedStartAtDistance }}
         </div>
-        <div class="text-gray-500">Started {{ formattedStartAtDistance }}</div>
       </div>
       <div v-if="urgency === 'soon'" class="flex gap-2">
-        <div class="font-bold uppercase text-orange-500">
-          {{ ["Soon", "Varsti"][lang] }}
-        </div>
-        <div class="text-gray-500">
+        <SoonBadge />
+        <div class="tracking-wide text-gray-500">
           {{ formattedStartAtDistance }}
         </div>
       </div>

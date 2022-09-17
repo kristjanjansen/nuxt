@@ -2,15 +2,15 @@
 const route = useRoute();
 const slug = route.params.event_slug;
 
-const { data: event, error } = await useEventBySlug(slug);
+const { data: event, error } = await useEventBySlug(slug as string);
 const { lang } = useLang();
 </script>
 
 <template>
   <ErrorCard v-if="error" />
-  <Stack v-else class="debug items-stretch p-4 md:p-6">
-    <div class="debug grid md:grid-cols-[5fr_1fr]">
-      <div class="debug grid gap-8 md:grid-cols-[1fr_2fr]">
+  <Stack v-else class="items-stretch p-4 md:p-6">
+    <div class="grid gap-6 md:grid-cols-[5fr_1fr]">
+      <div class="grid gap-6 md:grid-cols-[1fr_2fr]">
         <Stack>
           <Link left :to="event.projectLink">
             {{ ["Project", "Projekt"][lang] }}
@@ -25,24 +25,17 @@ const { lang } = useLang();
           </div>
           <EventDatetime :event="event" />
         </Stack>
-        <Title class="text-gray-400">
+        <Subtitle>
           {{ event.intros[lang] }}
-        </Title>
+        </Subtitle>
       </div>
       <EventButton class="justify-self-end" :event="event" />
     </div>
-    <div class="flex gap-5 overflow-x-auto" v-if="event.images">
-      <Image
-        :image="image"
-        class="h-96 rounded-3xl object-cover lg:h-[30vw]"
-        :class="[event.images.length === 1 ? 'aspect-video' : '']"
-        v-for="image in event.images"
-      />
-    </div>
-    <div class="debug grid md:grid-cols-[5fr_1fr]">
+    <Images v-if="event.images" :images="event.images" />
+    <div class="grid md:grid-cols-[5fr_1fr]">
       <Card
         v-if="event.details || event.description"
-        class="debug grid gap-8 md:grid-cols-[1fr_2fr]"
+        class="grid gap-8 md:grid-cols-[1fr_2fr]"
       >
         <Details :details="parseDetails(event.detailss[lang])" />
         <Content :content="event.descriptions[lang]" />

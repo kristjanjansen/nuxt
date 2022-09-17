@@ -19,12 +19,10 @@ const output = computed(() => stringToCoords(input.value, 100, 100));
         <Title medium>Numbers to coordinates</Title>
         <pre>{{ output }}</pre>
       </div>
-      <div class="debug">
-        <svg width="300" height="300">
-          <circle r="3" fill="white" :cx="output[0]" :cy="output[1]" />
-          <text fill="white" :x="output[0]" :y="output[1]">{{ input }}</text>
-        </svg>
-      </div>
+      <svg width="300" height="300" class="border border-white">
+        <circle r="3" fill="white" :cx="output[0]" :cy="output[1]" />
+        <text fill="white" :x="output[0]" :y="output[1]">{{ input }}</text>
+      </svg>
     </div>
   </Stack>
 </template>

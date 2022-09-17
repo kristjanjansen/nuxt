@@ -245,6 +245,7 @@ const processEvent = (event) => {
   event = processLocalizations(event);
   event = proccessMarkdown(event);
   event = processEventFienta(event);
+  event = processEventVideostreams(event);
   return event;
 };
 
@@ -270,6 +271,7 @@ const processProjectEvent = (event, project) => {
   event = processLocalizations(event);
   event = proccessMarkdown(event);
   event = processEventFienta(event);
+  event = processEventVideostreams(event);
   return event;
 };
 
@@ -333,6 +335,10 @@ const processEventFienta = (event) => {
 };
 // From https://github.com/ComfortablyCoding/strapi-plugin-transformer/blob/master/server/services/transform-service.js
 // @TODO: Move to strapi instance?
+
+const processEventVideostreams = (event) => {
+  return { ...event, videostreams: getVideostreams(event.streamkey) };
+};
 
 export const parseStrapi = (data) => {
   if (has(data, "attributes")) {

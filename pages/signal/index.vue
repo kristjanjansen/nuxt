@@ -14,36 +14,31 @@ const episodes = computed(() =>
 </script>
 <template>
   <ErrorCard v-if="podcastPageError || podcastError" />
-  <Stack v-else class="gap-8 p-4 md:p-6">
-    <div class="grid gap-8 md:grid-cols-[2fr_4fr]">
+  <Stack v-else class="gap-6 p-4 md:p-6">
+    <div class="grid gap-6 md:grid-cols-[2fr_5fr_1fr]">
       <Stack>
         <Link left to="/" />
         <Title>
           {{ podcastPage.titles[lang] }}
         </Title>
       </Stack>
-      <Title>
+      <Subtitle>
         {{ podcastPage.intros[lang] }}
-      </Title>
+      </Subtitle>
     </div>
-    <div class="flex gap-5 overflow-x-auto">
-      <Image
-        v-for="image in podcastPage.images"
-        :image="image"
-        class="aspect-auto h-72 rounded-3xl object-cover"
-        :class="[podcastPage.images.length === 1 ? '!aspect-video' : '']"
-      />
-    </div>
-    <Stack class="p-3 md:p-5">
-      <div class="flex flex-col gap-8 md:grid md:grid-cols-[2fr_4fr]">
-        <Stack>
+    <Images v-if="podcastPage.images" :images="podcastPage.images" />
+    <Stack>
+      <div class="grid gap-6 md:grid-cols-[5fr_3fr]">
+        <Card class="grid gap-6 md:grid-cols-[2fr_3fr]">
+          <Details :details="parseDetails(podcastPage.detailss[lang])" />
           <Content :content="podcastPage.descriptions[lang]" />
-        </Stack>
-        <Stack v-if="episodes">
-          <Card v-for="episode in episodes">
-            <PodcastEpisode :episode="episode" />
-          </Card>
-        </Stack>
+        </Card>
+        <Card v-if="episodes">
+          <Stack class="gap-6">
+            <Title>{{ ["Latest episodes", "Viimased saated"][lang] }}</Title>
+            <PodcastEpisode v-for="episode in episodes" :episode="episode" />
+          </Stack>
+        </Card>
       </div>
     </Stack>
   </Stack>
