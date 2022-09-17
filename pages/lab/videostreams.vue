@@ -1,5 +1,5 @@
 <script setup lang="ts">
-const [stream1, stream2] = getVideostreams("elektron,xxx");
+const [stream1, stream2] = getVideostreams("elektron,anything");
 
 const video1 = ref<HTMLVideoElement | null>(null);
 useVideostream(video1, stream1.url);
