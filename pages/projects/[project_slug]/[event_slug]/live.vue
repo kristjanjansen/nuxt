@@ -25,8 +25,8 @@ const { lang } = useLang();
       {{ ["Event info", "Ürituse info"][lang] }}
     </Link>
 
-    <Draggable v-bind="d.video" v-if="videostreams.length">
-      <Videostream :url="videostreams[0].url" class="md:w-[70vw]" />
+    <Draggable v-bind="d.video" v-if="videostreams.length" class="md:w-[70vw]">
+      <Videostream :url="videostreams[0].url" />
     </Draggable>
 
     <Draggable v-bind="d.chat">
