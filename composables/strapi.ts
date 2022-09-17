@@ -330,11 +330,11 @@ const proccessMarkdown = (item) => {
 };
 
 const processEventFienta = (event) => {
-  // TODO: Add [event,event.project]
+  // TODO: Add [event,event.project] support
   return { ...event, ...getTicketableStatus([event]) };
 };
-// From https://github.com/ComfortablyCoding/strapi-plugin-transformer/blob/master/server/services/transform-service.js
-// @TODO: Move to strapi instance?
+
+// https://github.com/ComfortablyCoding/strapi-plugin-transformer/blob/master/server/services/transform-service.js
 
 const processEventVideostreams = (event) => {
   return { ...event, videostreams: getVideostreams(event.streamkey) };

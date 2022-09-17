@@ -36,11 +36,12 @@ const { idle } = useIdle(5000);
       playsinline
       crossorigin="anonymous"
       loop
+      controls
     />
     <div class="absolute inset-0 overflow-hidden"><slot name="overlay" /></div>
     <FadeTransition>
       <div
-        class="absolute right-2 bottom-2 left-4 grid grid-cols-[1fr_auto] items-center"
+        class="absolute right-2 top-2 left-4 grid grid-cols-[1fr_auto] items-center"
         v-if="!idle"
       >
         <div>
