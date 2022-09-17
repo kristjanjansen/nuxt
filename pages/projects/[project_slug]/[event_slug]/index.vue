@@ -31,7 +31,7 @@ const { lang } = useLang();
       </div>
       <EventButton class="justify-self-end" :event="event" />
     </div>
-    <Images :images="event.images" />
+    <Images v-if="event.images" :images="event.images" />
     <div class="grid md:grid-cols-[5fr_1fr]">
       <Card
         v-if="event.details || event.description"

@@ -8,7 +8,7 @@ const { lang } = useLang();
 
 <template>
   <ErrorCard v-if="error" />
-  <Stack v-else class="gap-8 p-4 md:p-6">
+  <Stack v-else-if="project" class="gap-8 p-4 md:p-6">
     <div class="grid gap-8 md:grid-cols-[2fr_4fr]">
       <Stack>
         <Link left to="/projects">
@@ -25,7 +25,7 @@ const { lang } = useLang();
       </Stack>
       <Subtitle class="max-w-[64ch]">{{ project.intros[lang] }} </Subtitle>
     </div>
-    <Images :images="project.images" />
+    <Images v-if="project.images" :images="project.images" />
     <div
       class="grid gap-5 md:grid-cols-[4fr_2fr]"
       v-if="project.details || project.description"

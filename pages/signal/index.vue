@@ -26,7 +26,7 @@ const episodes = computed(() =>
         {{ podcastPage.intros[lang] }}
       </Subtitle>
     </div>
-    <Images :images="podcastPage.images" />
+    <Images v-if="podcastPage.images" :images="podcastPage.images" />
     <Stack>
       <div class="grid gap-6 md:grid-cols-[5fr_3fr]">
         <Card class="grid gap-6 md:grid-cols-[2fr_3fr]">

@@ -33,7 +33,7 @@ const { lang } = useLang();
           Started {{ formattedStartAtDistance }}
         </div>
       </div>
-      <div v-if="urgency !== 'soon'" class="flex gap-2">
+      <div v-if="urgency === 'soon'" class="flex gap-2">
         <SoonBadge />
         <div class="tracking-wide text-gray-500">
           {{ formattedStartAtDistance }}

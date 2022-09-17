@@ -10,7 +10,7 @@ const streamTranscodeUrl =
   "https://icareus-eu4-live.secure2.footprint.net/suitelive/ngrp:123636901/playlist.m3u8";
 
 export const getVideostreams = (keys) => {
-  if (!keys) return [];
+  if (!keys) return null;
   const streamkeys = split(keys);
   return streamkeys.map((key: string) => {
     const ingest =
