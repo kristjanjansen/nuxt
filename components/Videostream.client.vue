@@ -10,8 +10,9 @@ import IconExitFullscreen from "~icons/radix-icons/exit-full-screen";
 
 type Props = {
   url: string;
+  controls?: boolean;
 };
-const { url } = defineProps<Props>();
+const { url, controls = false } = defineProps<Props>();
 
 const video = ref<HTMLVideoElement | null>(null);
 const videoWrapper = ref(null);
@@ -21,8 +22,7 @@ useVideostream(video, url);
 const { isFullscreen, toggle: toggleFullscreen } = useFullscreen(videoWrapper);
 const { isPip, toggle: togglePip } = usePip(video);
 
-const { muted } = useMediaControls(video);
-onMounted(() => (muted.value = true));
+const muted = ref(true);
 
 const { idle } = useIdle(5000);
 </script>
@@ -30,19 +30,20 @@ const { idle } = useIdle(5000);
 <template>
   <div class="relative flex items-center bg-black" ref="videoWrapper">
     <video
-      class="w-full"
       ref="video"
+      :muted="muted"
+      :controls="controls"
       autoplay
       playsinline
       crossorigin="anonymous"
       loop
-      controls
+      class="w-full"
     />
-    <div class="absolute inset-0 overflow-hidden"><slot name="overlay" /></div>
     <FadeTransition>
       <div
-        class="absolute right-2 top-2 left-4 grid grid-cols-[1fr_auto] items-center"
         v-if="!idle"
+        class="absolute right-2 left-4 grid grid-cols-[1fr_auto] items-center"
+        :class="controls ? 'top-2' : 'bottom-2'"
       >
         <div>
           <slot />
