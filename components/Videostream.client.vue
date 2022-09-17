@@ -43,7 +43,7 @@ const { idle } = useIdle(5000);
       <div
         v-if="!idle"
         class="absolute right-2 left-4 grid grid-cols-[1fr_auto] items-center"
-        :class="controls ? 'top-2' : 'bottom-2'"
+        :class="controls ? 'hidden' : 'bottom-2'"
       >
         <div>
           <slot />

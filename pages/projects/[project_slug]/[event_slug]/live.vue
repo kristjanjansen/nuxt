@@ -26,15 +26,18 @@ const { lang } = useLang();
     </Link>
 
     <Draggable v-bind="d.video" v-if="videostreams.length" class="md:w-[70vw]">
-      <Videostream :url="videostreams[0].url" />
+      <Videostream :url="videostreams[0].url" controls />
     </Draggable>
 
-    <Draggable v-bind="d.chat">
-      <Chat :channel="slug" class="h-[60vw] md:h-[30vw] md:w-[25vw]" />
+    <Draggable v-bind="d.chat" class="h-[60vw] md:h-[30vw] md:w-[25vw]">
+      <Chat :channel="slug" />
     </Draggable>
 
-    <Draggable v-bind="d.about">
-      <Stack class="overflow-y-scroll p-4 md:h-[30vw] md:w-[30vw]">
+    <Draggable
+      v-bind="d.about"
+      class="overflow-y-scroll p-4 pt-10 md:h-[30vw] md:w-[30vw]"
+    >
+      <Stack>
         <Title>
           {{ event.titles[lang] }}
         </Title>

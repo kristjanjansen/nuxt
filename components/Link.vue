@@ -16,7 +16,7 @@ const { to, left, right } = defineProps<Props>();
 <template>
   <NuxtLink
     :to="to"
-    class="flex gap-1 font-mono text-xs uppercase text-gray-300 transition-colors hover:text-gray-500"
+    class="flex gap-1 font-mono text-xs uppercase tracking-wide text-gray-300 transition-colors hover:text-gray-500"
   >
     <IconArrowLeft v-if="left" />
     <div><slot /></div>
