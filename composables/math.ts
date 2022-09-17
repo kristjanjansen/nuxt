@@ -18,3 +18,5 @@ export function remap(
 
 export const average = (arr: number[]) =>
   Math.floor(arr.reduce((a, b) => a + b, 0) / arr.length);
+
+export const snap = (value, step) => Math.round(value / step) * step;

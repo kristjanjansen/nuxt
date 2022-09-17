@@ -1,5 +1,10 @@
 <script setup lang="ts">
-import { useDraggable, useIdle, useTimeoutFn } from "@vueuse/core";
+import {
+  useDraggable,
+  useIdle,
+  useTimeoutFn,
+  useWindowSize,
+} from "@vueuse/core";
 import { Ref } from "vue";
 import IconDock from "~icons/radix-icons/chevron-down";
 
@@ -23,6 +28,9 @@ const {
 } = defineProps<Props>();
 const draggable = ref<HTMLElement | null>(null);
 
+const { width } = useWindowSize();
+const step = computed(() => Math.round((width.value * 5) / 100));
+
 const {
   isDragging,
   x: newX,
@@ -30,6 +38,8 @@ const {
 } = useDraggable(draggable, {
   initialValue: { x: x.value, y: y.value },
   onEnd: () => {
+    newX.value = snap(newX.value, step.value);
+    newY.value = snap(newY.value, step.value);
     useTimeoutFn(
       () =>
         updateXY({

@@ -14,12 +14,7 @@ const size = 5;
         :height="size + 'vw'"
         patternUnits="userSpaceOnUse"
       >
-        <circle
-          :cx="size / 2 + 'vw'"
-          :cy="size / 2 + 'vw'"
-          r="0.5"
-          fill="currentColor"
-        />
+        <circle :cx="size + 'vw'" :cy="size + 'vw'" r="1" fill="currentColor" />
       </pattern>
     </defs>
     <rect width="100%" height="100%" fill="url(#grid)" />

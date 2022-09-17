@@ -1,4 +1,6 @@
 <script setup lang="ts">
+import { useWindowSize } from "@vueuse/core";
+
 const route = useRoute();
 const slug = route.params.event_slug as string;
 
@@ -12,6 +14,9 @@ const d = useDraggables({
 });
 
 const { lang } = useLang();
+
+const { width } = useWindowSize();
+const step = computed(() => Math.round((width.value * 5) / 100));
 </script>
 
 <template>
@@ -44,5 +49,16 @@ const { lang } = useLang();
     </Draggable>
 
     <Dock :draggables="d" />
+
+    <div
+      :style="{
+        width: step + 'px',
+        height: step + 'px',
+        position: 'fixed',
+        top: step * 2 + 'px',
+        left: step * 2 + 'px',
+        border: '1px solid red',
+      }"
+    ></div>
   </Stack>
 </template>
