@@ -7,7 +7,7 @@ const videostreams = getVideostreams(event.value.streamkey);
 
 const d = useDraggables({
   about: { x: 100, y: 300 },
-  video: { x: 200, y: 100 },
+  stream: { x: 200, y: 100, fullheight: true },
   chat: { x: 900, y: 200 },
 });
 
@@ -25,7 +25,7 @@ const { lang } = useLang();
       {{ ["Event info", "Ürituse info"][lang] }}
     </Link>
 
-    <Draggable v-bind="d.video" v-if="videostreams.length" class="md:w-[70vw]">
+    <Draggable v-if="videostreams" v-bind="d.stream" class="md:w-[70vw]">
       <Videostream :url="videostreams[0].url" controls />
     </Draggable>
 
@@ -35,7 +35,7 @@ const { lang } = useLang();
 
     <Draggable
       v-bind="d.about"
-      class="overflow-y-scroll p-4 pt-10 md:h-[30vw] md:w-[30vw]"
+      class="overflow-y-scroll p-4 md:h-[30vw] md:w-[30vw]"
     >
       <Stack>
         <Title>
