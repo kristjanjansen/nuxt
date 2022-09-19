@@ -1,14 +1,14 @@
+<script lang="ts">
+export default {
+  inheritAttrs: false,
+};
+</script>
+
 <script setup lang="ts">
 type Props = {
   to: string;
 };
 const { to } = defineProps<Props>();
-</script>
-
-<script lang="ts">
-export default {
-  inheritAttrs: false,
-};
 </script>
 
 <template>

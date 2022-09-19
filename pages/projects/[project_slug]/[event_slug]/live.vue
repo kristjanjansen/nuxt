@@ -7,7 +7,7 @@ const videostreams = getVideostreams(event.value.streamkey);
 
 const d = useDraggables({
   about: { x: 100, y: 300 },
-  video: { x: 200, y: 100 },
+  stream: { x: 200, y: 100 },
   chat: { x: 900, y: 200 },
 });
 
@@ -30,7 +30,7 @@ const { lang } = useLang();
       {{ ["Event info", "Ürituse info"][lang] }}
     </Button>
 
-    <Draggable v-bind="d.video" v-if="videostreams.length" class="md:w-[70vw]">
+    <Draggable v-bind="d.stream" v-if="videostreams.length" class="md:w-[70vw]">
       <Videostream :url="videostreams[0].url" />
     </Draggable>
 

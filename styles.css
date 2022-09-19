@@ -65,16 +65,16 @@
 }
 
 .debug > * {
-  @apply border border-red-500 p-1;
+  @apply border border-red-500;
 }
 
 .debug2 > *,
 .debug2 > * > * {
-  @apply border border-red-500 p-1;
+  @apply border border-red-500;
 }
 
 .debug3 > *,
 .debug3 > * > *,
 .debug3 > * > * > * {
-  @apply border border-red-500 p-1;
+  @apply border border-red-500;
 }
