@@ -22,14 +22,20 @@ export const useDraggables = (initialDraggables: any) => {
       return index > -1 ? index + 1 : "";
     };
     const getDocked = () => docked.value;
+    const titles = initialDraggables[key].titles
+      ? initialDraggables[key].titles
+      : [key, key];
+
     return {
       ...initialDraggables[key],
+      titles,
       x,
       y,
       updateXY,
       setDocked,
       getDocked,
       getIndex,
+      updateIndex,
     };
   });
 

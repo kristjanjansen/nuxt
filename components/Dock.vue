@@ -15,7 +15,7 @@ const { lang } = useLang();
       <DockButton
         v-for="(draggable, key) in draggables"
         @click="draggable.setDocked"
-        :class="draggable.getDocked() ? '!bg-gray-500/50 !text-gray-200' : ''"
+        :class="draggable.getDocked() ? '!bg-gray-800' : ''"
         >{{
           String(draggable.titles ? draggable.titles[lang] : key).replace(
             /_/g,

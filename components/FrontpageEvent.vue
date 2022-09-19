@@ -7,9 +7,9 @@ const { lang } = useLang();
 </script>
 
 <template>
-  <div class="grid gap-4 p-4 md:grid-cols-[auto_1fr]">
+  <div class="grid gap-4 md:grid-cols-[auto_1fr]">
     <Image
-      class="pointer-events-none aspect-square h-32 w-32 rounded object-cover"
+      class="pointer-events-none aspect-square h-24 w-24 rounded object-cover"
       :image="event.thumbnail"
     />
     <Stack>
@@ -24,9 +24,7 @@ const { lang } = useLang();
       <Button primary :to="event.eventLink">
         {{ ["More info", "Lisainfo"][lang] }}
       </Button>
-      <Button small to="/schedule" right>
-        {{ [`See all upcoming events`, "Vaata kõiki tulevasi sündmusi"][lang] }}
-      </Button>
+      <slot />
     </Stack>
   </div>
 </template>

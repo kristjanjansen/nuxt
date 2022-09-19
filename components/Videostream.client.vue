@@ -49,30 +49,18 @@ const { idle } = useIdle(5000);
           <slot />
         </div>
         <div class="flex w-full justify-end">
-          <button
-            class="transform rounded-full p-3 transition-all hover:bg-neutral-100/20"
-            @click="muted = !muted"
-          >
-            <IconMuted v-if="muted" class="text-neutral-100" />
-            <IconUnmuted v-if="!muted" class="text-neutral-100" />
-          </button>
-          <button
-            class="rounded-full p-3 transition-all hover:bg-neutral-100/20"
-            @click="togglePip"
-          >
-            <IconExitPip v-if="isPip" class="text-neutral-100" />
-            <IconEnterPip v-if="!isPip" class="text-neutral-100" />
-          </button>
-          <button
-            class="rounded-full p-3 transition-all hover:bg-neutral-100/20"
-            @click="toggleFullscreen"
-          >
-            <IconExitFullscreen v-if="isFullscreen" class="text-neutral-100" />
-            <IconEnterFullscreen
-              v-if="!isFullscreen"
-              class="text-neutral-100"
-            />
-          </button>
+          <IconButton @click="muted = !muted">
+            <IconMuted v-if="muted" />
+            <IconUnmuted v-if="!muted" />
+          </IconButton>
+          <IconButton @click="togglePip">
+            <IconExitPip v-if="isPip" />
+            <IconEnterPip v-if="!isPip" />
+          </IconButton>
+          <IconButton @click="toggleFullscreen">
+            <IconExitFullscreen v-if="isFullscreen" />
+            <IconEnterFullscreen v-if="!isFullscreen" />
+          </IconButton>
         </div>
       </div>
     </FadeTransition>

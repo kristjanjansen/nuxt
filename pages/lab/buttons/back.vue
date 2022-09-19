@@ -1,6 +1,6 @@
 <script setup lang="ts">
 const router = useRouter();
-setTimeout(() => router.push("/lab/components"), 1000);
+setTimeout(() => router.push("/lab/buttons"), 1000);
 </script>
 
 <template>

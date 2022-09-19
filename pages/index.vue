@@ -35,7 +35,7 @@ const { data: podcast } = usePodcast();
 const d = useDraggables({
   event1: { x: 200, y: 250, titles: ["Upcoming event", "Tulekul"] },
   // event2: { x: 400, y: 150 },
-  podcast: { x: 300, y: 300, titles: ["Podcast", "Taskuhääling"] },
+  podcast: { x: 500, y: 400, titles: ["Podcast", "Taskuhääling"] },
 });
 
 // Utilities
@@ -56,12 +56,11 @@ const { lang } = useLang();
       class="h-full w-full flex-col object-cover"
       :class="[['', 'invert'][theme]]"
     />
-    <Breadboard class="bg-black/80" />
     <Breadboard
-      class="transition"
+      class="transition duration-1000"
       :class="
         playing
-          ? 'bg-black/20 backdrop-blur-none'
+          ? 'bg-black/70 backdrop-blur-none'
           : 'bg-black/100 backdrop-blur-xl'
       "
     />
@@ -72,19 +71,29 @@ const { lang } = useLang();
       <Draggable
         v-if="podcast?.items?.length"
         v-bind="d.podcast"
-        class="p-5 md:w-[40vw]"
+        class="md:w-[40vw]"
       >
-        <PodcastEpisode :episode="podcast.items[0]" class="p-4" />
+        <PodcastEpisode :episode="podcast.items[0]" class="p-4">
+          <Button small right to="/signal" class="place-content-end">
+            {{ ["Listen more episodes", "Kuula ka teisi saateid"][lang] }}
+          </Button>
+        </PodcastEpisode>
       </Draggable>
-      <Draggable v-if="event1" v-bind="d.event1" class="md:w-[30vw]">
-        <FrontpageEvent :event="event1" />
+      <Draggable v-if="event1" v-bind="d.event1" class="md:w-[35vw]">
+        <FrontpageEvent :event="event1" class="p-4">
+          <Button small to="/schedule" right class="place-content-end">
+            {{
+              [`See all upcoming events`, "Vaata kõiki tulevasi sündmusi"][lang]
+            }}
+          </Button>
+        </FrontpageEvent>
       </Draggable>
       <!-- <Draggable v-if="event2" v-bind="d.event2" class="md:w-[30vw]">
         <FrontpageEvent :event="event2" />
       </Draggable> -->
     </Stack>
     <button
-      class="fixed top-10 right-1 rounded-full p-3"
+      class="fixed top-11 right-2 rounded-full p-3"
       @click.stop="muted = !muted"
     >
       <IconMuted v-if="muted" class="h-4 w-4" />

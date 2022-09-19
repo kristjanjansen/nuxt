@@ -1,7 +1,18 @@
+<script lang="ts">
+export default {
+  inheritAttrs: false,
+};
+</script>
+
 <script setup lang="ts">
-import { useDraggable, useIdle, useTimeoutFn } from "@vueuse/core";
+import {
+  useDraggable,
+  useIdle,
+  useTimeoutFn,
+  useWindowSize,
+} from "@vueuse/core";
 import { Ref } from "vue";
-import IconDock from "~icons/radix-icons/chevron-down";
+import IconDock from "~icons/radix-icons/minus";
 
 type Props = {
   x: Ref<number>;
@@ -10,7 +21,9 @@ type Props = {
   getDocked: Function;
   setDocked: Function;
   getIndex: Function;
+  updateIndex: Function;
   dockable?: boolean;
+  titles: string[];
 };
 const {
   x,
@@ -19,18 +32,30 @@ const {
   getDocked,
   setDocked,
   getIndex,
+  updateIndex,
   dockable = true,
+  titles = undefined,
 } = defineProps<Props>();
-const draggable = ref<HTMLElement | null>(null);
 
+const draggable = ref<HTMLElement | null>(null);
+const { width, height } = useWindowSize();
+const SAFE_SIZE = 64;
 const {
   isDragging,
   x: newX,
   y: newY,
 } = useDraggable(draggable, {
   initialValue: { x: x.value, y: y.value },
+  preventDefault: true,
   onEnd: () => {
-    newY.value = newY.value < 0 ? 0 : newY.value;
+    newX.value =
+      newX.value >= width.value ? width.value - SAFE_SIZE : newX.value;
+    newY.value =
+      newY.value < 0
+        ? 0
+        : newY.value >= height.value - SAFE_SIZE
+        ? height.value - SAFE_SIZE
+        : newY.value;
     useTimeoutFn(
       () =>
         updateXY({
@@ -45,36 +70,45 @@ const style = computed(() => {
   return {
     top: `${newY.value}px`,
     left: `${newX.value}px`,
-    zIndex: isDragging.value ? "100" : getIndex() + 10,
+    zIndex: isDragging.value ? "100" : getIndex() + 10, // z 10 is top nav
   };
 });
 const { idle } = useIdle(5000);
+const { lang } = useLang();
 </script>
 
 <template>
   <FadeTransition>
     <div
-      ref="draggable"
       v-show="!getDocked()"
+      @mousedown="() => updateIndex()"
       :style="style"
-      class="w-full cursor-grab touch-none select-none overflow-hidden border border-gray-700 bg-black/70 backdrop-blur-lg transition-colors md:fixed md:w-fit"
-      :class="[isDragging ? '!md:border-gray-100 md:cursor-grabbing' : '']"
+      class="w-full overflow-hidden border border-gray-700 bg-black/70 backdrop-blur-lg transition-colors md:fixed md:w-fit"
     >
-      <div>
-        <div class="relative">
-          <FadeTransition>
-            <button
-              v-if="dockable && !idle"
-              class="absolute top-0 right-0 z-[100] p-1 text-gray-500 hover:text-gray-100 focus:z-50"
-              @click="() => setDocked()"
-            >
-              <IconDock />
-            </button>
-          </FadeTransition>
-          <slot />
+      <div
+        ref="draggable"
+        class="flex h-6 cursor-grab items-center justify-between text-white transition duration-300 hover:bg-gray-800"
+        :class="[isDragging ? 'md:cursor-grabbing' : '']"
+      >
+        <div
+          class="px-2 font-mono text-xs uppercase tracking-wide text-gray-200"
+          :class="idle ? '!text-gray-700' : ''"
+        >
+          {{ titles[lang] }}
         </div>
+        <FadeTransition>
+          <button
+            v-if="dockable && !idle"
+            class="z-[100] p-1 text-gray-500 hover:text-gray-100 focus:z-50"
+            @click="() => setDocked()"
+          >
+            <IconDock />
+          </button>
+        </FadeTransition>
       </div>
-      <slot name="undraggable" />
+      <div v-bind="$attrs">
+        <slot />
+      </div>
     </div>
   </FadeTransition>
 </template>
