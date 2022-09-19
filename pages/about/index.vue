@@ -14,7 +14,7 @@ const { lang } = useLang();
 <template>
   <ErrorCard v-if="error" />
   <Stack class="p-4 md:p-6" v-else>
-    <Link left to="/" />
+    <Button small left to="/" />
     <div class="flex w-full grid-cols-1 flex-col gap-4 md:grid md:grid-cols-4">
       <template v-for="card in cards?.cards">
         <Title

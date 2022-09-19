@@ -1,7 +1,7 @@
 <template>
   <div class="p-4 md:p-6">
     <Stack>
-      <Link left to="/" />
+      <Button small left to="/" />
       <Title>Tools for editors</Title>
       <div class="grid w-full auto-rows-fr gap-5 md:grid-cols-4">
         <LinkCard to="/lab/videostreams" class="border-re aspect-video pr-8">
@@ -57,6 +57,10 @@
       <p />
       <Title>User interface prototyping</Title>
       <div class="grid w-full auto-rows-fr gap-5 md:grid-cols-4">
+        <LinkCard to="/lab/components" class="border-re aspect-video pr-8">
+          <Title small>Components</Title>
+          <p class="text-gray-500">A playground for components</p>
+        </LinkCard>
         <LinkCard to="/lab/ecomponents" class="border-re aspect-video pr-8">
           <Title small>EComponents</Title>
           <p class="text-gray-500">
