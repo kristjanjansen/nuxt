@@ -13,17 +13,17 @@ const menu = ref(false);
       class="grid grid-cols-1 bg-black/90 md:grid-cols-[1fr_1fr_1fr_1fr_1fr_1fr_0.3fr_0.3fr]"
     >
       <div
-        class="flex h-10 w-full items-center justify-between border border-gray-700"
+        class="flex h-9 w-full items-center justify-between border border-gray-700"
       >
         <NuxtLink
           to="/"
-          class="flex h-10 items-center px-3 font-title text-2xl lowercase text-gray-400"
+          class="flex h-9 items-center px-2 font-title text-2xl lowercase text-gray-400"
           @click="menu = false"
         >
           eˉlektron
         </NuxtLink>
         <button
-          class="flex h-10 w-10 items-center justify-center border-l border-gray-700 font-mono text-gray-400 md:hidden"
+          class="flex h-9 w-10 items-center justify-center border-l border-gray-700 font-mono text-gray-400 md:hidden"
           @click="menu = !menu"
         >
           <IconMenu />

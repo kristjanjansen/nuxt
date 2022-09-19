@@ -14,7 +14,7 @@ const { lang } = useLang();
     <NuxtLink
       v-if="event && !error"
       :to="event.eventLink"
-      class="flex h-10 items-center justify-between gap-2 border-r border-b border-l border-gray-700 bg-black/90 px-3 text-sm transition hover:bg-gray-900"
+      class="flex h-9 items-center justify-between gap-2 border-r border-b border-l border-gray-700 bg-black/90 px-3 text-sm transition hover:bg-gray-900"
     >
       <div class="flex gap-1">
         <SoonBadge v-if="urgency.value === 'soon'" />
