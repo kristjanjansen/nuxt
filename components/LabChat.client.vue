@@ -55,13 +55,14 @@ const messages = computed(() => [
         </div>
       </Stack>
     </div>
-    <Link
-      class="mt-4 flex"
+    <Button
       v-if="newChatMessagesCount > 0"
-      @click="scrollToBottom"
+      small
       down
+      class="mt-4 flex"
+      @click="scrollToBottom"
     >
       New messages
-    </Link>
+    </Button>
   </div>
 </template>

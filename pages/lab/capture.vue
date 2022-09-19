@@ -28,7 +28,7 @@ const capture = async () => {
 
 <template>
   <Stack class="p-4 md:p-6">
-    <Link left to="/lab">Lab</Link>
+    <Button small left to="/lab">Lab</Button>
     <Title>New capture</Title>
     <canvas ref="canvas" class="hidden" />
     <div class="grid gap-8 md:grid-cols-2">

@@ -13,7 +13,7 @@ const f = computed(() => {
 
 <template>
   <Stack class="p-4 md:p-6">
-    <Link :to="'/lab/files/' + path" left>Back</Link>
+    <Button small :to="'/lab/files/' + path" left>Back</Button>
     <Title>/{{ path }}/{{ filename }}</Title>
     <LabVideo v-if="f.src.endsWith('.mp4')" :video="f" />
     <audio

@@ -11,7 +11,7 @@ const processPath = (p) => ({ ...p, path: `/lab/files/${p.title}` });
 
 <template>
   <Stack class="p-4 md:p-6">
-    <Link left to="/lab">Lab</Link>
+    <Button small left to="/lab">Lab</Button>
     <Title>Files</Title>
     <div class="grid w-full gap-4 md:grid-cols-4">
       <LinkCard v-for="p in paths.map(processPath)" :to="p.path" class="h-48">

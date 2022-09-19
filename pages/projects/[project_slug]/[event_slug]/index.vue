@@ -12,9 +12,9 @@ const { lang } = useLang();
     <div class="grid gap-6 md:grid-cols-[5fr_1fr]">
       <div class="grid gap-6 md:grid-cols-[1fr_2fr]">
         <Stack>
-          <Link left :to="event.projectLink">
+          <Button small left :to="event.projectLink">
             {{ ["Project", "Projekt"][lang] }}
-          </Link>
+          </Button>
           <div>
             <Title v-if="event.authors" medium class="text-gray-500"
               >{{ event.authors }}

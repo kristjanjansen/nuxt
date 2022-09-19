@@ -1,7 +1,7 @@
 <template>
   <div class="p-4 md:p-6">
     <Stack>
-      <Link left to="/" />
+      <Button small left to="/" />
       <Title>Tools for editors</Title>
       <div class="grid w-full auto-rows-fr gap-5 md:grid-cols-4">
         <LinkCard to="/lab/videostreams" class="border-re aspect-video pr-8">

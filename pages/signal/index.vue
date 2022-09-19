@@ -17,7 +17,7 @@ const episodes = computed(() =>
   <Stack v-else class="gap-6 p-4 md:p-6">
     <div class="grid gap-6 md:grid-cols-[2fr_5fr_1fr]">
       <Stack>
-        <Link left to="/" />
+        <Button small left to="/" />
         <Title>
           {{ podcastPage.titles[lang] }}
         </Title>

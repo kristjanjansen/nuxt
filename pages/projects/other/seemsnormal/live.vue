@@ -46,9 +46,8 @@ const { lang } = useLang();
     <img :src="wallpaper" class="fixed inset-0 h-full w-full object-cover" />
 
     <Breadboard />
-    <Link class="md:absolute md:top-6 md:left-6" left :to="''">
-      {{ ["Event info", "Ürituse info"][lang] }}
-    </Link>
+
+    <Button small left class="md:absolute md:top-6 md:left-6" to="/" />
 
     <Draggable v-bind="d.side1" class="p-4 md:w-[25vw]">
       <Title medium>Side 1</Title>

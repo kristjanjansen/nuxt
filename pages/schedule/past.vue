@@ -15,7 +15,7 @@ const { lang } = useLang();
   <ErrorCard v-if="error" />
   <Stack v-else class="grid p-3 md:p-5 lg:grid-cols-[1fr_3fr]">
     <Stack>
-      <Link left to="/schedule">See the upcoming events</Link>
+      <Button small left to="/schedule">See the upcoming events</Button>
       <Title>{{ ["Past events", "Toimunud sündmused"][lang] }}</Title>
     </Stack>
     <Stack>

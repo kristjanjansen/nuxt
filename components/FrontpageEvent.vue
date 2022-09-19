@@ -24,9 +24,9 @@ const { lang } = useLang();
       <NuxtLink :to="event.eventLink" class="w-full">
         <Button primary>{{ ["More info", "Lisainfo"][lang] }}</Button>
       </NuxtLink>
-      <Link to="/schedule" right>
+      <Button small to="/schedule" right>
         {{ [`See all upcoming events`, "Vaata kõiki tulevasi sündmusi"][lang] }}
-      </Link>
+      </Button>
     </Stack>
   </div>
 </template>

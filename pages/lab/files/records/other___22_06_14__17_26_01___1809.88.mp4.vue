@@ -262,7 +262,7 @@ const csv = `id,datetime,channel,type,value,userId,userName,captureId
 
 <template>
   <Stack class="p-4 md:p-6">
-    <Link to="/lab/files" left>Files</Link>
+    <Button small to="/lab/files" left>Files</Button>
     <Title>Experiment at June 2022</Title>
     <audio
       v-if="f.src.endsWith('.mp3')"
