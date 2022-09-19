@@ -57,10 +57,7 @@ const { idle } = useIdle(5000);
       v-show="!getDocked()"
       :style="style"
       class="w-full cursor-grab touch-none select-none overflow-hidden border border-gray-700 bg-black/70 backdrop-blur-lg transition-colors md:fixed md:w-fit"
-      :class="[
-        getDocked() ? 'opacity-50' : '',
-        isDragging ? '!md:border-gray-100 md:cursor-grabbing' : '',
-      ]"
+      :class="[isDragging ? '!md:border-gray-100 md:cursor-grabbing' : '']"
     >
       <div>
         <div class="relative">

@@ -4,6 +4,7 @@
         "body": [
             "<script setup lang=\"ts\">",
             "  $1",
+            "  const { lang } = useLang()",
             "</script>",
             "",
             "<template>",

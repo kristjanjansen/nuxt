@@ -2,7 +2,7 @@ import { Strapi4RequestParams } from "@nuxtjs/strapi/dist/runtime/types";
 import { merge, has, isArray, head, forEach, isObject } from "lodash-es";
 import { compareAsc } from "date-fns";
 
-// Public API
+// Events
 
 export const useEvents = (params: Strapi4RequestParams = {}) => {
   return useFind(
@@ -44,12 +44,36 @@ export const useEventBySlug = (
       },
       params
     ),
-    (events) => events.map(processEvent)
-  ).then((res) => {
-    res.data.value = res.data.value?.[0];
-    return res;
-  });
+    (events) => events.map(processEvent)[0]
+  );
 };
+
+export const useUpcomingEvent = async () => {
+  const { data: upcomingEvents, error } = await useEvents({
+    filters: { end_at: { $gt: today() } },
+  });
+  const data = computed(() => {
+    return upcomingEvents?.value?.filter((event) => {
+      const { urgency } = useDatetime(event.start_at, event.end_at);
+      return urgency.value === "soon" || urgency.value === "now";
+    })[0];
+  });
+  // TODO: Avoid duplication of useDatetime()
+  const formattedStartAtDistance = computed(() =>
+    data.value?.start_at
+      ? useFormattedDistance(new Date(data.value.start_at))
+      : null
+  );
+  const urgency = computed(() =>
+    data.value?.start_at && data.value?.start_at
+      ? useUrgency(new Date(data.value.start_at), new Date(data.value.end_at))
+      : null
+  );
+
+  return { data, error, formattedStartAtDistance, urgency };
+};
+
+// Projects
 
 export const useProjects = (params: Strapi4RequestParams = {}) => {
   return useFind(
@@ -91,12 +115,11 @@ export const useProjectBySlug = (
       },
       params
     ),
-    (projects) => projects.map(processProject)
-  ).then((res) => {
-    res.data.value = res.data.value?.[0];
-    return res;
-  });
+    (projects) => projects.map(processProject)[0]
+  );
 };
+
+// Pages
 
 export const useFrontPage = (params: Strapi4RequestParams = {}) => {
   return useFind(
@@ -167,6 +190,8 @@ export const usePodcastPage = (params: Strapi4RequestParams = {}) => {
     processPage
   );
 };
+
+// Messages
 
 export const useMessagesHistory = (params: Strapi4RequestParams = {}) => {
   return useFind("messages", merge({ sort: ["datetime:asc"] }, params));

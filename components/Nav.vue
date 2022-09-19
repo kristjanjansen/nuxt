@@ -96,6 +96,6 @@ const menu = ref(false);
         </NavLink>
       </button>
     </div>
-    <!-- <NavEvent /> -->
+    <NavEvent />
   </div>
 </template>
