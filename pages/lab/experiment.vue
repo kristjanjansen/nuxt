@@ -42,20 +42,20 @@ const onDownloadCsv = () => {
   <div>
     <Stack class="relative grid p-4 md:h-full md:place-items-center md:p-0">
       <Breadboard class="bg-gray-900" />
+
       <Button small left to="/lab" class="absolute top-4 left-4">Lab</Button>
 
-      <Draggable v-bind="d.help">
-        <div class="whitespace-pre-wrap p-4 font-mono text-sm text-gray-200">
-          {{ videostreams }}
-        </div>
+      <Draggable
+        v-bind="d.help"
+        class="whitespace-pre-wrap p-4 font-mono text-sm text-gray-200"
+      >
+        {{ videostreams }}
       </Draggable>
 
-      <Draggable v-bind="d.data" class="md:w-[30vw]">
-        <Stack class="p-4">
+      <Draggable v-bind="d.data" class="p-4 md:w-[50vw]">
+        <Stack>
           <Title medium>Data</Title>
-          <div
-            class="h-[15vw] overflow-auto whitespace-pre-wrap font-mono text-sm text-gray-200"
-          >
+          <div class="h-[15vw] overflow-auto font-mono text-sm text-gray-200">
             {{ m.messages }}
           </div>
           <Button primary @click="onDownloadCsv" :disabled="!m.messages.length"
@@ -64,32 +64,33 @@ const onDownloadCsv = () => {
         </Stack>
       </Draggable>
 
-      <Draggable v-bind="d.chat">
-        <Chat :channel="slug" class="h-[60vw] md:h-[30vw] md:w-[25vw]" />
+      <Draggable v-bind="d.chat" class="h-[60vw] md:h-[30vw] md:w-[25vw]">
+        <Chat :channel="slug" />
       </Draggable>
 
-      <Draggable v-bind="d.video" v-if="videostreams.length">
-        <Videostream :url="videostreams[0].url" class="md:w-[70vw]" />
+      <Draggable
+        v-bind="d.video"
+        v-if="videostreams.length"
+        class="md:w-[60vw]"
+      >
+        <Videostream :url="videostreams[0].url" />
       </Draggable>
 
-      <Draggable v-bind="d.controls" class="md:w-[40vw]">
-        <Title medium class="p-4 pb-0">I am</Title>
-        <template #undraggable>
-          <Stack class="p-4">
-            <input
-              v-model.number="data_1"
-              type="range"
-              max="10"
-              step="any"
-              class="w-full"
-            />
-            <div class="flex w-full justify-between">
-              <div>🤩 Excited</div>
-              <div>😐 Neutraalne</div>
-              <div>😴 Losing my focus</div>
-            </div>
-          </Stack>
-        </template>
+      <Draggable v-bind="d.controls" class="p-4 md:w-[40vw]">
+        <Stack>
+          <input
+            v-model.number="data_1"
+            type="range"
+            max="10"
+            step="any"
+            class="w-full accent-green-400"
+          />
+          <div class="flex w-full justify-between tracking-wide">
+            <div>🤩 Excited</div>
+            <div>😐 Neutraalne</div>
+            <div>😴 Losing my focus</div>
+          </div>
+        </Stack>
       </Draggable>
 
       <Dock :draggables="d" />
