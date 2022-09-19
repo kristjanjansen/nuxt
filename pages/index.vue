@@ -35,7 +35,7 @@ const { data: podcast } = usePodcast();
 const d = useDraggables({
   event1: { x: 200, y: 250, titles: ["Upcoming event", "Tulekul"] },
   // event2: { x: 400, y: 150 },
-  podcast: { x: 300, y: 300, titles: ["Podcast", "Taskuhääling"] },
+  podcast: { x: 500, y: 400, titles: ["Podcast", "Taskuhääling"] },
 });
 
 // Utilities
@@ -71,17 +71,22 @@ const { lang } = useLang();
       <Draggable
         v-if="podcast?.items?.length"
         v-bind="d.podcast"
-        class="p-4 md:w-[40vw]"
+        class="md:w-[40vw]"
       >
-        <Stack>
-          <PodcastEpisode :episode="podcast.items[0]" />
-          <Button small right to="/signal" class="place-self-end">
-            {{ ["Signal podcast", "Taskuhääling 'Signal'"][lang] }}
+        <PodcastEpisode :episode="podcast.items[0]" class="p-4">
+          <Button small right to="/signal" class="place-content-end">
+            {{ ["Listen more episodes", "Kuula ka teisi saateid"][lang] }}
           </Button>
-        </Stack>
+        </PodcastEpisode>
       </Draggable>
-      <Draggable v-if="event1" v-bind="d.event1" class="md:w-[30vw]">
-        <FrontpageEvent :event="event1" />
+      <Draggable v-if="event1" v-bind="d.event1" class="md:w-[35vw]">
+        <FrontpageEvent :event="event1" class="p-4">
+          <Button small to="/schedule" right class="place-content-end">
+            {{
+              [`See all upcoming events`, "Vaata kõiki tulevasi sündmusi"][lang]
+            }}
+          </Button>
+        </FrontpageEvent>
       </Draggable>
       <!-- <Draggable v-if="event2" v-bind="d.event2" class="md:w-[30vw]">
         <FrontpageEvent :event="event2" />

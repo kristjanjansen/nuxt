@@ -7,28 +7,24 @@ const { lang } = useLang();
 </script>
 
 <template>
-  <Stack class="p-4">
-    <div class="grid gap-4 md:grid-cols-[auto_1fr]">
-      <Image
-        class="pointer-events-none aspect-square h-16 w-16 rounded object-cover"
-        :image="event.thumbnail"
-      />
-      <Stack>
-        <div>
-          <Title v-if="event.authors" small class="text-gray-500"
-            >{{ event.authors }}
-          </Title>
-          <Title medium>{{ event.titles[lang] }}</Title>
-        </div>
-        <EventDatetime :event="event" />
-        <Content :content="event.intros[lang]" />
-        <Button primary :to="event.eventLink">
-          {{ ["More info", "Lisainfo"][lang] }}
-        </Button>
-      </Stack>
-    </div>
-    <Button small to="/schedule" right>
-      {{ [`See all upcoming events`, "Vaata kõiki tulevasi sündmusi"][lang] }}
-    </Button>
-  </Stack>
+  <div class="grid gap-4 md:grid-cols-[auto_1fr]">
+    <Image
+      class="pointer-events-none aspect-square h-24 w-24 rounded object-cover"
+      :image="event.thumbnail"
+    />
+    <Stack>
+      <div>
+        <Title v-if="event.authors" small class="text-gray-500"
+          >{{ event.authors }}
+        </Title>
+        <Title medium>{{ event.titles[lang] }}</Title>
+      </div>
+      <EventDatetime :event="event" />
+      <Content :content="event.intros[lang]" />
+      <Button primary :to="event.eventLink">
+        {{ ["More info", "Lisainfo"][lang] }}
+      </Button>
+      <slot />
+    </Stack>
+  </div>
 </template>
