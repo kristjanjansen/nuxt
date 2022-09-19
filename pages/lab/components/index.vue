@@ -10,27 +10,27 @@ const onClick = () => (message.value = "Clicked at " + performance.now());
 
       <Title medium>Default buttons</Title>
 
-      <Button @click="onClick">Small regular</Button>
-      <Button left @click="onClick">Small left</Button>
-      <Button right @click="onClick">Small right</Button>
-      <Button up @click="onClick">Small up</Button>
-      <Button down @click="onClick">Small down</Button>
+      <Button @click="onClick">Regular</Button>
+      <Button left @click="onClick">Regular left</Button>
+      <Button right @click="onClick">Regular right</Button>
+      <Button up @click="onClick">Regular up</Button>
+      <Button down @click="onClick">Regular down</Button>
 
       <Title medium>Default router links</Title>
 
-      <Button to="/lab/components/back">Small regular</Button>
-      <Button to="/lab/components/back" left>Small left</Button>
-      <Button to="/lab/components/back" right>Small right</Button>
-      <Button to="/lab/components/back" up>Small up</Button>
-      <Button to="/lab/components/back" down>Small down</Button>
+      <Button to="/lab/components/back">Regular</Button>
+      <Button to="/lab/components/back" left>Regular left</Button>
+      <Button to="/lab/components/back" right>Regular right</Button>
+      <Button to="/lab/components/back" up>Regular up</Button>
+      <Button to="/lab/components/back" down>Regular down</Button>
 
       <Title medium>Default external links</Title>
 
-      <Button href="https://google.com">Small regular</Button>
-      <Button href="https://google.com" left>Small left</Button>
-      <Button href="https://google.com" right>Small right</Button>
-      <Button href="https://google.com" up>Small up</Button>
-      <Button href="https://google.com" down>Small down</Button>
+      <Button href="https://google.com">Regular</Button>
+      <Button href="https://google.com" left>Regular left</Button>
+      <Button href="https://google.com" right>Regular right</Button>
+      <Button href="https://google.com" up>Regular up</Button>
+      <Button href="https://google.com" down>Regular down</Button>
 
       <Title medium>Primary buttons</Title>
 
