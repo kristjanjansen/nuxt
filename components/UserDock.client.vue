@@ -26,10 +26,10 @@ const textarea = ref<any>(null);
     </FadeTransition>
 
     <div class="fixed right-4 bottom-0 z-50">
-      <DockButton @click="edit = !edit" class="px-1 !normal-case">
-        <div class="flex w-full gap-2">
-          <IconCircle class="text-green-400" />
+      <DockButton @click="edit = !edit" class="!normal-case">
+        <div class="flex w-full justify-between gap-2">
           <div class="hidden truncate md:block">{{ userName || "&nbsp;" }}</div>
+          <IconCircle class="translate-x-[1px] text-green-400" />
         </div>
       </DockButton>
     </div>

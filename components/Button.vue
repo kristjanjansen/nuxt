@@ -27,7 +27,7 @@ const {
 
 const classes = {
   small:
-    "flex gap-1 font-mono text-xs uppercase text-gray-300 transition-colors hover:text-gray-500",
+    "flex gap-1 font-mono text-xs uppercase text-gray-300 transition-colors hover:text-gray-500 tracking-wide",
   regular:
     "inline-flex h-7 items-center gap-1 rounded border border-gray-50 bg-black/90 px-2 font-mono text-sm uppercase text-gray-300 transition-colors hover:bg-gray-800 disabled:pointer-events-none disabled:opacity-20",
   primary:
