@@ -62,7 +62,7 @@ watch(recharge, () => {
 });
 </script>
 <template>
-  <div class="relative inline-flex overflow-hidden rounded">
+  <div class="relative inline-flex overflow-hidden whitespace-nowrap rounded">
     <Button
       class="border-neutral-200 bg-neutral-200 text-neutral-700 transition hover:border-neutral-200 hover:bg-neutral-200"
       @click="onClick"

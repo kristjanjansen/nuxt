@@ -85,12 +85,12 @@ const { lang } = useLang();
       <div
         ref="draggable"
         class="flex h-6 cursor-grab items-center justify-between text-white transition duration-300 hover:bg-gray-800"
-        :class="[
-          isDragging ? 'md:cursor-grabbing' : '',
-          idle ? '!text-gray-700' : '',
-        ]"
+        :class="[isDragging ? 'md:cursor-grabbing' : '']"
       >
-        <div class="px-2 font-mono text-xs uppercase tracking-wide">
+        <div
+          class="px-2 font-mono text-xs uppercase tracking-wide text-gray-200"
+          :class="idle ? '!text-gray-700' : ''"
+        >
           {{ titles[lang] }}
         </div>
         <FadeTransition>

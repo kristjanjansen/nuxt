@@ -83,7 +83,7 @@ const { lang } = useLang();
       </Draggable> -->
     </Stack>
     <button
-      class="fixed top-10 right-1 rounded-full p-3"
+      class="fixed top-11 right-2 rounded-full p-3"
       @click.stop="muted = !muted"
     >
       <IconMuted v-if="muted" class="h-4 w-4" />
