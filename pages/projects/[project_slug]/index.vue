@@ -8,7 +8,7 @@ const { lang } = useLang();
 
 <template>
   <ErrorCard v-if="error" />
-  <Stack v-else-if="project" class="gap-8 p-4 md:p-6">
+  <Stack v-else class="gap-8 p-4 md:p-6">
     <div class="grid gap-8 md:grid-cols-[2fr_4fr]">
       <Stack>
         <Link left to="/projects">
