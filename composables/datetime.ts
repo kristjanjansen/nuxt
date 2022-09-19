@@ -58,8 +58,8 @@ const useUrgency = (fromDateTime: Date, toDateTime: Date | null) => {
 };
 
 export const useDatetime = (
-  startAt: Date | string,
-  endAt: Date | string | null
+  startAt: Date | string | undefined,
+  endAt: Date | string | undefined
 ) => {
   const startAtDatetime = new Date(startAt);
   const endAtDatetime = endAt ? new Date(endAt) : null;

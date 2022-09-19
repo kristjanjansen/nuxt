@@ -8,7 +8,7 @@ const { lang } = useLang();
 
 <template>
   <ErrorCard v-if="error" />
-  <Stack v-else class="items-stretch p-4 md:p-6">
+  <Stack v-else-if="event" class="items-stretch p-4 md:p-6">
     <div class="grid gap-6 md:grid-cols-[5fr_1fr]">
       <div class="grid gap-6 md:grid-cols-[1fr_2fr]">
         <Stack>
@@ -43,4 +43,5 @@ const { lang } = useLang();
       <div />
     </div>
   </Stack>
+  <div v-else>Aa</div>
 </template>
