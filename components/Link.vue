@@ -19,9 +19,9 @@ const { to, left, right } = defineProps<Props>();
     class="flex gap-1 font-mono text-xs uppercase text-gray-300 transition-colors hover:text-gray-500"
   >
     <IconArrowLeft v-if="left" />
-    <div><slot /></div>
-    <IconArrowRight v-if="right" />
     <IconArrowDown v-if="down" />
     <IconArrowUp v-if="up" />
+    <div><slot /></div>
+    <IconArrowRight v-if="right" />
   </NuxtLink>
 </template>
