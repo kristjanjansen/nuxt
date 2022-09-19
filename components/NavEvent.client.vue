@@ -11,7 +11,7 @@ const { lang } = useLang();
 
 <template>
   <FadeTransition>
-    <RouterLink
+    <NuxtLink
       v-if="event && !error"
       :to="event.eventLink"
       class="flex h-10 items-center justify-between gap-2 border-r border-b border-l border-gray-700 bg-black/90 px-3 text-sm transition hover:bg-gray-900"
@@ -31,6 +31,6 @@ const { lang } = useLang();
         </div>
       </div>
       <IconArrowRight class="text-green-400" />
-    </RouterLink>
+    </NuxtLink>
   </FadeTransition>
 </template>

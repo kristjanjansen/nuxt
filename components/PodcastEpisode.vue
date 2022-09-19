@@ -16,10 +16,7 @@ const { lang } = useLang();
       <img class="h-32 w-32 rounded" :src="episode.itunes.image" />
     </div>
     <Stack>
-      <NuxtLink :to="'/signal/' + (episode.itunes.episode || episode.guid)">
-        <Title medium>{{ episode.title }}</Title>
-      </NuxtLink>
-      <!-- @TODO: Edit the content to remove this -->
+      <Title medium>{{ episode.title }}</Title>
       <div class="text-sm text-gray-500">
         {{ formatDatetime(new Date(episode.isoDate)) }}
       </div>
