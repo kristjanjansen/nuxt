@@ -6,6 +6,7 @@ import IconArrowLeft from "~icons/radix-icons/arrow-left";
 
 type Props = {
   to?: string;
+  href?: string;
   small?: boolean;
   primary?: boolean;
   up?: boolean;
@@ -15,6 +16,7 @@ type Props = {
 };
 const {
   to = undefined,
+  href = undefined,
   small = false,
   primary = false,
   up = false,
@@ -35,7 +37,7 @@ const classes = {
 
 <template>
   <NuxtLink
-    v-if="to"
+    v-if="to && !href"
     :to="to"
     :class="[
       small ? classes.small : '',
@@ -49,9 +51,24 @@ const classes = {
     <div class="translate-y-[0.05rem]"><slot /></div>
     <IconArrowRight v-if="right" />
   </NuxtLink>
+  <a
+    v-else-if="!to && href"
+    :href="href"
+    target="_blank"
+    :class="[
+      small ? classes.small : '',
+      !small ? classes.regular : '',
+      primary ? classes.primary : '',
+    ]"
+  >
+    <IconArrowLeft v-if="left" />
+    <IconArrowDown v-if="down" />
+    <IconArrowUp v-if="up" />
+    <div class="translate-y-[0.05rem]"><slot /></div>
+    <IconArrowRight v-if="right" />
+  </a>
   <button
     v-else
-    :is="to ? 'nuxt-link' : 'button'"
     :to="to"
     :class="[
       small ? classes.small : '',
