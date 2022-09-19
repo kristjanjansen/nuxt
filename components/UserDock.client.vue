@@ -3,7 +3,7 @@ import IconCircle from "~icons/ph/circle-fill";
 import IconClose from "~icons/radix-icons/cross-2";
 
 const userName = useUserName();
-const edit = ref(true);
+const edit = ref(false);
 const textarea = ref<any>(null);
 const { lang } = useLang();
 </script>

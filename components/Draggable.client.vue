@@ -21,6 +21,7 @@ type Props = {
   getDocked: Function;
   setDocked: Function;
   getIndex: Function;
+  updateIndex: Function;
   dockable?: boolean;
   titles: string[];
 };
@@ -31,6 +32,7 @@ const {
   getDocked,
   setDocked,
   getIndex,
+  updateIndex,
   dockable = true,
   titles = undefined,
 } = defineProps<Props>();
@@ -79,6 +81,7 @@ const { lang } = useLang();
   <FadeTransition>
     <div
       v-show="!getDocked()"
+      @mousedown="() => updateIndex()"
       :style="style"
       class="w-full overflow-hidden border border-gray-700 bg-black/70 backdrop-blur-lg transition-colors md:fixed md:w-fit"
     >

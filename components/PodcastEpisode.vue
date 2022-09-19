@@ -24,11 +24,6 @@ const { lang } = useLang();
         :breakall="episode.itunes.episode === '2'"
         :content="episode['content:encoded']"
       />
-      <Button small down :href="episode.enclosure.url">
-        {{ ["Download", "Laadi alla"][lang] }}
-        {{ Math.floor(parseFloat(episode.enclosure.length) / 1024 / 1024) }}MB
-        MP3
-      </Button>
       <audio
         class="w-full"
         :class="['invert', ''][theme]"

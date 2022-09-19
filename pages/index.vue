@@ -73,7 +73,12 @@ const { lang } = useLang();
         v-bind="d.podcast"
         class="p-4 md:w-[40vw]"
       >
-        <PodcastEpisode :episode="podcast.items[0]" />
+        <Stack>
+          <PodcastEpisode :episode="podcast.items[0]" />
+          <Button small right to="/signal" class="place-self-end">
+            {{ ["Signal podcast", "Taskuhääling 'Signal'"][lang] }}
+          </Button>
+        </Stack>
       </Draggable>
       <Draggable v-if="event1" v-bind="d.event1" class="md:w-[30vw]">
         <FrontpageEvent :event="event1" />
