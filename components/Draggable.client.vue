@@ -11,6 +11,7 @@ type Props = {
   setDocked: Function;
   getIndex: Function;
   dockable?: boolean;
+  titles: string[];
 };
 const {
   x,
@@ -20,6 +21,7 @@ const {
   setDocked,
   getIndex,
   dockable = true,
+  titles = undefined,
 } = defineProps<Props>();
 const draggable = ref<HTMLElement | null>(null);
 
@@ -59,6 +61,7 @@ const { idle } = useIdle(5000);
       class="w-full cursor-grab touch-none select-none overflow-hidden border border-gray-700 bg-black/70 backdrop-blur-lg transition-colors md:fixed md:w-fit"
       :class="[isDragging ? '!md:border-gray-100 md:cursor-grabbing' : '']"
     >
+      {{ titles }}
       <div>
         <div class="relative">
           <FadeTransition>
