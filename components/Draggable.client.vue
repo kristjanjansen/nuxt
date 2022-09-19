@@ -1,5 +1,10 @@
 <script setup lang="ts">
-import { useDraggable, useIdle, useTimeoutFn } from "@vueuse/core";
+import {
+  useDraggable,
+  useIdle,
+  useTimeoutFn,
+  useWindowSize,
+} from "@vueuse/core";
 import { Ref } from "vue";
 import IconDock from "~icons/radix-icons/chevron-down";
 
@@ -23,8 +28,9 @@ const {
   dockable = true,
   titles = undefined,
 } = defineProps<Props>();
-const draggable = ref<HTMLElement | null>(null);
 
+const draggable = ref<HTMLElement | null>(null);
+const { height } = useWindowSize();
 const {
   isDragging,
   x: newX,
@@ -32,7 +38,12 @@ const {
 } = useDraggable(draggable, {
   initialValue: { x: x.value, y: y.value },
   onEnd: () => {
-    newY.value = newY.value < 0 ? 0 : newY.value;
+    newY.value =
+      newY.value < 0
+        ? 0
+        : newY.value >= height.value - 64
+        ? height.value - 64
+        : newY.value;
     useTimeoutFn(
       () =>
         updateXY({
@@ -47,10 +58,11 @@ const style = computed(() => {
   return {
     top: `${newY.value}px`,
     left: `${newX.value}px`,
-    zIndex: isDragging.value ? "100" : getIndex() + 10,
+    zIndex: isDragging.value ? "100" : getIndex() + 10, // z 10 is top nav
   };
 });
 const { idle } = useIdle(5000);
+const { lang } = useLang();
 </script>
 
 <template>
@@ -59,10 +71,12 @@ const { idle } = useIdle(5000);
       ref="draggable"
       v-show="!getDocked()"
       :style="style"
-      class="w-full cursor-grab touch-none select-none overflow-hidden border border-gray-700 bg-black/70 backdrop-blur-lg transition-colors md:fixed md:w-fit"
+      class="debug w-full cursor-grab touch-none select-none overflow-hidden border border-gray-700 bg-black/70 backdrop-blur-lg transition-colors md:fixed md:w-fit"
       :class="[isDragging ? '!md:border-gray-100 md:cursor-grabbing' : '']"
     >
-      {{ titles }}
+      <div class="px-2 font-mono text-xs uppercase tracking-wide">
+        {{ titles[lang] }}
+      </div>
       <div>
         <div class="relative">
           <FadeTransition>
