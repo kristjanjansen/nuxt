@@ -7,7 +7,7 @@ const output = computed(() => stringToCoords(input.value, 100, 100));
 
 <template>
   <Stack class="p-4 md:p-6">
-    <Link left to="/lab">Lab</Link>
+    <Button small Link left to="/lab">Lab</Button>
     <Title>Text to coordinates</Title>
     <div class="grid w-full gap-8 md:grid-cols-4">
       <Textarea v-model="input" class="h-64" />

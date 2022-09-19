@@ -8,7 +8,7 @@ const { data: files } = await getFiles(path);
 
 <template>
   <Stack class="p-4 md:p-6">
-    <Link to="/lab/files" left>Files</Link>
+    <Button small to="/lab/files" left>Files</Button>
     <Title>/{{ path }}</Title>
     <Stack class="w-full">
       <Card
@@ -40,7 +40,7 @@ const { data: files } = await getFiles(path);
         <NuxtLink :to="file.fileRoute">
           <FileDetails class="px-6" :file="file" />
         </NuxtLink>
-        <Link class="px-6" :to="file.src" down>Download</Link>
+        <Button small down class="px-6" :to="file.src">Download</Button>
         <p />
       </Card>
     </Stack>

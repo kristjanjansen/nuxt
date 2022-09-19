@@ -16,7 +16,7 @@ const { lang } = useLang();
 <template>
   <ErrorCard v-if="currentError || pastError" />
   <Stack v-else class="p-4 md:p-6">
-    <Link left to="/" />
+    <Button small left to="/" />
     <Title>
       {{ ["Current projects", "Käimasolevad projektid"][lang] }}
     </Title>

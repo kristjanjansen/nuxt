@@ -21,9 +21,14 @@ const { lang } = useLang();
     class="relative grid p-4 md:h-full md:place-items-center md:p-0"
   >
     <Breadboard class="bg-gray-900" />
-    <Link class="md:absolute md:top-6 md:left-6" left :to="event?.eventLink">
+    <Button
+      small
+      left
+      class="md:absolute md:top-6 md:left-6"
+      :to="event?.eventLink"
+    >
       {{ ["Event info", "Ürituse info"][lang] }}
-    </Link>
+    </Button>
 
     <Draggable v-bind="d.video" v-if="videostreams.length" class="md:w-[70vw]">
       <Videostream :url="videostreams[0].url" />

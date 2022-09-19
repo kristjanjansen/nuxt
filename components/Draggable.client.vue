@@ -32,6 +32,7 @@ const {
 } = useDraggable(draggable, {
   initialValue: { x: x.value, y: y.value },
   onEnd: () => {
+    newY.value = newY.value < 0 ? 0 : newY.value;
     useTimeoutFn(
       () =>
         updateXY({
@@ -46,7 +47,7 @@ const style = computed(() => {
   return {
     top: `${newY.value}px`,
     left: `${newX.value}px`,
-    zIndex: isDragging.value ? "100" : getIndex(),
+    zIndex: isDragging.value ? "100" : getIndex() + 10,
   };
 });
 const { idle } = useIdle(5000);

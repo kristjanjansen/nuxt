@@ -11,9 +11,9 @@ const { lang } = useLang();
   <Stack v-else class="gap-8 p-4 md:p-6">
     <div class="grid gap-8 md:grid-cols-[2fr_4fr]">
       <Stack>
-        <Link left to="/projects">
+        <Button small left to="/projects">
           {{ ["Projects", "Projektid"][lang] }}
-        </Link>
+        </Button>
         <div>
           <Title v-if="project.authors" medium class="text-gray-500">
             {{ project.authors }}

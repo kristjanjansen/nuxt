@@ -10,7 +10,7 @@ useVideostream(video2, stream2.url);
 
 <template>
   <Stack class="p-4 md:p-6">
-    <Link left to="/lab">Lab</Link>
+    <Button small left to="/lab">Lab</Button>
     <Title>Streaming test</Title>
     <div class="grid gap-8 md:grid-cols-2">
       <Stack>
@@ -35,7 +35,7 @@ useVideostream(video2, stream2.url);
         />
         <Title small>HLS output</Title>
         <div class="break-all font-mono">{{ stream1.url }}</div>
-        <Link :href="stream1.url" target="_blank">Open stream in Safari</Link>
+        <Button small :href="stream1.url">Open stream in Safari</Button>
       </Stack>
       <Stack>
         <Title medium>Elektron streaming without transcoding</Title>
@@ -59,7 +59,7 @@ useVideostream(video2, stream2.url);
         />
         <Title small>HLS output</Title>
         <div class="break-all font-mono">{{ stream2.url }}</div>
-        <Link :href="stream2.url" target="_blank">Open stream in Safari</Link>
+        <Button small :href="stream2.url">Open stream in Safari</Button>
       </Stack>
     </div>
   </Stack>

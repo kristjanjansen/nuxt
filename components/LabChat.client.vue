@@ -43,7 +43,7 @@ const messages = computed(() => [
       </div>
       <Stack class="justify-end">
         <Textarea ref="textarea" v-model="newChatMessage" />
-        <p class="text-xs text-gray-500">
+        <p class="text-xs tracking-wide text-gray-500">
           Shift + Enter for newline, Enter to submit
         </p>
         <div class="flex gap-4">
@@ -55,13 +55,14 @@ const messages = computed(() => [
         </div>
       </Stack>
     </div>
-    <Link
-      class="mt-4 flex"
+    <Button
       v-if="newChatMessagesCount > 0"
-      @click="scrollToBottom"
+      small
       down
+      class="mt-4 flex"
+      @click="scrollToBottom"
     >
       New messages
-    </Link>
+    </Button>
   </div>
 </template>

@@ -5,7 +5,7 @@ const input = ref("hello: world");
 </script>
 <template>
   <Stack class="p-4 md:p-6">
-    <Link left to="/lab">lab</Link>
+    <Button small left to="/lab">lab</Button>
     <Title>Parsing details</Title>
     <Button @click="debug = !debug">Toggle debug</Button>
     <div class="grid gap-16 text-gray-500 md:grid-cols-3">
@@ -21,7 +21,7 @@ const input = ref("hello: world");
           <div class="overflow-auto whitespace-pre-wrap font-mono">
             {{ project.details }}
           </div>
-          <Link right :to="project.projectLink">Visit project</Link>
+          <Button small right :to="project.projectLink">Visit project</Button>
         </div>
         <div class="overflow-auto whitespace-pre-wrap font-mono">
           {{ parseDetails(project.details) }}

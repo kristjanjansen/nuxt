@@ -112,13 +112,13 @@ onMounted(() => {
     <div
       class="z-10 flex items-center justify-between md:absolute md:top-6 md:left-6 md:right-6"
     >
-      <Link left :to="event?.eventLink">
+      <Button small left :to="event?.eventLink">
         {{ ["Event info", "Ürituse info"][lang] }}
-      </Link>
+      </Button>
       <div class="flex items-center space-x-4">
-        <Link @click="changeLang" class="cursor-pointer !text-gray-300">
+        <Button small @click="changeLang" class="cursor-pointer !text-gray-300">
           {{ ["Eesti keeles", "In english"][lang] }}
-        </Link>
+        </Button>
         <IconTheme
           @click="changeTheme"
           class="cursor-pointer text-gray-300 transition-colors hover:text-gray-500"

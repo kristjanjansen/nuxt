@@ -8,22 +8,22 @@ const menu = ref(false);
 </script>
 
 <template>
-  <div class="sticky top-0 z-50">
+  <div class="sticky top-0 z-10">
     <div
       class="grid grid-cols-1 bg-black/90 md:grid-cols-[1fr_1fr_1fr_1fr_1fr_1fr_0.3fr_0.3fr]"
     >
       <div
-        class="flex h-10 w-full items-center justify-between border border-gray-700"
+        class="flex h-9 w-full items-center justify-between border border-gray-700"
       >
         <NuxtLink
           to="/"
-          class="flex h-10 items-center px-3 font-title text-2xl lowercase text-gray-400"
+          class="flex h-9 items-center px-2 font-title text-2xl lowercase text-gray-400"
           @click="menu = false"
         >
           eˉlektron
         </NuxtLink>
         <button
-          class="flex h-10 w-10 items-center justify-center border-l border-gray-700 font-mono text-gray-400 md:hidden"
+          class="flex h-9 w-10 items-center justify-center border-l border-gray-700 font-mono text-gray-400 md:hidden"
           @click="menu = !menu"
         >
           <IconMenu />
@@ -35,7 +35,7 @@ const menu = ref(false);
         :class="[menu ? 'block' : 'hidden']"
         @click="menu = false"
       >
-        <NavLink>{{ ["Schedule", "Kava"][lang] }}</NavLink>
+        <NavButton>{{ ["Schedule", "Kava"][lang] }}</NavButton>
       </NuxtLink>
       <NuxtLink
         to="/projects"
@@ -43,7 +43,7 @@ const menu = ref(false);
         :class="[menu ? 'block' : 'hidden']"
         @click="menu = false"
       >
-        <NavLink>{{ ["projects", "projektid"][lang] }}</NavLink>
+        <NavButton>{{ ["projects", "projektid"][lang] }}</NavButton>
       </NuxtLink>
       <NuxtLink
         to="/about"
@@ -51,7 +51,7 @@ const menu = ref(false);
         :class="[menu ? 'block' : 'hidden']"
         @click="menu = false"
       >
-        <NavLink>{{ ["WTF elektron", "Meist"][lang] }}</NavLink>
+        <NavButton>{{ ["WTF elektron", "Meist"][lang] }}</NavButton>
       </NuxtLink>
       <NuxtLink
         to="/signal"
@@ -59,7 +59,7 @@ const menu = ref(false);
         :class="[menu ? 'block' : 'hidden']"
         @click="menu = false"
       >
-        <NavLink>{{ ["Podcast", "Taskuhääling"][lang] }}</NavLink>
+        <NavButton>{{ ["Podcast", "Taskuhääling"][lang] }}</NavButton>
       </NuxtLink>
       <NuxtLink
         to="/lab"
@@ -67,7 +67,7 @@ const menu = ref(false);
         :class="[menu ? 'block' : 'hidden']"
         @click="menu = false"
       >
-        <NavLink>{{ ["Lab", "Labor"][lang] }}</NavLink>
+        <NavButton>{{ ["Lab", "Labor"][lang] }}</NavButton>
       </NuxtLink>
       <button
         @click="
@@ -79,7 +79,7 @@ const menu = ref(false);
         class="text-left md:block"
         :class="[menu ? 'block' : 'hidden']"
       >
-        <NavLink>{{ ["eng", "est"][lang] }}</NavLink>
+        <NavButton>{{ ["eng", "est"][lang] }}</NavButton>
       </button>
       <button
         @click="
@@ -91,9 +91,9 @@ const menu = ref(false);
         class="text-left md:block"
         :class="[menu ? 'block' : 'hidden']"
       >
-        <NavLink>
+        <NavButton>
           {{ [["Nite", "Öö"][lang], ["Day", "Päev"][lang]][theme] }}
-        </NavLink>
+        </NavButton>
       </button>
     </div>
     <NavEvent />

@@ -9,9 +9,9 @@ const { lang } = useLang();
 
 <template>
   <Stack class="p-4 md:p-6">
-    <Link left to="/about">
+    <Button small left to="/about">
       {{ ["WTF Elektron", "Meist"][lang] }}
-    </Link>
+    </Button>
     <Title>{{ page.titles[lang] }}</Title>
     <Content :content="page.contents[lang]" class="max-w-[70ch]" />
   </Stack>

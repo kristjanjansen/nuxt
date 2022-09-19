@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { useMediaControls } from "@vueuse/core";
+import { useIntervalFn, useMediaControls } from "@vueuse/core";
 import IconMuted from "~icons/radix-icons/speaker-off";
 import IconUnmuted from "~icons/radix-icons/speaker-loud";
 
@@ -10,7 +10,7 @@ const { data: frontpage, error: frontpageError } = await useFrontPage();
 // Video
 
 const video = ref<HTMLVideoElement | null>(null);
-const { muted } = useMediaControls(video, {
+const { muted, playing } = useMediaControls(video, {
   src: frontpage.value?.background.url || "",
 });
 
@@ -33,9 +33,9 @@ const event2 = computed(() => {
 const { data: podcast } = usePodcast();
 
 const d = useDraggables({
-  event1: { x: 200, y: 250 },
-  event2: { x: 400, y: 150 },
-  podcast: { x: 600, y: 300 },
+  event1: { x: 200, y: 250, titles: ["Upcoming event", "Tulekul"] },
+  // event2: { x: 400, y: 150 },
+  podcast: { x: 300, y: 300, titles: ["Podcast", "Taskuhääling"] },
 });
 
 // Utilities
@@ -57,27 +57,39 @@ const { lang } = useLang();
       :class="[['', 'invert'][theme]]"
     />
     <Breadboard class="bg-black/80" />
+    <Breadboard
+      class="transition"
+      :class="
+        playing
+          ? 'bg-black/20 backdrop-blur-none'
+          : 'bg-black/100 backdrop-blur-xl'
+      "
+    />
     <Stack class="absolute top-4 left-4 right-4 gap-4 md:top-6 md:left-6">
       <Title class="w-auto text-gray-400 md:w-[40vw]">
         {{ frontpage?.descriptions[lang] }}
       </Title>
-      <Draggable v-if="podcast?.items?.length" v-bind="d.podcast">
-        <PodcastEpisode :episode="podcast.items[0]" class="p-5 md:w-[30vw]" />
+      <Draggable
+        v-if="podcast?.items?.length"
+        v-bind="d.podcast"
+        class="p-5 md:w-[40vw]"
+      >
+        <PodcastEpisode :episode="podcast.items[0]" class="p-4" />
       </Draggable>
-      <Draggable v-if="event1" v-bind="d.event1">
-        <FrontpageEvent :event="event1" class="md:w-[30vw]" />
+      <Draggable v-if="event1" v-bind="d.event1" class="md:w-[30vw]">
+        <FrontpageEvent :event="event1" />
       </Draggable>
-      <Draggable v-if="event2" v-bind="d.event2">
-        <FrontpageEvent :event="event2" class="md:w-[30vw]" />
-      </Draggable>
+      <!-- <Draggable v-if="event2" v-bind="d.event2" class="md:w-[30vw]">
+        <FrontpageEvent :event="event2" />
+      </Draggable> -->
     </Stack>
     <button
-      class="fixed bottom-0 left-1 rounded-full p-3"
+      class="fixed top-10 right-1 rounded-full p-3"
       @click.stop="muted = !muted"
     >
       <IconMuted v-if="muted" class="h-4 w-4" />
       <IconUnmuted v-if="!muted" class="h-4 w-4" />
     </button>
-    <Dock :draggables="d" class="!left-12" />
+    <Dock :draggables="d" />
   </div>
 </template>
