@@ -3,6 +3,7 @@ import IconArrowRight from "~icons/radix-icons/arrow-right";
 const {
   data: event,
   formattedStartAtDistance,
+  urgency,
   error,
 } = await useUpcomingEvent();
 const { lang } = useLang();
@@ -16,13 +17,8 @@ const { lang } = useLang();
       class="flex h-10 items-center justify-between gap-2 border-r border-b border-l border-gray-700 bg-black/90 px-3 text-sm transition hover:bg-gray-900"
     >
       <div class="flex gap-1">
-        <pre
-          v-if="false"
-          class="fixed inset-0 overflow-scroll truncate bg-black"
-        >
-        {{ event }}
-        </pre>
-        <LiveBadge />
+        <SoonBadge v-if="urgency.value === 'soon'" />
+        <NowBadge v-if="urgency.value === 'now'" />
         <div class="tracking-wide" v-html="event.titles[lang]"></div>
         <div v-if="event.authors" class="hidden tracking-wide md:block">
           {{ ["by", ""][lang] }} {{ event.authors }}

@@ -55,15 +55,22 @@ export const useUpcomingEvent = async () => {
   const data = computed(() => {
     return upcomingEvents?.value?.filter((event) => {
       const { urgency } = useDatetime(event.start_at, event.end_at);
-      return urgency.value === "future" || urgency.value === "now";
+      return urgency.value === "soon" || urgency.value === "now";
     })[0];
   });
+  // TODO: Avoid duplication of useDatetime()
   const formattedStartAtDistance = computed(() =>
     data.value?.start_at
       ? useFormattedDistance(new Date(data.value.start_at))
       : null
   );
-  return { data, error, formattedStartAtDistance };
+  const urgency = computed(() =>
+    data.value?.start_at && data.value?.start_at
+      ? useUrgency(new Date(data.value.start_at), new Date(data.value.end_at))
+      : null
+  );
+
+  return { data, error, formattedStartAtDistance, urgency };
 };
 
 // Projects

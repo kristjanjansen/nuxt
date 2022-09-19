@@ -38,7 +38,7 @@ export const useFormattedDistance = (dateTime: Date) => {
 
 type Urgency = "past" | "now" | "soon" | "future" | "permanent";
 
-const useUrgency = (fromDateTime: Date, toDateTime: Date | null) => {
+export const useUrgency = (fromDateTime: Date, toDateTime: Date | null) => {
   return computed<Urgency>(() => {
     const soonMinutes = 3 * 60;
     const started = differenceInMinutes(fromDateTime, now.value);
