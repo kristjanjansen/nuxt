@@ -44,6 +44,7 @@ const {
   y: newY,
 } = useDraggable(draggable, {
   initialValue: { x: x.value, y: y.value },
+  preventDefault: true,
   onEnd: () => {
     newX.value =
       newX.value >= width.value ? width.value - SAFE_SIZE : newX.value;
@@ -83,8 +84,11 @@ const { lang } = useLang();
     >
       <div
         ref="draggable"
-        class="flex h-6 cursor-grab items-center justify-between text-white transition hover:bg-gray-800"
-        :class="[isDragging ? 'md:cursor-grabbing' : '']"
+        class="flex h-6 cursor-grab items-center justify-between text-white transition duration-300 hover:bg-gray-800"
+        :class="[
+          isDragging ? 'md:cursor-grabbing' : '',
+          idle ? '!text-gray-700' : '',
+        ]"
       >
         <div class="px-2 font-mono text-xs uppercase tracking-wide">
           {{ titles[lang] }}
@@ -92,7 +96,7 @@ const { lang } = useLang();
         <FadeTransition>
           <button
             v-if="dockable && !idle"
-            class="absolute top-0 right-0 z-[100] p-1 text-gray-500 hover:text-gray-100 focus:z-50"
+            class="z-[100] p-1 text-gray-500 hover:text-gray-100 focus:z-50"
             @click="() => setDocked()"
           >
             <IconDock />

@@ -56,12 +56,11 @@ const { lang } = useLang();
       class="h-full w-full flex-col object-cover"
       :class="[['', 'invert'][theme]]"
     />
-    <Breadboard class="bg-black/80" />
     <Breadboard
-      class="transition"
+      class="transition duration-1000"
       :class="
         playing
-          ? 'bg-black/20 backdrop-blur-none'
+          ? 'bg-black/70 backdrop-blur-none'
           : 'bg-black/100 backdrop-blur-xl'
       "
     />
@@ -72,9 +71,9 @@ const { lang } = useLang();
       <Draggable
         v-if="podcast?.items?.length"
         v-bind="d.podcast"
-        class="p-5 md:w-[40vw]"
+        class="p-4 md:w-[40vw]"
       >
-        <PodcastEpisode :episode="podcast.items[0]" class="p-4" />
+        <PodcastEpisode :episode="podcast.items[0]" />
       </Draggable>
       <Draggable v-if="event1" v-bind="d.event1" class="md:w-[30vw]">
         <FrontpageEvent :event="event1" />

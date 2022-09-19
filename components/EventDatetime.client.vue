@@ -18,7 +18,7 @@ const { lang } = useLang();
 <template>
   <div class="text-sm">
     <div class="flex w-max items-center gap-1">
-      <div class="tracking-wide">
+      <div class="tracking-wide text-gray-500">
         {{ formattedDatetimeFirst }}
       </div>
       <IconChevron v-if="formattedDatetimeSecond" class="text-gray-500" />
