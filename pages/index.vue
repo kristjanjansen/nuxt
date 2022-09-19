@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { useMediaControls } from "@vueuse/core";
+import { useIntervalFn, useMediaControls } from "@vueuse/core";
 import IconMuted from "~icons/radix-icons/speaker-off";
 import IconUnmuted from "~icons/radix-icons/speaker-loud";
 
@@ -10,7 +10,7 @@ const { data: frontpage, error: frontpageError } = await useFrontPage();
 // Video
 
 const video = ref<HTMLVideoElement | null>(null);
-const { muted } = useMediaControls(video, {
+const { muted, playing } = useMediaControls(video, {
   src: frontpage.value?.background.url || "",
 });
 
@@ -42,6 +42,8 @@ const d = useDraggables({
 
 const { theme } = useTheme();
 const { lang } = useLang();
+
+const loaded = ref(false);
 </script>
 
 <template>
@@ -57,6 +59,14 @@ const { lang } = useLang();
       :class="[['', 'invert'][theme]]"
     />
     <Breadboard class="bg-black/80" />
+    <Breadboard
+      class="transition duration-[3000ms]"
+      :class="
+        playing
+          ? 'bg-black/20 backdrop-blur-none'
+          : 'bg-black/100 backdrop-blur-xl'
+      "
+    />
     <Stack class="absolute top-4 left-4 right-4 gap-4 md:top-6 md:left-6">
       <Title class="w-auto text-gray-400 md:w-[40vw]">
         {{ frontpage?.descriptions[lang] }}

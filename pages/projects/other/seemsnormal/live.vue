@@ -45,7 +45,7 @@ const { lang } = useLang();
   >
     <img :src="wallpaper" class="fixed inset-0 h-full w-full object-cover" />
 
-    <Breadboard />
+    <Breadboard class="transition-opacity duration-[3000]" />
 
     <Button small left class="md:absolute md:top-6 md:left-6" to="/" />
 
