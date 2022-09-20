@@ -79,8 +79,8 @@ input[type="range"] {
   height: var(--h-px);
   background-color: rgb(var(--gray-300));
   background-image: linear-gradient(
-    rgb(var(--green-400)),
-    rgb(var(--green-400))
+    rgb(var(--green-500)),
+    rgb(var(--green-500))
   );
   background-repeat: no-repeat;
 }

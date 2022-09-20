@@ -83,7 +83,7 @@ const onDownloadCsv = () => {
             type="range"
             max="10"
             step="any"
-            class="w-full accent-green-400"
+            class="w-full accent-green-500"
           />
           <div class="flex w-full justify-between tracking-wide">
             <div>🤩 Excited</div>

@@ -4,7 +4,7 @@ const { lang } = useLang();
 
 <template>
   <div
-    class="animate-pulse pr-1 font-bold uppercase tracking-wider text-green-400"
+    class="animate-pulse pr-1 font-bold uppercase tracking-wider text-green-500"
   >
     {{ ["Live", "Laiv"][lang] }}
   </div>

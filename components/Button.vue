@@ -31,7 +31,7 @@ const classes = {
   regular:
     "inline-flex h-7 items-center gap-1 rounded border border-gray-50 bg-black/90 px-2 font-mono text-sm uppercase text-gray-300 transition-colors hover:bg-gray-800 disabled:pointer-events-none disabled:opacity-20",
   primary:
-    "border-green-400 bg-green-400 !text-[black] hover:border-green-500 hover:bg-green-500",
+    "border-green-500 bg-green-500 !text-[black] hover:border-green-600 hover:bg-green-600",
 };
 </script>
 

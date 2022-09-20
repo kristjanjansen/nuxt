@@ -7,10 +7,6 @@ import IconTheme from "~icons/radix-icons/half-2";
 const REFRESH_INTERVAL = 1000 * 10;
 const path = "anthropologies2";
 
-definePageMeta({
-  layout: "minimal",
-});
-
 const slug = "kussaoled";
 const { data: event } = await useEventBySlug(slug);
 const videostreams = getVideostreams(event.value.streamkey);
