@@ -43,10 +43,13 @@ const { lang } = useLang();
           :to="'/page/' + card.title"
         >
           <Card
-            class="aspect-video bg-green-400 transition-colors hover:bg-green-500 md:aspect-square"
+            class="flex aspect-video flex-col justify-between bg-green-400 transition-colors hover:bg-green-500 md:aspect-square"
             :class="[colClass[card.layout]]"
           >
             <Title class="text-[black]">{{ card.titles?.[lang] }}</Title>
+            <p class="tracking-wide text-[black]">
+              {{ ["Read more", "Vaata"][lang] }}
+            </p>
           </Card>
         </NuxtLink>
         <Card
