@@ -36,7 +36,7 @@ const { lang } = useLang();
       <DockButton @click="edit = !edit" class="!normal-case">
         <div class="flex w-full justify-between gap-2">
           <div class="hidden truncate md:block">{{ userName || "&nbsp;" }}</div>
-          <IconCircle class="text-green-400" />
+          <IconCircle class="text-green-500" />
         </div>
       </DockButton>
     </div>

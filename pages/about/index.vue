@@ -14,7 +14,7 @@ const { lang } = useLang();
 <template>
   <ErrorCard v-if="error" />
   <Stack class="p-4 md:p-6" v-else>
-    <Button small left to="/" />
+    <Button small left to="/" class="block md:hidden" />
     <div class="flex w-full grid-cols-1 flex-col gap-4 md:grid md:grid-cols-4">
       <template v-for="card in cards?.cards">
         <Title
@@ -29,7 +29,7 @@ const { lang } = useLang();
           target="_blank"
         >
           <Card
-            class="flex aspect-video flex-col justify-between bg-green-400 transition-colors hover:bg-green-400 md:aspect-square"
+            class="flex aspect-video flex-col justify-between bg-green-500 transition-colors hover:bg-green-500 md:aspect-square"
             :class="[colClass[card.layout]]"
           >
             <Title class="text-[black]">{{ card.titles?.[lang] }}</Title>
@@ -43,7 +43,7 @@ const { lang } = useLang();
           :to="'/page/' + card.title"
         >
           <Card
-            class="flex aspect-video flex-col justify-between bg-green-400 transition-colors hover:bg-green-500 md:aspect-square"
+            class="flex aspect-video flex-col justify-between bg-green-500 transition-colors hover:bg-green-600 md:aspect-square"
             :class="[colClass[card.layout]]"
           >
             <Title class="text-[black]">{{ card.titles?.[lang] }}</Title>

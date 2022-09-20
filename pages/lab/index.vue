@@ -57,15 +57,19 @@
       <p />
       <Title>User interface prototyping</Title>
       <div class="grid w-full auto-rows-fr gap-5 md:grid-cols-4">
-        <LinkCard to="/lab/buttons" class="border-re aspect-video pr-8">
-          <Title small>Buttons</Title>
-          <p class="text-gray-500">Buttons like links and vice versa</p>
-        </LinkCard>
         <LinkCard to="/lab/ecomponents" class="border-re aspect-video pr-8">
           <Title small>EComponents</Title>
           <p class="text-gray-500">
             Bringing in components from previous version
           </p>
+        </LinkCard>
+        <LinkCard to="/lab/colors" class="border-re aspect-video pr-8">
+          <Title small>Colors</Title>
+          <p class="text-gray-500">A color chart</p>
+        </LinkCard>
+        <LinkCard to="/lab/buttons" class="border-re aspect-video pr-8">
+          <Title small>Buttons</Title>
+          <p class="text-gray-500">Buttons like links and vice versa</p>
         </LinkCard>
         <LinkCard to="/lab/videoframe" class="border-re aspect-video pr-8">
           <Title small>Animate video frames</Title>

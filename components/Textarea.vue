@@ -21,7 +21,7 @@ const inputValue = computed({
 });
 
 const classes = [
-  "max-h-64 whitespace-pre-wrap border-gray-500 bg-black/0 px-2 py-1 font-mono text-white focus:border-green-400 focus:ring-0",
+  "max-h-64 whitespace-pre-wrap border-gray-500 bg-black/0 px-2 py-1 font-mono text-white focus:border-green-500 focus:ring-0",
 ];
 </script>
 

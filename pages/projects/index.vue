@@ -16,9 +16,9 @@ const { lang } = useLang();
 <template>
   <ErrorCard v-if="currentError || pastError" />
   <Stack v-else class="p-4 md:p-6">
-    <Button small left to="/" />
+    <Button small left to="/" class="block md:hidden" />
     <Title>
-      {{ ["Current projects", "Käimasolevad projektid"][lang] }}
+      {{ ["Projects", "Projektid"][lang] }}
     </Title>
     <div class="flex flex-col gap-6 md:grid md:grid-cols-3 md:gap-4">
       <NuxtLink

@@ -1,12 +1,14 @@
 <script setup>
+definePageMeta({
+  layout: "elayout",
+});
+
 const a = ref(50);
 </script>
 
 <template>
   <div class="EComponents">
     <EInputRange v-model="a" label="EInputForm" />
-    <ELabel>Color mapping</ELabel>
-    <LabColors />
   </div>
 </template>
 

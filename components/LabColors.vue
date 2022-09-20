@@ -1,6 +1,5 @@
 <script setup>
 const colors = [
-  ["var(--accent)", "#7bef87", "rgb(var(--green-400))"],
   ["var(--fg)", "#ffffff", "rgb(var(--white))"],
   ["N/A", "", "rgb(var(--gray-50))"],
   ["var(--gray-100)", "#f2f2f2", "rgb(var(--gray-100))"],
@@ -13,6 +12,9 @@ const colors = [
   ["N/A", "", "rgb(var(--gray-800))"],
   ["N/A", "", "rgb(var(--gray-900))"],
   ["var(--bg)", "#000000", "rgb(var(--black))"],
+  ["N/A", "", "rgb(var(--green-400))"],
+  ["var(--accent)", "#7bef87", "rgb(var(--green-500))"],
+  ["N/A", "", "rgb(var(--green-600))"],
 ];
 </script>
 <template>
