@@ -53,26 +53,26 @@ const inputValue = computed({
   margin-bottom: var(--p-3);
   font-family: var(--font-mono);
   font-size: var(--text-xs);
-  border: 1px solid rgb(var(--gray-300));
-  background-color: rgb(var(--black));
+  border: 1px solid var(--gray-300);
+  background-color: var(--bg);
   padding: var(--p-1) var(--p-2);
 }
 .EInput::placeholder {
-  color: rgb(var(--gray-300));
+  color: var(--gray-300);
 }
 .EInput:focus {
   outline: none;
-  border-color: rgb(var(--white));
+  border-color: var(--fg);
 }
 .EInput:not(:disabled):hover {
   background-color: rgba(250, 250, 250, 0.1);
 }
 .EInput:disabled {
-  border-color: rgb(var(--gray-500));
-  color: rgb(var(--gray-500));
+  border-color: var(--gray-500);
+  color: var(--gray-500);
   cursor: not-allowed;
 }
 .EInput:disabled::placeholder {
-  color: rgb(var(--gray-500));
+  color: var(--gray-500);
 }
 </style>

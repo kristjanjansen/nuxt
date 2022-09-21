@@ -57,7 +57,7 @@ const { lang } = useLang();
           class="flex flex-col justify-between gap-2"
           :class="[colClass[card.layout]]"
         >
-          <Title class="text-gray-400">{{
+          <Title class="text-grey-400">{{
             card.titles?.[lang] || card.name
           }}</Title>
           <Content medium :content="card.contents[lang]" />
@@ -68,7 +68,7 @@ const { lang } = useLang();
           class="flex flex-col justify-between gap-2"
           :class="[colClass[card.layout]]"
         >
-          <Title class="text-gray-400">{{
+          <Title class="text-grey-400">{{
             card.titles?.[lang] || card.name
           }}</Title>
           <Content medium :content="card.contents[lang]" />

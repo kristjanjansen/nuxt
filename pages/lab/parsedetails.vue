@@ -8,7 +8,7 @@ const input = ref("hello: world");
     <Button small left to="/lab">lab</Button>
     <Title>Parsing details</Title>
     <Button @click="debug = !debug">Toggle debug</Button>
-    <div class="grid gap-16 text-gray-500 md:grid-cols-3">
+    <div class="grid gap-16 text-grey-500 md:grid-cols-3">
       <Title small>Input data</Title>
       <Title small>Parsed data</Title>
       <Title small>Output data</Title><Textarea v-model="input" />

@@ -15,7 +15,7 @@ const { to } = defineProps<Props>();
   <NuxtLink :to="to">
     <Card
       v-bind="$attrs"
-      class="transition-all hover:border-gray-600 hover:bg-gray-900"
+      class="transition-all hover:border-grey-600 hover:bg-grey-900"
       ><slot
     /></Card>
   </NuxtLink>

@@ -8,7 +8,7 @@ const { medium = false, small = false } = defineProps<Props>();
 
 <template>
   <h2
-    class="break-words font-title text-3xl font-normal leading-8 text-gray-300"
+    class="break-words font-title text-3xl font-normal leading-8 text-grey-300"
     :class="[
       medium ? '!md:text-2xl !text-xl leading-8' : '',
       small ? '!text-base !leading-6' : '',
@@ -22,9 +22,9 @@ h2 a {
   @apply underline;
 }
 h2 em {
-  @apply font-normal not-italic text-gray-300;
+  @apply font-normal not-italic text-grey-300;
 }
 h2 strong {
-  @apply font-normal text-gray-200;
+  @apply font-normal text-grey-200;
 }
 </style>

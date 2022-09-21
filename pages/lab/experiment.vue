@@ -41,13 +41,13 @@ const onDownloadCsv = () => {
 <template>
   <div>
     <Stack class="relative grid p-4 md:h-full md:place-items-center md:p-0">
-      <Breadboard class="bg-gray-900" />
+      <Breadboard class="bg-grey-900" />
 
       <Button small left to="/lab" class="absolute top-4 left-4">Lab</Button>
 
       <Draggable
         v-bind="d.help"
-        class="whitespace-pre-wrap p-4 font-mono text-sm text-gray-200"
+        class="whitespace-pre-wrap p-4 font-mono text-sm text-grey-200"
       >
         {{ videostreams }}
       </Draggable>
@@ -55,7 +55,7 @@ const onDownloadCsv = () => {
       <Draggable v-bind="d.data" class="p-4 md:w-[50vw]">
         <Stack>
           <Title medium>Data</Title>
-          <div class="h-[15vw] overflow-auto font-mono text-sm text-gray-200">
+          <div class="h-[15vw] overflow-auto font-mono text-sm text-grey-200">
             {{ m.messages }}
           </div>
           <Button primary @click="onDownloadCsv" :disabled="!m.messages.length"

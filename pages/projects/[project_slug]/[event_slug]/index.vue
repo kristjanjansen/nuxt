@@ -16,7 +16,7 @@ const { lang } = useLang();
             {{ ["Project", "Projekt"][lang] }}
           </Button>
           <div>
-            <Title v-if="event.authors" medium class="text-gray-500"
+            <Title v-if="event.authors" medium class="text-grey-500"
               >{{ event.authors }}
             </Title>
             <Title>

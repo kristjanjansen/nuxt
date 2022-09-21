@@ -18,7 +18,7 @@ const { lang } = useLang();
       <NuxtLink :to="event.eventLink">
         <Stack class="!gap-2">
           <div>
-            <Title v-if="event.authors" small class="text-gray-500">
+            <Title v-if="event.authors" small class="text-grey-500">
               {{ event.authors }}
             </Title>
             <Title medium class="transition">
@@ -26,7 +26,7 @@ const { lang } = useLang();
             </Title>
           </div>
           <Content
-            class="text-gray-500 transition"
+            class="text-grey-500 transition"
             nolinks
             :content="event.intros[lang]"
           />

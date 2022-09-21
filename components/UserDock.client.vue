@@ -13,7 +13,7 @@ const { lang } = useLang();
     <FadeTransition>
       <div
         v-show="edit"
-        class="fixed right-4 bottom-9 z-[100] w-[70vw] !gap-2 border border-gray-700 bg-black/80 backdrop-blur-lg md:left-auto md:w-[20vw]"
+        class="fixed right-4 bottom-9 z-[100] w-[70vw] !gap-2 border border-grey-700 bg-black/80 backdrop-blur-lg md:left-auto md:w-[20vw]"
       >
         <div class="flex h-7 items-center justify-between px-2">
           <div class="font-mono text-xs uppercase tracking-wide">
@@ -21,12 +21,12 @@ const { lang } = useLang();
           </div>
           <button @click="edit = false">
             <IconClose
-              class="translate-x-1 text-gray-500 transition hover:text-gray-400"
+              class="translate-x-1 text-grey-500 transition hover:text-grey-400"
             />
           </button>
         </div>
         <Stack class="!gap-1 !p-4">
-          <div class="text-sm tracking-wide text-gray-300">Your name</div>
+          <div class="text-sm tracking-wide text-grey-300">Your name</div>
           <Textarea ref="textarea" v-model="userName" class="text-sm" />
         </Stack>
       </div>

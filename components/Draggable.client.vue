@@ -83,23 +83,23 @@ const { lang } = useLang();
       v-show="!getDocked()"
       @mousedown="() => updateIndex()"
       :style="style"
-      class="w-full overflow-hidden border border-gray-700 bg-black/70 backdrop-blur-lg transition-colors md:fixed md:w-fit"
+      class="w-full overflow-hidden border border-grey-700 bg-black/70 backdrop-blur-lg transition-colors md:fixed md:w-fit"
     >
       <div
         ref="draggable"
-        class="flex h-6 cursor-grab items-center justify-between text-white transition duration-300 hover:bg-gray-800"
+        class="flex h-6 cursor-grab items-center justify-between text-white transition duration-300 hover:bg-grey-800"
         :class="[isDragging ? 'md:cursor-grabbing' : '']"
       >
         <div
-          class="px-2 font-mono text-xs uppercase tracking-wide text-gray-200"
-          :class="idle ? '!text-gray-700' : ''"
+          class="px-2 font-mono text-xs uppercase tracking-wide text-grey-200"
+          :class="idle ? '!text-grey-700' : ''"
         >
           {{ titles[lang] }}
         </div>
         <FadeTransition>
           <button
             v-if="dockable && !idle"
-            class="z-[100] p-1 text-gray-500 hover:text-gray-100 focus:z-50"
+            class="z-[100] p-1 text-grey-500 hover:text-grey-100 focus:z-50"
             @click="() => setDocked()"
           >
             <IconDock />

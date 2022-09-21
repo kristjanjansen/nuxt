@@ -31,7 +31,7 @@ const draggables = useDraggables({
       class="bg-black/80"
       :style="{ backdropFilter: 'blur(' + blur + 'px)' }"
     />
-    <Breadboard v-else class="bg-gray-900" />
+    <Breadboard v-else class="bg-grey-900" />
     <Stack class="absolute top-4 left-4 right-4 gap-4 md:top-6 md:left-6">
       <Button small left to="/lab">lab</Button>
       <Title>Video breadboard</Title>

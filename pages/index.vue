@@ -65,7 +65,7 @@ const { lang } = useLang();
       "
     />
     <Stack class="absolute top-4 left-4 right-4 gap-4 md:top-6 md:left-6">
-      <Title class="w-auto text-gray-400 md:w-[40vw]">
+      <Title class="w-auto text-grey-400 md:w-[40vw]">
         {{ frontpage?.descriptions[lang] }}
       </Title>
       <Draggable

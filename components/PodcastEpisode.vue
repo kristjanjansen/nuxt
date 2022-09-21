@@ -17,7 +17,7 @@ const { lang } = useLang();
     </div>
     <Stack>
       <Title medium>{{ episode.title }}</Title>
-      <div class="text-sm text-gray-500">
+      <div class="text-sm text-grey-500">
         {{ formatDatetime(new Date(episode.isoDate)) }}
       </div>
       <Content

@@ -14,7 +14,7 @@ const { lang } = useLang();
     />
     <Stack>
       <div>
-        <Title v-if="event.authors" small class="text-gray-500"
+        <Title v-if="event.authors" small class="text-grey-500"
           >{{ event.authors }}
         </Title>
         <Title medium>{{ event.titles[lang] }}</Title>

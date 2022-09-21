@@ -20,7 +20,7 @@ const { lang } = useLang();
     v-else
     class="relative grid p-4 md:h-full md:place-items-center md:p-0"
   >
-    <Breadboard class="bg-gray-900" />
+    <Breadboard class="bg-grey-900" />
     <Button
       small
       left

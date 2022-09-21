@@ -29,7 +29,7 @@ const { lang } = useLang();
     </div>
     <Stack class="block md:hidden">
       <Stack class="!gap-1">
-        <Title medium v-if="project.authors" class="text-gray-500">
+        <Title medium v-if="project.authors" class="text-grey-500">
           {{ project.authors }}
         </Title>
         <Title>

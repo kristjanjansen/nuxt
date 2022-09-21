@@ -15,7 +15,7 @@ const { lang } = useLang();
           {{ ["Projects", "Projektid"][lang] }}
         </Button>
         <div>
-          <Title v-if="project.authors" medium class="text-gray-500">
+          <Title v-if="project.authors" medium class="text-grey-500">
             {{ project.authors }}
           </Title>
           <Title>
@@ -38,7 +38,7 @@ const { lang } = useLang();
       </Card>
       <Card v-if="project.events">
         <Stack class="gap-8">
-          <Title class="text-gray-400">{{
+          <Title class="text-grey-400">{{
             ["Events", "Sündmused"][lang]
           }}</Title>
           <EventCard v-for="event in project.events" :event="event" />

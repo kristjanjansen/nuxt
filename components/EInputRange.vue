@@ -77,11 +77,8 @@ input[type="range"] {
   appearance: none;
   width: 100%;
   height: var(--h-px);
-  background-color: rgb(var(--gray-300));
-  background-image: linear-gradient(
-    rgb(var(--green-500)),
-    rgb(var(--green-500))
-  );
+  background-color: var(--gray-300);
+  background-image: linear-gradient(var(--accent), var(--accent));
   background-repeat: no-repeat;
 }
 /* Input Thumb */
@@ -90,7 +87,7 @@ input[type="range"]::-webkit-slider-thumb {
   height: var(--w-4);
   width: var(--h-4);
   border-radius: 50%;
-  background: rgb(var(--white));
+  background: var(--fg);
   cursor: ew-resize;
   box-shadow: none;
   border: none;
@@ -101,7 +98,7 @@ input[type="range"]::-moz-range-thumb {
   height: var(--w-4);
   width: var(--h-4);
   border-radius: 50%;
-  background: rgb(var(--white));
+  background: var(--fg);
   cursor: ew-resize;
   box-shadow: none;
   border: none;
@@ -113,7 +110,7 @@ input[type="range"]::-ms-thumb {
   height: var(--w-4);
   width: var(--h-4);
   border-radius: 50%;
-  background: rgb(var(--white));
+  background: var(--fg);
   cursor: ew-resize;
   box-shadow: none;
   border: none;
@@ -121,13 +118,13 @@ input[type="range"]::-ms-thumb {
   transition: background 0.2s ease-in-out;
 }
 input[type="range"]::-webkit-slider-thumb:hover {
-  background: rgb(var(--gray-300));
+  background: var(--gray-300);
 }
 input[type="range"]::-moz-range-thumb:hover {
-  background: rgb(var(--gray-300));
+  background: var(--gray-300);
 }
 input[type="range"]::-ms-thumb:hover {
-  background: rgb(var(--gray-300));
+  background: var(--gray-300);
 }
 /* Input Track */
 input[type="range"]::-webkit-slider-runnable-track {

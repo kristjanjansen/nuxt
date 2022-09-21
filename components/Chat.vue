@@ -35,7 +35,7 @@ const { lang } = useLang();
       :class="[newChatMessagesCount ? 'scroll-smooth' : '']"
     >
       <div v-for="message in messages">
-        <div class="mb-1 whitespace-pre-wrap font-mono text-xs text-gray-500">
+        <div class="mb-1 whitespace-pre-wrap font-mono text-xs text-grey-500">
           {{ message.username }}
         </div>
         <div class="whitespace-pre-wrap font-mono text-sm">
@@ -48,9 +48,9 @@ const { lang } = useLang();
         <div
           v-if="newChatMessagesCount > 0"
           @click="scrollToBottom"
-          class="grid h-5 w-5 cursor-pointer place-content-center rounded-full border border-gray-400 bg-black/20 p-4 backdrop-blur transition hover:border-gray-300"
+          class="grid h-5 w-5 cursor-pointer place-content-center rounded-full border border-grey-400 bg-black/20 p-4 backdrop-blur transition hover:border-grey-300"
         >
-          <IconArrowDown class="h-3 w-3 border-gray-500" />
+          <IconArrowDown class="h-3 w-3 border-grey-500" />
         </div>
       </FadeTransition>
     </div>

@@ -112,12 +112,12 @@ onMounted(() => {
         {{ ["Event info", "Ürituse info"][lang] }}
       </Button>
       <div class="flex items-center space-x-4">
-        <Button small @click="changeLang" class="cursor-pointer !text-gray-300">
+        <Button small @click="changeLang" class="cursor-pointer !text-grey-300">
           {{ ["Eesti keeles", "In english"][lang] }}
         </Button>
         <IconTheme
           @click="changeTheme"
-          class="cursor-pointer text-gray-300 transition-colors hover:text-gray-500"
+          class="cursor-pointer text-grey-300 transition-colors hover:text-grey-500"
         />
       </div>
     </div>
@@ -142,7 +142,7 @@ onMounted(() => {
           >
             <IconCapture /> {{ ["Capture", "Pildista"][lang] }}
           </RechargingButton>
-          <div class="font-sm text-gray-500">
+          <div class="font-sm text-grey-500">
             {{
               [
                 "When you use all your captures, you can capture again in",
@@ -174,7 +174,7 @@ onMounted(() => {
     <Draggable v-bind="d.about">
       <Stack class="overflow-y-scroll p-4 md:h-[25vw] md:w-[35vw]">
         <div>
-          <Title v-if="event.authors" small class="text-gray-500">
+          <Title v-if="event.authors" small class="text-grey-500">
             {{ event.authors }}
           </Title>
           <Title medium class="transition">

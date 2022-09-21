@@ -43,7 +43,7 @@ const messages = computed(() => [
       </div>
       <Stack class="justify-end">
         <Textarea ref="textarea" v-model="newChatMessage" />
-        <p class="text-xs tracking-wide text-gray-500">
+        <p class="text-xs tracking-wide text-grey-500">
           Shift + Enter for newline, Enter to submit
         </p>
         <div class="flex gap-4">

@@ -47,7 +47,7 @@ const { theme } = useTheme();
         <Stack class="grid overflow-auto p-4 md:w-[50vw] md:grid-cols-2">
           <Stack>
             <Title>{{ project1.titles[lang] }}</Title>
-            <Content :content="project1.intros[lang]" class="text-gray-500" />
+            <Content :content="project1.intros[lang]" class="text-grey-500" />
           </Stack>
           <EventCard
             v-for="event in project1.events"

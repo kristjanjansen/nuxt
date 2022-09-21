@@ -102,7 +102,7 @@ const opacity = (index) => {
       controls
       class="aspect-video rounded md:w-[25vw]"
     />
-    <Card class="justify-between font-mono text-sm text-gray-500 md:flex">
+    <Card class="justify-between font-mono text-sm text-grey-500 md:flex">
       <p>{{ formatLongDatetime(video.startDatetime) }}</p>
       <p>{{ formatLongDatetime(xDatetimeScale.invert(currentX)) }}</p>
       <p>{{ formatLongDatetime(video.endDatetime) }}</p>
@@ -208,7 +208,7 @@ const opacity = (index) => {
       placeholder="Paste a CSV here"
       v-model="csvField"
       rows="10"
-      class="w-full whitespace-pre border-gray-500 bg-black/0 px-2 py-1 font-mono text-xs text-white focus:border-gray-500 focus:ring-0"
+      class="w-full whitespace-pre border-grey-500 bg-black/0 px-2 py-1 font-mono text-xs text-white focus:border-grey-500 focus:ring-0"
     />
   </Stack>
 </template>

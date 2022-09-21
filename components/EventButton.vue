@@ -23,7 +23,7 @@ const { lang } = useLang();
           : ["Watch event", "Vaata üritust"][lang]
       }}</Button>
     </NuxtLink>
-    <p v-if="event.status === 'HAS_TICKET'" class="text-sm text-gray-300">
+    <p v-if="event.status === 'HAS_TICKET'" class="text-sm text-grey-300">
       {{ ["You have a ticket", "Sul on ürituse pilet"][lang] }}
     </p>
     <a
