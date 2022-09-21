@@ -17,24 +17,21 @@ const { size = "md", el, title } = defineProps<Props>();
 
 <template>
   <component
-    v-if="title"
+    v-if="title || $slots.default?.()?.[0].children"
     :is="el || sizes[size]"
     class="ETitle"
     :class="size"
-    v-html="title"
+    v-html="title || $slots.default()[0].children"
   />
-  <component v-else :is="el || sizes[size]" class="ETitle" :class="size">
-    <slot />
-  </component>
 </template>
 
 <style scoped>
 .ETitle {
+  font-family: title, sans-serif;
   font-weight: normal;
   line-height: var(--line-height-5xl);
 }
 .ETitle.xs {
-  font-family: font-body-55, sans-serif;
   font-size: var(--text-base);
   line-height: var(--line-height-sm);
 }

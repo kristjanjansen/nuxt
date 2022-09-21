@@ -74,7 +74,7 @@ const { el = "article", size = "md", content } = defineProps<Props>();
 .EContent :deep(h4),
 .EContent :deep(h5),
 .EContent :deep(h6) {
-  font-family: font-body-55, sans-serif;
+  font-family: sans, sans-serif;
 }
 
 .EContent :deep(h4) {

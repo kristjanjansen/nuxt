@@ -2,6 +2,7 @@
 type Props = {
   medium?: boolean;
   small?: boolean;
+  title?: string;
 };
 const { medium = false, small = false } = defineProps<Props>();
 </script>
@@ -13,7 +14,7 @@ const { medium = false, small = false } = defineProps<Props>();
       medium ? '!md:text-2xl !text-xl leading-8' : '',
       small ? '!text-base !leading-6' : '',
     ]"
-    v-html="$slots.default()[0].children"
+    v-html="title || $slots.default()[0].children"
   />
 </template>
 
