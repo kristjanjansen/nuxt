@@ -32,6 +32,7 @@ const { lang } = useLang();
       :href="ticketLink"
       target="_blank"
     >
+      <!--TODO: Have different labels of project and event ticket -->
       <Button>{{ ["Get a ticket", "Osta pilet"][lang] }} </Button>
     </a>
   </Stack>
