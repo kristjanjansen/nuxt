@@ -23,7 +23,7 @@
       </div>
       <p />
       <Title>Experiments</Title>
-      <div class="grid w-full auto-rows-fr gap-5 md:grid-cols-4">
+      <div class="grid w-full gap-5 md:grid-cols-4">
         <LinkCard to="/lab/experiment" class="border-re aspect-video pr-8">
           <Title small>Start new experiment</Title>
           <p class="tracking-wide text-gray-500">A virtual lab to work in</p>
