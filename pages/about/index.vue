@@ -29,7 +29,7 @@ const { lang } = useLang();
           target="_blank"
         >
           <Card
-            class="flex aspect-video flex-col justify-between bg-green-500 transition-colors hover:bg-green-500 md:aspect-square"
+            class="flex aspect-video flex-col justify-between bg-green-400 transition-colors hover:bg-green-400 md:aspect-square"
             :class="[colClass[card.layout]]"
           >
             <Title class="text-[black]">{{ card.titles?.[lang] }}</Title>
@@ -43,7 +43,7 @@ const { lang } = useLang();
           :to="'/page/' + card.title"
         >
           <Card
-            class="flex aspect-video flex-col justify-between bg-green-500 transition-colors hover:bg-green-600 md:aspect-square"
+            class="flex aspect-video flex-col justify-between bg-green-400 transition-colors hover:bg-green-500 md:aspect-square"
             :class="[colClass[card.layout]]"
           >
             <Title class="text-[black]">{{ card.titles?.[lang] }}</Title>

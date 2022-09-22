@@ -13,5 +13,5 @@ const dateTo = computed(() =>
 </script>
 
 <template>
-  <div class="font-mono text-green-500">{{ dateTo }}s</div>
+  <div class="font-mono text-green-400">{{ dateTo }}s</div>
 </template>

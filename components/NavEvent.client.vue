@@ -30,7 +30,7 @@ const { lang } = useLang();
           {{ formattedStartAtDistance.value }}
         </div>
       </div>
-      <IconArrowRight class="text-green-500" />
+      <IconArrowRight class="text-green-400" />
     </NuxtLink>
   </FadeTransition>
 </template>

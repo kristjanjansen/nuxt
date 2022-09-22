@@ -13,8 +13,8 @@ const colors = [
   ["N/A", "", "rgb(var(--gray-900))"],
   ["var(--bg)", "#000000", "rgb(var(--black))"],
   ["N/A", "", "rgb(var(--green-400))"],
-  ["var(--accent)", "#7bef87", "rgb(var(--green-500))"],
-  ["N/A", "", "rgb(var(--green-600))"],
+  ["var(--accent)", "#7bef87", "rgb(var(--green-400))"],
+  ["N/A", "", "rgb(var(--green-500))"],
 ];
 </script>
 <template>

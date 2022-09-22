@@ -1,18 +1,22 @@
 {
-    "page": {
-        "prefix": "page",
-        "body": [
-            "<script setup lang=\"ts\">",
-            "  $1",
-            "  const { lang } = useLang()",
-            "</script>",
-            "",
-            "<template>",
-            "  <Stack class=\"p-4 md:p-6\">",
-            "    $2",
-            "  </Stack>",
-            "</template>"
-          ],
-        "description": "Creates page"
-    }
+  "page": {
+    "prefix": "page",
+    "body": [
+      "<script setup lang=\"ts\">",
+      "type Props = {",
+      "  a: any;",
+      "};",
+      "const { a } = defineProps<Props>();",
+      "$1",
+      "const { lang } = useLang();",
+      "</script>",
+      "",
+      "<template>",
+      "  <Stack class=\"p-4 md:p-6\">",
+      "    $2",
+      "  </Stack>",
+      "</template>"
+    ],
+    "description": "Creates page"
+  }
 }
