@@ -24,9 +24,6 @@ module.exports = {
         "gray-800": "rgb(var(--gray-800) / <alpha-value>)",
         "gray-900": "rgb(var(--gray-900) / <alpha-value>)",
         black: "rgb(var(--black) / <alpha-value>)",
-        "green-400": "rgb(var(--green-400) / <alpha-value>)",
-        "green-500": "rgb(var(--green-500) / <alpha-value>)", //"#7bef87",
-        "green-600": "rgb(var(--green-600) / <alpha-value>)",
       },
       borderRadius: {
         "3xl": "2.5rem",

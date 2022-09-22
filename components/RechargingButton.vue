@@ -71,12 +71,12 @@ watch(recharge, () => {
       <slot />
     </Button>
     <div
-      class="pointer-events-none absolute left-0 top-0 bottom-0 bg-green-500 mix-blend-multiply transition duration-1000"
+      class="pointer-events-none absolute left-0 top-0 bottom-0 bg-green-400 mix-blend-multiply transition duration-1000"
       :class="recharging ? 'opacity-0' : 'opacity-100'"
       :style="clicksStyle"
     />
     <div
-      class="pointer-events-none absolute left-0 bottom-0 h-1 bg-green-500 mix-blend-multiply"
+      class="pointer-events-none absolute left-0 bottom-0 h-1 bg-green-400 mix-blend-multiply"
       :style="rechargeStyle"
     />
   </div>
