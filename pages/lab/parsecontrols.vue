@@ -13,6 +13,7 @@ type: DATA_2
 title:  Some other data
 min: 0
 step: 0.01`;
+p;
 
 const controls = ref(defaultControls);
 const parsedControls = computed(() => parseControls(controls.value));
@@ -22,7 +23,7 @@ const { messages } = useMessages();
 <template>
   <Stack class="p-4 md:p-6">
     <Button small left to="/lab">lab</Button>
-    <Title>Controls</Title>
+    <Title>Parse controls</Title>
     <div class="grid items-start gap-8 md:grid-cols-4">
       <Stack>
         <Title medium>Controls field in Strapi</Title>

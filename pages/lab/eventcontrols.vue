@@ -12,11 +12,17 @@ const url = (id) =>
 
 <template>
   <Stack class="p-4 md:p-6">
+    <Button small left to="/lab">lab</Button>
     <Title>Event controls</Title>
     <Card v-for="e in events">
       <Stack>
         <Title medium>{{ e.title }}</Title>
-        <Button :href="url(e.id)">Edit</Button>
+        <div class="flex gap-2">
+          <Button :href="url(e.id)">Edit in Strapi</Button>
+          <Button :to="e.eventLiveLink" target="_blank">
+            Show in audience view
+          </Button>
+        </div>
         <Controls :controls="parseControls(e.controls)" class="!w-32" />
       </Stack>
     </Card>
