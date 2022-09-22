@@ -56,7 +56,7 @@ const channel = "experiment";
   <Stack class="p-4 md:p-6">
     <Button small left to="/lab">Lab</Button>
     <Title>Controls</Title>
-    <div class="grid grid-cols-4 items-start gap-8">
+    <div class="grid items-start gap-8 md:grid-cols-4">
       <Stack>
         <Title medium>Controls field in Strapi</Title>
         <Textarea v-model="controls"
