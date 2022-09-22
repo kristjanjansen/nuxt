@@ -35,7 +35,7 @@ export function useChat(
 
   const sendChatMessage = () => {
     if (newChatMessage.value.trim()) {
-      sendMessage({
+      sendMessage.value({
         channel: channel,
         userid: userId.value,
         username: userName.value,

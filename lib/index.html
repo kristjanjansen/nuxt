@@ -7,41 +7,6 @@
   </head>
   <body>
     <script type="module">
-      // useMessages can be used outside Vue app
-
-      import { watchEffect } from "vue";
-      import { useMessages } from "./index.ts";
-
-      const sendMessageEl = document.getElementById("sendMessageEl");
-      const messagesEl = document.getElementById("messagesEl");
-
-      const { ws, messages, sendMessage } = useMessages();
-
-      // Sending a test message
-
-      sendMessageEl.addEventListener("click", () => {
-        sendMessage({ type: "TEST", datetime: new Date() });
-      });
-
-      // You can get and react to the received message
-      // by adding an event listener
-
-      ws.value.addEventListener("message", ({ data }) => {
-        console.log(JSON.parse(data));
-      });
-
-      // You can get and react to all the messages received
-      // using watchEffect function
-
-      watchEffect(
-        () =>
-          (messagesEl.innerHTML = JSON.stringify(
-            messages.value.filter((m) => m.type === "TEST")
-          ))
-      );
-
-      // useVideostream should be inside Vue app
-
       import { createApp, ref } from "vue";
       import { useVideostream } from "./index.ts";
 
@@ -52,7 +17,7 @@
           const { width, height, status } = useVideostream(video, url);
           return { video, width, height, status };
         },
-      }).mount("#videostreamApp");
+      }).mount("#app");
     </script>
 
     <div
@@ -66,16 +31,9 @@
     >
       <h1>Elektron API</h1>
 
-      <pre>useMessage()</pre>
-
-      <button id="sendMessageEl">Send message</button>
-      <pre style="opacity: 0.5" id="messagesEl"></pre>
-
-      <p />
-
       <pre>useVideostream()</pre>
 
-      <div id="videostreamApp">
+      <div id="app">
         <p>Status: {{ status }}</p>
         <video
           ref="video"

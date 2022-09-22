@@ -1,43 +1,20 @@
-import { ref } from "vue";
 import { useWebSocket } from "@vueuse/core";
-
-const wsUrl = "wss://data.elektron.art";
-
 export const useMessages = () => {
   const messages = ref([]);
-  const { ws, send } = useWebSocket(wsUrl, {
-    autoReconnect: true,
-  });
-  ws.value.addEventListener("message", ({ data }) => {
-    const message = JSON.parse(data);
-    messages.value.push(message);
-  });
-
-  const sendMessage = (message) =>
-    send(JSON.stringify({ ...message, datetime: new Date().toISOString() }));
-  return { ws, messages, sendMessage };
-};
-
-// TODO: Unify the two
-
-export const clientUseMessages = () => {
-  const m = reactive({
-    messages: [],
-    sendMessage: (message: any) => null,
-    ws: null,
-  });
+  const sendMessage = ref((_: any) => {});
+  const ws = ref(null);
 
   onMounted(() => {
-    const { ws, send } = useWebSocket(wsUrl, {
+    const config = useRuntimeConfig();
+    const { ws: websocket, send } = useWebSocket(config.public.wsUrl, {
       autoReconnect: true,
     });
-
-    ws.value.addEventListener("message", ({ data }) => {
+    websocket.value.addEventListener("message", ({ data }) => {
       const message = JSON.parse(data);
-      m.messages.push(message);
+      messages.value.push(message);
     });
-
-    m.sendMessage = (message: any) =>
+    ws.value = websocket;
+    sendMessage.value = (message: any) =>
       send(
         JSON.stringify({
           id: randomString(),
@@ -46,5 +23,5 @@ export const clientUseMessages = () => {
         })
       );
   });
-  return m;
+  return { messages, sendMessage, ws };
 };
