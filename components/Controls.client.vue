@@ -12,12 +12,34 @@ const userId = useUserId();
 const userName = useUserName();
 
 const controls = reactive(defaultControls);
-//const controls2 =
-/*defaultControls.map((c) => ref(c.value));*/
+const controls2 = defaultControls.map((c) => ref(c.value));
 
-console.log(controls2);
+const controls3 = ref(defaultControls.map((c) => c.value));
+const controls4 = ref(defaultControls.map((c) => c.value));
 
-watch(controls2, (p1, p2) => console.log(p1, p2), { immediate: true });
+const controls5 = defaultControls.map((c) => {
+  console.log(c);
+  c.value = ref(c.value);
+  return c;
+});
+
+watch(
+  controls5.map((c) => c.value),
+  (p1, p2) => console.log(p1, p2),
+  {
+    immediate: true,
+    deep: true,
+  }
+);
+
+// watch(
+//   () => controls3,
+//   (p1, p2) => console.log(p1.value, p2?.value),
+//   {
+//     immediate: true,
+//     deep: true,
+//   }
+// );
 // watch(
 //   controls,
 // watch(
@@ -58,13 +80,13 @@ watch(controls2, (p1, p2) => console.log(p1, p2), { immediate: true });
 
 <template>
   <div>
-    <div v-for="(c, i) in controls" :key="i">
+    <div v-for="(c, i) in controls5" :key="i">
       <Title small v-if="c.title">{{ c.title }}</Title>
       <div class="tracking-wide text-gray-500">{{ c.description }}</div>
       <input
         v-if="c.control === 'slider'"
         type="range"
-        v-model="controls2[0]"
+        v-model="c.value.value"
         :min="c.min"
         :max="c.max"
         :step="c.step"
