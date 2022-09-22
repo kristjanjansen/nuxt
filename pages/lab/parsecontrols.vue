@@ -58,7 +58,7 @@ const channel = "experiment";
     <div class="grid items-start gap-8 md:grid-cols-4">
       <Stack>
         <Title medium>Controls field in Strapi</Title>
-        <Textarea v-model="controls"
+        <Textarea v-model="controls" class="text-sm"
       /></Stack>
       <Stack>
         <Title medium>Parsed controls</Title>
