@@ -1,6 +1,4 @@
 <script setup lang="ts">
-import { useFullscreen, useIdle, useMediaControls } from "@vueuse/core";
-
 import IconMuted from "~icons/radix-icons/speaker-off";
 import IconUnmuted from "~icons/radix-icons/speaker-loud";
 import IconEnterPip from "~icons/ph/picture-in-picture";

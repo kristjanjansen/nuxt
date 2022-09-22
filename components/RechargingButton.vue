@@ -1,6 +1,4 @@
 <script setup lang="ts">
-import { useInterval, useStorage } from "@vueuse/core";
-
 type Emits = {
   (e: "click"): void;
   (e: "remaining", value: number): void;

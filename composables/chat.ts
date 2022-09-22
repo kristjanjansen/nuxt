@@ -1,5 +1,4 @@
 import { computed, Ref, ref } from "vue";
-import { useFocus, useScroll, onKeyStroke, useKeyModifier } from "@vueuse/core";
 
 interface UseChatOptions {
   userId?: Ref<string>;

@@ -1,11 +1,6 @@
 <script setup lang="ts">
 import { format } from "date-fns";
 import { scaleTime, scaleLinear, csvParse } from "d3";
-import {
-  useElementSize,
-  useMediaControls,
-  useMouseInElement,
-} from "@vueuse/core";
 
 type Props = {
   video: any;

@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import { useNow } from "@vueuse/core";
 import { differenceInSeconds } from "date-fns";
 
 type Props = {

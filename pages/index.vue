@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import { useIntervalFn, useMediaControls } from "@vueuse/core";
 import IconMuted from "~icons/radix-icons/speaker-off";
 import IconUnmuted from "~icons/radix-icons/speaker-loud";
 

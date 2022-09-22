@@ -1,7 +1,5 @@
 <script setup lang="ts">
-import { debouncedWatch, useWebSocket } from "@vueuse/core";
 import { format } from "date-fns";
-import { send } from "vite";
 
 const slug = "experiment";
 const videostreams = getVideostreams(slug);

@@ -5,13 +5,7 @@ export default {
 </script>
 
 <script setup lang="ts">
-import {
-  useDraggable,
-  useIdle,
-  useTimeoutFn,
-  useWindowSize,
-} from "@vueuse/core";
-import { Ref } from "vue";
+import type { Ref } from "vue";
 import IconDock from "~icons/radix-icons/minus";
 
 type Props = {

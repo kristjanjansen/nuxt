@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import { useMediaControls } from "@vueuse/core";
 import IconPlay from "~icons/ph/play-circle-thin";
 import IconPause from "~icons/ph/pause-circle-thin";
 import IconCircle from "~icons/ph/circle-fill";

@@ -1,6 +1,4 @@
 <script setup lang="ts">
-import { debouncedWatch } from "@vueuse/core";
-
 type Props = {
   controls: any;
   channel: string;

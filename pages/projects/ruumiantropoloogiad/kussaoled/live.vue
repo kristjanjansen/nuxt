@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import { useIntervalFn } from "@vueuse/core";
 import { differenceInHours } from "date-fns";
 import IconCapture from "~icons/radix-icons/camera";
 import IconTheme from "~icons/radix-icons/half-2";
