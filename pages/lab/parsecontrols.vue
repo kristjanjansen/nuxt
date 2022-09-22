@@ -54,6 +54,7 @@ const channel = "experiment";
 
 <template>
   <Stack class="p-4 md:p-6">
+    <Button small left to="/lab">Lab</Button>
     <Title>Controls</Title>
     <div class="grid grid-cols-4 items-start gap-8">
       <Stack>
