@@ -14,7 +14,7 @@ const { messages } = useMessages();
     <div
       v-for="m in messages.filter((m) => m.channel === channel)"
       :key="m.id"
-      class="whitespace-pre font-mono text-sm text-gray-300"
+      class="whitespace-pre-wrap font-mono text-sm text-gray-300"
     >
       {{ m }}
     </div>

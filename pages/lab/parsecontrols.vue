@@ -70,8 +70,9 @@ const channel = "experiment";
         <Title medium>Rendered controls</Title>
         <Card> <Controls :channel="channel" :controls="parsedControls" /> </Card
       ></Stack>
-      <Stack class="h-[80vh] overflow-y-auto">
+      <Stack class="h-[80vh] overflow-auto">
         <Title medium>Websocket messages</Title>
+        <div class="font-mono text-sm">wss://data.elektron.art</div>
         <LabMessage :channel="channel" />
       </Stack>
     </div>
