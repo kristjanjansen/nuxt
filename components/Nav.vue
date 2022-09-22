@@ -1,7 +1,5 @@
 <script setup lang="ts">
-import { useMagicKeys, whenever } from "@vueuse/core";
 import IconMenu from "~icons/radix-icons/drag-handle-horizontal";
-
 const { theme, changeTheme } = useTheme();
 const { lang, changeLang } = useLang();
 const menu = ref(false);

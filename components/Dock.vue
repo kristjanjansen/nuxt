@@ -1,6 +1,4 @@
 <script setup lang="ts">
-import { useIdle } from "@vueuse/core";
-
 type Props = {
   draggables: any;
 };

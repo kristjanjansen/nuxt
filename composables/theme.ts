@@ -1,5 +1,3 @@
-import { useCssVar } from "@vueuse/core";
-
 const vars = [
   [useCssVar("--white"), ["255 255 255", "0 0 0"]],
   [useCssVar("--gray-50"), ["250 250 250", "23 23 23"]],

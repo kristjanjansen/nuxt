@@ -1,5 +1,4 @@
 import { ref } from "vue";
-import { useWebSocket } from "@vueuse/core";
 
 const wsUrl = "wss://data.elektron.art";
 
