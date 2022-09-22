@@ -11,82 +11,46 @@ const { sendMessage } = useMessages();
 const userId = useUserId();
 const userName = useUserName();
 
-const controls = reactive(defaultControls);
-const controls2 = defaultControls.map((c) => ref(c.value));
-
-const controls3 = ref(defaultControls.map((c) => c.value));
-const controls4 = ref(defaultControls.map((c) => c.value));
-
-const controls5 = defaultControls.map((c) => {
-  console.log(c);
-  c.value = ref(c.value);
-  return c;
-});
+const controls = ref([]);
 
 watch(
-  controls5.map((c) => c.value),
-  (p1, p2) => console.log(p1, p2),
-  {
-    immediate: true,
-    deep: true,
-  }
+  () => defaultControls,
+  () => (controls.value = defaultControls),
+  { immediate: true }
 );
 
-// watch(
-//   () => controls3,
-//   (p1, p2) => console.log(p1.value, p2?.value),
-//   {
-//     immediate: true,
-//     deep: true,
-//   }
-// );
-// watch(
-//   controls,
-// watch(
-//   controls,
-//   (control, prevcontrol) => {
-//     control.forEach((c, i) => {
-//       console.log(prevcontrol?.[i].value && c.value === prevcontrol?.[i].value);
-//       // if (c.value !== prevcontrol[i].value) {
-//       //   console.log("changed", [c.type, c.value !== prevcontrol[i].value]);
-//       // }
-//     });
-//   },
-//   { immediate: true }
-// );
-
-// debouncedWatch(
-//   controls.map((c) => c.value),
-//   (controlsValues, prevControlsValues) => {
-//     controlsValues.forEach((controlsValue, i) => {
-//       if (controlsValue !== prevControlsValues[i]) {
-//         const c = controls[i];
-//         if (c.control === "slider") {
-//           const message = {
-//             channel,
-//             type: c.type,
-//             value: controlsValue,
-//             userid: userId.value,
-//             username: userName.value,
-//           };
-//           sendMessage(message);
-//         }
-//       }
-//     });
-//   },
-//   { deep: true, debounce: 200 }
-// );
+debouncedWatch(
+  () => controls.value.map((c) => c.value),
+  (controlsValues, prevControlsValues) => {
+    controlsValues.forEach((controlsValue, i) => {
+      if (controlsValue !== prevControlsValues[i]) {
+        const c = controls.value[i];
+        if (c.control === "slider") {
+          const message = {
+            channel,
+            type: c.type,
+            value: controlsValue,
+            userid: userId.value,
+            username: userName.value,
+          };
+          sendMessage(message);
+        }
+      }
+    });
+  },
+  { deep: true, debounce: 200 }
+);
 </script>
 
 <template>
   <div>
-    <div v-for="(c, i) in controls5" :key="i">
+    <div v-for="(c, i) in controls" :key="i">
       <Title small v-if="c.title">{{ c.title }}</Title>
       <div class="tracking-wide text-gray-500">{{ c.description }}</div>
       <input
         v-if="c.control === 'slider'"
         type="range"
-        v-model="c.value.value"
+        v-model="c.value"
         :min="c.min"
         :max="c.max"
         :step="c.step"
