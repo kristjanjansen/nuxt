@@ -12,9 +12,8 @@ const userId = useUserId();
 const userName = useUserName();
 
 debouncedWatch(
-  controls.map((c) => c.value || c.type),
+  controls.map((c) => c.value),
   (controlsValues, prevControlsValues) => {
-    console.log("Update");
     controlsValues.forEach((controlsValue, i) => {
       if (controlsValue !== prevControlsValues[i]) {
         const c = controls[i];
@@ -31,7 +30,7 @@ debouncedWatch(
       }
     });
   },
-  { deep: true, debounce: 0 }
+  { deep: true, debounce: 200 }
 );
 </script>
 
