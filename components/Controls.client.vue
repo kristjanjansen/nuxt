@@ -5,33 +5,55 @@ type Props = {
   controls: any;
   channel: string;
 };
-const { controls, channel } = defineProps<Props>();
+const { controls: defaultControls, channel } = defineProps<Props>();
 
 const { sendMessage } = useMessages();
 const userId = useUserId();
 const userName = useUserName();
 
-debouncedWatch(
-  controls.map((c) => c.value),
-  (controlsValues, prevControlsValues) => {
-    controlsValues.forEach((controlsValue, i) => {
-      if (controlsValue !== prevControlsValues[i]) {
-        const c = controls[i];
-        if (c.control === "slider") {
-          const message = {
-            channel,
-            type: c.type,
-            value: controlsValue,
-            userid: userId.value,
-            username: userName.value,
-          };
-          sendMessage(message);
-        }
-      }
-    });
-  },
-  { deep: true, debounce: 200 }
-);
+const controls = reactive(defaultControls);
+//const controls2 =
+/*defaultControls.map((c) => ref(c.value));*/
+
+console.log(controls2);
+
+watch(controls2, (p1, p2) => console.log(p1, p2), { immediate: true });
+// watch(
+//   controls,
+// watch(
+//   controls,
+//   (control, prevcontrol) => {
+//     control.forEach((c, i) => {
+//       console.log(prevcontrol?.[i].value && c.value === prevcontrol?.[i].value);
+//       // if (c.value !== prevcontrol[i].value) {
+//       //   console.log("changed", [c.type, c.value !== prevcontrol[i].value]);
+//       // }
+//     });
+//   },
+//   { immediate: true }
+// );
+
+// debouncedWatch(
+//   controls.map((c) => c.value),
+//   (controlsValues, prevControlsValues) => {
+//     controlsValues.forEach((controlsValue, i) => {
+//       if (controlsValue !== prevControlsValues[i]) {
+//         const c = controls[i];
+//         if (c.control === "slider") {
+//           const message = {
+//             channel,
+//             type: c.type,
+//             value: controlsValue,
+//             userid: userId.value,
+//             username: userName.value,
+//           };
+//           sendMessage(message);
+//         }
+//       }
+//     });
+//   },
+//   { deep: true, debounce: 200 }
+// );
 </script>
 
 <template>
@@ -42,7 +64,7 @@ debouncedWatch(
       <input
         v-if="c.control === 'slider'"
         type="range"
-        v-model="c.value.value"
+        v-model="controls2[0]"
         :min="c.min"
         :max="c.max"
         :step="c.step"

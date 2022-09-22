@@ -38,7 +38,7 @@ const parseControls = (controlsConfig: string) => {
         max: chunk.max > chunk.min ? chunk.max : 10,
         step: "any",
         ...chunk,
-        value: ref(chunk.control === "text" ? "" : chunk.value ?? 0),
+        value: chunk.control === "text" ? "" : chunk.value ? chunk.value : 0,
         labels: chunk.labels
           ? chunk.labels.split(",").map((l) => l.trim())
           : null,
