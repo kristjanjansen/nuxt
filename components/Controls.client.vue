@@ -5,18 +5,26 @@ type Props = {
   controls: any;
   channel: string;
 };
-const { controls, channel } = defineProps<Props>();
+const { controls: defaultControls, channel } = defineProps<Props>();
 
 const { sendMessage } = useMessages();
 const userId = useUserId();
 const userName = useUserName();
 
+const controls = ref([]);
+
+watch(
+  () => defaultControls,
+  () => (controls.value = defaultControls),
+  { immediate: true }
+);
+
 debouncedWatch(
-  controls.map((c) => c.value),
+  () => controls.value.map((c) => c.value),
   (controlsValues, prevControlsValues) => {
     controlsValues.forEach((controlsValue, i) => {
       if (controlsValue !== prevControlsValues[i]) {
-        const c = controls[i];
+        const c = controls.value[i];
         if (c.control === "slider") {
           const message = {
             channel,
@@ -42,7 +50,7 @@ debouncedWatch(
       <input
         v-if="c.control === 'slider'"
         type="range"
-        v-model="c.value.value"
+        v-model="c.value"
         :min="c.min"
         :max="c.max"
         :step="c.step"

@@ -38,7 +38,7 @@ const parseControls = (controlsConfig: string) => {
         max: chunk.max > chunk.min ? chunk.max : 10,
         step: "any",
         ...chunk,
-        value: ref(chunk.control === "text" ? "" : chunk.value ?? 0),
+        value: chunk.control === "text" ? "" : chunk.value ? chunk.value : 0,
         labels: chunk.labels
           ? chunk.labels.split(",").map((l) => l.trim())
           : null,
@@ -54,7 +54,6 @@ const channel = "experiment";
 
 <template>
   <Stack class="p-4 md:p-6">
-    <Button small left to="/lab">Lab</Button>
     <Title>Controls</Title>
     <div class="grid grid-cols-4 items-start gap-8">
       <Stack>
