@@ -1,17 +1,24 @@
 import { autoType } from "d3";
 
 export const parseControls = (controlsConfig: string) => {
-  return controlsConfig
-    .split(/\n---\s*\n/g)
+  if (!controlsConfig) return null;
+  const controls = String(controlsConfig).split(/\n---\s*\n/g);
+  if (controls.length < 1) return null;
+
+  return controls
     .map((chunk) =>
       chunk
         .split("\n")
-        .filter((row) => row.trim())
+        .map((row) => (row || "").trim())
+        .filter((row) => row)
         .map((row) => {
-          return row.split(/:\s*(.+)/).filter((r) => r);
+          const s = row.split(/:\s*(.+)/).filter((r) => r);
+          return s;
         })
     )
-    .map((chunk) => autoType(Object.fromEntries(chunk)))
+    .map((chunk) => {
+      return autoType(Object.fromEntries(chunk));
+    })
     .map((chunk: any) => {
       if (!chunk) {
         return;

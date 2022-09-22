@@ -55,6 +55,7 @@ debouncedWatch(
         :step="c.step"
         class="w-full accent-green-400"
       />
+      <Textarea v-if="c.control === 'text'" v-model="c.value" />
       <div v-if="c.labels" class="flex justify-between tracking-wide">
         <div v-for="label in c.labels" :key="label" class="tracking-wide">
           {{ label }}
