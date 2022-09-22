@@ -4,13 +4,29 @@ const { path } = route.params;
 
 const { getFiles } = useFiles();
 const { data: files } = await getFiles(path);
+
+const p = "eestiteatriauhinnad";
+const locked = ref(true);
+const password = ref("");
+const onSubmit = () => {
+  if (password.value === p) {
+    locked.value = false;
+  }
+};
 </script>
 
 <template>
   <Stack class="p-4 md:p-6">
     <Button small to="/lab/files" left>Files</Button>
     <Title>/{{ path }}</Title>
-    <Stack class="w-full">
+    <Stack v-if="locked" class="!gap-1">
+      <Title small>Password:</Title>
+      <div class="flex gap-2">
+        <Textarea v-model="password" class="w-64" />
+        <Button @click="onSubmit">Submit</Button>
+      </div>
+    </Stack>
+    <Stack v-if="!locked" class="w-full">
       <Card
         v-for="file in files"
         class="grid w-full items-center gap-4 overflow-hidden p-0 md:grid-cols-[auto_1fr_auto_auto] md:gap-8"
