@@ -46,11 +46,16 @@
             Interactive hybrid installation in Baltoscandal 2022
           </p>
         </LinkCard>
-
         <LinkCard to="/lab/capture" class="border-re aspect-video pr-8">
           <Title small>Capture video frames</Title>
           <p class="tracking-wide text-gray-500">
             Storing the frames from live video
+          </p>
+        </LinkCard>
+        <LinkCard to="/lab/parsecontrols" class="border-re aspect-video pr-8">
+          <Title small>Controls</Title>
+          <p class="tracking-wide text-gray-500">
+            Play around with live controls
           </p>
         </LinkCard>
       </div>
