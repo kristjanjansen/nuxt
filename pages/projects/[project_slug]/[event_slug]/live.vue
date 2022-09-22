@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { parse } from "path";
 import { parseControls } from "~~/composables/controls";
 const route = useRoute();
 const slug = route.params.event_slug as string;
@@ -11,6 +12,8 @@ const d = useDraggables({
   chat: { x: 900, y: 200 },
   controls: { x: 400, y: 400 },
 });
+
+const controls = parseControls(event.value.controls);
 
 const { lang } = useLang();
 </script>
@@ -54,7 +57,7 @@ const { lang } = useLang();
       v-bind="d.controls"
       class="p-4 md:w-[30vw]"
     >
-      <Controls :controls="parseControls(event.controls)" />
+      <Controls :controls="controls" />
     </Draggable>
 
     <Dock :draggables="d" />

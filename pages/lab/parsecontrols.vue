@@ -13,7 +13,6 @@ type: DATA_2
 title:  Some other data
 min: 0
 step: 0.01`;
-p;
 
 const controls = ref(defaultControls);
 const parsedControls = computed(() => parseControls(controls.value));
