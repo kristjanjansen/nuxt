@@ -120,7 +120,7 @@
           <Title small>Audiostream</Title>
           <p class="tracking-wide text-gray-500">A custom audio player</p>
         </LinkCard>
-        <LinkCard to="/lab/video" class="aspect-video pr-8">
+        <LinkCard to="/lab/videostream" class="aspect-video pr-8">
           <Title small>Video player</Title>
           <p class="tracking-wide text-gray-500">Video player v2</p>
         </LinkCard>
