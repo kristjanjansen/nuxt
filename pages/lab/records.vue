@@ -23,13 +23,15 @@ useIntervalFn(refresh, 5000);
       <Stack>
         <Card v-for="file in files">
           <Stack>
-            <video :src="file.src" controls class="w-full4 aspect-video" />
+            <video :src="file.src" controls class="aspect-video" />
             <div
               class="whitespace-pre-wrap break-all font-mono text-sm text-gray-200"
             >
               {{ formatVideo(file) }}
             </div>
-            <Button>Go to video</Button>
+            <Button :to="'/lab/experiments/' + file.filename">
+              Go to video
+            </Button>
           </Stack>
         </Card>
       </Stack>
