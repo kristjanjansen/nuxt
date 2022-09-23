@@ -24,3 +24,19 @@ export const split = (str = "", separator = ",") =>
     .split(separator)
     .map((s) => s.trim())
     .filter((s) => s);
+
+const replacer = () => {
+  const seen = new WeakSet();
+  return (_key, value) => {
+    if (typeof value === "object" && value !== null) {
+      if (seen.has(value)) {
+        return;
+      }
+      seen.add(value);
+    }
+    return value;
+  };
+};
+
+export const stringify = (obj: object, _ = undefined, space = 2) =>
+  JSON.stringify(obj, replacer(), space);
