@@ -7,12 +7,17 @@ const { data: events } = useEvents({
 });
 const url = (id) =>
   `https://strapi4.elektron.art/admin/content-manager/collectionType/api::event.event/${id}?plugins[i18n][locale]=en`;
+const addUrl =
+  "https://strapi4.elektron.art/admin/content-manager/collectionType/api::event.event";
 </script>
 
 <template>
   <Stack class="p-4 md:p-6">
     <Button small left to="/lab">lab</Button>
-    <Title>Experiments</Title>
+    <div class="flex w-full justify-between">
+      <Title>Experiments</Title>
+      <Button :href="addUrl">Add new experiment in Strapi</Button>
+    </div>
     <Card v-for="e in events">
       <Stack>
         <Title medium>{{ e.title }}</Title>

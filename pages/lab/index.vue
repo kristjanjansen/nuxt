@@ -25,16 +25,25 @@
       <Title>Experiments</Title>
       <div class="grid w-full gap-5 md:grid-cols-4">
         <LinkCard to="/lab/experiments" class="border-re aspect-video pr-8">
-          <Title small>Current experimentst</Title>
+          <Title small>Experiments</Title>
           <p class="tracking-wide text-gray-500">Show current experiments</p>
+        </LinkCard>
+        <LinkCard
+          to="/lab/controlsdebugger"
+          class="border-re aspect-video pr-8"
+        >
+          <Title small>Controls debugger</Title>
+          <p class="tracking-wide text-gray-500">
+            Controls data not working? Fix them here
+          </p>
         </LinkCard>
         <LinkCard
           to="/lab/files/records/other___22_06_14__17_26_01___1809.88.mp4"
           class="border-re aspect-video pr-8"
         >
-          <Title small>Testing audience feedback</Title>
+          <Title small>Testing audience feedback in June 2022</Title>
           <p class="tracking-wide text-gray-500">
-            Measuring audience feedback with sliders in June 2022
+            Measuring audience feedback with sliders
           </p>
         </LinkCard>
         <LinkCard
@@ -45,22 +54,6 @@
           <p class="tracking-wide text-gray-500">
             Interactive hybrid installation in Baltoscandal 2022
           </p>
-        </LinkCard>
-        <LinkCard to="/lab/capture" class="border-re aspect-video pr-8">
-          <Title small>Capture video frames</Title>
-          <p class="tracking-wide text-gray-500">
-            Storing the frames from live video
-          </p>
-        </LinkCard>
-        <LinkCard to="/lab/parsecontrols" class="border-re aspect-video pr-8">
-          <Title small>Parse controls</Title>
-          <p class="tracking-wide text-gray-500">
-            Play around with live controls
-          </p>
-        </LinkCard>
-        <LinkCard to="/lab/eventcontrols" class="border-re aspect-video pr-8">
-          <Title small>Event controls</Title>
-          <p class="tracking-wide text-gray-500">Browse events with controls</p>
         </LinkCard>
       </div>
       <p />
@@ -79,6 +72,12 @@
         <LinkCard to="/lab/components" class="border-re aspect-video pr-8">
           <Title small>Components</Title>
           <p class="text-gray-500">Form inputs, buttons etc</p>
+        </LinkCard>
+        <LinkCard to="/lab/capture" class="border-re aspect-video pr-8">
+          <Title small>Capture video frames</Title>
+          <p class="tracking-wide text-gray-500">
+            Storing the frames from live video
+          </p>
         </LinkCard>
         <LinkCard to="/lab/videoframe" class="border-re aspect-video pr-8">
           <Title small>Animate video frames</Title>
