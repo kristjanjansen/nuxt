@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { parseControls } from "~~/composables/controls";
-const { data: events, error } = useEvents({
+const { data: events } = useEvents({
   sort: ["start_at:desc"],
   filters: {
     controls: { $notNull: true, $ne: "" },
@@ -19,6 +19,9 @@ const url = (id) =>
         <Title medium>{{ e.title }}</Title>
         <div class="flex gap-2">
           <Button :href="url(e.id)">Edit in Strapi</Button>
+          <Button :to="e.eventExperimentLink" target="_blank">
+            Show in experiment view
+          </Button>
           <Button :to="e.eventLiveLink" target="_blank">
             Show in audience view
           </Button>

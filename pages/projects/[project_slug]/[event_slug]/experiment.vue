@@ -10,6 +10,7 @@ const { data: event, error } = await useEventBySlug(slug);
 const videostreams = getVideostreams(event.value.streamkey);
 
 const d = useDraggables({
+  info: { x: 600, y: 50 },
   about: { x: 100, y: 300, docked: true },
   stream: { x: 200, y: 100 },
   chat: { x: 900, y: 200, docked: true },
@@ -50,11 +51,19 @@ const onClear = () => {
   >
     <Breadboard class="bg-gray-900" />
     <Stack class="md:absolute md:top-6 md:left-6">
+      <Button small left to="/lab/eventcontrols">Experiments</Button>
       <Title class="text-gray-500">This is an event experiment page</Title>
-      <Button small left :to="event?.eventLiveLink">
+      <Button small right :to="event?.eventLiveLink">
         Go to audience page
       </Button>
     </Stack>
+
+    <Draggable
+      v-bind="d.info"
+      class="whitespace-pre-wrap p-4 font-mono text-sm text-gray-200"
+    >
+      {{ videostreams }}
+    </Draggable>
 
     <Draggable v-bind="d.data" class="p-4 md:w-[50vw]">
       <Stack>
@@ -80,7 +89,7 @@ const onClear = () => {
     </Draggable>
 
     <Draggable v-bind="d.stream" v-if="videostreams.length" class="md:w-[70vw]">
-      <Videostream :url="videostreams[0].url" />
+      <Videostream :url="videostreams[0].url" controls />
     </Draggable>
 
     <Draggable v-bind="d.chat">

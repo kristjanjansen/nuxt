@@ -264,6 +264,9 @@ const processEvent = (event) => {
   event.eventLiveLink = project
     ? `/projects/${project.slug}/${event.slug}/live`
     : "/";
+  event.eventExperimentLink = project
+    ? `/projects/${project.slug}/${event.slug}/experiment`
+    : "/";
   if (event.projects) {
     event.projects = event.projects.map(processProject);
   }
@@ -292,6 +295,9 @@ const processProjectEvent = (event, project) => {
   event.eventLink = `/projects/${project.slug}/${event.slug}`;
   event.eventLiveLink = project
     ? `/projects/${project.slug}/${event.slug}/live`
+    : "/";
+  event.eventExperimentLink = project
+    ? `/projects/${project.slug}/${event.slug}/experiment`
     : "/";
   event = processLocalizations(event);
   event = proccessMarkdown(event);
