@@ -46,7 +46,7 @@ debouncedWatch(
     <div v-for="(c, i) in controls" :key="i">
       <Title small v-if="c.title">{{ c.title }}</Title>
       <div class="tracking-wide text-gray-500">{{ c.description }}</div>
-      <input
+      <Slider
         v-if="c.control === 'slider'"
         type="range"
         v-model="c.value"

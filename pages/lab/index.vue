@@ -24,9 +24,9 @@
       <p />
       <Title>Experiments</Title>
       <div class="grid w-full gap-5 md:grid-cols-4">
-        <LinkCard to="/lab/experiment" class="border-re aspect-video pr-8">
-          <Title small>Start new experiment</Title>
-          <p class="tracking-wide text-gray-500">A virtual lab to work in</p>
+        <LinkCard to="/lab/experiments" class="border-re aspect-video pr-8">
+          <Title small>Current experimentst</Title>
+          <p class="tracking-wide text-gray-500">Show current experiments</p>
         </LinkCard>
         <LinkCard
           to="/lab/files/records/other___22_06_14__17_26_01___1809.88.mp4"
@@ -76,9 +76,9 @@
           <Title small>Colors</Title>
           <p class="text-gray-500">A color chart</p>
         </LinkCard>
-        <LinkCard to="/lab/buttons" class="border-re aspect-video pr-8">
-          <Title small>Buttons</Title>
-          <p class="text-gray-500">Buttons like links and vice versa</p>
+        <LinkCard to="/lab/components" class="border-re aspect-video pr-8">
+          <Title small>Components</Title>
+          <p class="text-gray-500">Form inputs, buttons etc</p>
         </LinkCard>
         <LinkCard to="/lab/videoframe" class="border-re aspect-video pr-8">
           <Title small>Animate video frames</Title>

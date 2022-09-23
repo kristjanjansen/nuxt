@@ -3,70 +3,6 @@ import { MaybeRef } from "@vueuse/core";
 import Hls from "hls.js";
 import type { Ref } from "vue";
 
-const useVideostream2 = (
-  videoRef: Ref<HTMLVideoElement | null>,
-  src: MaybeRef<string>
-) => {
-  const RETRY_DELAY = 3000;
-  let hls = shallowRef(null);
-  const videoSrc = ref(src);
-  const levels = ref(null);
-
-  const playSafariHls = () => {
-    if (videoRef.value) {
-      videoRef.value.src = videoSrc.value;
-      videoRef.value.play();
-    }
-  };
-
-  const playHls = () => {
-    if (hls.value) {
-      hls.value.detachMedia();
-      hls.value.destroy();
-      hls.value = null;
-      levels.value = null;
-    }
-    hls.value = new Hls({
-      debug: true,
-      manifestLoadingRetryDelay: RETRY_DELAY,
-      manifestLoadingMaxRetry: Infinity,
-      xhrSetup: (xhr) => {
-        xhr.addEventListener("error", (e) => {
-          hls.value.loadSource(videoSrc.value);
-          hls.value.startLoad();
-          if (videoRef.value) {
-            videoRef.value.play();
-          }
-        });
-      },
-    });
-    hls.value.attachMedia(videoRef.value);
-    hls.value.on(Hls.Events.MEDIA_ATTACHED, () => {
-      hls.value.loadSource(url.value);
-    });
-    hls.value.on(Hls.Events.MANIFEST_PARSED, () => {
-      levels.value = stringify(hls.value.levels);
-    });
-  };
-
-  watch(
-    [videoRef, videoSrc],
-    () => {
-      if (videoRef.value) {
-        if (videoRef.value.canPlayType("application/vnd.apple.mpegURL")) {
-          playSafariHls();
-        } else {
-          if (Hls.isSupported()) {
-            playHls();
-          }
-        }
-      }
-    },
-    { immediate: true }
-  );
-  return { levels };
-};
-
 const video = ref<HTMLVideoElement | null>(null);
 
 const urls = [
@@ -77,7 +13,7 @@ const urls = [
   "https://icareus-eu18-live.secure2.footprint.net/suitelive/ngrp:123636901/playlist.m3u8",
 ];
 const url = ref(urls[0]);
-const { levels } = useVideostream2(video, url);
+const { levels } = useVideostream(video, url);
 </script>
 
 <template>

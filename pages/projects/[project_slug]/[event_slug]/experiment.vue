@@ -41,6 +41,8 @@ const onClear = () => {
     messages.value = [];
   }
 };
+
+const video = ref<HTMLVideoElement | null>(null);
 </script>
 
 <template>
@@ -51,7 +53,7 @@ const onClear = () => {
   >
     <Breadboard class="bg-gray-900" />
     <Stack class="md:absolute md:top-6 md:left-6">
-      <Button small left to="/lab/eventcontrols">Experiments</Button>
+      <Button small left to="/lab/experiments">Experiments</Button>
       <Title class="text-gray-500">This is an event experiment page</Title>
       <Button small right :to="event?.eventLiveLink">
         Go to audience page
@@ -89,7 +91,7 @@ const onClear = () => {
     </Draggable>
 
     <Draggable v-bind="d.stream" v-if="videostreams.length" class="md:w-[70vw]">
-      <Videostream :url="videostreams[0].url" controls />
+      <Videostream :url="videostreams[0].url" />
     </Draggable>
 
     <Draggable v-bind="d.chat">

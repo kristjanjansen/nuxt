@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import { parseControls } from "~~/composables/controls";
 const { data: events } = useEvents({
   sort: ["start_at:desc"],
   filters: {
@@ -13,7 +12,7 @@ const url = (id) =>
 <template>
   <Stack class="p-4 md:p-6">
     <Button small left to="/lab">lab</Button>
-    <Title>Event controls</Title>
+    <Title>Experiments</Title>
     <Card v-for="e in events">
       <Stack>
         <Title medium>{{ e.title }}</Title>
@@ -26,7 +25,7 @@ const url = (id) =>
             Show in audience view
           </Button>
         </div>
-        <Controls :controls="parseControls(e.controls)" class="!w-32" />
+        <pre class="text-sm text-gray-500">{{ e.controls }}</pre>
       </Stack>
     </Card>
   </Stack>
