@@ -23,6 +23,7 @@ export const useVideostream = (
 
   // Automatic reconnect delay
   const reconnectDelay = 10 * 1000;
+  const timeoutDelay = 500;
 
   // hls.js placeholder
   let hls: Hls;
@@ -98,12 +99,12 @@ export const useVideostream = (
             case Hls.ErrorTypes.NETWORK_ERROR:
               setTimeout(() => {
                 hls.startLoad();
-              }, 10);
+              }, timeoutDelay);
               break;
             case Hls.ErrorTypes.MEDIA_ERROR:
               setTimeout(() => {
                 hls.recoverMediaError();
-              }, 10);
+              }, timeoutDelay);
               break;
           }
         }
