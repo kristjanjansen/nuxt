@@ -23,7 +23,7 @@
       </div>
       <p />
       <Title>Experiments</Title>
-      <div class="grid w-full auto-rows-fr gap-5 md:grid-cols-4">
+      <div class="grid w-full gap-5 md:grid-cols-4">
         <LinkCard to="/lab/experiment" class="border-re aspect-video pr-8">
           <Title small>Start new experiment</Title>
           <p class="tracking-wide text-gray-500">A virtual lab to work in</p>
@@ -53,10 +53,14 @@
           </p>
         </LinkCard>
         <LinkCard to="/lab/parsecontrols" class="border-re aspect-video pr-8">
-          <Title small>Controls</Title>
+          <Title small>Parse controls</Title>
           <p class="tracking-wide text-gray-500">
             Play around with live controls
           </p>
+        </LinkCard>
+        <LinkCard to="/lab/eventcontrols" class="border-re aspect-video pr-8">
+          <Title small>Event controls</Title>
+          <p class="tracking-wide text-gray-500">Browse events with controls</p>
         </LinkCard>
       </div>
       <p />

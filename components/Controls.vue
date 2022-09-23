@@ -3,9 +3,8 @@ import { debouncedWatch } from "@vueuse/core";
 
 type Props = {
   controls: any;
-  channel: string;
 };
-const { controls: defaultControls, channel } = defineProps<Props>();
+const { controls: defaultControls } = defineProps<Props>();
 
 const { sendMessage } = useMessages();
 const userId = useUserId();
@@ -27,13 +26,13 @@ debouncedWatch(
         const c = controls.value[i];
         if (c.control === "slider") {
           const message = {
-            channel,
+            channel: c.channel,
             type: c.type,
             value: controlsValue,
             userid: userId.value,
             username: userName.value,
           };
-          sendMessage(message);
+          sendMessage.value(message);
         }
       }
     });
@@ -56,6 +55,7 @@ debouncedWatch(
         :step="c.step"
         class="w-full accent-green-400"
       />
+      <Textarea v-if="c.control === 'text'" v-model="c.value" />
       <div v-if="c.labels" class="flex justify-between tracking-wide">
         <div v-for="label in c.labels" :key="label" class="tracking-wide">
           {{ label }}

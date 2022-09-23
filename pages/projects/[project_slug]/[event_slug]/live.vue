@@ -1,7 +1,8 @@
 <script setup lang="ts">
+import { parse } from "path";
+import { parseControls } from "~~/composables/controls";
 const route = useRoute();
 const slug = route.params.event_slug as string;
-
 const { data: event, error } = await useEventBySlug(slug);
 const videostreams = getVideostreams(event.value.streamkey);
 
@@ -9,7 +10,10 @@ const d = useDraggables({
   about: { x: 100, y: 300 },
   stream: { x: 200, y: 100 },
   chat: { x: 900, y: 200 },
+  controls: { x: 400, y: 400 },
 });
+
+const controls = parseControls(event.value.controls);
 
 const { lang } = useLang();
 </script>
@@ -46,6 +50,14 @@ const { lang } = useLang();
         <EventDatetime :event="event" />
         <Content :content="event?.descriptions[lang]" />
       </Stack>
+    </Draggable>
+
+    <Draggable
+      v-if="event.controls"
+      v-bind="d.controls"
+      class="p-4 md:w-[30vw]"
+    >
+      <Controls :controls="controls" />
     </Draggable>
 
     <Dock :draggables="d" />

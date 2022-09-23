@@ -1,7 +1,6 @@
 <script setup lang="ts">
-import { debouncedWatch, useWebSocket } from "@vueuse/core";
+import { debouncedWatch } from "@vueuse/core";
 import { format } from "date-fns";
-import { send } from "vite";
 
 const slug = "experiment";
 const videostreams = getVideostreams(slug);
@@ -16,7 +15,7 @@ const d = useDraggables({
 });
 
 const data_1 = ref(0);
-const m = clientUseMessages();
+const { messages, sendMessage } = useMessages();
 
 debouncedWatch(
   data_1,
@@ -28,13 +27,13 @@ debouncedWatch(
       userid: useUserId().value,
       username: useUserName().value,
     };
-    m.sendMessage(message);
+    sendMessage.value(message);
   },
   { debounce: 200 }
 );
 
 const onDownloadCsv = () => {
-  downloadCSV(m.messages, `${format(new Date(), "dd_MM_y__HH_mm_ss")}.csv`);
+  downloadCSV(messages, `${format(new Date(), "dd_MM_y__HH_mm_ss")}.csv`);
 };
 </script>
 
