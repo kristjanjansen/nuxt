@@ -1,11 +1,15 @@
 <script setup lang="ts">
 const message = ref("Waiting for a click...");
 const onClick = () => (message.value = "Clicked at " + performance.now());
+const a = ref(50);
 </script>
 
 <template>
   <div>
     <Stack class="p-4 md:p-6">
+      <Title>Form inputs</Title>
+      <Slider v-model="a" />
+      <pre>{{ a }}</pre>
       <Title>Buttons and links</Title>
 
       <Title medium>Default buttons</Title>
@@ -18,11 +22,11 @@ const onClick = () => (message.value = "Clicked at " + performance.now());
 
       <Title medium>Default router links</Title>
 
-      <Button to="/lab/buttons/back">Regular</Button>
-      <Button to="/lab/buttons/back" left>Regular left</Button>
-      <Button to="/lab/buttons/back" right>Regular right</Button>
-      <Button to="/lab/buttons/back" up>Regular up</Button>
-      <Button to="/lab/buttons/back" down>Regular down</Button>
+      <Button to="/lab/components/back">Regular</Button>
+      <Button to="/lab/components/back" left>Regular left</Button>
+      <Button to="/lab/components/back" right>Regular right</Button>
+      <Button to="/lab/components/back" up>Regular up</Button>
+      <Button to="/lab/components/back" down>Regular down</Button>
 
       <Title medium>Default external links</Title>
 
@@ -42,11 +46,11 @@ const onClick = () => (message.value = "Clicked at " + performance.now());
 
       <Title medium>Primary router links</Title>
 
-      <Button primary to="/lab/buttons/back">Primary</Button>
-      <Button primary left to="/lab/buttons/back">Primary left</Button>
-      <Button primary right to="/lab/buttons/back">Primary right</Button>
-      <Button primary up to="/lab/buttons/back">Primary up</Button>
-      <Button primary down to="/lab/buttons/back">Primary down</Button>
+      <Button primary to="/lab/components/back">Primary</Button>
+      <Button primary left to="/lab/components/back">Primary left</Button>
+      <Button primary right to="/lab/components/back">Primary right</Button>
+      <Button primary up to="/lab/components/back">Primary up</Button>
+      <Button primary down to="/lab/components/back">Primary down</Button>
 
       <Title medium>Primary external links</Title>
 
@@ -66,11 +70,11 @@ const onClick = () => (message.value = "Clicked at " + performance.now());
 
       <Title medium>Small router links</Title>
 
-      <Button small to="/lab/buttons/back">Small regular</Button>
-      <Button small to="/lab/buttons/back" left>Small left</Button>
-      <Button small to="/lab/buttons/back" right>Small right</Button>
-      <Button small to="/lab/buttons/back" up>Small up</Button>
-      <Button small to="/lab/buttons/back" down>Small down</Button>
+      <Button small to="/lab/components/back">Small regular</Button>
+      <Button small to="/lab/components/back" left>Small left</Button>
+      <Button small to="/lab/components/back" right>Small right</Button>
+      <Button small to="/lab/components/back" up>Small up</Button>
+      <Button small to="/lab/components/back" down>Small down</Button>
 
       <Title medium>Small external links</Title>
 

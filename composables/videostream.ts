@@ -8,7 +8,7 @@ import type { MaybeRef } from "@vueuse/core";
 
 type VideostreamStatus = "nodata" | "loading" | "playing";
 
-export const useVideostream = (
+export const useVideostreamLegacy = (
   videoRef: Ref<HTMLVideoElement | null>,
   src: MaybeRef<string>,
   autoReconnect = false
@@ -23,6 +23,7 @@ export const useVideostream = (
 
   // Automatic reconnect delay
   const reconnectDelay = 10 * 1000;
+  const timeoutDelay = 500;
 
   // hls.js placeholder
   let hls: Hls;
@@ -98,12 +99,12 @@ export const useVideostream = (
             case Hls.ErrorTypes.NETWORK_ERROR:
               setTimeout(() => {
                 hls.startLoad();
-              }, 10);
+              }, timeoutDelay);
               break;
             case Hls.ErrorTypes.MEDIA_ERROR:
               setTimeout(() => {
                 hls.recoverMediaError();
-              }, 10);
+              }, timeoutDelay);
               break;
           }
         }
@@ -169,4 +170,67 @@ export const useVideostream = (
   };
 
   return { status, width, height };
+};
+
+export const useVideostream = (
+  videoRef: Ref<HTMLVideoElement | null>,
+  src: MaybeRef<string>
+) => {
+  const RETRY_DELAY = 3000;
+  let hls = shallowRef(null);
+  const videoSrc = ref(src);
+  const levels = ref(null);
+
+  const playSafariHls = () => {
+    if (videoRef.value) {
+      videoRef.value.src = videoSrc.value;
+      videoRef.value.play();
+    }
+  };
+
+  const playHls = () => {
+    if (hls.value) {
+      hls.value.detachMedia();
+      hls.value.destroy();
+      hls.value = null;
+      levels.value = null;
+    }
+    hls.value = new Hls({
+      manifestLoadingRetryDelay: RETRY_DELAY,
+      manifestLoadingMaxRetry: Infinity,
+      // xhrSetup: (xhr) => {
+      //   xhr.addEventListener("error", (e) => {
+      //     hls.value.loadSource(videoSrc.value);
+      //     hls.value.startLoad();
+      //     if (videoRef.value) {
+      //       videoRef.value.play();
+      //     }
+      //   });
+      // },
+    });
+    hls.value.attachMedia(videoRef.value);
+    hls.value.on(Hls.Events.MEDIA_ATTACHED, () => {
+      hls.value.loadSource(videoSrc.value);
+    });
+    hls.value.on(Hls.Events.MANIFEST_PARSED, () => {
+      levels.value = hls.value.levels;
+    });
+  };
+
+  watch(
+    [videoRef, videoSrc],
+    () => {
+      if (videoRef.value) {
+        if (videoRef.value.canPlayType("application/vnd.apple.mpegURL")) {
+          playSafariHls();
+        } else {
+          if (Hls.isSupported()) {
+            playHls();
+          }
+        }
+      }
+    },
+    { immediate: true }
+  );
+  return { levels };
 };

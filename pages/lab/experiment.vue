@@ -57,9 +57,9 @@ const onDownloadCsv = () => {
           <div class="h-[15vw] overflow-auto font-mono text-sm text-gray-200">
             {{ m.messages }}
           </div>
-          <Button primary @click="onDownloadCsv" :disabled="!m.messages.length"
-            >Download CSV</Button
-          >
+          <Button primary @click="onDownloadCsv" :disabled="!m.messages.length">
+            Download CSV
+          </Button>
         </Stack>
       </Draggable>
 
