@@ -1,6 +1,8 @@
 <script setup lang="ts">
+import { useIntervalFn } from "@vueuse/shared";
+
 const { getFiles } = useFiles();
-const { data: files } = await getFiles("records");
+const { data: files, refresh } = await getFiles("records");
 const formatVideo = (file) => {
   return [
     `Stars at   ${file.start_at_formatted} ${
@@ -10,6 +12,7 @@ const formatVideo = (file) => {
     `Duration   ${file.duration_formatted}`,
   ].join("\n");
 };
+useIntervalFn(refresh, 5000);
 </script>
 
 <template>
