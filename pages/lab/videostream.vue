@@ -21,14 +21,24 @@ const useVideostream2 = (
 
   const playHls = () => {
     if (hls.value) {
-      hls.value.stopLoad();
       hls.value.detachMedia();
       hls.value.destroy();
+      hls.value = null;
+      levels.value = null;
     }
     hls.value = new Hls({
-      // debug: true,
+      debug: true,
       manifestLoadingRetryDelay: RETRY_DELAY,
       manifestLoadingMaxRetry: Infinity,
+      xhrSetup: (xhr) => {
+        xhr.addEventListener("error", (e) => {
+          hls.value.loadSource(videoSrc.value);
+          hls.value.startLoad();
+          if (videoRef.value) {
+            videoRef.value.play();
+          }
+        });
+      },
     });
     hls.value.attachMedia(videoRef.value);
     hls.value.on(Hls.Events.MEDIA_ATTACHED, () => {
