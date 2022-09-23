@@ -7,6 +7,7 @@ const useVideostream2 = (
   videoRef: Ref<HTMLVideoElement | null>,
   src: MaybeRef<string>
 ) => {
+  const RETRY_DELAY = 3000;
   let hls = shallowRef(null);
   const videoSrc = ref(src);
   const levels = ref(null);
@@ -26,9 +27,8 @@ const useVideostream2 = (
     }
     hls.value = new Hls({
       // debug: true,
-      manifestLoadingRetryDelay: 3000,
+      manifestLoadingRetryDelay: RETRY_DELAY,
       manifestLoadingMaxRetry: Infinity,
-      progressive: true,
     });
     hls.value.attachMedia(videoRef.value);
     hls.value.on(Hls.Events.MEDIA_ATTACHED, () => {
