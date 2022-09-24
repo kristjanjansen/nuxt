@@ -66,7 +66,14 @@ const messagesByTypeAndUser = computed(() =>
   )
 );
 
-const messagesByType = computed(() => {
+const formatData = (data) => {
+  const maxLength = Math.max(...Object.keys(data).map((k) => k.length));
+  return Object.entries(data)
+    .map(([key, value]) => `${(key + ":").padEnd(maxLength + 1)} ${value}`)
+    .join("\n");
+};
+
+const parsedControlMessages = computed(() => {
   const groupedMessages = groups(messages.value, (m) => m.type).map(
     ([typeKey, messages]) => {
       const controls = parsedControls.value.filter(
@@ -141,23 +148,26 @@ const messagesByType = computed(() => {
         </ClientOnly>
       </Stack>
       <Stack>
-        <Title medium>Users</Title>
+        <Title medium>Parsed data</Title>
         <div>
-          <pre class="text-sm text-gray-400">{{ messagesByType }}</pre>
-          <Stack v-for="[typeKey, users] in messagesByTypeAndUser">
-            <Title medium>{{ typeKey }}</Title>
-            <Stack v-for="[userKey, messages] in users">
+          <!-- <pre class="text-sm text-gray-400">{{ messagesByType }}</pre> -->
+          <Stack v-for="t in parsedControlMessages">
+            <Title medium>{{ t.type }}</Title>
+            <pre>{{ formatData({ start: 1, end: 2 }) }}</pre>
+            <Stack v-for="user in t.users">
               <div class="flex items-center gap-2">
                 <IconCircle
                   :style="{
-                    color: stringToColor(userKey),
+                    color: user.color,
                   }"
                 />
                 <div class="font-mono text-sm">
-                  {{ userKey }}
+                  {{ user.username }}
                 </div>
               </div>
-              <div class="text-sm text-gray-400">{{ messages }}</div>
+              <div class="font-mono text-sm text-gray-400">
+                {{ user.messages }}
+              </div>
             </Stack>
           </Stack>
         </div>
