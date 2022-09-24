@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import IconCircle from "~icons/ph/circle-fill";
-import { groups } from "d3";
+import { extent, groups, flatGroup } from "d3";
 
 const defaultControls = `channel: experiment
 type: DATA_1
@@ -65,7 +65,16 @@ const messagesByTypeAndUser = computed(() =>
   )
 );
 
-const messagesByType = computed(() => groups(messages.value, (m) => m.type));
+const messagesByType = computed(() => {
+  const groupedMessages = groups(messages.value, (m) => m.type).map(
+    ([typeKey, messages]) => {
+      const typeExtent = extent(messages, (m) => m.value);
+      return { type: typeKey, extent: typeExtent, messages };
+    }
+  );
+  const yExtent = extent(messages.value, (m) => m.value);
+  return groupedMessages;
+});
 </script>
 
 <template>
@@ -109,6 +118,7 @@ const messagesByType = computed(() => groups(messages.value, (m) => m.type));
       <Stack>
         <Title medium>Users</Title>
         <div>
+          <pre>{{ messagesByType }}</pre>
           <Stack v-for="[typeKey, users] in messagesByTypeAndUser">
             <Title medium>{{ typeKey }}</Title>
             <Stack v-for="[userKey, messages] in users">
