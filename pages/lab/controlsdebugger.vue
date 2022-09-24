@@ -29,16 +29,13 @@ const { messages } = useMessages();
         <Textarea v-model="controls" class="text-sm" />
       </Stack>
       <Stack>
-        <Title medium>Parsed controls</Title>
-        <div class="whitespace-pre-wrap font-mono text-sm text-gray-500">
-          {{ parsedControls }}
-        </div>
-      </Stack>
-      <Stack>
         <Title medium>Rendered controls</Title>
         <Card>
           <Controls :controls="parsedControls" />
         </Card>
+        <div class="whitespace-pre-wrap font-mono text-sm text-gray-500">
+          {{ parsedControls }}
+        </div>
       </Stack>
       <Stack class="h-[80vh] overflow-auto">
         <Title medium>Websocket messages</Title>
