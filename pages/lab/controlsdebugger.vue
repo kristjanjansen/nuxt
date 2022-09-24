@@ -68,11 +68,14 @@ const messagesByTypeAndUser = computed(() =>
 const messagesByType = computed(() => {
   const groupedMessages = groups(messages.value, (m) => m.type).map(
     ([typeKey, messages]) => {
-      const typeExtent = extent(messages, (m) => m.value);
-      return { type: typeKey, extent: typeExtent, messages };
+      const xExtent = extent(messages, (m) => new Date(m.datetime));
+      const yExtent = extent(messages, (m) => m.value);
+      const controls = parsedControls.value.filter(
+        (c) => c.type === typeKey
+      )[0];
+      return { type: typeKey, xExtent, yExtent, controls, messages };
     }
   );
-  const yExtent = extent(messages.value, (m) => m.value);
   return groupedMessages;
 });
 </script>
