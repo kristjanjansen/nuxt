@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import IconCircle from "~icons/ph/circle-fill";
+import { groups } from "d3";
 
 const defaultControls = `channel: experiment
 type: DATA_1
@@ -55,6 +56,14 @@ const useControlsMessages = (controlsMessages) => {
 };
 
 const { messages: messagesByUser, users } = useControlsMessages(messages);
+
+const hm = computed(() =>
+  groups(
+    messages.value,
+    (m) => m.type,
+    (m) => m.username
+  )
+);
 </script>
 
 <template>
@@ -97,6 +106,7 @@ const { messages: messagesByUser, users } = useControlsMessages(messages);
       </Stack>
       <Stack>
         <Title medium>Users</Title>
+        <pre>{{ hm }}</pre>
         <!-- <div>
           <div v-for="user in users" class="flex items-center gap-2">
             <IconCircle
