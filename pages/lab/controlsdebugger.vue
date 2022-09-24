@@ -77,17 +77,25 @@ const messagesByType = computed(() => {
         (m) => new Date(m.datetime)
       );
       const xMin = xMinExtent;
-      // We make the maximum x scale either starttime +15min or
-      // longer when the data exceeds 30 min
+      // We make the maximum x scale "min time + 15min" or
+      // max time when the data exceeds +15min
       const xMax = max([
-        add(xMinExtent, { seconds: 10 }),
+        add(xMinExtent, { minutes: 15 }),
         new Date(xMaxExtent),
       ]);
       // const [yMinExtent, yMaxExtent] = extent(messages, (m) => m.value);
       const yMin = controls.min;
       const yMax = controls.max;
-
-      return { type: typeKey, xMin, xMax, yMin, yMax, controls, messages };
+      const users = groups(messages, (m) => m.username).map(
+        ([userKey, messages]) => {
+          return {
+            username: userKey,
+            color: stringToColor(userKey),
+            messages,
+          };
+        }
+      );
+      return { type: typeKey, xMin, xMax, yMin, yMax, controls, users };
     }
   );
   return groupedMessages;
