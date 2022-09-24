@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { useElementSize } from "@vueuse/core";
 import { scaleLinear, scaleTime } from "d3";
 
 type Props = {
@@ -6,8 +7,9 @@ type Props = {
 };
 const { data } = defineProps<Props>();
 
-const width = ref(200);
-const height = ref(50);
+const graph = ref(null);
+const { width } = useElementSize(graph);
+const height = ref(100);
 
 const xScale = computed(() =>
   scaleTime()
@@ -34,8 +36,13 @@ const dataWithPath = computed(() => {
 </script>
 
 <template>
-  <div>
-    <svg class="rounded-lg border" ref="svg" :width="width" :height="height">
+  <div ref="graph" class="w-full border">
+    <svg
+      class="rounded-lg border border-red-500"
+      ref="svg"
+      :width="width"
+      :height="height"
+    >
       <rect
         :width="width"
         :height="height"

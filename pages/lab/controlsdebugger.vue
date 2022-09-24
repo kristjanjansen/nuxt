@@ -69,7 +69,10 @@ const messagesByTypeAndUser = computed(() =>
 const formatData = (data) => {
   const maxLength = Math.max(...Object.keys(data).map((k) => k.length));
   return Object.entries(data)
-    .map(([key, value]) => `${(key + ":").padEnd(maxLength + 1)}  ${value}`)
+    .map(
+      ([key, value]) =>
+        `${(key + ":").padEnd(maxLength + 1)}  ${[value].flat().join(" ")}`
+    )
     .join("\n");
 };
 
@@ -159,7 +162,7 @@ const parsedControlMessages = computed(() => {
       <Stack>
         <Title medium>Parsed data</Title>
         <Stack class="gap-10">
-          <Stack v-for="t in parsedControlMessages">
+          <Stack v-for="t in parsedControlMessages" class="items-strech">
             <Title small>{{ t.controls.title || t.type }}</Title>
             <Code>{{
               formatData({
@@ -171,19 +174,21 @@ const parsedControlMessages = computed(() => {
               })
             }}</Code>
             <ControlsGraph :data="t" />
-            <Stack v-for="user in t.users">
-              <div class="flex items-center gap-2">
-                <IconCircle
-                  class="h-3 w-3"
-                  :style="{
-                    color: user.color,
-                  }"
-                />
-                <Code class="text-white">
-                  {{ user.username }}
-                </Code>
+            <div>
+              <div v-for="user in t.users">
+                <div class="flex items-center gap-2">
+                  <IconCircle
+                    class="h-3 w-3"
+                    :style="{
+                      color: user.color,
+                    }"
+                  />
+                  <Code class="text-white">
+                    {{ user.username }}
+                  </Code>
+                </div>
               </div>
-            </Stack>
+            </div>
           </Stack>
         </Stack>
       </Stack>
