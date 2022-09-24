@@ -4,8 +4,9 @@ import { scaleLinear, scaleTime } from "d3";
 
 type Props = {
   data: any;
+  username?: string;
 };
-const { data } = defineProps<Props>();
+const { data, username = null } = defineProps<Props>();
 
 const graph = ref(null);
 const { width } = useElementSize(graph);
@@ -43,6 +44,7 @@ const dataWithPath = computed(() => {
         :d="user.path"
         fill="none"
         :stroke="user.color"
+        :opacity="!username || user.username === username ? 1 : 0.2"
         stroke-width="2"
       />
     </svg>

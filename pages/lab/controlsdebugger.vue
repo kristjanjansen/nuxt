@@ -111,17 +111,3 @@ const messagesByTypeAndUser = computed(() =>
     </div>
   </Stack>
 </template>
-
-<!-- <div>
-          <div v-for="user in users" class="flex items-center gap-2">
-            <IconCircle
-              :style="{
-                color: user.color,
-              }"
-            />
-            <div class="font-mono text-sm tracking-wide">
-              {{ user.username }}
-            </div>
-          </div>
-        </div>
-        <pre class="text-sm text-gray-300">{{ messagesByUser }}</pre> -->
