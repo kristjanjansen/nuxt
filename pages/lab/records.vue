@@ -16,12 +16,12 @@ useIntervalFn(refresh, 5000);
 </script>
 
 <template>
-  <Stack class="p-4 md:p-6">
+  <Stack v-if="files" class="p-4 md:p-6">
     <div class="grid grid-cols-3">
       <div />
       <div />
       <Stack>
-        <Card v-for="file in files">
+        <Card v-for="file in files.slice(0, 5)">
           <Stack>
             <video :src="file.src" controls class="aspect-video" />
             <div
