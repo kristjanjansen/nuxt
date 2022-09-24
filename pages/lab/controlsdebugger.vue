@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import IconCircle from "~icons/ph/circle-fill";
-import { extent, groups, flatGroup } from "d3";
+import { extent, groups, flatGroup, min, max } from "d3";
+import { add } from "date-fns";
 
 const defaultControls = `channel: experiment
 type: DATA_1
@@ -68,12 +69,25 @@ const messagesByTypeAndUser = computed(() =>
 const messagesByType = computed(() => {
   const groupedMessages = groups(messages.value, (m) => m.type).map(
     ([typeKey, messages]) => {
-      const xExtent = extent(messages, (m) => new Date(m.datetime));
-      const yExtent = extent(messages, (m) => m.value);
       const controls = parsedControls.value.filter(
         (c) => c.type === typeKey
       )[0];
-      return { type: typeKey, xExtent, yExtent, controls, messages };
+      const [xMinExtent, xMaxExtent] = extent(
+        messages,
+        (m) => new Date(m.datetime)
+      );
+      const xMin = xMinExtent;
+      // We make the maximum x scale either starttime +15min or
+      // longer when the data exceeds 30 min
+      const xMax = max([
+        add(xMinExtent, { seconds: 10 }),
+        new Date(xMaxExtent),
+      ]);
+      // const [yMinExtent, yMaxExtent] = extent(messages, (m) => m.value);
+      const yMin = controls.min;
+      const yMax = controls.max;
+
+      return { type: typeKey, xMin, xMax, yMin, yMax, controls, messages };
     }
   );
   return groupedMessages;
@@ -94,7 +108,7 @@ const messagesByType = computed(() => {
         <Card>
           <Controls :controls="parsedControls" />
         </Card>
-        <div class="whitespace-pre-wrap font-mono text-sm text-gray-500">
+        <div class="whitespace-pre-wrap font-mono text-sm text-gray-400">
           {{ parsedControls }}
         </div>
       </Stack>
@@ -111,7 +125,7 @@ const messagesByType = computed(() => {
                 parsedControls.map((c) => c.channel).includes(m.channel)
               )"
               :key="m.id"
-              class="whitespace-pre-wrap font-mono text-sm text-gray-300"
+              class="whitespace-pre-wrap font-mono text-sm text-gray-400"
             >
               {{ m }}
             </div>
@@ -121,7 +135,7 @@ const messagesByType = computed(() => {
       <Stack>
         <Title medium>Users</Title>
         <div>
-          <pre>{{ messagesByType }}</pre>
+          <pre class="text-sm text-gray-400">{{ messagesByType }}</pre>
           <Stack v-for="[typeKey, users] in messagesByTypeAndUser">
             <Title medium>{{ typeKey }}</Title>
             <Stack v-for="[userKey, messages] in users">
@@ -131,11 +145,11 @@ const messagesByType = computed(() => {
                     color: stringToColor(userKey),
                   }"
                 />
-                <div class="font-mono text-sm tracking-wide">
+                <div class="font-mono text-sm">
                   {{ userKey }}
                 </div>
               </div>
-              <pre>{{ messages }}</pre>
+              <div class="text-sm text-gray-400">{{ messages }}</div>
             </Stack>
           </Stack>
         </div>
