@@ -79,18 +79,15 @@ const parsedControlMessages = computed(() => {
       const controls = parsedControls.value.filter(
         (c) => c.type === typeKey
       )[0];
-      const [xMinExtent, xMaxExtent] = extent(
+      const [xDataMin, xDataMax] = extent(
         messages,
         (m) => new Date(m.datetime)
       );
-      const xMin = xMinExtent;
+      const xMin = xDataMin;
       // We make the maximum x scale "min time + 15min" or
       // max time when the data exceeds +15min
-      const xMax = max([
-        add(xMinExtent, { minutes: 15 }),
-        new Date(xMaxExtent),
-      ]);
-      const [yMinExtent, yMaxExtent] = extent(messages, (m) => m.value);
+      const xMax = max([add(xDataMax, { minutes: 15 }), new Date(xDataMax)]);
+      const [yDataMin, yDataMax] = extent(messages, (m) => m.value);
       const yMin = controls.min;
       const yMax = controls.max;
       const users = groups(messages, (m) => m.username).map(
@@ -104,10 +101,10 @@ const parsedControlMessages = computed(() => {
       );
       return {
         type: typeKey,
-        xMinExtent,
-        xMaxExtent,
-        yMinExtent,
-        yMaxExtent,
+        xDataMin,
+        xDataMax,
+        yDataMin,
+        yDataMax,
         xMin,
         xMax,
         yMin,
@@ -162,18 +159,17 @@ const parsedControlMessages = computed(() => {
       <Stack>
         <Title medium>Parsed data</Title>
         <div>
-          <pre class="text-sm text-gray-400">{{ parsedControlMessages }}</pre>
           <Stack v-for="t in parsedControlMessages">
-            <Title medium>{{ t.controls.title || t.type }}</Title>
-            <pre>{{
+            <Title small>{{ t.controls.title || t.type }}</Title>
+            <Code>{{
               formatData({
                 Type: t.type,
-                Start: formatTimePrecise(t.xMinExtent),
-                End: formatTimePrecise(t.xMaxExtent),
-                "Min value": t.yMinExtent,
-                "Max value": t.yMaxExtent,
+                Start: formatTimePrecise(t.xDataMin),
+                End: formatTimePrecise(t.xDataMax),
+                "Min value": t.yDataMax,
+                "Max value": t.yDataMax,
               })
-            }}</pre>
+            }}</Code>
             <Stack v-for="user in t.users">
               <div class="flex items-center gap-2">
                 <IconCircle
@@ -181,15 +177,16 @@ const parsedControlMessages = computed(() => {
                     color: user.color,
                   }"
                 />
-                <div class="font-mono text-sm">
+                <Code class="text-white">
                   {{ user.username }}
-                </div>
+                </Code>
               </div>
-              <div class="font-mono text-sm text-gray-400">
+              <Code>
                 {{ user.messages }}
-              </div>
+              </Code>
             </Stack>
           </Stack>
+          <pre class="text-sm text-gray-400">{{ parsedControlMessages }}</pre>
         </div>
       </Stack>
     </div>
