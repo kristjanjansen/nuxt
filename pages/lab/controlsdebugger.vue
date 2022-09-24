@@ -1,8 +1,4 @@
 <script setup lang="ts">
-import IconCircle from "~icons/ph/circle-fill";
-import { extent, groups, flatGroup, min, max } from "d3";
-import { add } from "date-fns";
-
 const defaultControls = `channel: experiment
 type: DATA_1
 title: How do you feel!!!!
@@ -22,6 +18,7 @@ const controls = ref(defaultControls);
 const parsedControls = computed(() => parseControls(controls.value));
 const { messages } = useMessages();
 
+/*
 const useControlsMessages = (controlsMessages) => {
   const types = computed(() =>
     uniqueCollection(
@@ -41,12 +38,12 @@ const useControlsMessages = (controlsMessages) => {
       "username"
     )
   );
-  /*
+
   users.value.map(({ username }) =>
         controlsMessages.value.filter(
           (d) => d.type === type && d.username === username
         ))
-        */
+
   const messages = computed(() => {
     return types.value.map((type) => {
       return controlsMessages.value.filter((d) => d.type === type);
@@ -55,6 +52,7 @@ const useControlsMessages = (controlsMessages) => {
 
   return { users, messages };
 };
+
 
 const { messages: messagesByUser, users } = useControlsMessages(messages);
 
@@ -65,60 +63,7 @@ const messagesByTypeAndUser = computed(() =>
     (m) => m.username
   )
 );
-
-const formatData = (data) => {
-  const maxLength = Math.max(...Object.keys(data).map((k) => k.length));
-  return Object.entries(data)
-    .map(
-      ([key, value]) =>
-        `${(key + ":").padEnd(maxLength + 1)}  ${[value].flat().join(" ")}`
-    )
-    .join("\n");
-};
-
-const parsedControlMessages = computed(() => {
-  const groupedMessages = groups(messages.value, (m) => m.type).map(
-    ([typeKey, messages]) => {
-      const controls = parsedControls.value.filter(
-        (c) => c.type === typeKey
-      )[0];
-      const [xDataMin, xDataMax] = extent(
-        messages,
-        (m) => new Date(m.datetime)
-      );
-      const xMin = xDataMin;
-      // We make the maximum x scale "min time + 1min" or
-      // max time when the data exceeds +1min
-      const xMax = max([add(xDataMax, { minutes: 1 }), new Date(xDataMax)]);
-      const [yDataMin, yDataMax] = extent(messages, (m) => m.value);
-      const yMin = controls.min;
-      const yMax = controls.max;
-      const users = groups(messages, (m) => m.username).map(
-        ([userKey, messages]) => {
-          return {
-            username: userKey,
-            color: stringToColor(userKey),
-            messages,
-          };
-        }
-      );
-      return {
-        type: typeKey,
-        xDataMin,
-        xDataMax,
-        yDataMin,
-        yDataMax,
-        xMin,
-        xMax,
-        yMin,
-        yMax,
-        controls,
-        users,
-      };
-    }
-  );
-  return groupedMessages;
-});
+*/
 </script>
 
 <template>
@@ -161,36 +106,7 @@ const parsedControlMessages = computed(() => {
       </Stack>
       <Stack>
         <Title medium>Parsed data</Title>
-        <Stack class="gap-10">
-          <Stack v-for="t in parsedControlMessages" class="items-strech">
-            <Title small>{{ t.controls.title || t.type }}</Title>
-            <Code>{{
-              formatData({
-                Type: t.type,
-                Start: formatTimePrecise(t.xDataMin),
-                End: formatTimePrecise(t.xDataMax),
-                "Min value": t.yDataMin,
-                "Max value": t.yDataMax,
-              })
-            }}</Code>
-            <ControlsGraph :data="t" />
-            <div>
-              <div v-for="user in t.users">
-                <div class="flex items-center gap-2">
-                  <IconCircle
-                    class="h-3 w-3"
-                    :style="{
-                      color: user.color,
-                    }"
-                  />
-                  <Code class="text-white">
-                    {{ user.username }}
-                  </Code>
-                </div>
-              </div>
-            </div>
-          </Stack>
-        </Stack>
+        <ControlsData :messages="messages" :controls="parsedControls" />
       </Stack>
     </div>
   </Stack>
