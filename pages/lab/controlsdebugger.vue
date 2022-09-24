@@ -1,4 +1,6 @@
 <script setup lang="ts">
+import IconCircle from "~icons/ph/circle-fill";
+
 const defaultControls = `channel: experiment
 type: DATA_1
 title: How do you feel!!!!
@@ -17,6 +19,28 @@ step: 0.01`;
 const controls = ref(defaultControls);
 const parsedControls = computed(() => parseControls(controls.value));
 const { messages } = useMessages();
+
+const useControlsMessages = (controlsMessages) => {
+  const users = computed(() =>
+    uniqueCollection(
+      controlsMessages.value.map((c) => {
+        return {
+          username: c.username,
+          color: stringToColor(c.username),
+        };
+      }),
+      "username"
+    )
+  );
+  const messages = computed(() => {
+    return users.value.map(({ username }) =>
+      controlsMessages.value.filter((d) => d.username === username)
+    );
+  });
+  return { users, messages };
+};
+
+const { messages: messagesByUser, users } = useControlsMessages(messages);
 </script>
 
 <template>
@@ -56,6 +80,22 @@ const { messages } = useMessages();
             </div>
           </MoveTransition>
         </ClientOnly>
+      </Stack>
+      <Stack>
+        <Title medium>Users</Title>
+        <div>
+          <div v-for="user in users" class="flex items-center gap-2">
+            <IconCircle
+              :style="{
+                color: user.color,
+              }"
+            />
+            <div class="font-mono text-sm tracking-wide">
+              {{ user.username }}
+            </div>
+          </div>
+        </div>
+        <pre class="text-sm text-gray-300">{{ messagesByUser }}</pre>
       </Stack>
     </div>
   </Stack>
