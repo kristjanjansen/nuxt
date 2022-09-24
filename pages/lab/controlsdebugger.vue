@@ -84,9 +84,9 @@ const parsedControlMessages = computed(() => {
         (m) => new Date(m.datetime)
       );
       const xMin = xDataMin;
-      // We make the maximum x scale "min time + 15min" or
-      // max time when the data exceeds +15min
-      const xMax = max([add(xDataMax, { minutes: 15 }), new Date(xDataMax)]);
+      // We make the maximum x scale "min time + 1min" or
+      // max time when the data exceeds +1min
+      const xMax = max([add(xDataMax, { minutes: 1 }), new Date(xDataMax)]);
       const [yDataMin, yDataMax] = extent(messages, (m) => m.value);
       const yMin = controls.min;
       const yMax = controls.max;
@@ -158,7 +158,7 @@ const parsedControlMessages = computed(() => {
       </Stack>
       <Stack>
         <Title medium>Parsed data</Title>
-        <div>
+        <Stack class="gap-10">
           <Stack v-for="t in parsedControlMessages">
             <Title small>{{ t.controls.title || t.type }}</Title>
             <Code>{{
@@ -166,7 +166,7 @@ const parsedControlMessages = computed(() => {
                 Type: t.type,
                 Start: formatTimePrecise(t.xDataMin),
                 End: formatTimePrecise(t.xDataMax),
-                "Min value": t.yDataMax,
+                "Min value": t.yDataMin,
                 "Max value": t.yDataMax,
               })
             }}</Code>
@@ -174,6 +174,7 @@ const parsedControlMessages = computed(() => {
             <Stack v-for="user in t.users">
               <div class="flex items-center gap-2">
                 <IconCircle
+                  class="h-3 w-3"
                   :style="{
                     color: user.color,
                   }"
@@ -182,13 +183,9 @@ const parsedControlMessages = computed(() => {
                   {{ user.username }}
                 </Code>
               </div>
-              <Code>
-                {{ user.messages }}
-              </Code>
             </Stack>
           </Stack>
-          <!-- <pre class="text-sm text-gray-400">{{ parsedControlMessages }}</pre> -->
-        </div>
+        </Stack>
       </Stack>
     </div>
   </Stack>
