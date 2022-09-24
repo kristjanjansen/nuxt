@@ -35,7 +35,7 @@ const dataWithPath = computed(() => {
 
 <template>
   <div>
-    <svg class="rounded-lg" ref="svg" :width="width" :height="height">
+    <svg class="rounded-lg border" ref="svg" :width="width" :height="height">
       <rect
         :width="width"
         :height="height"
