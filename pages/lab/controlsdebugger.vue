@@ -21,6 +21,13 @@ const parsedControls = computed(() => parseControls(controls.value));
 const { messages } = useMessages();
 
 const useControlsMessages = (controlsMessages) => {
+  const types = computed(() =>
+    uniqueCollection(
+      controlsMessages.value.map((c) => c.type),
+      "type"
+    )
+  );
+
   const users = computed(() =>
     uniqueCollection(
       controlsMessages.value.map((c) => {
@@ -32,11 +39,18 @@ const useControlsMessages = (controlsMessages) => {
       "username"
     )
   );
+  /*
+  users.value.map(({ username }) =>
+        controlsMessages.value.filter(
+          (d) => d.type === type && d.username === username
+        ))
+        */
   const messages = computed(() => {
-    return users.value.map(({ username }) =>
-      controlsMessages.value.filter((d) => d.username === username)
-    );
+    return types.value.map((type) => {
+      return controlsMessages.value.filter((d) => d.type === type);
+    });
   });
+
   return { users, messages };
 };
 
@@ -83,7 +97,7 @@ const { messages: messagesByUser, users } = useControlsMessages(messages);
       </Stack>
       <Stack>
         <Title medium>Users</Title>
-        <div>
+        <!-- <div>
           <div v-for="user in users" class="flex items-center gap-2">
             <IconCircle
               :style="{
@@ -95,7 +109,7 @@ const { messages: messagesByUser, users } = useControlsMessages(messages);
             </div>
           </div>
         </div>
-        <pre class="text-sm text-gray-300">{{ messagesByUser }}</pre>
+        <pre class="text-sm text-gray-300">{{ messagesByUser }}</pre> -->
       </Stack>
     </div>
   </Stack>
