@@ -57,13 +57,15 @@ const useControlsMessages = (controlsMessages) => {
 
 const { messages: messagesByUser, users } = useControlsMessages(messages);
 
-const hm = computed(() =>
+const messagesByTypeAndUser = computed(() =>
   groups(
     messages.value,
     (m) => m.type,
     (m) => m.username
   )
 );
+
+const messagesByType = computed(() => groups(messages.value, (m) => m.type));
 </script>
 
 <template>
@@ -106,8 +108,30 @@ const hm = computed(() =>
       </Stack>
       <Stack>
         <Title medium>Users</Title>
-        <pre>{{ hm }}</pre>
-        <!-- <div>
+        <div>
+          <Stack v-for="[typeKey, users] in messagesByTypeAndUser">
+            <Title medium>{{ typeKey }}</Title>
+            <Stack v-for="[userKey, messages] in users">
+              <div class="flex items-center gap-2">
+                <IconCircle
+                  :style="{
+                    color: stringToColor(userKey),
+                  }"
+                />
+                <div class="font-mono text-sm tracking-wide">
+                  {{ userKey }}
+                </div>
+              </div>
+              <pre>{{ messages }}</pre>
+            </Stack>
+          </Stack>
+        </div>
+      </Stack>
+    </div>
+  </Stack>
+</template>
+
+<!-- <div>
           <div v-for="user in users" class="flex items-center gap-2">
             <IconCircle
               :style="{
@@ -120,7 +144,3 @@ const hm = computed(() =>
           </div>
         </div>
         <pre class="text-sm text-gray-300">{{ messagesByUser }}</pre> -->
-      </Stack>
-    </div>
-  </Stack>
-</template>
