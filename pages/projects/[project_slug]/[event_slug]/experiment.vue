@@ -15,7 +15,8 @@ const d = useDraggables({
   stream: { x: 200, y: 100 },
   chat: { x: 900, y: 200, docked: true },
   controls: { x: 400, y: 400 },
-  data: { x: 100, y: 300 },
+  rawdata: { x: 100, y: 300 },
+  data: { x: 400, y: 300 },
 });
 
 const controls = parseControls(event.value.controls);
@@ -67,7 +68,11 @@ const video = ref<HTMLVideoElement | null>(null);
       {{ videostreams }}
     </Draggable>
 
-    <Draggable v-bind="d.data" class="p-4 md:w-[50vw]">
+    <Draggable v-bind="d.data" class="p-4 md:w-[20vw]">
+      <ControlsData :messages="experimentMessages" :controls="controls" />
+    </Draggable>
+
+    <Draggable v-bind="d.rawdata" class="p-4 md:w-[40vw]">
       <Stack>
         <div class="h-[15vw] overflow-auto font-mono text-sm text-gray-500">
           {{ experimentMessages }}

@@ -5,9 +5,12 @@ type Props = {
   messages: any[];
   controls: any[];
 };
-const { messages, controls } = defineProps<Props>();
+const props = defineProps<Props>();
 
-const controlsData = useControlsData(messages, controls);
+const controlsData = useControlsData(
+  toRef(props, "messages"),
+  toRef(props, "controls")
+);
 const username = ref(null);
 </script>
 
