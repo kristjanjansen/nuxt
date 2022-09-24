@@ -2,7 +2,8 @@
 import IconCircle from "~icons/ph/circle-fill";
 import IconClose from "~icons/radix-icons/cross-2";
 
-const userName = useUserName();
+const username = useUserName();
+const color = computed(() => stringToColor(username.value));
 const edit = ref(false);
 const textarea = ref<any>(null);
 const { lang } = useLang();
@@ -27,16 +28,20 @@ const { lang } = useLang();
         </div>
         <Stack class="!gap-1 !p-4">
           <div class="text-sm tracking-wide text-gray-300">Your name</div>
-          <Textarea ref="textarea" v-model="userName" class="text-sm" />
+          <Textarea ref="textarea" v-model="username" class="text-sm" />
         </Stack>
       </div>
     </FadeTransition>
 
     <div class="fixed right-4 bottom-0 z-50">
       <DockButton @click="edit = !edit" class="!normal-case">
-        <div class="flex w-full justify-between gap-2">
-          <div class="hidden truncate md:block">{{ userName || "&nbsp;" }}</div>
-          <IconCircle class="text-green-400" />
+        <div class="flex w-full gap-2">
+          <IconCircle
+            :style="{
+              color,
+            }"
+          />
+          <div class="hidden truncate md:block">{{ username || "&nbsp;" }}</div>
         </div>
       </DockButton>
     </div>

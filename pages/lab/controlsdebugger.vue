@@ -17,6 +17,53 @@ step: 0.01`;
 const controls = ref(defaultControls);
 const parsedControls = computed(() => parseControls(controls.value));
 const { messages } = useMessages();
+
+/*
+const useControlsMessages = (controlsMessages) => {
+  const types = computed(() =>
+    uniqueCollection(
+      controlsMessages.value.map((c) => c.type),
+      "type"
+    )
+  );
+
+  const users = computed(() =>
+    uniqueCollection(
+      controlsMessages.value.map((c) => {
+        return {
+          username: c.username,
+          color: stringToColor(c.username),
+        };
+      }),
+      "username"
+    )
+  );
+
+  users.value.map(({ username }) =>
+        controlsMessages.value.filter(
+          (d) => d.type === type && d.username === username
+        ))
+
+  const messages = computed(() => {
+    return types.value.map((type) => {
+      return controlsMessages.value.filter((d) => d.type === type);
+    });
+  });
+
+  return { users, messages };
+};
+
+
+const { messages: messagesByUser, users } = useControlsMessages(messages);
+
+const messagesByTypeAndUser = computed(() =>
+  groups(
+    messages.value,
+    (m) => m.type,
+    (m) => m.username
+  )
+);
+*/
 </script>
 
 <template>
@@ -29,16 +76,13 @@ const { messages } = useMessages();
         <Textarea v-model="controls" class="text-sm" />
       </Stack>
       <Stack>
-        <Title medium>Parsed controls</Title>
-        <div class="whitespace-pre-wrap font-mono text-sm text-gray-500">
-          {{ parsedControls }}
-        </div>
-      </Stack>
-      <Stack>
         <Title medium>Rendered controls</Title>
         <Card>
           <Controls :controls="parsedControls" />
         </Card>
+        <div class="whitespace-pre-wrap font-mono text-sm text-gray-400">
+          {{ parsedControls }}
+        </div>
       </Stack>
       <Stack class="h-[80vh] overflow-auto">
         <Title medium>Websocket messages</Title>
@@ -53,12 +97,16 @@ const { messages } = useMessages();
                 parsedControls.map((c) => c.channel).includes(m.channel)
               )"
               :key="m.id"
-              class="whitespace-pre-wrap font-mono text-sm text-gray-300"
+              class="whitespace-pre-wrap font-mono text-sm text-gray-400"
             >
               {{ m }}
             </div>
           </MoveTransition>
         </ClientOnly>
+      </Stack>
+      <Stack>
+        <Title medium>Parsed data</Title>
+        <ControlsData :messages="messages" :controls="parsedControls" />
       </Stack>
     </div>
   </Stack>

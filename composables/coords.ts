@@ -104,15 +104,23 @@ export const numbersToRandom = (numbers) => {
   return numberToRandom(numbers);
 };
 
-export const stringToCoords = (str, xSize, ySize) => {
-  const [x, y] = numbersToRandom(stringToNumbers(str));
-  return [x * xSize, y * ySize];
-};
-
 export const numbersToCoords = (numbers: number[]) => {
   if (numbers.length === 1) {
     const half = Math.ceil(numbers[0] / 2);
     return numberToRandom([numbers[0], half]);
   }
   return numberToRandom(numbers);
+};
+
+export const stringToCoords = (str, xSize, ySize) => {
+  const [x, y] = numbersToRandom(stringToNumbers(str));
+  return [x * xSize, y * ySize];
+};
+
+export const stringToColor = (str) => {
+  const [x, y] = numbersToRandom(stringToNumbers(str));
+  const h = Math.floor(x * 360);
+  const s = Math.floor(y * 100);
+  const l = 50;
+  return hsl(h, s, l);
 };

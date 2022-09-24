@@ -20,6 +20,10 @@ export const formatTime = (datetime: Date | null) => {
   return datetime ? format(datetime, "HH:mm") : "";
 };
 
+export const formatTimePrecise = (datetime: Date | null) => {
+  return datetime ? format(datetime, "HH:mm:ss") : "";
+};
+
 export const formatDatetime = (datetime: Date | null) => {
   return `${formatDate(datetime)} ${formatTime(datetime)}`;
 };
