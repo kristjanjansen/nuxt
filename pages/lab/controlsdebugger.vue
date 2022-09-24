@@ -70,7 +70,7 @@ const messagesByTypeAndUser = computed(() =>
   <Stack class="p-4 md:p-6">
     <Button small left to="/lab">lab</Button>
     <Title>Controls debugger</Title>
-    <div class="debug grid items-start gap-8 md:grid-cols-4">
+    <div class="grid items-start gap-8 md:grid-cols-4">
       <Stack>
         <Title medium>Controls field in Strapi</Title>
         <Textarea v-model="controls" class="text-sm" />

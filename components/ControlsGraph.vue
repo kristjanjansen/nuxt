@@ -9,7 +9,7 @@ const { data } = defineProps<Props>();
 
 const graph = ref(null);
 const { width } = useElementSize(graph);
-const height = ref(100);
+const height = ref(50);
 
 const xScale = computed(() =>
   scaleTime()
@@ -36,19 +36,8 @@ const dataWithPath = computed(() => {
 </script>
 
 <template>
-  <div ref="graph" class="w-full border">
-    <svg
-      class="rounded-lg border border-red-500"
-      ref="svg"
-      :width="width"
-      :height="height"
-    >
-      <rect
-        :width="width"
-        :height="height"
-        fill="fill-white/10"
-        opacity="0.1"
-      />
+  <div ref="graph" class="w-full">
+    <svg class="rounded bg-gray-900" ref="svg" :width="width" :height="height">
       <path
         v-for="user in dataWithPath.users"
         :d="user.path"

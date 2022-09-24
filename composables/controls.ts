@@ -1,4 +1,5 @@
-import { autoType } from "d3";
+import { autoType, extent, groups, max } from "d3";
+import { add } from "date-fns";
 
 export const parseControls = (controlsConfig: string) => {
   if (!controlsConfig) return null;
@@ -38,3 +39,46 @@ export const parseControls = (controlsConfig: string) => {
       };
     });
 };
+
+export const useControlsData = (messages, controls) =>
+  computed(() => {
+    const groupedMessages = groups(messages, (m: any) => m.type).map(
+      ([typeKey, messages]) => {
+        const control = controls.filter((c) => c.type === typeKey)[0];
+        const [xDataMin, xDataMax] = extent(
+          messages,
+          (m) => new Date(m.datetime)
+        );
+        const xMin = xDataMin;
+        // We make the maximum x scale "min time + 1min" or
+        // max time when the data exceeds +1min
+        const xMax = max([add(xDataMax, { minutes: 1 }), new Date(xDataMax)]);
+        const [yDataMin, yDataMax] = extent(messages, (m) => m.value);
+        const yMin = control.min;
+        const yMax = control.max;
+        const users = groups(messages, (m) => m.username).map(
+          ([userKey, messages]) => {
+            return {
+              username: userKey,
+              color: stringToColor(userKey),
+              messages,
+            };
+          }
+        );
+        return {
+          type: typeKey,
+          xDataMin,
+          xDataMax,
+          yDataMin,
+          yDataMax,
+          xMin,
+          xMax,
+          yMin,
+          yMax,
+          control,
+          users,
+        };
+      }
+    );
+    return groupedMessages;
+  });
