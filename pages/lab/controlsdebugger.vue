@@ -69,7 +69,7 @@ const messagesByTypeAndUser = computed(() =>
 const formatData = (data) => {
   const maxLength = Math.max(...Object.keys(data).map((k) => k.length));
   return Object.entries(data)
-    .map(([key, value]) => `${(key + ":").padEnd(maxLength + 1)} ${value}`)
+    .map(([key, value]) => `${(key + ":").padEnd(maxLength + 1)}  ${value}`)
     .join("\n");
 };
 
@@ -90,7 +90,7 @@ const parsedControlMessages = computed(() => {
         add(xMinExtent, { minutes: 15 }),
         new Date(xMaxExtent),
       ]);
-      // const [yMinExtent, yMaxExtent] = extent(messages, (m) => m.value);
+      const [yMinExtent, yMaxExtent] = extent(messages, (m) => m.value);
       const yMin = controls.min;
       const yMax = controls.max;
       const users = groups(messages, (m) => m.username).map(
@@ -102,7 +102,19 @@ const parsedControlMessages = computed(() => {
           };
         }
       );
-      return { type: typeKey, xMin, xMax, yMin, yMax, controls, users };
+      return {
+        type: typeKey,
+        xMinExtent,
+        xMaxExtent,
+        yMinExtent,
+        yMaxExtent,
+        xMin,
+        xMax,
+        yMin,
+        yMax,
+        controls,
+        users,
+      };
     }
   );
   return groupedMessages;
@@ -150,10 +162,18 @@ const parsedControlMessages = computed(() => {
       <Stack>
         <Title medium>Parsed data</Title>
         <div>
-          <!-- <pre class="text-sm text-gray-400">{{ messagesByType }}</pre> -->
+          <pre class="text-sm text-gray-400">{{ parsedControlMessages }}</pre>
           <Stack v-for="t in parsedControlMessages">
-            <Title medium>{{ t.type }}</Title>
-            <pre>{{ formatData({ start: 1, end: 2 }) }}</pre>
+            <Title medium>{{ t.controls.title || t.type }}</Title>
+            <pre>{{
+              formatData({
+                Type: t.type,
+                Start: formatTimePrecise(t.xMinExtent),
+                End: formatTimePrecise(t.xMaxExtent),
+                "Min value": t.yMinExtent,
+                "Max value": t.yMaxExtent,
+              })
+            }}</pre>
             <Stack v-for="user in t.users">
               <div class="flex items-center gap-2">
                 <IconCircle
