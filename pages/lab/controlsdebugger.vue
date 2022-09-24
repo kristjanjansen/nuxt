@@ -170,6 +170,7 @@ const parsedControlMessages = computed(() => {
                 "Max value": t.yDataMax,
               })
             }}</Code>
+            <ControlsGraph :data="t" />
             <Stack v-for="user in t.users">
               <div class="flex items-center gap-2">
                 <IconCircle
@@ -186,7 +187,7 @@ const parsedControlMessages = computed(() => {
               </Code>
             </Stack>
           </Stack>
-          <pre class="text-sm text-gray-400">{{ parsedControlMessages }}</pre>
+          <!-- <pre class="text-sm text-gray-400">{{ parsedControlMessages }}</pre> -->
         </div>
       </Stack>
     </div>
