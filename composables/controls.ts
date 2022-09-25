@@ -61,16 +61,15 @@ export const useControlsData = (controlsMessages, controls = null) => {
       const [yDataMin, yDataMax] = extent(messages, (m) => m.value);
       const yMin = control?.min || yDataMin;
       const yMax = control?.max || yDataMax;
-      const users = groups(messages, (m) => m.username).map(
-        ([userKey, messages]) => {
-          const username = userKey || typeKey;
+      const users = groups(messages, (m) => m.username)
+        .map(([userKey, messages]) => {
           return {
-            username,
-            color: stringToColor(username),
+            username: userKey || null,
+            color: stringToColor(userKey || typeKey),
             messages,
           };
-        }
-      );
+        })
+        .filter((u) => u);
       return {
         type: typeKey,
         xDataMin,

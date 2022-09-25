@@ -30,7 +30,7 @@ useIntervalFn(refresh, 5000);
       <Stack>
         <div class="flex items-center gap-4">
           <Title>Experiments</Title>
-          <Button primary :href="addUrl">Add new experiment in Strapi</Button>
+          <Button :href="addUrl">Add new experiment in Strapi</Button>
         </div>
         <Card v-for="e in events">
           <Stack>
@@ -49,7 +49,7 @@ useIntervalFn(refresh, 5000);
         </Card>
       </Stack>
       <Stack v-if="files">
-        <Title>Records</Title>
+        <Title>Recorded streams</Title>
         <Card v-for="file in files">
           <Stack>
             <video :src="file.src" controls class="aspect-video" />
@@ -57,7 +57,7 @@ useIntervalFn(refresh, 5000);
               {{ formatVideo(file) }}
             </Code>
             <Button :to="'/lab/experiments/' + file.filename">
-              Go to video
+              Go to stream
             </Button>
           </Stack>
         </Card>

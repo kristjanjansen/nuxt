@@ -7,7 +7,7 @@ import { scaleLinear } from "d3";
 
 export const useVideoScrubber = (video, container, svg) => {
   const { width } = useElementSize(container);
-  const height = ref(50);
+  const height = ref(25);
 
   const { elementX: scrubX } = useMouseInElement(svg);
 

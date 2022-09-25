@@ -21,7 +21,7 @@ export const formatTime = (datetime: Date | null) => {
 };
 
 export const formatDatetimePrecise = (datetime: Date | null) => {
-  return datetime ? format(datetime, "HH:mm:ss d.MM.y") : "";
+  return datetime ? format(datetime, "HH:mm:ss") : "";
 };
 
 export const formatDatetime = (datetime: Date | null) => {

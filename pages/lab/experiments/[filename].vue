@@ -24,148 +24,12 @@ const svg = ref(null);
 const { width, height, currentX, onMousedown, onMousemove, onMouseup } =
   useVideoScrubber(video, container, svg);
 
-const data = [
-  {
-    id: "0h4rl2yzhrkaxdy3",
-    datetime: "2022-09-25T06:31:42.478Z",
-    channel: "experiment",
-    type: "DATA_1",
-    value: 2,
-    userid: "m9o8adefow5mvjv5d3gj32q8svvnv2uxuyy9",
-    username: "Mino Mano?",
-  },
-  {
-    id: "vlg9daoplb090q15",
-    datetime: "2022-09-25T06:31:44.530Z",
-    channel: "experiment",
-    type: "DATA_1",
-    value: 3,
-    userid: "m9o8adefow5mvjv5d3gj32q8svvnv2uxuyy9",
-    username: "Mino Mano?",
-  },
-  {
-    id: "pppflmu22f7tzce0",
-    datetime: "2022-09-25T06:31:45.046Z",
-    channel: "experiment",
-    type: "DATA_1",
-    value: 4,
-    userid: "m9o8adefow5mvjv5d3gj32q8svvnv2uxuyy9",
-    username: "Mino Mano?",
-  },
-  {
-    id: "l0nj0dssd23l25iw",
-    datetime: "2022-09-25T06:31:45.884Z",
-    channel: "experiment",
-    type: "DATA_1",
-    value: 2,
-    userid: "m9o8adefow5mvjv5d3gj32q8svvnv2uxuyy9",
-    username: "Mino Mano?",
-  },
-  {
-    id: "5kkpnu3us6yqi0cw",
-    datetime: "2022-09-25T06:31:47.241Z",
-    channel: "experiment",
-    type: "DATA_2",
-    value: 1.83,
-    userid: "m9o8adefow5mvjv5d3gj32q8svvnv2uxuyy9",
-    username: "Mino Mano?",
-  },
-  {
-    id: "qta3ysre2y1j9k3m",
-    datetime: "2022-09-25T06:31:47.606Z",
-    channel: "experiment",
-    type: "DATA_2",
-    value: 3.46,
-    userid: "m9o8adefow5mvjv5d3gj32q8svvnv2uxuyy9",
-    username: "Mino Mano?",
-  },
-  {
-    id: "pg3et89mnst2ysp9",
-    datetime: "2022-09-25T06:31:47.960Z",
-    channel: "experiment",
-    type: "DATA_2",
-    value: 5.92,
-    userid: "m9o8adefow5mvjv5d3gj32q8svvnv2uxuyy9",
-    username: "Mino Mano?",
-  },
-  {
-    id: "kig71sebisk2jwh5",
-    datetime: "2022-09-25T06:31:48.324Z",
-    channel: "experiment",
-    type: "DATA_2",
-    value: 7.97,
-    userid: "m9o8adefow5mvjv5d3gj32q8svvnv2uxuyy9",
-    username: "Mino Mano?",
-  },
-  {
-    id: "jypucg7qgyz718jr",
-    datetime: "2022-09-25T06:31:49.361Z",
-    channel: "experiment",
-    type: "DATA_1",
-    value: 4,
-    userid: "m9o8adefow5mvjv5d3gj32q8svvnv2uxuyy9",
-    username: "Mino Mano?",
-  },
-  {
-    id: "8yi9ox43a1v2sm6p",
-    datetime: "2022-09-25T06:31:49.792Z",
-    channel: "experiment",
-    type: "DATA_1",
-    value: 3,
-    userid: "m9o8adefow5mvjv5d3gj32q8svvnv2uxuyy9",
-    username: "Mino Mano?",
-  },
-  {
-    id: "k5t4ob66aaulh6mo",
-    datetime: "2022-09-25T06:31:50.225Z",
-    channel: "experiment",
-    type: "DATA_1",
-    value: 2,
-    userid: "m9o8adefow5mvjv5d3gj32q8svvnv2uxuyy9",
-    username: "Mino Mano?",
-  },
-  {
-    id: "y50neqrkesxqmpgc",
-    datetime: "2022-09-25T06:31:51.558Z",
-    channel: "experiment",
-    type: "DATA_2",
-    value: 1.12,
-    userid: "m9o8adefow5mvjv5d3gj32q8svvnv2uxuyy9",
-    username: "Mino Mano?",
-  },
-  {
-    id: "47v3jmkkm5qk1ef5",
-    datetime: "2022-09-25T06:31:52.058Z",
-    channel: "experiment",
-    type: "DATA_2",
-    value: 2.57,
-    userid: "m9o8adefow5mvjv5d3gj32q8svvnv2uxuyy9",
-    username: "Mino Mano?",
-  },
-  {
-    id: "pv8grxm05m8eu5fc",
-    datetime: "2022-09-25T06:31:52.457Z",
-    channel: "experiment",
-    type: "DATA_2",
-    value: 5.11,
-    userid: "m9o8adefow5mvjv5d3gj32q8svvnv2uxuyy9",
-    username: "Mino Mano?",
-  },
-  {
-    id: "jk9dyk7ldzpv4uqz",
-    datetime: "2022-09-25T06:31:52.909Z",
-    channel: "experiment",
-    type: "DATA_2",
-    value: 7.43,
-    userid: "m9o8adefow5mvjv5d3gj32q8svvnv2uxuyy9",
-    username: "Mino Mano?",
-  },
-];
-
 const csv = ref("");
+
 const parsedCsv = computed(() => csvParse(csv.value));
 
 const dropzone = ref(null);
+
 const { isOverDropZone: drop } = useDropZone(dropzone, (files) => {
   const reader = new FileReader();
   reader.readAsText(files[0]);
@@ -179,17 +43,12 @@ const messages = computed(() => {
   return [
     {
       datetime: new Date(file.value.start_at).toISOString(),
-      type: "VIDEO",
-      value: 0,
-    },
-    {
-      datetime: new Date(file.value.start_at).toISOString(),
-      type: "VIDEO",
+      type: "STREAM_PLAYBACK",
       value: 0,
     },
     {
       datetime: new Date(file.value.end_at).toISOString(),
-      type: "VIDEO",
+      type: "STREAM_PLAYBACK",
       value: 0,
     },
     ...parsedCsv.value,
@@ -202,11 +61,11 @@ const messages = computed(() => {
     <Stack v-if="file" class="p-4 md:p-6">
       <Button small to="/lab/experiments" left>Back</Button>
       <Title>{{ file.streamkey }}</Title>
-      <div class="grid grid-cols-[auto_1fr] gap-4">
+      <div class="grid gap-4 md:grid-cols-[auto_8fr]">
         <video
           ref="video"
           :src="file.src"
-          class="aspect-video w-96"
+          class="aspect-video shrink-0 rounded border border-gray-500 md:h-64"
           playsinline
           controls
         />
@@ -214,7 +73,7 @@ const messages = computed(() => {
           ref="dropzone"
           placeholder="Paste CSV data or a file here"
           v-model="csv"
-          class="text-sm"
+          class="break-all text-sm md:h-auto"
           :class="drop ? '!border-green-500 bg-gray-900' : ''"
         />
       </div>
@@ -231,7 +90,7 @@ const messages = computed(() => {
       <div ref="container" class="w-full">
         <svg
           ref="svg"
-          class="rounded bg-gray-900"
+          class="rounded bg-gray-700"
           :width="width"
           :height="height"
           @mousedown="onMousedown"
