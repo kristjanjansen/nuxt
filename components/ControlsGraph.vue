@@ -8,6 +8,8 @@ type Props = {
 };
 const { data, username = null } = defineProps<Props>();
 
+const currentXTime = inject("currentXTime", ref(null));
+
 const graph = ref(null);
 const { width } = useElementSize(graph);
 const height = ref(50);
@@ -38,7 +40,13 @@ const dataWithPath = computed(() => {
 
 <template>
   <div ref="graph" class="w-full">
-    <svg class="rounded bg-gray-900" ref="svg" :width="width" :height="height">
+    <svg
+      class="rounded bg-gray-900"
+      ref="svg"
+      :width="width"
+      :height="height"
+      @click="currentXTime = Math.random()"
+    >
       <path
         v-for="user in dataWithPath.users"
         :d="user.path"
