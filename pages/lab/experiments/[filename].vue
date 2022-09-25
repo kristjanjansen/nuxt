@@ -16,46 +16,52 @@ const file = computed(() => {
   return files.value?.filter((file) => file.filename === filename)[0];
 });
 
-const graph = ref(null);
-const svg = ref(null);
-const video = ref(null);
+const useScrubber = (video, container, svg) => {
+  const { width } = useElementSize(container);
+  const height = ref(50);
 
-const { width } = useElementSize(graph);
-const height = ref(50);
+  const { elementX: scrubX } = useMouseInElement(svg);
 
-const { elementX: scrubX } = useMouseInElement(svg);
+  const { currentTime } = useMediaControls(video);
 
-const { currentTime } = useMediaControls(video);
+  const xVideoScale = computed(() =>
+    scaleLinear().domain([0, file.value.duration]).range([0, width.value])
+  );
 
-const xVideoScale = computed(() =>
-  scaleLinear().domain([0, file.value.duration]).range([0, width.value])
-);
+  const currentX = ref(0);
 
-const currentX = ref(0);
+  watch([currentTime, width], () => {
+    currentX.value = xVideoScale.value(currentTime.value);
+  });
 
-watch([currentTime, width], () => {
-  currentX.value = xVideoScale.value(currentTime.value);
-});
+  const scrubbing = ref(false);
 
-const scrubbing = ref(false);
-
-const onScrub = () => {
-  currentTime.value = xVideoScale.value.invert(scrubX.value);
-};
-
-const onMousedown = () => {
-  scrubbing.value = true;
-  onScrub();
-};
-const onMousemove = () => {
-  if (scrubbing.value) {
+  const onScrub = () => {
     currentTime.value = xVideoScale.value.invert(scrubX.value);
-  }
+  };
+
+  const onMousedown = () => {
+    scrubbing.value = true;
+    onScrub();
+  };
+  const onMousemove = () => {
+    if (scrubbing.value) {
+      currentTime.value = xVideoScale.value.invert(scrubX.value);
+    }
+  };
+  const onMouseup = () => {
+    onScrub();
+    scrubbing.value = false;
+  };
+  return { width, height, currentX, onMousedown, onMousemove, onMouseup };
 };
-const onMouseup = () => {
-  onScrub();
-  scrubbing.value = false;
-};
+
+const video = ref(null);
+const container = ref(null);
+const svg = ref(null);
+
+const { width, height, currentX, onMousedown, onMousemove, onMouseup } =
+  useScrubber(video, container, svg);
 </script>
 
 <template>
@@ -79,7 +85,7 @@ const onMouseup = () => {
           })
         }}
       </Code>
-      <div ref="graph" class="w-full">
+      <div ref="container" class="w-full">
         <svg
           ref="svg"
           class="rounded border bg-gray-900"
