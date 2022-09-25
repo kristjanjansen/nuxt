@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import {
+  useDropZone,
   useElementSize,
   useMediaControls,
   useMouseInElement,
@@ -164,6 +165,15 @@ const data = [
 const csv = ref("");
 const parsedCsv = computed(() => csvParse(csv.value));
 
+const dropzone = ref(null);
+const { isOverDropZone: drop } = useDropZone(dropzone, (files) => {
+  const reader = new FileReader();
+  reader.readAsText(files[0]);
+  reader.onload = () => {
+    csv.value = reader.result as string;
+  };
+});
+
 const messages = computed(() => {
   if (!file) return [];
   return [
@@ -201,9 +211,11 @@ const messages = computed(() => {
           controls
         />
         <Textarea
-          placeholder="Paste CSV data here"
+          ref="dropzone"
+          placeholder="Paste CSV data or a file here"
           v-model="csv"
           class="text-sm"
+          :class="drop ? '!border-green-500 bg-gray-900' : ''"
         />
       </div>
       <Code>
@@ -236,7 +248,6 @@ const messages = computed(() => {
         </svg>
       </div>
       <ControlsData :messages="messages" />
-      <Code>{{ file }}</Code>
     </Stack>
   </div>
 </template>

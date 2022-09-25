@@ -22,7 +22,6 @@ const username = ref(null);
         formatData({
           Type: d.type,
           "Graph start": formatDatetimePrecise(d.xMin),
-          "Data start": formatDatetimePrecise(d.xDataMin),
           "Data end": formatDatetimePrecise(d.xDataMax),
           "Graph end": formatDatetimePrecise(d.xMax),
           "Min value": d.yDataMin,
