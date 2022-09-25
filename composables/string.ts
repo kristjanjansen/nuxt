@@ -40,3 +40,6 @@ const replacer = () => {
 
 export const stringify = (obj: object, _ = undefined, space = 2) =>
   JSON.stringify(obj, replacer(), space);
+
+export const truncate = (str, length = 100) =>
+  str.length <= length ? str : str.slice(0, length) + "...";

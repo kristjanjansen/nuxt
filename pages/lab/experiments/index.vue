@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { useIntervalFn } from "@vueuse/core";
-
+import { truncate } from "~~/composables/string";
 const { data: events } = useEvents({
   sort: ["start_at:desc"],
   filters: {
@@ -16,6 +16,7 @@ const { getFiles } = useFiles();
 const { data: files, refresh } = await getFiles("records");
 const formatVideo = (file) =>
   formatData({
+    Streamkey: file.streamkey,
     Start: file.start_at_formatted,
     End: file.end_at_formatted,
     Duration: file.duration_formatted,
@@ -26,7 +27,7 @@ useIntervalFn(refresh, 5000);
 <template>
   <Stack class="p-4 md:p-6">
     <Button small left to="/lab">lab</Button>
-    <div class="grid grid-cols-[2fr_1fr] gap-4">
+    <div class="grid grid-cols-[3fr_1fr] gap-8">
       <Stack>
         <div class="flex items-center gap-4">
           <Title>Experiments</Title>
@@ -35,32 +36,42 @@ useIntervalFn(refresh, 5000);
         <Card v-for="e in events">
           <Stack>
             <Title medium>{{ e.title }}</Title>
-            <div class="flex gap-2">
-              <Button :href="url(e.id)">Edit in Strapi</Button>
-              <Button :to="e.eventExperimentLink" target="_blank">
-                Show in experiment view
-              </Button>
-              <Button :to="e.eventLiveLink" target="_blank">
-                Show in audience view
-              </Button>
+            <EventDatetime :event="e" />
+            <div class="grid grid-cols-[auto_1fr_1fr] gap-8">
+              <Stack>
+                <Button :href="url(e.id)">Edit in Strapi</Button>
+                <Button :to="e.eventExperimentLink" target="_blank">
+                  Show in experiment view
+                </Button>
+                <Button :to="e.eventLiveLink" target="_blank">
+                  Show in audience view
+                </Button>
+              </Stack>
+              <Content
+                class="h-full overflow-hidden text-gray-500 transition"
+                nolinks
+                :content="truncate(e.descriptions[0], 800)"
+              />
+              <Code class="whitespace-pre-wrap">{{ e.controls }}</Code>
             </div>
-            <Code class="whitespace-pre-wrap">{{ e.controls }}</Code>
           </Stack>
         </Card>
       </Stack>
       <Stack v-if="files">
         <Title>Recorded streams</Title>
-        <Card v-for="file in files">
-          <Stack>
-            <video :src="file.src" controls class="aspect-video" />
-            <Code>
-              {{ formatVideo(file) }}
-            </Code>
-            <Button :to="'/lab/experiments/' + file.filename">
-              Go to stream
-            </Button>
-          </Stack>
-        </Card>
+        <Stack class="!gap-12">
+          <div v-for="file in files.slice(0, 10)">
+            <Stack>
+              <video :src="file.src" controls class="aspect-video rounded" />
+              <Code>
+                {{ formatVideo(file) }}
+              </Code>
+              <Button :to="'/lab/experiments/' + file.filename">
+                Go to stream
+              </Button>
+            </Stack>
+          </div>
+        </Stack>
       </Stack>
     </div>
   </Stack>

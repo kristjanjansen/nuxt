@@ -22,7 +22,7 @@ const { lang } = useLang();
         {{ formattedDatetimeFirst }}
       </div>
       <IconChevron v-if="formattedDatetimeSecond" class="text-gray-500" />
-      <div class="tracking-wide">
+      <div class="tracking-wide text-gray-500">
         {{ formattedDatetimeSecond }}
       </div>
     </div>
