@@ -106,7 +106,7 @@ const messages = computed(() => {
           />
         </svg>
       </div>
-      <ControlsData :messages="messages" />
+      <ControlsData :messages="messages" :wide="true" />
     </Stack>
   </div>
 </template>
