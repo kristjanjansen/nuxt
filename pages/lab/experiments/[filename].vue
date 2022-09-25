@@ -4,7 +4,7 @@ import {
   useMediaControls,
   useMouseInElement,
 } from "@vueuse/core";
-import { scaleLinear } from "d3";
+import { csvParse, scaleLinear } from "d3";
 
 const route = useRoute();
 const { filename } = route.params;
@@ -161,6 +161,9 @@ const data = [
   },
 ];
 
+const csv = ref("");
+const parsedCsv = computed(() => csvParse(csv.value));
+
 const messages = computed(() => {
   if (!file) return [];
   return [
@@ -184,7 +187,8 @@ const messages = computed(() => {
     <Stack v-if="file" class="p-4 md:p-6">
       <Button small to="/lab/experiments" left>Back</Button>
       <Title>{{ file.streamkey }}</Title>
-      <Code>{{ formatData(messages, true) }}</Code>
+      <Textarea v-model="csv" class="h-96 text-sm" />
+      <Code>{{ formatData(parsedCsv, true) }}</Code>
       <video
         ref="video"
         :src="file.src"

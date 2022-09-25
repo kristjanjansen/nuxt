@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { useClipboard } from "@vueuse/core";
 import { format } from "date-fns";
 import IconClear from "~icons/ph/trash";
 
@@ -34,6 +35,13 @@ const onDownloadCsv = () => {
     experimentMessages.value,
     `${format(new Date(), "dd_MM_y__HH_mm_ss")}.csv`
   );
+};
+
+const { copy } = useClipboard();
+
+const onCopyAndDownloadCsv = () => {
+  copy(formatCSV(experimentMessages.value));
+  onDownloadCsv();
 };
 
 const onClear = () => {
@@ -78,13 +86,21 @@ const video = ref<HTMLVideoElement | null>(null);
           {{ formatData(experimentMessages, true) }}
         </Code>
         <div class="flex w-full items-center justify-between">
-          <Button
-            primary
-            @click="onDownloadCsv"
-            :disabled="!experimentMessages.length"
-          >
-            Download CSV
-          </Button>
+          <div class="flex gap-4">
+            <Button
+              primary
+              @click="onCopyAndDownloadCsv"
+              :disabled="!experimentMessages.length"
+            >
+              Copy to clipboard & download CSV
+            </Button>
+            <Button
+              @click="onDownloadCsv"
+              :disabled="!experimentMessages.length"
+            >
+              Download CSV
+            </Button>
+          </div>
           <button @click="onClear">
             <IconClear
               class="text-red-500"
