@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { useElementSize } from "@vueuse/core";
+import { useElementSize, useMouseInElement } from "@vueuse/core";
 import { scaleLinear, scaleTime } from "d3";
 
 type Props = {
@@ -8,11 +8,55 @@ type Props = {
 };
 const { data, username = null } = defineProps<Props>();
 
-const currentXTime = inject("currentXTime", ref(null));
+const useScrubber = (container, svg) => {
+  const currentXTime = inject("currentXTime", ref(null));
 
-const graph = ref(null);
-const { width } = useElementSize(graph);
-const height = ref(50);
+  const { width } = useElementSize(container);
+  const height = ref(50);
+
+  const { elementX: scrubX } = useMouseInElement(svg);
+  const currentX = ref(null);
+
+  watch(
+    currentXTime,
+    () => (currentX.value = xScale.value(currentXTime.value))
+  );
+
+  const scrubbing = ref(false);
+
+  const onScrub = () => {
+    currentX.value = scrubX.value;
+    currentXTime.value = xScale.value.invert(scrubX.value);
+  };
+
+  const onMousedown = () => {
+    scrubbing.value = true;
+    onScrub();
+  };
+  const onMousemove = () => {
+    if (scrubbing.value) {
+      onScrub();
+    }
+  };
+  const onMouseup = () => {
+    onScrub();
+    scrubbing.value = false;
+  };
+  return {
+    width,
+    height,
+    currentX,
+    onMousedown,
+    onMousemove,
+    onMouseup,
+  };
+};
+
+const container = ref(null);
+const svg = ref(null);
+
+const { width, height, currentX, onMousedown, onMousemove, onMouseup } =
+  useScrubber(container, svg);
 
 const xScale = computed(() =>
   scaleTime()
@@ -39,13 +83,15 @@ const dataWithPath = computed(() => {
 </script>
 
 <template>
-  <div ref="graph" class="w-full">
+  <div ref="container" class="w-full">
     <svg
       class="rounded bg-gray-900"
       ref="svg"
       :width="width"
       :height="height"
-      @click="currentXTime = Math.random()"
+      @mousedown="onMousedown"
+      @mousemove="onMousemove"
+      @mouseup="onMouseup"
     >
       <path
         v-for="user in dataWithPath.users"
