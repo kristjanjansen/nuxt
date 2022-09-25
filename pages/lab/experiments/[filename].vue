@@ -5,7 +5,8 @@ import {
   useMediaControls,
   useMouseInElement,
 } from "@vueuse/core";
-import { csvParse, scaleLinear } from "d3";
+import { csvParse, scaleLinear, scaleTime } from "d3";
+import { isWithinInterval } from "date-fns";
 
 const route = useRoute();
 const { filename } = route.params;
@@ -18,11 +19,32 @@ const file = computed(() => {
 });
 
 const video = ref(null);
-const container = ref(null);
-const svg = ref(null);
 
-const { width, height, currentX, onMousedown, onMousemove, onMouseup } =
-  useVideoScrubber(video, container, svg);
+const { currentTime, duration } = useMediaControls(video);
+
+const xVideoScale = computed(() =>
+  scaleTime()
+    .domain([new Date(file.value?.start_at), new Date(file.value?.end_at)])
+    .range([0, duration.value])
+);
+
+const currentXTime = ref(null);
+provide("currentXTime", currentXTime);
+
+watch(currentXTime, () => {
+  if (videoInRange.value) {
+    currentTime.value = xVideoScale.value(currentXTime.value);
+  }
+});
+
+const videoInRange = computed(
+  () =>
+    currentXTime.value === null ||
+    isWithinInterval(new Date(currentXTime.value), {
+      start: new Date(file.value.start_at),
+      end: new Date(file.value.end_at),
+    })
+);
 
 const csv = ref("");
 
@@ -61,14 +83,27 @@ const messages = computed(() => {
     <Stack v-if="file" class="p-4 md:p-6">
       <Button small to="/lab/experiments" left>Back</Button>
       <Title>{{ file.streamkey }}</Title>
+      {{ currentTime }} / {{ formatDatetimePrecise(currentXTime) }}
       <div class="grid gap-4 md:grid-cols-[auto_8fr]">
-        <video
-          ref="video"
-          :src="file.src"
-          class="aspect-video shrink-0 rounded border border-gray-500 md:h-64"
-          playsinline
-          controls
-        />
+        <div
+          class="relative shrink-0 overflow-hidden rounded border border-gray-500"
+        >
+          <video
+            ref="video"
+            :src="file.src"
+            class="aspect-video md:h-64"
+            playsinline
+            controls
+          />
+          <FadeTransition>
+            <div
+              v-if="!videoInRange"
+              class="pointer-events-none absolute inset-0 grid place-content-center rounded bg-black/90 tracking-wide text-gray-500"
+            >
+              Video out of range
+            </div>
+          </FadeTransition>
+        </div>
         <Textarea
           ref="dropzone"
           placeholder="Paste CSV data or a file here"
@@ -87,25 +122,7 @@ const messages = computed(() => {
           })
         }}
       </Code>
-      <div ref="container" class="w-full">
-        <svg
-          ref="svg"
-          class="rounded bg-gray-700"
-          :width="width"
-          :height="height"
-          @mousedown="onMousedown"
-          @mousemove="onMousemove"
-          @mouseup="onMouseup"
-        >
-          <line
-            :x1="currentX"
-            y1="0"
-            :x2="currentX"
-            :y2="height"
-            class="stroke-red-500"
-          />
-        </svg>
-      </div>
+      {{ videoInRange }}
       <ControlsData :messages="messages" :wide="true" />
     </Stack>
   </div>

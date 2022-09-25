@@ -23,12 +23,12 @@ const username = ref(null);
       <Code v-if="!wide">{{
         formatData({
           Type: d.type,
+          "Min value": d.yDataMin,
+          "Max value": d.yDataMax,
           "Graph start": formatDatetimePrecise(d.xMin),
           "Data start": formatDatetimePrecise(d.xDataMin),
           "Data end": formatDatetimePrecise(d.xDataMax),
           "Graph end": formatDatetimePrecise(d.xMax),
-          "Min value": d.yDataMin,
-          "Max value": d.yDataMax,
         })
       }}</Code>
       <div v-if="wide" class="justify-between md:flex">
