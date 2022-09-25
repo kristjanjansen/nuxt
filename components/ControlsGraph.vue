@@ -1,33 +1,36 @@
 <script setup lang="ts">
-import {
-  useElementSize,
-  useMediaControls,
-  useMouseInElement,
-} from "@vueuse/core";
-import { scaleLinear, scaleTime, svg } from "d3";
-import { container } from "webpack";
+import { useElementSize, useMouseInElement } from "@vueuse/core";
+import { scaleLinear, scaleTime } from "d3";
+
+type Emits = {
+  (e: "update:modelValue", value: Date): void;
+};
 
 type Props = {
   data: any;
   username?: string;
+  modelValue?: Date;
 };
-const { data, username = null } = defineProps<Props>();
 
-const useScrubber = (container, svg) => {
+const { data, username = null, modelValue = undefined } = defineProps<Props>();
+
+const emit = defineEmits<Emits>();
+
+const currentTime = computed({
+  get: () => modelValue,
+  set: (value) => {
+    emit("update:modelValue", value);
+  },
+});
+
+const useScrubber = (container, svg, currentTime) => {
   const { width } = useElementSize(container);
   const height = ref(50);
 
   const { elementX: scrubX } = useMouseInElement(svg);
 
-  //  const { currentTime, duration } = useMediaControls(video);
-
-  // const xVideoScale = computed(() =>
-  //   scaleLinear().domain([0, duration.value]).range([0, width.value])
-  // );
-
+  watch(currentTime, () => (currentX.value = xScale.value(currentTime.value)));
   const currentX = ref(null);
-  const currentTime = ref(null);
-
   const scrubbing = ref(false);
 
   const onScrub = () => {
@@ -52,7 +55,6 @@ const useScrubber = (container, svg) => {
     width,
     height,
     currentX,
-    currentTime,
     onMousedown,
     onMousemove,
     onMouseup,
@@ -62,15 +64,8 @@ const useScrubber = (container, svg) => {
 const container = ref(null);
 const svg = ref(null);
 
-const {
-  width,
-  height,
-  currentX,
-  currentTime,
-  onMousedown,
-  onMousemove,
-  onMouseup,
-} = useScrubber(container, svg);
+const { width, height, currentX, onMousedown, onMousemove, onMouseup } =
+  useScrubber(container, svg, currentTime);
 
 const xScale = computed(() =>
   scaleTime()
@@ -98,7 +93,6 @@ const dataWithPath = computed(() => {
 
 <template>
   <div ref="container" class="w-full">
-    {{ currentX }} / {{ currentTime }}
     <svg
       class="rounded bg-gray-900"
       ref="svg"

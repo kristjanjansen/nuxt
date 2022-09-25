@@ -14,6 +14,7 @@ const controlsData = useControlsData(
   toRef(props, "controls")
 );
 const username = ref(null);
+const currentTime = ref(null);
 </script>
 
 <template>
@@ -33,9 +34,9 @@ const username = ref(null);
       }}</Code>
       <div v-if="wide" class="justify-between md:flex">
         <div class="gap-4 md:flex">
-          <Code class="text-gray-500"
-            >Start: {{ formatDatetimePrecise(d.xMin) }}</Code
-          >
+          <Code class="text-gray-500">
+            Start: {{ formatDatetimePrecise(d.xMin) }}
+          </Code>
           <Code>Data start: {{ formatDatetimePrecise(d.xDataMin) }}</Code>
         </div>
         <div class="gap-4 md:flex">
@@ -47,7 +48,7 @@ const username = ref(null);
           <Code>End: {{ formatDatetimePrecise(d.xMax) }}</Code>
         </div>
       </div>
-      <ControlsGraph :data="d" :username="username" />
+      <ControlsGraph :data="d" :username="username" v-model="currentTime" />
       <div :class="wide ? 'flex justify-between' : ''">
         <div :class="wide ? 'flex flex-wrap gap-4' : ''">
           <button
