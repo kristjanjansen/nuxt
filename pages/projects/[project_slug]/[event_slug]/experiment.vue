@@ -11,13 +11,12 @@ const { data: event, error } = await useEventBySlug(slug);
 const videostreams = getVideostreams(event.value.streamkey);
 
 const d = useDraggables({
-  info: { x: 600, y: 50 },
+  stream: { x: 600, y: 50 },
+  data: { x: 50, y: 200 },
+  rawdata: { x: 350, y: 200 },
+  controls: { x: 150, y: 650 },
   about: { x: 100, y: 300, docked: true },
-  stream: { x: 200, y: 100 },
   chat: { x: 900, y: 200, docked: true },
-  controls: { x: 400, y: 400 },
-  rawdata: { x: 100, y: 300 },
-  data: { x: 400, y: 300 },
 });
 
 const controls = parseControls(event.value.controls);
@@ -70,19 +69,15 @@ const video = ref<HTMLVideoElement | null>(null);
     </Stack>
 
     <Draggable
-      v-bind="d.info"
-      class="whitespace-pre-wrap p-4 font-mono text-sm text-gray-200"
+      v-bind="d.data"
+      class="h-[50vw] overflow-auto p-4 md:min-w-[20vw]"
     >
-      {{ videostreams }}
-    </Draggable>
-
-    <Draggable v-bind="d.data" class="p-4 md:w-[20vw]">
       <ControlsData :messages="experimentMessages" :controls="controls" />
     </Draggable>
 
-    <Draggable v-bind="d.rawdata" class="h-[20vw] p-4 md:min-w-[50vw]">
-      <Stack>
-        <Code class="oveflow-auto text-white">
+    <Draggable v-bind="d.rawdata" class="h-[50vw] p-4 md:min-w-[50vw]">
+      <div class="flex h-full flex-col gap-5">
+        <Code class="h-full overflow-auto !text-gray-500">
           {{ formatData(experimentMessages, true) }}
         </Code>
         <div class="flex w-full items-center justify-between">
@@ -92,13 +87,13 @@ const video = ref<HTMLVideoElement | null>(null);
               @click="onCopyAndDownloadCsv"
               :disabled="!experimentMessages.length"
             >
-              Copy to clipboard & download CSV
+              Copy & download CSV
             </Button>
             <Button
               @click="onDownloadCsv"
               :disabled="!experimentMessages.length"
             >
-              Download CSV
+              Download
             </Button>
           </div>
           <button @click="onClear">
@@ -108,15 +103,24 @@ const video = ref<HTMLVideoElement | null>(null);
             />
           </button>
         </div>
-      </Stack>
+      </div>
     </Draggable>
 
-    <Draggable v-bind="d.stream" v-if="videostreams.length" class="md:w-[70vw]">
+    <Draggable
+      v-bind="d.stream"
+      v-if="videostreams.length"
+      class="bg-gray-900 md:w-[50vw]"
+    >
       <Videostream :url="videostreams[0].url" />
+      <Code class="p-2">{{ formatData(videostreams[0]) }}</Code>
     </Draggable>
 
-    <Draggable v-bind="d.chat">
-      <Chat :channel="slug" class="h-[60vw] md:h-[30vw] md:w-[25vw]" />
+    <Draggable
+      v-if="event.controls"
+      v-bind="d.controls"
+      class="p-4 md:w-[30vw]"
+    >
+      <Controls :controls="controls" />
     </Draggable>
 
     <Draggable v-bind="d.about">
@@ -129,12 +133,8 @@ const video = ref<HTMLVideoElement | null>(null);
       </Stack>
     </Draggable>
 
-    <Draggable
-      v-if="event.controls"
-      v-bind="d.controls"
-      class="p-4 md:w-[30vw]"
-    >
-      <Controls :controls="controls" />
+    <Draggable v-bind="d.chat">
+      <Chat :channel="slug" class="h-[60vw] md:h-[30vw] md:w-[25vw]" />
     </Draggable>
 
     <Dock :draggables="d" />

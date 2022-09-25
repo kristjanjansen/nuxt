@@ -7,7 +7,7 @@ type Props = {
   wide?: boolean;
 };
 const props = defineProps<Props>();
-const wide = props.wide || true;
+const wide = props.wide || false;
 
 const controlsData = useControlsData(
   toRef(props, "messages"),
