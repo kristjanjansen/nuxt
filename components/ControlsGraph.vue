@@ -27,7 +27,7 @@ const dataWithPath = computed(() => {
     const path = polygonpath(
       user.messages.map((m) => [
         xScale.value(new Date(m.datetime)),
-        yScale.value(m.value),
+        height.value - yScale.value(m.value),
       ])
     );
     return { ...user, path };

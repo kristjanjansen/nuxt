@@ -173,11 +173,16 @@ const messages = computed(() => {
       value: 0,
     },
     {
+      datetime: new Date(file.value.start_at).toISOString(),
+      type: "VIDEO",
+      value: 0,
+    },
+    {
       datetime: new Date(file.value.end_at).toISOString(),
       type: "VIDEO",
-      value: 10,
+      value: 0,
     },
-    ...data,
+    ...parsedCsv.value,
   ];
 });
 </script>
@@ -187,18 +192,24 @@ const messages = computed(() => {
     <Stack v-if="file" class="p-4 md:p-6">
       <Button small to="/lab/experiments" left>Back</Button>
       <Title>{{ file.streamkey }}</Title>
-      <Textarea v-model="csv" class="h-96 text-sm" />
-      <Code>{{ formatData(parsedCsv, true) }}</Code>
-      <video
-        ref="video"
-        :src="file.src"
-        class="aspect-video w-96"
-        playsinline
-        controls
-      />
+      <div class="grid grid-cols-[auto_1fr] gap-4">
+        <video
+          ref="video"
+          :src="file.src"
+          class="aspect-video w-96"
+          playsinline
+          controls
+        />
+        <Textarea
+          placeholder="Paste CSV data here"
+          v-model="csv"
+          class="text-sm"
+        />
+      </div>
       <Code>
         {{
           formatData({
+            Streamkey: file.streamkey,
             "Start at": file.start_at_formatted,
             "End at": file.end_at_formatted,
             Duration: file.duration_formatted,
@@ -208,7 +219,7 @@ const messages = computed(() => {
       <div ref="container" class="w-full">
         <svg
           ref="svg"
-          class="rounded border bg-gray-900"
+          class="rounded bg-gray-900"
           :width="width"
           :height="height"
           @mousedown="onMousedown"
