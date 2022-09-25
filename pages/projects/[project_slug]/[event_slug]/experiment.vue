@@ -72,11 +72,11 @@ const video = ref<HTMLVideoElement | null>(null);
       <ControlsData :messages="experimentMessages" :controls="controls" />
     </Draggable>
 
-    <Draggable v-bind="d.rawdata" class="p-4 md:w-[40vw]">
+    <Draggable v-bind="d.rawdata" class="h-[20vw] p-4 md:min-w-[50vw]">
       <Stack>
-        <div class="h-[15vw] overflow-auto font-mono text-sm text-gray-500">
-          {{ experimentMessages }}
-        </div>
+        <Code class="oveflow-auto text-white">
+          {{ formatData(experimentMessages, true) }}
+        </Code>
         <div class="flex w-full items-center justify-between">
           <Button
             primary

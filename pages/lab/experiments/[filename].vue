@@ -165,12 +165,12 @@ const messages = computed(() => {
   if (!file) return [];
   return [
     {
-      datetime: file.value.start_at,
+      datetime: new Date(file.value.start_at).toISOString(),
       type: "VIDEO",
       value: 0,
     },
     {
-      datetime: file.value.end_at,
+      datetime: new Date(file.value.end_at).toISOString(),
       type: "VIDEO",
       value: 10,
     },
@@ -184,6 +184,7 @@ const messages = computed(() => {
     <Stack v-if="file" class="p-4 md:p-6">
       <Button small to="/lab/experiments" left>Back</Button>
       <Title>{{ file.streamkey }}</Title>
+      <Code>{{ formatData(messages, true) }}</Code>
       <video
         ref="video"
         :src="file.src"

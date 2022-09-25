@@ -14,15 +14,12 @@ const addUrl =
 
 const { getFiles } = useFiles();
 const { data: files, refresh } = await getFiles("records");
-const formatVideo = (file) => {
-  return [
-    `Stars at   ${file.start_at_formatted} ${
-      useFormattedDistance(new Date(file.start_at)).value
-    }`,
-    `Ends at    ${file.end_at_formatted}`,
-    `Duration   ${file.duration_formatted}`,
-  ].join("\n");
-};
+const formatVideo = (file) =>
+  formatData({
+    Start: file.start_at_formatted,
+    End: file.end_at_formatted,
+    Duration: file.duration_formatted,
+  });
 useIntervalFn(refresh, 5000);
 </script>
 
@@ -48,6 +45,20 @@ useIntervalFn(refresh, 5000);
               </Button>
             </div>
             <Code class="whitespace-pre-wrap">{{ e.controls }}</Code>
+          </Stack>
+        </Card>
+      </Stack>
+      <Stack v-if="files">
+        <Title>Records</Title>
+        <Card v-for="file in files">
+          <Stack>
+            <video :src="file.src" controls class="aspect-video" />
+            <Code>
+              {{ formatVideo(file) }}
+            </Code>
+            <Button :to="'/lab/experiments/' + file.filename">
+              Go to video
+            </Button>
           </Stack>
         </Card>
       </Stack>
