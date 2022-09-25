@@ -8,9 +8,6 @@ import {
 import { csvParse, scaleLinear, scaleTime } from "d3";
 import { isWithinInterval } from "date-fns";
 
-const currentXTime = ref(null);
-provide("currentXTime", currentXTime);
-
 const route = useRoute();
 const { filename } = route.params;
 const { getFiles } = useFiles();
@@ -27,18 +24,17 @@ const { currentTime, duration } = useMediaControls(video);
 
 const xVideoScale = computed(() =>
   scaleTime()
-    .domain([new Date(file.value.start_at), new Date(file.value.end_at)])
+    .domain([new Date(file.value?.start_at), new Date(file.value?.end_at)])
     .range([0, duration.value])
-    .clamp(true)
 );
 
-// watch(
-//   currentTime,
-//   () => (currentXTime.value = xVideoScale.value.invert(currentTime.value))
-// );
+const currentXTime = ref(null);
+provide("currentXTime", currentXTime);
 
 watch(currentXTime, () => {
-  currentTime.value = xVideoScale.value(currentXTime.value);
+  if (videoInRange.value) {
+    currentTime.value = xVideoScale.value(currentXTime.value);
+  }
 });
 
 const videoInRange = computed(
@@ -49,12 +45,6 @@ const videoInRange = computed(
       end: new Date(file.value.end_at),
     })
 );
-
-// const container = ref(null);
-// const svg = ref(null);
-
-// const { width, height, currentX, onMousedown, onMousemove, onMouseup } =
-//   useVideoScrubber(video, container, svg);
 
 const csv = ref("");
 
@@ -93,19 +83,22 @@ const messages = computed(() => {
     <Stack v-if="file" class="p-4 md:p-6">
       <Button small to="/lab/experiments" left>Back</Button>
       <Title>{{ file.streamkey }}</Title>
+      {{ currentTime }} / {{ formatDatetimePrecise(currentXTime) }}
       <div class="grid gap-4 md:grid-cols-[auto_8fr]">
-        <div class="relative">
+        <div
+          class="relative shrink-0 overflow-hidden rounded border border-gray-500"
+        >
           <video
             ref="video"
             :src="file.src"
-            class="aspect-video shrink-0 rounded border border-gray-500 md:h-64"
+            class="aspect-video md:h-64"
             playsinline
             controls
           />
           <FadeTransition>
             <div
               v-if="!videoInRange"
-              class="pointer-events-none absolute inset-0 grid place-content-center bg-black/90 tracking-wide"
+              class="pointer-events-none absolute inset-0 grid place-content-center rounded bg-black/90 tracking-wide text-gray-500"
             >
               Video out of range
             </div>
