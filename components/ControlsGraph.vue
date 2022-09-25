@@ -101,6 +101,14 @@ const dataWithPath = computed(() => {
         :opacity="!username || user.username === username ? 1 : 0.2"
         stroke-width="2"
       />
+      <line
+        v-if="currentX !== null"
+        :x1="currentX"
+        y1="0"
+        :x2="currentX"
+        :y2="height"
+        class="stroke-red-500"
+      />
     </svg>
   </div>
 </template>

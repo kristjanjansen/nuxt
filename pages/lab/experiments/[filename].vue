@@ -5,7 +5,10 @@ import {
   useMediaControls,
   useMouseInElement,
 } from "@vueuse/core";
-import { csvParse, scaleLinear } from "d3";
+import { csvParse } from "d3";
+
+const currentXTime = ref(null);
+provide("currentXTime", currentXTime);
 
 const route = useRoute();
 const { filename } = route.params;
