@@ -1,4 +1,5 @@
-import { sub, parse, add } from "date-fns";
+import { parse, add } from "date-fns";
+import { formatDatetimePrecise } from "./datetime";
 
 export const processFile = (file: any, path) => {
   file.pathRoute = `/lab/files/${path}`;
@@ -12,10 +13,10 @@ export const processFile = (file: any, path) => {
     file.start_at_raw = f[1];
     file.start_at = parse(f[1] + "__Z", "yy_MM_dd__HH_mm_ss__X", new Date());
     file.startDatetime = file.start_at;
-    file.start_at_formatted = formatDatetime(new Date(file.start_at));
+    file.start_at_formatted = formatDatetimePrecise(new Date(file.start_at));
     file.duration = parseFloat(f[2]);
     file.end_at = add(file.start_at, { seconds: file.duration });
-    file.end_at_formatted = formatDatetime(file.end_at);
+    file.end_at_formatted = formatDatetimePrecise(file.end_at);
     file.endDatetime = file.end_at;
     file.duration_formatted = new Date(file.duration * 1000)
       .toISOString()
