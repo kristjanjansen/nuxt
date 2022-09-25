@@ -220,7 +220,7 @@ const messages = computed(() => {
         </svg>
       </div>
       <ControlsData :messages="messages" />
-      <pre>{{ file }}</pre>
+      <Code>{{ file }}</Code>
     </Stack>
   </div>
 </template>

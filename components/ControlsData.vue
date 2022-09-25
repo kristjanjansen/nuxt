@@ -3,7 +3,7 @@ import IconCircle from "~icons/ph/circle-fill";
 
 type Props = {
   messages: any[];
-  controls: any[];
+  controls?: any[];
 };
 const props = defineProps<Props>();
 
@@ -17,7 +17,7 @@ const username = ref(null);
 <template>
   <Stack class="gap-10">
     <Stack v-for="d in controlsData" class="items-strech">
-      <Title small>{{ d.control.title || d.type }}</Title>
+      <Title small>{{ d.control?.title || d.type }}</Title>
       <Code>{{
         formatData({
           Type: d.type,

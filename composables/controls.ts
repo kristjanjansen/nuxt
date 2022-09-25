@@ -41,13 +41,15 @@ export const parseControls = (controlsConfig: string) => {
     });
 };
 
-export const useControlsData = (controlsMessages, controls) => {
+export const useControlsData = (controlsMessages, controls = null) => {
   return computed(() => {
     const messagesByType = groups(
       controlsMessages.value,
       (m: any) => m.type
     ).map(([typeKey, messages]) => {
-      const control = controls.value.filter((c) => c.type === typeKey)[0];
+      const control = controls?.value
+        ? controls.value.filter((c) => c.type === typeKey)[0]
+        : null;
       const [xDataMin, xDataMax] = extent(
         messages,
         (m) => new Date(m.datetime)
@@ -55,15 +57,16 @@ export const useControlsData = (controlsMessages, controls) => {
       const xMin = xDataMin;
       // We make the maximum x scale "min time + 1min" or
       // max time when the data exceeds +1min
-      const xMax = max([add(xDataMax, { minutes: 1 }), new Date(xDataMax)]);
+      const xMax = max([add(xDataMin, { minutes: 1 }), new Date(xDataMax)]);
       const [yDataMin, yDataMax] = extent(messages, (m) => m.value);
-      const yMin = control.min;
-      const yMax = control.max;
+      const yMin = control?.min || yDataMin;
+      const yMax = control?.max || yDataMax;
       const users = groups(messages, (m) => m.username).map(
         ([userKey, messages]) => {
+          const username = userKey || typeKey;
           return {
-            username: userKey,
-            color: stringToColor(userKey),
+            username,
+            color: stringToColor(username),
             messages,
           };
         }
