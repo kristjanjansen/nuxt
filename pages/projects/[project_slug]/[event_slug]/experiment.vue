@@ -13,8 +13,8 @@ const videostreams = getVideostreams(event.value.streamkey);
 const d = useDraggables({
   stream: { x: 600, y: 50 },
   data: { x: 50, y: 200 },
-  rawdata: { x: 350, y: 200 },
-  controls: { x: 150, y: 650 },
+  rawdata: { x: 400, y: 200 },
+  controls: { x: 200, y: 500 },
   about: { x: 100, y: 300, docked: true },
   chat: { x: 900, y: 200, docked: true },
 });
@@ -70,12 +70,12 @@ const video = ref<HTMLVideoElement | null>(null);
 
     <Draggable
       v-bind="d.data"
-      class="h-[50vw] overflow-auto p-4 md:min-w-[20vw]"
+      class="h-[30vw] overflow-auto p-4 md:min-w-[20vw]"
     >
       <ControlsData :messages="experimentMessages" :controls="controls" />
     </Draggable>
 
-    <Draggable v-bind="d.rawdata" class="h-[50vw] p-4 md:min-w-[50vw]">
+    <Draggable v-bind="d.rawdata" class="h-[30vw] p-4 md:min-w-[50vw]">
       <div class="flex h-full flex-col gap-5">
         <Code class="h-full overflow-auto !text-gray-500">
           {{ formatData(experimentMessages, true) }}
