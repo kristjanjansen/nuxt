@@ -21,8 +21,10 @@ const username = ref(null);
       <Code>{{
         formatData({
           Type: d.type,
-          Start: formatTimePrecise(d.xDataMin),
-          End: formatTimePrecise(d.xDataMax),
+          "Graph start": formatTimePrecise(d.xMin),
+          "Data start": formatTimePrecise(d.xDataMin),
+          "Data end": formatTimePrecise(d.xDataMax),
+          "Graph end": formatTimePrecise(d.xMax),
           "Min value": d.yDataMin,
           "Max value": d.yDataMax,
         })

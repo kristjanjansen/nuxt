@@ -1,4 +1,4 @@
-import { autoType, extent, groups, max } from "d3";
+import { autoType, extent, groups, max, min } from "d3";
 import { add } from "date-fns";
 import { stringToColor } from "./coords";
 
@@ -43,7 +43,7 @@ export const parseControls = (controlsConfig: string) => {
 
 export const useControlsData = (controlsMessages, controls) => {
   return computed(() => {
-    const groupedMessages = groups(
+    const messagesByType = groups(
       controlsMessages.value,
       (m: any) => m.type
     ).map(([typeKey, messages]) => {
@@ -82,6 +82,8 @@ export const useControlsData = (controlsMessages, controls) => {
         users,
       };
     });
-    return groupedMessages;
+    const xMin = min(messagesByType.map((t) => t.xMin));
+    const xMax = max(messagesByType.map((t) => t.xMax));
+    return messagesByType.map((t) => ({ ...t, xMin, xMax }));
   });
 };
