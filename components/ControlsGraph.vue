@@ -1,6 +1,11 @@
 <script setup lang="ts">
-import { useElementSize } from "@vueuse/core";
-import { scaleLinear, scaleTime } from "d3";
+import {
+  useElementSize,
+  useMediaControls,
+  useMouseInElement,
+} from "@vueuse/core";
+import { scaleLinear, scaleTime, svg } from "d3";
+import { container } from "webpack";
 
 type Props = {
   data: any;
@@ -8,9 +13,64 @@ type Props = {
 };
 const { data, username = null } = defineProps<Props>();
 
-const graph = ref(null);
-const { width } = useElementSize(graph);
-const height = ref(50);
+const useScrubber = (container, svg) => {
+  const { width } = useElementSize(container);
+  const height = ref(50);
+
+  const { elementX: scrubX } = useMouseInElement(svg);
+
+  //  const { currentTime, duration } = useMediaControls(video);
+
+  // const xVideoScale = computed(() =>
+  //   scaleLinear().domain([0, duration.value]).range([0, width.value])
+  // );
+
+  const currentX = ref(null);
+  const currentTime = ref(null);
+
+  const scrubbing = ref(false);
+
+  const onScrub = () => {
+    currentX.value = scrubX.value;
+    currentTime.value = xScale.value.invert(scrubX.value);
+  };
+
+  const onMousedown = () => {
+    scrubbing.value = true;
+    onScrub();
+  };
+  const onMousemove = () => {
+    if (scrubbing.value) {
+      onScrub();
+    }
+  };
+  const onMouseup = () => {
+    onScrub();
+    scrubbing.value = false;
+  };
+  return {
+    width,
+    height,
+    currentX,
+    currentTime,
+    onMousedown,
+    onMousemove,
+    onMouseup,
+  };
+};
+
+const container = ref(null);
+const svg = ref(null);
+
+const {
+  width,
+  height,
+  currentX,
+  currentTime,
+  onMousedown,
+  onMousemove,
+  onMouseup,
+} = useScrubber(container, svg);
 
 const xScale = computed(() =>
   scaleTime()
@@ -37,8 +97,17 @@ const dataWithPath = computed(() => {
 </script>
 
 <template>
-  <div ref="graph" class="w-full">
-    <svg class="rounded bg-gray-900" ref="svg" :width="width" :height="height">
+  <div ref="container" class="w-full">
+    {{ currentX }} / {{ currentTime }}
+    <svg
+      class="rounded bg-gray-900"
+      ref="svg"
+      :width="width"
+      :height="height"
+      @mousedown="onMousedown"
+      @mousemove="onMousemove"
+      @mouseup="onMouseup"
+    >
       <path
         v-for="user in dataWithPath.users"
         :d="user.path"
@@ -46,6 +115,14 @@ const dataWithPath = computed(() => {
         :stroke="user.color"
         :opacity="!username || user.username === username ? 1 : 0.2"
         stroke-width="2"
+      />
+      <line
+        v-if="currentX !== null"
+        :x1="currentX"
+        y1="0"
+        :x2="currentX"
+        :y2="height"
+        class="stroke-red-500"
       />
     </svg>
   </div>
