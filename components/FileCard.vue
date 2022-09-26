@@ -42,7 +42,12 @@ const { theme } = useTheme();
       v-if="file.filetype === 'audio'"
       class="grid aspect-video w-full place-content-center bg-gray-900"
     >
-      <audio :src="file.src" controls :class="['invert', ''][theme]" />
+      <audio
+        :src="file.src"
+        controls
+        :class="['invert', ''][theme]"
+        controlsList="nodownload"
+      />
     </div>
     <div v-if="file.filetype === 'unknown'" class="aspect-video bg-gray-900" />
     <Data :data="data" class="p-4" />
