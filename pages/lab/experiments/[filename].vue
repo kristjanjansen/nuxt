@@ -61,16 +61,17 @@ const { isOverDropZone: drop } = useDropZone(dropzone, (files) => {
 
 const messages = computed(() => {
   if (!file) return [];
+  const type = "STREAM_" + file.value.streamkey;
   return [
     {
-      datetime: new Date(file.value.start_at).toISOString(),
-      type: "STREAM_PLAYBACK",
+      type,
       value: 0,
+      datetime: new Date(file.value.start_at).toISOString(),
     },
     {
-      datetime: new Date(file.value.end_at).toISOString(),
-      type: "STREAM_PLAYBACK",
+      type,
       value: 0,
+      datetime: new Date(file.value.end_at).toISOString(),
     },
     ...parsedCsv.value,
   ];
@@ -82,7 +83,6 @@ const messages = computed(() => {
     <Stack v-if="file" class="p-4 md:p-6">
       <Button small to="/lab/experiments" left>Back</Button>
       <Title>{{ file.streamkey }}</Title>
-      {{ currentTime }} / {{ formatDatetimePrecise(currentXTime) }}
       <div class="grid gap-4 md:grid-cols-[auto_8fr]">
         <div
           class="relative shrink-0 overflow-hidden rounded border border-gray-500"
@@ -107,20 +107,11 @@ const messages = computed(() => {
           ref="dropzone"
           placeholder="Paste CSV data or a file here"
           v-model="csv"
-          class="break-all text-sm md:h-auto"
+          class="aspect-video break-all text-sm md:aspect-auto md:h-auto"
           :class="drop ? '!border-green-500 bg-gray-900' : ''"
         />
       </div>
-      <Code>
-        {{
-          formatData({
-            Streamkey: file.streamkey,
-            "Start at": file.start_at_formatted,
-            "End at": file.end_at_formatted,
-            Duration: file.duration_formatted,
-          })
-        }}
-      </Code>
+
       <ControlsData :messages="messages" :wide="true" />
     </Stack>
   </div>

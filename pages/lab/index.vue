@@ -123,6 +123,12 @@
           <Title small>Video player</Title>
           <p class="tracking-wide text-gray-500">Video player v2</p>
         </LinkCard>
+        <LinkCard to="/lab/parsedata" class="aspect-video pr-8">
+          <Title small>Parse data</Title>
+          <p class="tracking-wide text-gray-500">
+            Play around with Data component
+          </p>
+        </LinkCard>
       </div>
     </Stack>
   </div>

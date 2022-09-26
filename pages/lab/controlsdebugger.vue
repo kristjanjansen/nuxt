@@ -64,15 +64,12 @@ const messagesByTypeAndUser = computed(() =>
   )
 );
 */
-const currentXTime = ref(null);
-provide("currentXTime", currentXTime);
 </script>
 
 <template>
   <Stack class="p-4 md:p-6">
     <Button small left to="/lab">lab</Button>
     <Title>Controls debugger</Title>
-    {{ currentXTime }}
     <div class="grid items-start gap-8 md:grid-cols-4">
       <Stack>
         <Title medium>Controls field in Strapi</Title>

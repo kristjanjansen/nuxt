@@ -9,44 +9,32 @@ type Props = {
 const props = defineProps<Props>();
 const wide = props.wide || false;
 
+const currentXTime = inject("currentXTime", ref(null));
+provide("currentXTime", currentXTime);
+
 const controlsData = useControlsData(
   toRef(props, "messages"),
   toRef(props, "controls")
 );
 const username = ref(null);
+
+const formatControlData = (d) => ({
+  Type: d.type,
+  "Min value": d.yDataMin,
+  "Max value": d.yDataMax,
+  "Graph start": formatDatetimePrecise(d.xMin),
+  "Data start": formatDatetimePrecise(d.xDataMin),
+  "Data end": formatDatetimePrecise(d.xDataMax),
+  "Graph end": formatDatetimePrecise(d.xMax),
+  "Current time": currentXTime ? formatDatetimePrecise(currentXTime.value) : "",
+});
 </script>
 
 <template>
   <Stack class="gap-12">
     <Stack v-for="d in controlsData" class="!gap-2">
       <Title small>{{ d.control?.title || d.type }}</Title>
-      <Code v-if="!wide">{{
-        formatData({
-          Type: d.type,
-          "Min value": d.yDataMin,
-          "Max value": d.yDataMax,
-          "Graph start": formatDatetimePrecise(d.xMin),
-          "Data start": formatDatetimePrecise(d.xDataMin),
-          "Data end": formatDatetimePrecise(d.xDataMax),
-          "Graph end": formatDatetimePrecise(d.xMax),
-        })
-      }}</Code>
-      <div v-if="wide" class="justify-between md:flex">
-        <div class="gap-4 md:flex">
-          <Code class="text-gray-500"
-            >Start: {{ formatDatetimePrecise(d.xMin) }}</Code
-          >
-          <Code>Data start: {{ formatDatetimePrecise(d.xDataMin) }}</Code>
-        </div>
-        <div class="gap-4 md:flex">
-          <Code>Min: {{ d.yDataMin }}</Code>
-          <Code>Max: {{ d.yDataMax }}</Code>
-        </div>
-        <div class="gap-4 md:flex">
-          <Code>Data end: {{ formatDatetimePrecise(d.xDataMax) }}</Code>
-          <Code>End: {{ formatDatetimePrecise(d.xMax) }}</Code>
-        </div>
-      </div>
+      <Data :data="formatControlData(d)" />
       <ControlsGraph :data="d" :username="username" />
       <div :class="wide ? 'flex justify-between' : ''">
         <div :class="wide ? 'flex flex-wrap gap-4' : ''">

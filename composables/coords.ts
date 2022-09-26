@@ -4,6 +4,7 @@
 // console.log(randomNumbers)
 
 // TODO: Rely on autoload
+import { interpolateTurbo, interpolateViridis } from "d3";
 import { average } from "~~/composables/math";
 
 export const randomNumbers = [
@@ -122,5 +123,6 @@ export const stringToColor = (str) => {
   const h = Math.floor(x * 360);
   const s = Math.floor(y * 100);
   const l = 50;
+  return interpolateTurbo(x);
   return hsl(h, s, l);
 };

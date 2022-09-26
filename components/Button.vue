@@ -29,7 +29,7 @@ const classes = {
   small:
     "inline-flex flex gap-1 font-mono text-xs uppercase text-gray-300 transition-colors hover:text-gray-500 tracking-wide",
   regular:
-    "self-start	inline-flex h-7 items-center gap-1 rounded border border-gray-50 bg-black/90 px-2 font-mono text-sm uppercase text-gray-300 transition-colors hover:bg-gray-800 disabled:pointer-events-none disabled:opacity-20",
+    "self-start	flex h-7 items-center gap-1 rounded border border-gray-50 bg-black/90 px-2 font-mono text-sm uppercase text-gray-300 transition-colors hover:bg-gray-800 disabled:pointer-events-none disabled:opacity-20",
   primary:
     "border-green-400 bg-green-400 !text-[black] hover:border-green-500 hover:bg-green-500",
 };
@@ -48,7 +48,9 @@ const classes = {
     <IconArrowLeft v-if="left" />
     <IconArrowDown v-if="down" />
     <IconArrowUp v-if="up" />
-    <div class="translate-y-[0.05rem]"><slot /></div>
+    <div class="translate-y-[0.05rem]">
+      <slot />
+    </div>
     <IconArrowRight v-if="right" />
   </NuxtLink>
   <a
@@ -64,7 +66,7 @@ const classes = {
     <IconArrowLeft v-if="left" />
     <IconArrowDown v-if="down" />
     <IconArrowUp v-if="up" />
-    <div class="translate-y-[0.05rem]"><slot /></div>
+    <div class="flex translate-y-[0.05rem] items-center gap-2"><slot /></div>
     <IconArrowRight v-if="right" />
   </a>
   <button
@@ -79,7 +81,7 @@ const classes = {
     <IconArrowLeft v-if="left" />
     <IconArrowDown v-if="down" />
     <IconArrowUp v-if="up" />
-    <div class="translate-y-[0.05rem]"><slot /></div>
+    <div class="flex translate-y-[0.05rem] items-center gap-2"><slot /></div>
     <IconArrowRight v-if="right" />
   </button>
 </template>
