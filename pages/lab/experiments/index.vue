@@ -33,7 +33,7 @@ useIntervalFn(refresh, 5000);
           :key="file.filename"
           :to="'/lab/experiments/' + file.filename"
         >
-          <VideoPreview :file="file" class="w-[20vw]" />
+          <VideoPreview :file="file" class="md:w-[20vw]" />
         </RouterLink>
       </MoveTransition>
     </div>
