@@ -18,16 +18,18 @@ const pagedFiles = computed(() =>
 
 <template>
   <div v-if="!files" />
-  <Stack v-else class="p-4 md:p-6">
-    <Button small left to="/lab/experiments">Experiments</Button>
-    <Flex class="sticky top-12 z-10 md:justify-between">
-      <Title>All experiments</Title>
-      <Flex class="!gap-2">
-        <Button left @click="onPrev" />
-        <Button right @click="onNext" />
+  <div v-else>
+    <Stack class="sticky top-9 z-10 bg-black/90 bg-black backdrop-blur md:p-6">
+      <Button small left to="/lab/experiments">Experiments</Button>
+      <Flex class="z-10 md:justify-between">
+        <Title>All experiments</Title>
+        <Flex class="!gap-2">
+          <Button left @click="onPrev" />
+          <Button right @click="onNext" />
+        </Flex>
       </Flex>
-    </Flex>
-    <div class="grid gap-4 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-6">
+    </Stack>
+    <div class="grid gap-4 p-4 md:grid-cols-3 md:p-6 md:pt-12 lg:grid-cols-4">
       <RouterLink
         v-for="file in pagedFiles"
         :key="file.filename"
@@ -36,5 +38,5 @@ const pagedFiles = computed(() =>
         <VideoPreview :file="file" />
       </RouterLink>
     </div>
-  </Stack>
+  </div>
 </template>

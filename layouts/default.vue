@@ -6,7 +6,9 @@
     />
     <Nav />
     <div class="relative h-full"><slot /></div>
-    <div class="pointer-events-none fixed inset-0 border border-gray-700" />
+    <div
+      class="z-100 pointer-events-none fixed inset-0 border border-gray-700"
+    />
     <UserDock />
   </div>
 </template>
