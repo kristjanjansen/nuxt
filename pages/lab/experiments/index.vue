@@ -14,13 +14,13 @@ const addUrl =
 
 const { getFiles } = useFiles();
 const { data: files, refresh } = await getFiles("records");
-const formatVideo = (file) =>
-  formatData({
-    Streamkey: file.streamkey,
-    Start: file.start_at_formatted,
-    End: file.end_at_formatted,
-    Duration: file.duration_formatted,
-  });
+const fileData = (file) => ({
+  Streamkey: file.streamkey,
+  Start: file.start_at_formatted,
+  End: file.end_at_formatted,
+  Duration: file.duration_formatted,
+});
+
 useIntervalFn(refresh, 5000);
 </script>
 
@@ -63,9 +63,7 @@ useIntervalFn(refresh, 5000);
           <div v-for="file in files.slice(0, 10)">
             <Stack>
               <video :src="file.src" controls class="aspect-video rounded" />
-              <Code>
-                {{ formatVideo(file) }}
-              </Code>
+              <Data :data="fileData(file)" />
               <Button :to="'/lab/experiments/' + file.filename">
                 Go to stream
               </Button>
