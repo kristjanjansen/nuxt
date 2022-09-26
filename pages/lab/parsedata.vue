@@ -12,7 +12,7 @@ const parsedData = computed(() => Object.fromEntries(parseDetails(data.value)));
   <Stack class="p-4 md:p-6">
     <Button small left to="/lab">lab</Button>
     <Title>Parse data</Title>
-    <Textarea v-model="data" class="h-48 text-sm !text-gray-400" />
+    <Textarea v-model="data" class="h-48 text-sm" />
     <Data :data="parsedData" class="w-96" />
     <Data :data="parsedData" />
   </Stack>

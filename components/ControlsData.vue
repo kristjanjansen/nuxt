@@ -9,6 +9,9 @@ type Props = {
 const props = defineProps<Props>();
 const wide = props.wide || false;
 
+const currentXTime = ref(null);
+provide("currentXTime", currentXTime);
+
 const controlsData = useControlsData(
   toRef(props, "messages"),
   toRef(props, "controls")
@@ -23,6 +26,7 @@ const formatControlData = (d) => ({
   "Data start": formatDatetimePrecise(d.xDataMin),
   "Data end": formatDatetimePrecise(d.xDataMax),
   "Graph end": formatDatetimePrecise(d.xMax),
+  "Current time": currentXTime ? formatDatetimePrecise(currentXTime.value) : "",
 });
 </script>
 

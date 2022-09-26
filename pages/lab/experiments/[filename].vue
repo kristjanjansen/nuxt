@@ -61,16 +61,17 @@ const { isOverDropZone: drop } = useDropZone(dropzone, (files) => {
 
 const messages = computed(() => {
   if (!file) return [];
+  const type = "STREAM_" + file.value.streamkey;
   return [
     {
-      datetime: new Date(file.value.start_at).toISOString(),
-      type: "STREAM_PLAYBACK",
+      type,
       value: 0,
+      datetime: new Date(file.value.start_at).toISOString(),
     },
     {
-      datetime: new Date(file.value.end_at).toISOString(),
-      type: "STREAM_PLAYBACK",
+      type,
       value: 0,
+      datetime: new Date(file.value.end_at).toISOString(),
     },
     ...parsedCsv.value,
   ];
@@ -110,16 +111,7 @@ const messages = computed(() => {
           :class="drop ? '!border-green-500 bg-gray-900' : ''"
         />
       </div>
-      <Code>
-        {{
-          formatData({
-            Streamkey: file.streamkey,
-            "Start at": file.start_at_formatted,
-            "End at": file.end_at_formatted,
-            Duration: file.duration_formatted,
-          })
-        }}
-      </Code>
+
       <ControlsData :messages="messages" :wide="true" />
     </Stack>
   </div>

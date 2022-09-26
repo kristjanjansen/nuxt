@@ -14,8 +14,8 @@ const formattedData = computed(() =>
   Object.entries(data)
     .map(
       ([key, value]) =>
-        `<div class="${classes} text-gray-600">${key}</div><div class="${classes} ${
-          isWide ? "pr-4" : ""
+        `<div class="${classes} text-gray-600">${key}:</div><div class="${classes} ${
+          isWide ? "pr-3" : ""
         }">${value}</div>`
     )
     .join("")
