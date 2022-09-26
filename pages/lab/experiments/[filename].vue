@@ -15,7 +15,7 @@ const file = computed(() => {
 
 const video = ref(null);
 
-const { currentTime, duration } = useMediaControls(video);
+const { currentTime, duration, seeking } = useMediaControls(video);
 
 const xVideoScale = computed(() =>
   scaleTime()
@@ -27,9 +27,13 @@ const currentXTime = ref(null);
 provide("currentXTime", currentXTime);
 
 watch(currentXTime, () => {
-  if (videoInRange.value) {
+  if (videoInRange.value && !seeking.value) {
     currentTime.value = xVideoScale.value(currentXTime.value);
   }
+});
+
+watch(currentTime, () => {
+  currentXTime.value = xVideoScale.value.invert(currentTime.value);
 });
 
 const videoInRange = computed(
