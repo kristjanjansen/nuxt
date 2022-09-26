@@ -22,7 +22,7 @@ const d = useDraggables({
 
 const video = ref<HTMLVideoElement>();
 const canvas = ref<HTMLCanvasElement>();
-const { width, height } = useVideostream(video, videostreams[0].url);
+const { width, height } = useVideostreamLegacy(video, videostreams[0].url);
 const { capture: captureFrame, frame } = useVideoframe(
   video,
   canvas,

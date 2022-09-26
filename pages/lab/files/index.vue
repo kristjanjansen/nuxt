@@ -1,10 +1,9 @@
 <script setup lang="ts">
 const paths = [
-  { title: "records", desc: "Stored videos from Elektron streaming server" },
-  { title: "assets", desc: "Misc media files for experiments" },
   { title: "anthropologies1", desc: "Ruumiantropoloogiad I video captures" },
   { title: "anthropologies2", desc: "Ruumiantropoloogiad II video captures" },
   { title: "strapi", desc: "Strapi images and videos" },
+  { title: "assets", desc: "Misc media files for experiments" },
 ];
 const processPath = (p) => ({ ...p, path: `/lab/files/${p.title}` });
 </script>
