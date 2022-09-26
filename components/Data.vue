@@ -24,6 +24,8 @@ const formattedData = computed(() =>
     ref="el"
     v-html="formattedData"
     class="grid-cols-[auto_1fr] odd:[&>*]:text-gray-600"
-    :class="[isWide ? 'flex gap-2 even:[&>*]:pr-6' : 'grid gap-x-4']"
+    :class="[
+      isWide ? 'flex flex-wrap gap-x-2 even:[&>*]:pr-6' : 'grid gap-x-3',
+    ]"
   />
 </template>
