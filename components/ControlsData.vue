@@ -33,9 +33,7 @@ const username = ref(null);
       }}</Code>
       <div v-if="wide" class="justify-between md:flex">
         <div class="gap-4 md:flex">
-          <Code class="text-gray-500"
-            >Start: {{ formatDatetimePrecise(d.xMin) }}</Code
-          >
+          <Code> Start: {{ formatDatetimePrecise(d.xMin) }}</Code>
           <Code>Data start: {{ formatDatetimePrecise(d.xDataMin) }}</Code>
         </div>
         <div class="gap-4 md:flex">

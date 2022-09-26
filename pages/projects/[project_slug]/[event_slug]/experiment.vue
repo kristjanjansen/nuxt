@@ -60,7 +60,7 @@ const video = ref<HTMLVideoElement | null>(null);
     class="relative grid p-4 md:h-full md:place-items-center md:p-0"
   >
     <Breadboard class="bg-gray-900" />
-    <Stack class="md:absolute md:top-6 md:left-6">
+    <Stack class="z-10 md:absolute md:top-6 md:left-6">
       <Button small left to="/lab/experiments">Experiments</Button>
       <Title class="text-gray-500">This is an event experiment page</Title>
       <Button small right :to="event?.eventLiveLink">
@@ -69,13 +69,22 @@ const video = ref<HTMLVideoElement | null>(null);
     </Stack>
 
     <Draggable
+      v-bind="d.stream"
+      v-if="videostreams.length"
+      class="bg-gray-900 md:w-[50vw]"
+    >
+      <Videostream :url="videostreams[0].url" />
+      <Code class="p-2">{{ formatData(videostreams[0]) }}</Code>
+    </Draggable>
+
+    <Draggable
       v-bind="d.data"
-      class="h-[30vw] overflow-auto p-4 md:min-w-[20vw]"
+      class="h-[35vw] overflow-auto p-4 md:min-w-[20vw]"
     >
       <ControlsData :messages="experimentMessages" :controls="controls" />
     </Draggable>
 
-    <Draggable v-bind="d.rawdata" class="h-[30vw] p-4 md:min-w-[50vw]">
+    <Draggable v-bind="d.rawdata" class="h-[35vw] p-4 md:min-w-[50vw]">
       <div class="flex h-full flex-col gap-5">
         <Code class="h-full overflow-auto !text-gray-500">
           {{ formatData(experimentMessages, true) }}
@@ -87,7 +96,7 @@ const video = ref<HTMLVideoElement | null>(null);
               @click="onCopyAndDownloadCsv"
               :disabled="!experimentMessages.length"
             >
-              Copy & download CSV
+              Copy & download
             </Button>
             <Button
               @click="onDownloadCsv"
@@ -104,15 +113,6 @@ const video = ref<HTMLVideoElement | null>(null);
           </button>
         </div>
       </div>
-    </Draggable>
-
-    <Draggable
-      v-bind="d.stream"
-      v-if="videostreams.length"
-      class="bg-gray-900 md:w-[50vw]"
-    >
-      <Videostream :url="videostreams[0].url" />
-      <Code class="p-2">{{ formatData(videostreams[0]) }}</Code>
     </Draggable>
 
     <Draggable

@@ -27,9 +27,9 @@ useIntervalFn(refresh, 5000);
 <template>
   <Stack class="p-4 md:p-6">
     <Button small left to="/lab">lab</Button>
-    <div class="grid grid-cols-[3fr_1fr] gap-8">
+    <div class="grid gap-8 md:grid-cols-[3fr_1fr]">
       <Stack>
-        <div class="flex items-center gap-4">
+        <div class="flex flex-col gap-4 md:flex-row md:items-center">
           <Title>Experiments</Title>
           <Button :href="addUrl">Add new experiment in Strapi</Button>
         </div>
@@ -37,7 +37,7 @@ useIntervalFn(refresh, 5000);
           <Stack>
             <Title medium>{{ e.title }}</Title>
             <EventDatetime :event="e" />
-            <div class="grid grid-cols-[auto_1fr_1fr] gap-8">
+            <div class="grid gap-8 md:grid-cols-[auto_1fr_1fr]">
               <Stack>
                 <Button :href="url(e.id)">Edit in Strapi</Button>
                 <Button :to="e.eventExperimentLink" target="_blank">

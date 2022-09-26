@@ -82,7 +82,6 @@ const messages = computed(() => {
     <Stack v-if="file" class="p-4 md:p-6">
       <Button small to="/lab/experiments" left>Back</Button>
       <Title>{{ file.streamkey }}</Title>
-      {{ currentTime }} / {{ formatDatetimePrecise(currentXTime) }}
       <div class="grid gap-4 md:grid-cols-[auto_8fr]">
         <div
           class="relative shrink-0 overflow-hidden rounded border border-gray-500"
@@ -107,7 +106,7 @@ const messages = computed(() => {
           ref="dropzone"
           placeholder="Paste CSV data or a file here"
           v-model="csv"
-          class="break-all text-sm md:h-auto"
+          class="aspect-video break-all text-sm md:aspect-auto md:h-auto"
           :class="drop ? '!border-green-500 bg-gray-900' : ''"
         />
       </div>
