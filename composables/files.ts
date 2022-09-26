@@ -18,13 +18,10 @@ export const processFile = (file: any, path) => {
     file.end_at = add(file.start_at, { seconds: file.duration });
     file.end_at_formatted = formatDatetimePrecise(file.end_at);
     file.endDatetime = file.end_at;
-    file.duration_formatted = new Date(file.duration * 1000)
-      .toISOString()
-      .split("T")[1]
-      .replace("Z", "");
+    file.duration_formatted = formatDuration(file.duration);
   }
   f = file.filename.split("-");
-  if (file.filename.endsWith(".jpg") && f.length === 7) {
+  if (file.filename.toLowerCase().endsWith(".jpg") && f.length === 7) {
     file.start_at = file.filename.split(".")[0] + "__Z";
 
     file.start_at = parse(
@@ -33,6 +30,23 @@ export const processFile = (file: any, path) => {
       new Date()
     );
   }
+  let filetype = "unknown";
+  if (
+    file.filename.toLowerCase().endsWith(".jpg") ||
+    file.filename.toLowerCase().endsWith(".jpeg") ||
+    file.filename.toLowerCase().endsWith(".png") ||
+    file.filename.toLowerCase().endsWith(".gif") ||
+    file.filename.toLowerCase().endsWith(".svg")
+  ) {
+    filetype = "image";
+  }
+  if (file.filename.toLowerCase().endsWith(".mp4")) {
+    filetype = "video";
+  }
+  if (file.filename.toLowerCase().endsWith(".mp3")) {
+    filetype = "audio";
+  }
+  file.filetype = filetype;
   return file;
 };
 
@@ -54,3 +68,6 @@ export const useFiles = () => {
     });
   return { getFiles, uploadFile };
 };
+
+export const formatDuration = (duration) =>
+  new Date(duration * 1000).toISOString().split("T")[1].replace("Z", "");

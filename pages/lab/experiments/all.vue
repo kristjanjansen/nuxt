@@ -33,7 +33,7 @@ const pagedFiles = computed(() =>
         :key="file.filename"
         :to="'/lab/experiments/' + file.filename"
       >
-        <VideoPreview :file="file" />
+        <FileCard :file="file" />
       </RouterLink>
     </div>
   </Stack>

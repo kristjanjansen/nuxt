@@ -10,28 +10,31 @@ import {
 
 const now = useNow({ interval: 1000 });
 
-export const formatDate = (datetime: Date | null) => {
+export const formatDate = (datetime: Date | string | null) => {
   return datetime
-    ? format(datetime, isThisYear(datetime) ? "d. MMMM" : "d.MM.y")
+    ? format(
+        new Date(datetime),
+        isThisYear(new Date(datetime)) ? "d. MMMM" : "d.MM.y"
+      )
     : "";
 };
 
-export const formatTime = (datetime: Date | null) => {
-  return datetime ? format(datetime, "HH:mm") : "";
+export const formatTime = (datetime: Date | string | null) => {
+  return datetime ? format(new Date(datetime), "HH:mm") : "";
 };
 
 export const formatDatetimePrecise = (datetime: Date | null) => {
-  return datetime ? format(datetime, "HH:mm:ss") : "";
+  return datetime ? format(new Date(datetime), "HH:mm:ss") : "";
 };
 
-export const formatDatetime = (datetime: Date | null) => {
-  return `${formatDate(datetime)} ${formatTime(datetime)}`;
+export const formatDatetime = (datetime: Date | string | null) => {
+  return `${formatDate(new Date(datetime))} ${formatTime(datetime)}`;
 };
 
-export const useFormattedDistance = (dateTime: Date) => {
+export const useFormattedDistance = (datetime: Date | string) => {
   return computed(() => {
     const distance = sentenceCase(
-      formatDistanceStrict(dateTime, now.value, {
+      formatDistanceStrict(new Date(datetime), now.value, {
         roundingMethod: "round",
         addSuffix: true,
       })
@@ -42,6 +45,7 @@ export const useFormattedDistance = (dateTime: Date) => {
 
 type Urgency = "past" | "now" | "soon" | "future" | "permanent";
 
+// TODO: Support string dates
 export const useUrgency = (fromDateTime: Date, toDateTime: Date | null) => {
   return computed<Urgency>(() => {
     const soonMinutes = 3 * 60;

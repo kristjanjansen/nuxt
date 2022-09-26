@@ -172,6 +172,7 @@ export const useVideostreamLegacy = (
   return { status, width, height };
 };
 
+// TODO: Return { status, width, height }
 export const useVideostream = (
   videoRef: Ref<HTMLVideoElement | null>,
   src: MaybeRef<string>
