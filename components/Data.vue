@@ -14,7 +14,8 @@ const isWide = computed(() => width.value > 1000);
 const formattedData = computed(() =>
   columnify(data, {
     showHeaders: false,
-    dataTransform: (d) => `<Code>${d}</Code>`,
+    dataTransform: (d) =>
+      `<Code class="whitespace-pre font-mono text-sm text-gray-400">${d}</Code>`,
   })
 );
 </script>
@@ -25,7 +26,7 @@ const formattedData = computed(() =>
     v-html="formattedData"
     class="grid-cols-[auto_1fr] odd:[&>*]:text-gray-600"
     :class="[
-      isWide ? 'flex flex-wrap gap-x-2 even:[&>*]:pr-6' : 'grid gap-x-3',
+      isWide ? 'flex flex-wrap gap-x-2 even:[&>*]:pr-4' : 'grid gap-x-3',
     ]"
   />
 </template>
