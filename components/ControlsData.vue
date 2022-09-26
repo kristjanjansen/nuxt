@@ -9,7 +9,7 @@ type Props = {
 const props = defineProps<Props>();
 const wide = props.wide || false;
 
-const currentXTime = ref(null);
+const currentXTime = inject("currentXTime", ref(null));
 provide("currentXTime", currentXTime);
 
 const controlsData = useControlsData(
