@@ -14,12 +14,6 @@ const addUrl =
 
 const { getFiles } = useFiles();
 const { data: files, refresh } = await getFiles("records");
-const fileData = (file) => ({
-  Streamkey: file.streamkey,
-  Start: file.start_at_formatted,
-  End: file.end_at_formatted,
-  Duration: file.duration_formatted,
-});
 
 useIntervalFn(refresh, 5000);
 </script>
@@ -27,7 +21,7 @@ useIntervalFn(refresh, 5000);
 <template>
   <Stack class="p-4 md:p-6">
     <Button small left to="/lab">lab</Button>
-    <div class="grid gap-8 md:grid-cols-[3fr_1fr]">
+    <div class="grid gap-8 md:grid-cols-[5fr_1fr]">
       <Stack>
         <div class="flex flex-col gap-4 md:flex-row md:items-center">
           <Title>Experiments</Title>
@@ -60,15 +54,12 @@ useIntervalFn(refresh, 5000);
       <Stack v-if="files">
         <Title>Recorded streams</Title>
         <Stack class="!gap-12">
-          <div v-for="file in files.slice(0, 10)">
-            <Stack>
-              <video :src="file.src" controls class="aspect-video rounded" />
-              <Data :data="fileData(file)" />
-              <Button :to="'/lab/experiments/' + file.filename">
-                Go to stream
-              </Button>
-            </Stack>
-          </div>
+          <RouterLink
+            v-for="file in files.slice(0, 10)"
+            :to="'/lab/experiments/' + file.filename"
+          >
+            <VideoPreview :file="file" />
+          </RouterLink>
         </Stack>
       </Stack>
     </div>
