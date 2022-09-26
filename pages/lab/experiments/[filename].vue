@@ -1,11 +1,6 @@
 <script setup lang="ts">
-import {
-  useDropZone,
-  useElementSize,
-  useMediaControls,
-  useMouseInElement,
-} from "@vueuse/core";
-import { csvParse, scaleLinear, scaleTime } from "d3";
+import { useDropZone, useMediaControls } from "@vueuse/core";
+import { csvParse, scaleTime } from "d3";
 import { isWithinInterval } from "date-fns";
 
 const route = useRoute();
@@ -20,7 +15,7 @@ const file = computed(() => {
 
 const video = ref(null);
 
-const { currentTime, duration } = useMediaControls(video);
+const { currentTime, duration, seeking } = useMediaControls(video);
 
 const xVideoScale = computed(() =>
   scaleTime()
@@ -32,9 +27,13 @@ const currentXTime = ref(null);
 provide("currentXTime", currentXTime);
 
 watch(currentXTime, () => {
-  if (videoInRange.value) {
+  if (videoInRange.value && !seeking.value) {
     currentTime.value = xVideoScale.value(currentXTime.value);
   }
+});
+
+watch(currentTime, () => {
+  currentXTime.value = xVideoScale.value.invert(currentTime.value);
 });
 
 const videoInRange = computed(
@@ -122,7 +121,6 @@ const messages = computed(() => {
           })
         }}
       </Code>
-      {{ videoInRange }}
       <ControlsData :messages="messages" :wide="true" />
     </Stack>
   </div>
