@@ -9,7 +9,7 @@ const { data } = defineProps<Props>();
 const el = ref(null);
 const { width } = useElementSize(el);
 const isWide = computed(() => width.value > 1000);
-const classes = "whitespace-pre font-mono text-sm text-gray-400";
+const classes = "whitespace-pre font-mono text-sm text-gray-400   truncate";
 const formattedData = computed(() =>
   Object.entries(data)
     .map(
