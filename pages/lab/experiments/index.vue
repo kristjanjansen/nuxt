@@ -33,14 +33,14 @@ useIntervalFn(refresh, 5000);
           :key="file.filename"
           :to="'/lab/experiments/' + file.filename"
         >
-          <VideoPreview :file="file" />
+          <VideoPreview :file="file" class="w-[20vw]" />
         </RouterLink>
       </MoveTransition>
     </div>
     <div class="h-8" />
     <Stack>
       <Flex class="md:justify-between">
-        <Title>Experiments</Title>
+        <Title>Current experiments</Title>
         <Button :href="addUrl">
           <IconStrapi />
           Add new experiment in Strapi

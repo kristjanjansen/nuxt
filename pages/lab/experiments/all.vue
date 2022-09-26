@@ -27,7 +27,7 @@ const pagedFiles = computed(() =>
         <Button right @click="onNext" />
       </Flex>
     </Flex>
-    <div class="grid gap-4 md:grid-cols-3 md:pt-12 lg:grid-cols-6">
+    <div class="grid gap-4 md:grid-cols-4 md:pt-12 2xl:grid-cols-6">
       <RouterLink
         v-for="file in pagedFiles"
         :key="file.filename"
