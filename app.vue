@@ -29,7 +29,7 @@ useHead({
     <Script
       defer
       data-domain="elektron.art"
-      src="https://plausible.io/js/plausible.js"
+      src="https://plausible.io/js/plausible.local.js"
     />
     <NuxtPage />
   </NuxtLayout>
