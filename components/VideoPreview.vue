@@ -1,14 +1,13 @@
 <script setup lang="ts">
-import { useMediaControls } from "@vueuse/core";
+//import { useMediaControls } from "@vueuse/core";
 
 type Props = {
   file: any;
 };
 const { file } = defineProps<Props>();
 const video = ref(null);
-const { currentTime, duration } = useMediaControls(video);
-watchEffect(() => (currentTime.value = duration.value / 2));
-onMounted(() => (currentTime.value = duration.value / 2));
+//const { currentTime, duration } = useMediaControls(video);
+//watchEffect(() => (currentTime.value = duration.value / 2));
 const data = {
   Streamkey: file.streamkey,
   Date: formatDate(file.start_at),
