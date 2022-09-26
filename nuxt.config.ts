@@ -5,6 +5,7 @@ export default defineNuxtConfig({
     "@nuxtjs/strapi",
     "@nuxtjs/tailwindcss",
     ["unplugin-icons/nuxt", { autoInstall: true }],
+    "@huntersofbook/plausible-nuxt",
   ],
   runtimeConfig: {
     strapiUrl: "",

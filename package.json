@@ -9,6 +9,7 @@
     "lib:build": "vite build -c vite.config.lib.ts"
   },
   "dependencies": {
+    "@huntersofbook/plausible-nuxt": "^0.3.0",
     "@iconify-json/ph": "^1.1.2",
     "@iconify-json/radix-icons": "^1.1.5",
     "@nuxtjs/strapi": "^1.5.1",
