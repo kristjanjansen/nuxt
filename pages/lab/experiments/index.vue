@@ -21,14 +21,20 @@ useIntervalFn(refresh, 5000);
 <template>
   <Stack v-if="files" class="p-4 md:p-6">
     <Button small left to="/lab">lab</Button>
-    <Title>Recent experiments</Title>
+    <Flex class="md:justify-between">
+      <Title>Recent experiments</Title>
+      <Button>Show all</Button>
+    </Flex>
     <div class="-mx-4 flex gap-4 overflow-x-auto px-6 md:-mx-6">
-      <RouterLink
-        v-for="file in files?.slice(0, 10)"
-        :to="'/lab/experiments/' + file.filename"
-      >
-        <VideoPreview :file="file" />
-      </RouterLink>
+      <MoveTransition>
+        <RouterLink
+          v-for="file in files?.slice(0, 10)"
+          :key="file.filename"
+          :to="'/lab/experiments/' + file.filename"
+        >
+          <VideoPreview :file="file" />
+        </RouterLink>
+      </MoveTransition>
     </div>
     <div class="h-8" />
     <div class="grid gap-8 md:grid-cols-[5fr_1fr]">
