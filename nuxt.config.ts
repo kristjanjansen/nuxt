@@ -12,4 +12,9 @@ export default defineNuxtConfig({
     public: { wsUrl: "", fientaUrl: "", fientaToken: "" },
   },
   experimental: { reactivityTransform: true },
+  plausible: {
+    init: {
+      domain: "elektron.art",
+    },
+  },
 });
