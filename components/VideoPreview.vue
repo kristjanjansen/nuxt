@@ -23,7 +23,7 @@ const { theme } = useTheme();
     class="!rounded p-0 transition"
     :class="['hover:brightness-125', 'hover:brightness-75'][theme]"
   >
-    <video ref="video" :src="file.src" controls class="aspect-video" />
+    <video ref="video" :src="file.src" controls class="aspect-video w-full" />
     <Data :data="data" class="p-4" />
   </Card>
 </template>

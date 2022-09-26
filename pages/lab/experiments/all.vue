@@ -22,10 +22,10 @@ const pagedFiles = computed(() =>
     <Button small left to="/lab/experiments">Experiments</Button>
     <Flex class="z-10 md:justify-between">
       <Title>All experiments</Title>
-      <Flex class="!gap-2">
-        <Button left @click="onPrev" />
-        <Button right @click="onNext" />
-      </Flex>
+      <div class="flex gap-2">
+        <Button left @click="onPrev">Previous</Button>
+        <Button right @click="onNext">Next</Button>
+      </div>
     </Flex>
     <div class="grid gap-4 md:grid-cols-4 md:pt-12 2xl:grid-cols-6">
       <RouterLink
