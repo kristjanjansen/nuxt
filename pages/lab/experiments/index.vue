@@ -19,8 +19,18 @@ useIntervalFn(refresh, 5000);
 </script>
 
 <template>
-  <Stack class="p-4 md:p-6">
+  <Stack v-if="files" class="p-4 md:p-6">
     <Button small left to="/lab">lab</Button>
+    <Title>Recent experiments</Title>
+    <div class="-mx-4 flex gap-4 overflow-x-auto px-6 md:-mx-6">
+      <RouterLink
+        v-for="file in files?.slice(0, 10)"
+        :to="'/lab/experiments/' + file.filename"
+      >
+        <VideoPreview :file="file" />
+      </RouterLink>
+    </div>
+    <div class="h-8" />
     <div class="grid gap-8 md:grid-cols-[5fr_1fr]">
       <Stack>
         <div class="flex flex-col gap-4 md:flex-row md:items-center">
@@ -54,12 +64,12 @@ useIntervalFn(refresh, 5000);
       <Stack v-if="files">
         <Title>Recorded streams</Title>
         <Stack class="!gap-12">
-          <RouterLink
+          <!-- <RouterLink
             v-for="file in files.slice(0, 10)"
             :to="'/lab/experiments/' + file.filename"
           >
             <VideoPreview :file="file" />
-          </RouterLink>
+          </RouterLink> -->
         </Stack>
       </Stack>
     </div>
