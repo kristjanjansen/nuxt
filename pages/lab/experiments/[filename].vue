@@ -82,6 +82,7 @@ const messages = computed(() => {
     <Stack v-if="file" class="p-4 md:p-6">
       <Button small to="/lab/experiments" left>Back</Button>
       <Title>{{ file.streamkey }}</Title>
+      {{ currentTime }} / {{ formatDatetimePrecise(currentXTime) }}
       <div class="grid gap-4 md:grid-cols-[auto_8fr]">
         <div
           class="relative shrink-0 overflow-hidden rounded border border-gray-500"
