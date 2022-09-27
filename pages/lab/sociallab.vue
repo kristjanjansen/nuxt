@@ -1,6 +1,9 @@
 <script>
 definePageMeta({
   layout: false,
+  labTitle: "Social cards",
+  labIntro: "Going social with code",
+  labGroup: "",
 });
 </script>
 

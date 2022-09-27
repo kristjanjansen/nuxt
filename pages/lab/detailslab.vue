@@ -1,12 +1,18 @@
 <script setup lang="ts">
+definePageMeta({
+  labTitle: "Details",
+  labIntro: "Details data acting up? Help is here",
+  labGroup: "",
+});
+
 const { data: projects } = await useProjects();
 const debug = ref(false);
 const input = ref("hello: world");
 </script>
 <template>
   <Stack class="p-4 md:p-6">
-    <Button small left to="/lab">lab</Button>
-    <Title>Parsing details</Title>
+    <Button small left to="/lab">Lab</Button>
+    <Title>Details</Title>
     <Button @click="debug = !debug">Toggle debug</Button>
     <div class="grid gap-16 text-gray-500 md:grid-cols-3">
       <Title small>Input data</Title>

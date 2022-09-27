@@ -1,4 +1,10 @@
 <script setup lang="ts">
+definePageMeta({
+  labTitle: "Videostreams",
+  labIntro: "Testing video providers",
+  labGroup: "",
+});
+
 const [stream1, stream2] = getVideostreams("elektron,anything");
 
 const video1 = ref<HTMLVideoElement | null>(null);

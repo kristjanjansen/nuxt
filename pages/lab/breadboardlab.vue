@@ -1,15 +1,17 @@
 <script setup lang="ts">
+definePageMeta({
+  labTitle: "Breadboard",
+  labIntro: "Combining breadboard background with video",
+  labGroup: "",
+});
+
 const url = "https://sb.err.ee/live/etv.m3u8";
 const video = ref<HTMLVideoElement>();
-const { width, height } = useVideostream(video, url);
+const { width, height } = useVideostreamLegacy(video, url);
 const showVideo = ref(true);
 const blur = ref(0);
 
 const { theme } = useTheme();
-
-const draggables = useDraggables({
-  first: { x: 200, y: 200, dockable: false },
-});
 </script>
 <template>
   <div class="relative h-full">
@@ -33,16 +35,13 @@ const draggables = useDraggables({
     />
     <Breadboard v-else class="bg-gray-900" />
     <Stack class="absolute top-4 left-4 right-4 gap-4 md:top-6 md:left-6">
-      <Button small left to="/lab">lab</Button>
-      <Title>Video breadboard</Title>
+      <Button small left to="/lab">Lab</Button>
+      <Title>Breadboard</Title>
       <Button @click="showVideo = !showVideo">
         Video: {{ showVideo ? "on" : "off" }}
       </Button>
       <div>Blur:</div>
-      <input type="range" v-model="blur" />
-      <Draggable v-bind="draggables.first" class="p-16 text-center">
-        Draggable
-      </Draggable>
+      <Slider v-model="blur" />
     </Stack>
   </div>
 </template>

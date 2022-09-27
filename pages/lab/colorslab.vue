@@ -1,4 +1,10 @@
 <script setup>
+definePageMeta({
+  labTitle: "Colors",
+  labIntro: "Mapping out v3 and v4 colors",
+  labGroup: "",
+});
+
 const colors = [
   ["var(--fg)", "#ffffff", "rgb(var(--white))"],
   ["N/A", "", "rgb(var(--gray-50))"],
@@ -25,10 +31,9 @@ const colors = [
 ];
 </script>
 <template>
-  <div class="flex flex-col gap-4 p-4 md:p-6">
+  <Stack class="flex flex-col gap-4 p-4 md:p-6">
     <Button small left to="/lab">Lab</Button>
     <Title>Colors</Title>
-    <div class="h-4" />
     <div>
       <div
         v-for="[thenName, thenColor, nowColor, nowName] in colors"
@@ -50,5 +55,5 @@ const colors = [
         </div>
       </div>
     </div>
-  </div>
+  </Stack>
 </template>

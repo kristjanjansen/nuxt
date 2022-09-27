@@ -1,6 +1,8 @@
 <script setup>
 definePageMeta({
-  layout: "elayout",
+  labTitle: "EComponents",
+  labIntro: "Bring in components from v3",
+  labGroup: "",
 });
 
 const a = ref(50);

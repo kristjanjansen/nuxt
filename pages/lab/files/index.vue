@@ -1,4 +1,10 @@
 <script setup lang="ts">
+definePageMeta({
+  labTitle: "Files",
+  labIntro: "Browse the files in the storage",
+  labGroup: "",
+});
+
 const paths = [
   { title: "anthropologies1", desc: "Ruumiantropoloogiad I video captures" },
   { title: "anthropologies2", desc: "Ruumiantropoloogiad II video captures" },

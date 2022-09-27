@@ -1,4 +1,10 @@
 <script setup lang="ts">
+definePageMeta({
+  labTitle: "Controls",
+  labIntro: "Controls data now working? Fix them here",
+  labGroup: "Experiments",
+});
+
 const defaultControls = `channel: experiment
 type: DATA_1
 title: How do you feel!!!!
@@ -17,58 +23,11 @@ step: 0.01`;
 const controls = ref(defaultControls);
 const parsedControls = computed(() => parseControls(controls.value));
 const { messages } = useMessages();
-
-/*
-const useControlsMessages = (controlsMessages) => {
-  const types = computed(() =>
-    uniqueCollection(
-      controlsMessages.value.map((c) => c.type),
-      "type"
-    )
-  );
-
-  const users = computed(() =>
-    uniqueCollection(
-      controlsMessages.value.map((c) => {
-        return {
-          username: c.username,
-          color: stringToColor(c.username),
-        };
-      }),
-      "username"
-    )
-  );
-
-  users.value.map(({ username }) =>
-        controlsMessages.value.filter(
-          (d) => d.type === type && d.username === username
-        ))
-
-  const messages = computed(() => {
-    return types.value.map((type) => {
-      return controlsMessages.value.filter((d) => d.type === type);
-    });
-  });
-
-  return { users, messages };
-};
-
-
-const { messages: messagesByUser, users } = useControlsMessages(messages);
-
-const messagesByTypeAndUser = computed(() =>
-  groups(
-    messages.value,
-    (m) => m.type,
-    (m) => m.username
-  )
-);
-*/
 </script>
 
 <template>
   <Stack class="p-4 md:p-6">
-    <Button small left to="/lab">lab</Button>
+    <Button small left to="/lab">Lab</Button>
     <Title>Controls debugger</Title>
     <div class="grid items-start gap-8 md:grid-cols-4">
       <Stack>

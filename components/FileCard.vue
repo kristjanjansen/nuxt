@@ -24,7 +24,7 @@ const { theme } = useTheme();
 
 <template>
   <Card
-    class="flex flex-col justify-between !rounded p-0 transition"
+    class="flex flex-col justify-between overflow-clip !rounded p-0 transition"
     :class="['hover:brightness-110', 'hover:brightness-90'][theme]"
   >
     <img

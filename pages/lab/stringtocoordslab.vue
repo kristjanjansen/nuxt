@@ -1,7 +1,13 @@
 <script setup lang="ts">
 import { stringToNumbers } from "~~/composables/coords";
 
-const input = ref("a");
+definePageMeta({
+  labTitle: "String to coordinates",
+  labIntro: "Assign unique XY coordinates to a text",
+  labGroup: "",
+});
+
+const input = ref("abc");
 const output = computed(() => stringToCoords(input.value, 100, 100));
 </script>
 

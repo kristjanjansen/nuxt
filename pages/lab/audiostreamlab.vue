@@ -9,6 +9,7 @@ const url = "https://sb.err.ee/live/klassikaraadio.m3u8";
 
 <template>
   <Stack class="p-4 md:p-6">
+    <Button small left to="/lab">Lab</Button>
     <Title>Audiostream</Title>
     <Audiostream :url="url" class="grid h-64 w-full place-content-center" />
   </Stack>

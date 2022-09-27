@@ -1,11 +1,17 @@
 <script setup lang="ts">
 import IconCapture from "~icons/radix-icons/camera";
 
+definePageMeta({
+  labTitle: "Videoframe upload",
+  labIntro: "Capture and upload video frames",
+  labGroup: "",
+});
+
 const url = "https://sb.err.ee/live/etvpluss.m3u8";
 
 const video = ref<HTMLVideoElement>();
 const canvas = ref<HTMLCanvasElement>();
-const { width, height } = useVideostream(video, url);
+const { width, height } = useVideostreamLegacy(video, url);
 const { capture: captureFrame, frame } = useVideoframe(
   video,
   canvas,
@@ -29,7 +35,7 @@ const capture = async () => {
 <template>
   <Stack class="p-4 md:p-6">
     <Button small left to="/lab">Lab</Button>
-    <Title>New capture</Title>
+    <Title>Videoframe upload</Title>
     <canvas ref="canvas" class="hidden" />
     <div class="grid gap-8 md:grid-cols-2">
       <div class="">

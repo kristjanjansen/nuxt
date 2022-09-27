@@ -1,4 +1,10 @@
 <script setup lang="ts">
+definePageMeta({
+  labTitle: "Messages",
+  labIntro: "Send and receive websocket messages",
+  labGroup: "",
+});
+
 const { messages, sendMessage } = useMessages();
 const message = ref("Hello");
 const userid = useUserId();
@@ -7,7 +13,7 @@ const username = useUserName();
 
 <template>
   <Stack class="p-4 md:p-6">
-    <Button small left to="/lab">lab</Button>
+    <Button small left to="/lab">Lab</Button>
     <Title>Messages</Title>
     <Textarea v-model="message" />
     <Button @click="sendMessage({ value: message, userid, username })">
