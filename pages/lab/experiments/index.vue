@@ -1,6 +1,13 @@
 <script setup lang="ts">
 import { useIntervalFn } from "@vueuse/core";
 import { truncate } from "~~/composables/string";
+
+definePageMeta({
+  labTitle: "Experiments",
+  labIntro: "Run and analyze the experiments",
+  labGroup: "Experiments",
+});
+
 const { data: events } = useEvents({
   sort: ["start_at:desc"],
   filters: {

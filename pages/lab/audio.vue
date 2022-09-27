@@ -1,4 +1,9 @@
 <script setup lang="ts">
+definePageMeta({
+  labTitle: "Audiostream",
+  labIntro: "Audio player",
+  labGroup: "",
+});
 const url = "https://sb.err.ee/live/klassikaraadio.m3u8";
 </script>
 
