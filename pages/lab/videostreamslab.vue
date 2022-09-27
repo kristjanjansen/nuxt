@@ -22,13 +22,13 @@ useVideostream(video2, stream2.url);
       <Stack>
         <Title medium>Levira streaming with transcoding</Title>
         <Title small>Input</Title>
-        <div class="break-all font-mono text-green-400">
+        <Code class="break-all text-green-400">
           {{ stream1.ingest }}
-        </div>
+        </Code>
         <Title small>Streamkey in OBS etc</Title>
-        <div class="font-mono text-green-400">{{ stream1.streamkey }}</div>
+        <Code class="text-green-400">{{ stream1.streamkey }}</Code>
         <Title small>Streamkey in Strapi</Title>
-        <pre class="text-blue-500">elektron</pre>
+        <Code class="text-blue-500">elektron</Code>
         <video
           ref="video1"
           class="aspect-video w-full"
@@ -40,19 +40,19 @@ useVideostream(video2, stream2.url);
           controls
         />
         <Title small>HLS output</Title>
-        <div class="break-all font-mono">{{ stream1.url }}</div>
+        <Code class="break-all">{{ stream1.url }}</Code>
         <Button small :href="stream1.url">Open stream in Safari</Button>
       </Stack>
       <Stack>
         <Title medium>Elektron streaming without transcoding</Title>
         <Title small>Input</Title>
-        <div class="break-all font-mono text-green-400">
+        <Code class="break-all text-green-400">
           {{ stream2.ingest }}
-        </div>
+        </Code>
         <Title small>Streamkey in OBS etc</Title>
-        <div class="font-mono text-green-400">{{ stream2.streamkey }}</div>
+        <Code class="text-green-400">{{ stream2.streamkey }}</Code>
         <Title small>Streamkey in Strapi</Title>
-        <pre class="text-blue-500">anything</pre>
+        <Code class="text-blue-500">anything</Code>
         <video
           ref="video2"
           class="aspect-video w-full"
@@ -64,7 +64,7 @@ useVideostream(video2, stream2.url);
           controls
         />
         <Title small>HLS output</Title>
-        <div class="break-all font-mono">{{ stream2.url }}</div>
+        <Code class="break-all">{{ stream2.url }}</Code>
         <Button small :href="stream2.url">Open stream in Safari</Button>
       </Stack>
     </div>

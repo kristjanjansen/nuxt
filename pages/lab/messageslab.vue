@@ -19,6 +19,6 @@ const username = useUserName();
     <Button @click="sendMessage({ value: message, userid, username })">
       Send
     </Button>
-    <pre>{{ messages }}</pre>
+    <Code>{{ messages }}</Code>
   </Stack>
 </template>

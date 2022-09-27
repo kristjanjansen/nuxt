@@ -37,6 +37,6 @@ const { levels } = useVideostream(video, url);
       muted
       controls
     />
-    <pre class="font">{{ levels }}</pre>
+    <Code class="font">{{ levels }}</Code>
   </Stack>
 </template>
