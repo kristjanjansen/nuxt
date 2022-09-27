@@ -4,6 +4,12 @@ import { differenceInHours } from "date-fns";
 import IconCapture from "~icons/radix-icons/camera";
 import IconTheme from "~icons/radix-icons/half-2";
 
+definePageMeta({
+  labTitle: "Where are you",
+  labIntro: "Interactive hybrid installation in Baltoscandal 2022",
+  labGroup: "Experiments",
+});
+
 const REFRESH_INTERVAL = 1000 * 10;
 const path = "anthropologies2";
 

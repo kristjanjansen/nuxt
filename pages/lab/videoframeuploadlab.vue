@@ -4,7 +4,7 @@ import IconCapture from "~icons/radix-icons/camera";
 definePageMeta({
   labTitle: "Videoframe upload",
   labIntro: "Capture and upload video frames",
-  labGroup: "",
+  labGroup: "Video",
 });
 
 const url = "https://sb.err.ee/live/etvpluss.m3u8";

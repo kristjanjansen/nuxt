@@ -2,7 +2,7 @@
 definePageMeta({
   labTitle: "Details",
   labIntro: "Details data acting up? Help is here",
-  labGroup: "",
+  labGroup: "Tools",
 });
 
 const { data: projects } = await useProjects();

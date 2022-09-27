@@ -4,7 +4,7 @@ import { useInterval } from "@vueuse/core";
 definePageMeta({
   labTitle: "Videoframe capture",
   labIntro: "Capture and animate video frames",
-  labGroup: "",
+  labGroup: "Video",
 });
 
 const url = "https://sb.err.ee/live/etvpluss.m3u8";

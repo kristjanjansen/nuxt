@@ -1,8 +1,8 @@
 <script setup lang="ts">
 definePageMeta({
-  labTitle: "Breadboard",
+  labTitle: "Video breadboard",
   labIntro: "Combining breadboard background with video",
-  labGroup: "",
+  labGroup: "Video",
 });
 
 const url = "https://sb.err.ee/live/etv.m3u8";

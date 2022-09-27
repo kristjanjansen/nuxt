@@ -2,7 +2,7 @@
 definePageMeta({
   labTitle: "Videostream",
   labIntro: "Testing new version of reactive video player",
-  labGroup: "",
+  labGroup: "Video",
 });
 
 const video = ref<HTMLVideoElement | null>(null);

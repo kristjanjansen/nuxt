@@ -2,7 +2,7 @@
 definePageMeta({
   labTitle: "Videostreams",
   labIntro: "Testing video providers",
-  labGroup: "",
+  labGroup: "Video",
 });
 
 const [stream1, stream2] = getVideostreams("elektron,anything");
