@@ -1,5 +1,5 @@
 import { Ref, ref, watch, onMounted, onUnmounted } from "vue";
-import Hls from "hls.js";
+import * as Hls from "hls.js";
 import type { MaybeRef } from "@vueuse/core";
 
 // Although the video player supports "paused" status
