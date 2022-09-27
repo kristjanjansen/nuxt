@@ -1,4 +1,10 @@
 <script setup lang="ts">
+definePageMeta({
+  labTitle: "Draggable",
+  labIntro: "Testing Draggable and useDraggables",
+  labGroup: "",
+});
+
 const draggables = useDraggables({
   first: { x: 200, y: 200 },
   second: { x: 300, y: 300 },

@@ -9,7 +9,7 @@ const a = ref(50);
     <Stack class="p-4 md:p-6">
       <Title>Form inputs</Title>
       <Slider v-model="a" />
-      <pre>{{ a }}</pre>
+      <Code>{{ a }}</Code>
       <Title>Buttons and links</Title>
 
       <Title medium>Default buttons</Title>

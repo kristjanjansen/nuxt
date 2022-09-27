@@ -1,12 +1,23 @@
 {
-  "page": {
-    "prefix": "page",
+  "component": {
+    "prefix": "component",
     "body": [
       "<script setup lang=\"ts\">",
       "type Props = {",
       "  a: any;",
       "};",
       "const { a } = defineProps<Props>();",
+      "$1",
+      "</script>",
+      "",
+      "<template>$2</template>"
+    ],
+    "description": "Creates component"
+  },
+  "page": {
+    "prefix": "page",
+    "body": [
+      "<script setup lang=\"ts\">",
       "$1",
       "const { lang } = useLang();",
       "</script>",
@@ -18,5 +29,26 @@
       "</template>"
     ],
     "description": "Creates page"
+  },
+  "lab": {
+    "prefix": "lab",
+    "body": [
+      "<script setup lang=\"ts\">",
+      "definePageMeta({",
+      "  labTitle: \"$1\",",
+      "  labIntro: \"$2\",",
+      "  labGroup: \"\"",
+      "});",
+      "</script>",
+      "",
+      "<template>",
+      "  <Stack class=\"p-4 md:p-6\">",
+      "<Button small left to=\"/lab\">Lab</Button>",
+      "    <Title>$1</Title>",
+      "    $3",
+      "  </Stack>",
+      "</template>"
+    ],
+    "description": "Creates lab page"
   }
 }

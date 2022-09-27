@@ -1,6 +1,12 @@
 <script setup lang="ts">
 import { useIntervalFn } from "@vueuse/core";
-import { truncate } from "~~/composables/string";
+
+definePageMeta({
+  labTitle: "Experiments",
+  labIntro: "Run and analyze the experiments",
+  labGroup: "Experiments",
+});
+
 const { data: events } = useEvents({
   sort: ["start_at:desc"],
   filters: {
@@ -21,7 +27,7 @@ useIntervalFn(refresh, 5000);
 <template>
   <div v-if="!files || !events" />
   <Stack v-else class="p-4 md:p-6">
-    <Button small left to="/lab">lab</Button>
+    <Button small left to="/lab">Lab</Button>
     <Flex class="md:justify-between">
       <Title>Recent experiments</Title>
       <Button right to="/lab/experiments/all">Show all experiments</Button>
