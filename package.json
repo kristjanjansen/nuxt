@@ -2,7 +2,7 @@
   "private": true,
   "scripts": {
     "build": "nuxt build",
-    "build:edge": "NITRO_PRESET=netlify-edge nuxt build",
+    "build:builder": "NITRO_PRESET=netlify-builder nuxt build",
     "dev": "nuxt dev",
     "generate": "nuxt generate",
     "preview": "nuxt preview",

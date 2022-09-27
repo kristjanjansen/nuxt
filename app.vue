@@ -18,10 +18,10 @@ useHead({
 // Uncomment when using Netifly on-demand builder
 // https://nitro.unjs.io/deploy/providers/netlify#on-demand-builders
 
-// if (process.server) {
-//   const nuxtApp = useNuxtApp();
-//   nuxtApp.ssrContext.event.res.setHeader("ttl", route.meta.ttl || 60 * 10); // 10 minutes
-// }
+if (process.server) {
+  const nuxtApp = useNuxtApp();
+  nuxtApp.ssrContext.event.res.setHeader("ttl", route.meta.ttl || 60 * 10); // 10 minutes
+}
 </script>
 
 <template>
