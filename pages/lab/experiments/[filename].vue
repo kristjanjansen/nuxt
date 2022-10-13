@@ -32,9 +32,10 @@ watch(currentXTime, () => {
   }
 });
 
-watch(currentTime, () => {
-  currentXTime.value = xVideoScale.value.invert(currentTime.value);
-});
+// TODO: Fix scrubbing in video player
+// watch(currentTime, () => {
+//   currentXTime.value = xVideoScale.value.invert(currentTime.value);
+// });
 
 const videoInRange = computed(
   () =>
