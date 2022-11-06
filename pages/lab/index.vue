@@ -19,7 +19,7 @@ const labPages = Object.fromEntries(
 
 <template>
   <Stack class="p-4 md:p-6">
-    <Button small left to="/lab">Lab</Button>
+    <Button small left to="/" />
     <template
       v-for="[labTitle, routes] in labTitles.map((labTitle) => [
         labTitle,

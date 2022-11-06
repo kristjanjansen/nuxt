@@ -10,7 +10,7 @@ const menu = ref(false);
 <template>
   <div class="sticky top-0 z-10">
     <div
-      class="grid grid-cols-1 bg-black/90 md:grid-cols-[1fr_1fr_1fr_1fr_1fr_1fr_0.3fr_0.3fr]"
+      class="grid grid-cols-1 bg-black/90 md:grid-cols-[auto_1fr_0.3fr_0.05fr_0.05fr]"
     >
       <div
         class="flex h-9 w-full items-center justify-between border border-gray-700"
@@ -20,7 +20,7 @@ const menu = ref(false);
           class="flex h-9 items-center px-2 font-title text-2xl lowercase text-gray-400"
           @click="menu = false"
         >
-          eˉlektron
+          lab.elektron.art
         </NuxtLink>
         <button
           class="flex h-9 w-10 items-center justify-center border-l border-gray-700 font-mono text-gray-400 md:hidden"
@@ -29,46 +29,19 @@ const menu = ref(false);
           <IconMenu />
         </button>
       </div>
-      <NuxtLink
-        to="/schedule"
+
+      <NavButton />
+      <a
+        href="https://elektron.art"
+        target="_blank"
         class="md:block"
         :class="[menu ? 'block' : 'hidden']"
         @click="menu = false"
       >
-        <NavButton>{{ ["Schedule", "Kava"][lang] }}</NavButton>
-      </NuxtLink>
-      <NuxtLink
-        to="/projects"
-        class="md:block"
-        :class="[menu ? 'block' : 'hidden']"
-        @click="menu = false"
-      >
-        <NavButton>{{ ["projects", "projektid"][lang] }}</NavButton>
-      </NuxtLink>
-      <NuxtLink
-        to="/about"
-        class="md:block"
-        :class="[menu ? 'block' : 'hidden']"
-        @click="menu = false"
-      >
-        <NavButton>{{ ["WTF elektron", "Meist"][lang] }}</NavButton>
-      </NuxtLink>
-      <NuxtLink
-        to="/signal"
-        class="md:block"
-        :class="[menu ? 'block' : 'hidden']"
-        @click="menu = false"
-      >
-        <NavButton>{{ ["Podcast", "Taskuhääling"][lang] }}</NavButton>
-      </NuxtLink>
-      <NuxtLink
-        to="/lab"
-        class="md:block"
-        :class="[menu ? 'block' : 'hidden']"
-        @click="menu = false"
-      >
-        <NavButton>{{ ["Lab", "Labor"][lang] }}</NavButton>
-      </NuxtLink>
+        <NavButton>{{
+          ["Back to elektron", "Back to elektron"][lang]
+        }}</NavButton>
+      </a>
       <button
         @click="
           () => {
