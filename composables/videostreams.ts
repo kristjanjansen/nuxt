@@ -3,7 +3,7 @@ const ingestRawUrl = "rtmp://streaming.elektron.art/raw";
 const ingestTranscodeUrl = "rtmp://live-eu1.icareus.com:1935/suitelive";
 
 const streamTranscodeKeyIn = "elektron";
-const streamTranscodeKeyOut = "123636901";
+const streamTranscodeKeyOut = "205827819";
 
 const streamRawUrl = "https://streaming.elektron.art/hls/${streamkey}.m3u8";
 const streamTranscodeUrl =
